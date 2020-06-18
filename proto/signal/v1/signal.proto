@@ -8,26 +8,27 @@ package signal.v1;
 message Signal {
 
     /* BlinkaConnect commands */
-    enum Command {
-      COMMAND_UNSPECIFIED  = 0; // Unspecified/invalid command name
-      COMMAND_VERSION      = 1; // BlinkaConnect version
-      COMMAND_LOCATION     = 2; // Device location
-      COMMAND_BATTERY      = 3; // Device battery level
-      COMMAND_PIN_MAP      = 4; // Map of all pins
-      COMMAND_PIN_STATE    = 5; // Map of all pin states
-      COMMAND_PIN_MODE     = 6; // Pin mode
+    enum CommandType {
+      COMMAND_TYPE_UNSPECIFIED  = 0; // Unspecified/invalid command name
+      COMMAND_TYPE_VERSION      = 1; // BlinkaConnect version
+      COMMAND_TYPE_LOCATION     = 2; // Device location
+      COMMAND_TYPE_BATTERY      = 3; // Device battery level
+      COMMAND_TYPE_PIN_MAP      = 4; // Map of all pins
+      COMMAND_TYPE_PIN_STATE    = 5; // Map of all pin states
+      COMMAND_TYPE_PIN_MODE     = 6; // Pin mode
     }
-    Command command = 1;
 
     /* BlinkaConnect command types */
-    enum CommandType {
-      COMMAND_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
-      COMMAND_TYPE_GET         = 1; // Get data
-      COMMAND_TYPE_SET         = 2; // Sets data
+    enum CommandDirection {
+      COMMAND_DIRECTION_UNSPECIFIED = 0; // Unspecified/invalid command name
+      COMMAND_DIRECTION_GET         = 1; // Get data
+      COMMAND_DIRECTION_SET         = 2; // Sets data
     }
-    CommandType type = 2;
 
-    message CommandData {
-      string value = 1; // Data value
+    /* Command message format */
+    message Command {
+      CommandType type = 1;
+      // TODO: incl. command direction
+      string value = 2;
     }
 }
