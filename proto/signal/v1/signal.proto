@@ -27,8 +27,9 @@ message Signal {
 
     /* Command message format */
     message Command {
-      CommandType type = 1;
-      // TODO: incl. command direction
-      string value = 2;
+      CommandType type       = 1;
+      CommandDirection direction = 2;
+      string value               = 3;
     }
+    Command commands = 1; // One command per signal
 }
