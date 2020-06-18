@@ -6,6 +6,16 @@ package signal.v1;
    transmitted on the adafruit io topic: devices/ID/signals 
 */
 message Signal {
-    
+
+    /* BlinkaConnect command types */
+    enum Command {
+      COMMAND_UNSPECIFIED = 0; // TODO: comment all of these!
+      COMMAND_VERSION = 1;
+      COMMAND_LOCATION = 2;
+      // SYS_BATTERY = 3; TODO!
+      COMMAND_PIN_MAP = 4;
+      COMMAND_PIN_STATE = 5;
+    }
+    Command command = 1;
 
 }
