@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package info.v1;
+
+/* Device represents a physical microcontroller device */
+
+message Device {
+    /* Network connection status */
+    enum Connection {
+        CONNECTION_UNSPECIFIED = 0;
+        CONNECTION_DISCONNECTED = 1;
+        CONNECTION_CONNECTED = 2;
+    }
+
+    Connection type = 1;
+    string unique_id = 2;
+    uint64 timestamp = 3;
+    float battery_level = 4;
+
+    /* device location */
+    message Location {
+        float lat = 1;
+        float lon = 2;
+        float alt = 3;
+      }
+
+    /* semver for BlinkaConnect library version */
+    message Version {
+        uint64 major = 1;
+        uint64 minor = 2;
+        uint64 micro = 3;
+        string label = 4;
+      }
+
+}
