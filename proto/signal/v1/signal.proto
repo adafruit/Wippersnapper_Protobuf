@@ -3,10 +3,10 @@ syntax = "proto3";
 package signal.v1;
 
 /* Signal is a device command or response
-   transmitted on the adafruit io topic: devices/ID/signals 
+   transmitted by an Adafruit IO feed.
+   Feed name: devices/ID/signals 
 */
 message Signal {
-
 
     /* BlinkaConnect command directions */
     enum CommandDirection {
@@ -24,12 +24,20 @@ message Signal {
       COMMAND_TYPE_PIN_MAP      = 4; // Map of all pins
       COMMAND_TYPE_PIN_STATE    = 5; // Map of all pin states
       COMMAND_TYPE_PIN_MODE     = 6; // Pin mode
+      // TODO! Add more here!
     }
 
     /* Command message format */
     message Command {
       CommandDirection direction = 1;
       CommandType type           = 2;
+      int64 pin                  = 3; // pin number
+      // TODO: the pin implementation needs work
+      // specifically how do you define between an
+      // analog and digital pin
+      // would we want multiple command types??
+      // i,.e: command WritePins
+      // commandReadPin, commandI2c
       string value               = 3;
     }
     Command commands = 1; // One command per signal
