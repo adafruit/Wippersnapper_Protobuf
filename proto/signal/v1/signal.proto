@@ -7,7 +7,15 @@ package signal.v1;
 */
 message Signal {
 
-    /* BlinkaConnect commands */
+
+    /* BlinkaConnect command directions */
+    enum CommandDirection {
+      COMMAND_DIRECTION_UNSPECIFIED = 0; // Unspecified/invalid command name
+      COMMAND_DIRECTION_GET         = 1; // Get data
+      COMMAND_DIRECTION_SET         = 2; // Sets data
+    }
+
+    /* BlinkaConnect command types */
     enum CommandType {
       COMMAND_TYPE_UNSPECIFIED  = 0; // Unspecified/invalid command name
       COMMAND_TYPE_VERSION      = 1; // BlinkaConnect version
@@ -18,17 +26,10 @@ message Signal {
       COMMAND_TYPE_PIN_MODE     = 6; // Pin mode
     }
 
-    /* BlinkaConnect command types */
-    enum CommandDirection {
-      COMMAND_DIRECTION_UNSPECIFIED = 0; // Unspecified/invalid command name
-      COMMAND_DIRECTION_GET         = 1; // Get data
-      COMMAND_DIRECTION_SET         = 2; // Sets data
-    }
-
     /* Command message format */
     message Command {
-      CommandType type       = 1;
-      CommandDirection direction = 2;
+      CommandDirection direction = 1;
+      CommandType type           = 2;
       string value               = 3;
     }
     Command commands = 1; // One command per signal
