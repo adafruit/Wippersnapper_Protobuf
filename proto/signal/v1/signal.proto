@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package signal.v1;
+
+/* Signal is a device command or response
+   transmitted on the adafruit io topic: devices/ID/signals 
+*/
+message Signal {
+    
+
+}
