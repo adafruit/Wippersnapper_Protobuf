@@ -7,6 +7,8 @@ package info.v1;
 
 message Device {
 
+    // todo: add get/reply-type messages?
+
     /* semver for BlinkaConnect library version */
     message Version {
         uint64 major = 1;
@@ -22,4 +24,10 @@ message Device {
     google.protobuf.Timestamp timestamp = 4;
     float bat_level = 5;
 
+    message Location {
+        float lat = 1;
+        float lon = 2;
+        float ele = 3;
+      }
+    Location location = 6;
 }

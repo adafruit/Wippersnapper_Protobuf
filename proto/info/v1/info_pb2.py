@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,8 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ninfo.proto\x12\x07info.v1\"y\n\x06\x44\x65vice\x12(\n\x07version\x18\x01 \x01(\x0b\x32\x17.info.v1.Device.Version\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\tb\x06proto3'
-)
+  serialized_pb=b'\n\ninfo.proto\x12\x07info.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc2\x02\n\x06\x44\x65vice\x12(\n\x07version\x18\x01 \x01(\x0b\x32\x17.info.v1.Device.Version\x12\x11\n\tunique_id\x18\x02 \x01(\t\x12\x13\n\x0bhardware_id\x18\x03 \x01(\t\x12-\n\ttimestamp\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tbat_level\x18\x05 \x01(\x02\x12*\n\x08location\x18\x06 \x01(\x0b\x32\x18.info.v1.Device.Location\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\x1a\x31\n\x08Location\x12\x0b\n\x03lat\x18\x01 \x01(\x02\x12\x0b\n\x03lon\x18\x02 \x01(\x02\x12\x0b\n\x03\x65le\x18\x03 \x01(\x02\x62\x06proto3'
+  ,
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
 
 
@@ -73,8 +75,53 @@ _DEVICE_VERSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=75,
-  serialized_end=144,
+  serialized_start=259,
+  serialized_end=328,
+)
+
+_DEVICE_LOCATION = _descriptor.Descriptor(
+  name='Location',
+  full_name='info.v1.Device.Location',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='lat', full_name='info.v1.Device.Location.lat', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='lon', full_name='info.v1.Device.Location.lon', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ele', full_name='info.v1.Device.Location.ele', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=330,
+  serialized_end=379,
 )
 
 _DEVICE = _descriptor.Descriptor(
@@ -92,10 +139,45 @@ _DEVICE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='unique_id', full_name='info.v1.Device.unique_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='hardware_id', full_name='info.v1.Device.hardware_id', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='timestamp', full_name='info.v1.Device.timestamp', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='bat_level', full_name='info.v1.Device.bat_level', index=4,
+      number=5, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='location', full_name='info.v1.Device.location', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
-  nested_types=[_DEVICE_VERSION, ],
+  nested_types=[_DEVICE_VERSION, _DEVICE_LOCATION, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -104,12 +186,15 @@ _DEVICE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23,
-  serialized_end=144,
+  serialized_start=57,
+  serialized_end=379,
 )
 
 _DEVICE_VERSION.containing_type = _DEVICE
+_DEVICE_LOCATION.containing_type = _DEVICE
 _DEVICE.fields_by_name['version'].message_type = _DEVICE_VERSION
+_DEVICE.fields_by_name['timestamp'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_DEVICE.fields_by_name['location'].message_type = _DEVICE_LOCATION
 DESCRIPTOR.message_types_by_name['Device'] = _DEVICE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -121,12 +206,20 @@ Device = _reflection.GeneratedProtocolMessageType('Device', (_message.Message,),
     # @@protoc_insertion_point(class_scope:info.v1.Device.Version)
     })
   ,
+
+  'Location' : _reflection.GeneratedProtocolMessageType('Location', (_message.Message,), {
+    'DESCRIPTOR' : _DEVICE_LOCATION,
+    '__module__' : 'info_pb2'
+    # @@protoc_insertion_point(class_scope:info.v1.Device.Location)
+    })
+  ,
   'DESCRIPTOR' : _DEVICE,
   '__module__' : 'info_pb2'
   # @@protoc_insertion_point(class_scope:info.v1.Device)
   })
 _sym_db.RegisterMessage(Device)
 _sym_db.RegisterMessage(Device.Version)
+_sym_db.RegisterMessage(Device.Location)
 
 
 # @@protoc_insertion_point(module_scope)
