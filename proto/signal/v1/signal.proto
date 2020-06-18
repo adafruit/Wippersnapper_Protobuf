@@ -7,15 +7,27 @@ package signal.v1;
 */
 message Signal {
 
-    /* BlinkaConnect command types */
+    /* BlinkaConnect commands */
     enum Command {
-      COMMAND_UNSPECIFIED = 0; // TODO: comment all of these!
-      COMMAND_VERSION = 1;
-      COMMAND_LOCATION = 2;
-      // SYS_BATTERY = 3; TODO!
-      COMMAND_PIN_MAP = 4;
-      COMMAND_PIN_STATE = 5;
+      COMMAND_UNSPECIFIED  = 0; // Unspecified/invalid command name
+      COMMAND_VERSION      = 1; // BlinkaConnect version
+      COMMAND_LOCATION     = 2; // Device location
+      COMMAND_BATTERY      = 3; // Device battery level
+      COMMAND_PIN_MAP      = 4; // Map of all pins
+      COMMAND_PIN_STATE    = 5; // Map of all pin states
+      COMMAND_PIN_MODE     = 6; // Pin mode
     }
     Command command = 1;
 
+    /* BlinkaConnect command types */
+    enum CommandType {
+      COMMAND_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
+      COMMAND_TYPE_GET         = 1; // Get data
+      COMMAND_TYPE_SET         = 2; // Sets data
+    }
+    CommandType type = 2;
+
+    message CommandData {
+      string value = 1; // Data value
+    }
 }
