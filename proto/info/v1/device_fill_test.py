@@ -1,23 +1,35 @@
+# Python generated code
 import info_pb2
+
+# CPython3 imports
+import random
+from uuid import getnode as get_mac
+
+# BlinkaConnect library version
+__version__ = "0.0.1-auto.0"
 
 device = info_pb2.Device()
 
-# set device version
+# device version based off FW version
 ver = device.version
-ver.major = 1
-ver.minor = 0
-ver.micro = 1
+ver.major = int(__version__[0])
+ver.minor = int(__version__[2])
+ver.micro = int(__version__[4])
 
-device.unique_id = "5A:63:B4" # last 3 octets of MAC addr
+# UUID from last 3 octets of MAC
+device.unique_id = hex(get_mac())[8:]
 
-device.hardware_id = 'Adafruit PyPortal with samd51j20'
+device_id = 'Adafruit PyPortal with samd51j20'
+device.hardware_id = device_id
 
-device.bat_level = 3.4 # battery level, in Volts
+# battery level, in Volts
+device.bat_level = random.uniform(0, 5)
 
+# device location
 loc = device.location
+loc.lat = random.uniform(-90, 90)
+loc.lon = random.uniform(-180, 180)
+loc.ele = random.uniform(-20000, 20000)
 
-loc.lat = 38.1123
-loc.lon = -91.2325
-loc.ele = 112
-
+# output the device model
 print(device)
