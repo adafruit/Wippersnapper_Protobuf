@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0csignal.proto\x12\tsignal.v1\"\xe9\x06\n\x06Signal\x12&\n\x03\x63md\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12-\n\x07\x63md_pin\x18\x02 \x01(\x0b\x32\x1c.signal.v1.Signal.PinCommand\x1aj\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\r\n\x05value\x18\x03 \x01(\t\x1a\xfb\x02\n\nPinCommand\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12\x0b\n\x03pin\x18\x02 \x01(\x03\x12\x32\n\x04mode\x18\x03 \x01(\x0e\x32$.signal.v1.Signal.PinCommand.PinMode\x12<\n\tdirection\x18\x04 \x01(\x0e\x32).signal.v1.Signal.PinCommand.PinDirection\"`\n\x07PinMode\x12\x18\n\x14PIN_MODE_UNSPECIFIED\x10\x00\x12\x13\n\x0fPIN_MODE_ANALOG\x10\x01\x12\x14\n\x10PIN_MODE_DIGITAL\x10\x02\x12\x10\n\x0cPIN_MODE_PWM\x10\x03\"`\n\x0cPinDirection\x12\x1d\n\x19PIN_DIRECTION_UNSPECIFIED\x10\x00\x12\x17\n\x13PIN_DIRECTION_INPUT\x10\x01\x12\x18\n\x14PIN_DIRECTION_OUTPUT\x10\x02\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xd4\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x62\x06proto3'
+  serialized_pb=b'\n\x0csignal.proto\x12\tsignal.v1\"\xe9\x06\n\x06Signal\x12&\n\x03\x63md\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12-\n\x07pin_cmd\x18\x02 \x01(\x0b\x32\x1c.signal.v1.Signal.PinCommand\x1aj\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\r\n\x05value\x18\x03 \x01(\t\x1a\xfb\x02\n\nPinCommand\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12\x0b\n\x03pin\x18\x02 \x01(\x03\x12\x32\n\x04mode\x18\x03 \x01(\x0e\x32$.signal.v1.Signal.PinCommand.PinMode\x12<\n\tdirection\x18\x04 \x01(\x0e\x32).signal.v1.Signal.PinCommand.PinDirection\"`\n\x07PinMode\x12\x18\n\x14PIN_MODE_UNSPECIFIED\x10\x00\x12\x13\n\x0fPIN_MODE_ANALOG\x10\x01\x12\x14\n\x10PIN_MODE_DIGITAL\x10\x02\x12\x10\n\x0cPIN_MODE_PWM\x10\x03\"`\n\x0cPinDirection\x12\x1d\n\x19PIN_DIRECTION_UNSPECIFIED\x10\x00\x12\x17\n\x13PIN_DIRECTION_INPUT\x10\x01\x12\x18\n\x14PIN_DIRECTION_OUTPUT\x10\x02\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xd4\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x62\x06proto3'
 )
 
 
@@ -290,7 +290,7 @@ _SIGNAL = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='cmd_pin', full_name='signal.v1.Signal.cmd_pin', index=1,
+      name='pin_cmd', full_name='signal.v1.Signal.pin_cmd', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -324,7 +324,7 @@ _SIGNAL_PINCOMMAND.containing_type = _SIGNAL
 _SIGNAL_PINCOMMAND_PINMODE.containing_type = _SIGNAL_PINCOMMAND
 _SIGNAL_PINCOMMAND_PINDIRECTION.containing_type = _SIGNAL_PINCOMMAND
 _SIGNAL.fields_by_name['cmd'].message_type = _SIGNAL_COMMAND
-_SIGNAL.fields_by_name['cmd_pin'].message_type = _SIGNAL_PINCOMMAND
+_SIGNAL.fields_by_name['pin_cmd'].message_type = _SIGNAL_PINCOMMAND
 _SIGNAL_CMDTYPE.containing_type = _SIGNAL
 _SIGNAL_CMDNAME.containing_type = _SIGNAL
 DESCRIPTOR.message_types_by_name['Signal'] = _SIGNAL

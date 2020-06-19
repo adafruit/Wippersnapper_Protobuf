@@ -27,7 +27,7 @@ message Signal {
       // TODO: Add more commands here
     }
 
-    /* Command message format */
+    /* Standard command message */
     message Command {
       CmdType type  = 1; // Command type
       CmdName name  = 2; // Command name
@@ -35,6 +35,10 @@ message Signal {
     }
     Command cmd = 1; // One command per signal
 
+    /* PinCommand Message
+    *  Uses standard command message
+    *  plus additional information about
+    *  the pin */
     message PinCommand {
       Command command = 1;
       int64 pin  = 2;
@@ -54,5 +58,5 @@ message Signal {
         PIN_DIRECTION_OUTPUT = 2;
       }
     }
-    PinCommand cmd_pin = 2;
+    PinCommand pin_cmd = 2;
 }
