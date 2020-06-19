@@ -31,7 +31,6 @@ message Signal {
     message Command {
       CmdType type  = 1; // Command type
       CmdName name  = 2; // Command name
-      string value  = 3; // UTF-8 String
     }
     Command cmd = 1; // One command per signal
 
@@ -40,10 +39,11 @@ message Signal {
     *  plus additional information about
     *  the pin */
     message PinCommand {
-      Command command = 1;
-      int64 pin  = 2;
-      Mode mode = 3;
-      Direction direction = 4;
+      Command command     = 1;
+      Direction direction = 2;
+      int64 pin           = 3;
+      Mode mode           = 4;
+      string value        = 5; // UTF-8 String
 
       enum Mode {
         MODE_UNSPECIFIED = 0;
@@ -52,11 +52,12 @@ message Signal {
         MODE_PWM = 3;
       }
 
-      enum Direction{
+      enum Direction {
         DIRECTION_UNSPECIFIED = 0;
         DIRECTION_INPUT = 1;
         DIRECTION_OUTPUT = 2;
       }
+
     }
     PinCommand pin_cmd = 2;
 }

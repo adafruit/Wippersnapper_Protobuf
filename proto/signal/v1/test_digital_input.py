@@ -34,6 +34,7 @@ print(signal)
 serialize_protobuf(signal)
 signal.Clear()
 
+
 # -- read pin --- #
 cmd = signal.pin_cmd
 # command message
@@ -41,9 +42,10 @@ cmd.command.type = signal.CMD_TYPE_SET
 cmd.command.name = signal.CMD_NAME_PIN_VALUE
 # pin message
 cmd.pin = 2
-cmd.command.value = "True" # Pin Input Value
+cmd.value = "1"
 cmd.mode = signal.pin_cmd.MODE_DIGITAL
 
 print(signal)
 serialize_protobuf(signal)
 signal.Clear()
+

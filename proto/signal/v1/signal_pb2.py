@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0csignal.proto\x12\tsignal.v1\"\xc1\x06\n\x06Signal\x12&\n\x03\x63md\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12-\n\x07pin_cmd\x18\x02 \x01(\x0b\x32\x1c.signal.v1.Signal.PinCommand\x1aj\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\r\n\x05value\x18\x03 \x01(\t\x1a\xd3\x02\n\nPinCommand\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12\x0b\n\x03pin\x18\x02 \x01(\x03\x12/\n\x04mode\x18\x03 \x01(\x0e\x32!.signal.v1.Signal.PinCommand.Mode\x12\x39\n\tdirection\x18\x04 \x01(\x0e\x32&.signal.v1.Signal.PinCommand.Direction\"M\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x0c\n\x08MODE_PWM\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xd4\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x62\x06proto3'
+  serialized_pb=b'\n\x0csignal.proto\x12\tsignal.v1\"\xc1\x06\n\x06Signal\x12&\n\x03\x63md\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12-\n\x07pin_cmd\x18\x02 \x01(\x0b\x32\x1c.signal.v1.Signal.PinCommand\x1a[\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x1a\xe2\x02\n\nPinCommand\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12\x39\n\tdirection\x18\x02 \x01(\x0e\x32&.signal.v1.Signal.PinCommand.Direction\x12\x0b\n\x03pin\x18\x03 \x01(\x03\x12/\n\x04mode\x18\x04 \x01(\x0e\x32!.signal.v1.Signal.PinCommand.Mode\x12\r\n\x05value\x18\x05 \x01(\t\"M\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x0c\n\x08MODE_PWM\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xd4\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x62\x06proto3'
 )
 
 
@@ -197,13 +197,6 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='signal.v1.Signal.Command.value', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -217,7 +210,7 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=125,
-  serialized_end=231,
+  serialized_end=216,
 )
 
 _SIGNAL_PINCOMMAND = _descriptor.Descriptor(
@@ -236,23 +229,30 @@ _SIGNAL_PINCOMMAND = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pin', full_name='signal.v1.Signal.PinCommand.pin', index=1,
-      number=2, type=3, cpp_type=2, label=1,
+      name='direction', full_name='signal.v1.Signal.PinCommand.direction', index=1,
+      number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='mode', full_name='signal.v1.Signal.PinCommand.mode', index=2,
-      number=3, type=14, cpp_type=8, label=1,
+      name='pin', full_name='signal.v1.Signal.PinCommand.pin', index=2,
+      number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='signal.v1.Signal.PinCommand.direction', index=3,
+      name='mode', full_name='signal.v1.Signal.PinCommand.mode', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='signal.v1.Signal.PinCommand.value', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -270,7 +270,7 @@ _SIGNAL_PINCOMMAND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=234,
+  serialized_start=219,
   serialized_end=573,
 )
 
@@ -318,8 +318,8 @@ _SIGNAL_COMMAND.fields_by_name['type'].enum_type = _SIGNAL_CMDTYPE
 _SIGNAL_COMMAND.fields_by_name['name'].enum_type = _SIGNAL_CMDNAME
 _SIGNAL_COMMAND.containing_type = _SIGNAL
 _SIGNAL_PINCOMMAND.fields_by_name['command'].message_type = _SIGNAL_COMMAND
-_SIGNAL_PINCOMMAND.fields_by_name['mode'].enum_type = _SIGNAL_PINCOMMAND_MODE
 _SIGNAL_PINCOMMAND.fields_by_name['direction'].enum_type = _SIGNAL_PINCOMMAND_DIRECTION
+_SIGNAL_PINCOMMAND.fields_by_name['mode'].enum_type = _SIGNAL_PINCOMMAND_MODE
 _SIGNAL_PINCOMMAND.containing_type = _SIGNAL
 _SIGNAL_PINCOMMAND_MODE.containing_type = _SIGNAL_PINCOMMAND
 _SIGNAL_PINCOMMAND_DIRECTION.containing_type = _SIGNAL_PINCOMMAND

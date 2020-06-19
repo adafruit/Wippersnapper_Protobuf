@@ -45,7 +45,7 @@ cmd.command.type = signal.CMD_TYPE_SET
 cmd.command.name = signal.CMD_NAME_PIN_VALUE
 # pin message
 cmd.pin = 13
-cmd.command.value = "True"
+cmd.value = "True"
 
 print(signal)
 serialize_protobuf(signal)
@@ -60,7 +60,7 @@ cmd.command.type = signal.CMD_TYPE_SET
 cmd.command.name = signal.CMD_NAME_PIN_VALUE
 # pin message
 cmd.pin = 13
-cmd.command.value = "False"
+cmd.value = "False"
 
 print(signal)
 serialize_protobuf(signal)
