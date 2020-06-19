@@ -40,11 +40,11 @@ message Signal {
     *  plus additional information about
     *  the pin */
     message PinInfo {
-      string pin           = 2; // The pin to control
+      string pin           = 1; // The pin to control
+      Mode mode            = 2; // Pin mode
       Direction direction  = 3; // Pin direction
-      Mode mode            = 4; // Pin mode
-      Pull pull            = 5; // Pull value
-      string value         = 6; // Pin value or logic level
+      Pull pull            = 4; // Pull value
+      string value         = 5; // Pin value or logic level
 
       enum Mode {
         MODE_UNSPECIFIED = 0; // Invalid pin mode
