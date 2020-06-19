@@ -7,32 +7,31 @@ package signal.v1;
    Feed name: devices/ID/signals 
 */
 message Signal {
-    /* BlinkaConnect command method */
-    enum CmdMethod {
-      CMD_METHOD_UNSPECIFIED = 0; // Unspecified/invalid command name
-      CMD_METHOD_GET         = 1; // Gets data from a device OR IO
-      CMD_METHOD_SET         = 2; // Sets data to a device OR IO
+    /* BlinkaConnect command type */
+    enum CmdType {
+      CMD_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
+      CMD_TYPE_GET         = 1; // Gets data from a device OR IO
+      CMD_TYPE_SET         = 2; // Sets data to a device OR IO
     }
 
     /* BlinkaConnect command types */
-    enum CmdType {
-      CMD_TYPE_UNSPECIFIED        = 0; // Unspecified/invalid command name
-      CMD_TYPE_VERSION            = 1; // BlinkaConnect version
-      CMD_TYPE_LOCATION           = 2; // Device location
-      CMD_TYPE_BATTERY            = 3; // Device battery level
-      CMD_TYPE_LIST_PINS_ANALOG   = 4; // List all analog pins
-      CMD_TYPE_LIST_PINS_DIGITAL  = 5; // List all digital pins
-      CMD_TYPE_PIN_VALUE          = 6; // Pin value
-      CMD_TYPE_PIN_MODE           = 7; // Pin mode
+    enum CmdName {
+      CMD_NAME_UNSPECIFIED        = 0; // Unspecified/invalid command name
+      CMD_NAME_VERSION            = 1; // BlinkaConnect version
+      CMD_NAME_LOCATION           = 2; // Device location
+      CMD_NAME_BATTERY            = 3; // Device battery level
+      CMD_NAME_LIST_PINS_ANALOG   = 4; // List all analog pins
+      CMD_NAME_LIST_PINS_DIGITAL  = 5; // List all digital pins
+      CMD_NAME_PIN_VALUE          = 6; // Pin value
+      CMD_NAME_PIN_MODE           = 7; // Pin mode
       // TODO: Add more commands here
     }
 
     /* Command message format */
     message Command {
-      CmdMethod method  = 1; // Command method
-      CmdType type      = 2; // Command type
-      int64 pin         = 3; // Optional pin number
-      string value      = 4; // Optional value
+      CmdType type  = 1; // Command type
+      CmdName name  = 2; // Command name
+      string value  = 3; // UTF-8 String
     }
     Command commands = 1; // One command per signal
 }
