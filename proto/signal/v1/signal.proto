@@ -38,6 +38,21 @@ message Signal {
     message PinCommand {
       Command command = 1;
       int64 pin  = 2;
+      PinMode mode = 3;
+      PinDirection direction = 4;
+
+      enum PinMode {
+        PIN_MODE_UNSPECIFIED = 0;
+        PIN_MODE_ANALOG = 1;
+        PIN_MODE_DIGITAL = 2;
+        PIN_MODE_PWM = 3;
+      }
+
+      enum PinDirection{
+        PIN_DIRECTION_UNSPECIFIED = 0;
+        PIN_DIRECTION_INPUT = 1;
+        PIN_DIRECTION_OUTPUT = 2;
+      }
     }
     PinCommand cmd_pin = 2;
 }

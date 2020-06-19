@@ -4,27 +4,42 @@
 
 import signal_pb2
 
+def serialize_protobuf(buf):
+    buf = buf.SerializeToString()
+    print('Serialized Protobuf: ', buf)
+    print('length: %i bytes'%len(buf))
+
+
 signal = signal_pb2.Signal()
 
-# Set pin as digitalio
-cmd_pin = signal.cmd_pin
-cmd_pin.type = signal.CMD_TYPE_SET
-cmd_pin.name = signal.CMD_NAME_PIN_MODE
-#TODO: we need a way to do type..
-# DigitalInout or Analog or PWM for now
-cmd_pin.pin = 13
+"""
+led = digitalio.DigitalInOut(D13)
+led.direction = digitalio.Direction.OUTPUT
+"""
+command = signal.cmd_pin
+# command message
+command.command.type = signal.CMD_TYPE_SET
+command.command.name = signal.CMD_NAME_PIN_MODE
+# pin message
+command.pin = 13
+command.mode = signal.cmd_pin.PIN_MODE_DIGITAL
+command.direction = signal.cmd_pin.PIN_DIRECTION_OUTPUT
 
-# Set pin direction
-cmd_direction = signal.cmd_pin
-cmd_direction.type = signal.CMD_TYPE_SET
-# cmd_direction.type = signal.CMD_TYPE_SET
-# TODO: Cmd direction!
-cmd_direction.pin = 13
+print(signal)
+serialize_protobuf(signal)
 
-# TODO: Serialize and send
+signal.Clear() # Clear the command on the signal message
 
-# Set pin value to ON
-cmd_value = signal.cmd_pin
-cmd_value.type = signal.TYPE_SET
-cmd_value.name = signal.CMD_NAME_PIN_VALUE
-cmd_value.value = "1"
+"""
+led.Value = True
+"""
+command = signal.cmd_pin
+# command message
+command.command.type = signal.CMD_TYPE_SET
+command.command.name = signal.CMD_NAME_PIN_VALUE
+# pin message
+command.pin = 13
+command.command.value = "True"
+
+print(signal)
+serialize_protobuf(signal)
