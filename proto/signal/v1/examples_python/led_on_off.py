@@ -20,47 +20,52 @@ def serialize_protobuf(buf):
 signal = signal_pb2.Signal()
 
 """
-led = digitalio.DigitalInOut(D13)
-led.direction = digitalio.Direction.OUTPUT
+PUBLISH from Adafruit IO to Device
+
+Set up a digital pin as an output.
 """
-cmd = signal.pin_cmd
+command = signal.cmd
 # command message
-cmd.command.type = signal.CMD_TYPE_SET
-cmd.command.name = signal.CMD_NAME_PIN_MODE
+command.type = signal.CMD_TYPE_SET
+command.name = signal.CMD_NAME_PIN_MODE
 # pin message
-cmd.pin = 13
-cmd.mode = signal.pin_cmd.MODE_DIGITAL
-cmd.direction = signal.pin_cmd.DIRECTION_OUTPUT
+command.pin_info.pin = "D13"
+command.pin_info.mode = signal.pin_info.MODE_DIGITAL
+command.pin_info.direction = signal.pin_info.DIRECTION_OUTPUT
 
 print(signal)
 serialize_protobuf(signal)
 signal.Clear()
 
 """
-led.Value = True
+PUBLISH from Adafruit IO to Device
+
+Set the pin's digital logic level to True.
 """
-cmd = signal.pin_cmd
+command = signal.cmd
 # command message
-cmd.command.type = signal.CMD_TYPE_SET
-cmd.command.name = signal.CMD_NAME_PIN_VALUE
+command.type = signal.CMD_TYPE_SET
+command.name = signal.CMD_NAME_PIN_VALUE
 # pin message
-cmd.pin = 13
-cmd.value = "True"
+command.pin_info.pin = "D13"
+command.pin_info.value = "True"
 
 print(signal)
 serialize_protobuf(signal)
 signal.Clear()
 
 """
-led.Value = False
+PUBLISH from Adafruit IO to Device
+
+Set the pin's digital logic level to False.
 """
-cmd = signal.pin_cmd
+command = signal.cmd
 # command message
-cmd.command.type = signal.CMD_TYPE_SET
-cmd.command.name = signal.CMD_NAME_PIN_VALUE
+command.type = signal.CMD_TYPE_SET
+command.name = signal.CMD_NAME_PIN_VALUE
 # pin message
-cmd.pin = 13
-cmd.value = "False"
+command.pin_info.pin = "D13"
+command.pin_info.value = "False"
 
 print(signal)
 serialize_protobuf(signal)
