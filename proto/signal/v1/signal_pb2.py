@@ -19,90 +19,95 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0csignal.proto\x12\tsignal.v1\"\xee\x03\n\x06Signal\x12+\n\x08\x63ommands\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a|\n\x07\x43ommand\x12+\n\x04type\x18\x01 \x01(\x0e\x32\x1d.signal.v1.Signal.CommandType\x12\x35\n\tdirection\x18\x02 \x01(\x0e\x32\".signal.v1.Signal.CommandDirection\x12\r\n\x05value\x18\x03 \x01(\t\"\xcb\x01\n\x0b\x43ommandType\x12\x1c\n\x18\x43OMMAND_TYPE_UNSPECIFIED\x10\x00\x12\x18\n\x14\x43OMMAND_TYPE_VERSION\x10\x01\x12\x19\n\x15\x43OMMAND_TYPE_LOCATION\x10\x02\x12\x18\n\x14\x43OMMAND_TYPE_BATTERY\x10\x03\x12\x18\n\x14\x43OMMAND_TYPE_PIN_MAP\x10\x04\x12\x1a\n\x16\x43OMMAND_TYPE_PIN_STATE\x10\x05\x12\x19\n\x15\x43OMMAND_TYPE_PIN_MODE\x10\x06\"k\n\x10\x43ommandDirection\x12!\n\x1d\x43OMMAND_DIRECTION_UNSPECIFIED\x10\x00\x12\x19\n\x15\x43OMMAND_DIRECTION_GET\x10\x01\x12\x19\n\x15\x43OMMAND_DIRECTION_SET\x10\x02\x62\x06proto3'
+  serialized_pb=b'\n\x0csignal.proto\x12\tsignal.v1\"\xb2\x04\n\x06Signal\x12&\n\x03\x63md\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12-\n\x07\x63md_pin\x18\x02 \x01(\x0b\x32\x1c.signal.v1.Signal.PinCommand\x1aj\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\r\n\x05value\x18\x03 \x01(\t\x1a\x45\n\nPinCommand\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x12\x0b\n\x03pin\x18\x02 \x01(\x03\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xd4\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x62\x06proto3'
 )
 
 
 
-_SIGNAL_COMMANDTYPE = _descriptor.EnumDescriptor(
-  name='CommandType',
-  full_name='signal.v1.Signal.CommandType',
+_SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
+  name='CmdType',
+  full_name='signal.v1.Signal.CmdType',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='COMMAND_TYPE_UNSPECIFIED', index=0, number=0,
+      name='CMD_TYPE_UNSPECIFIED', index=0, number=0,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='COMMAND_TYPE_VERSION', index=1, number=1,
+      name='CMD_TYPE_GET', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='COMMAND_TYPE_LOCATION', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='COMMAND_TYPE_BATTERY', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='COMMAND_TYPE_PIN_MAP', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='COMMAND_TYPE_PIN_STATE', index=5, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='COMMAND_TYPE_PIN_MODE', index=6, number=6,
+      name='CMD_TYPE_SET', index=2, number=2,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=210,
-  serialized_end=413,
+  serialized_start=304,
+  serialized_end=375,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNAL_COMMANDTYPE)
+_sym_db.RegisterEnumDescriptor(_SIGNAL_CMDTYPE)
 
-_SIGNAL_COMMANDDIRECTION = _descriptor.EnumDescriptor(
-  name='CommandDirection',
-  full_name='signal.v1.Signal.CommandDirection',
+_SIGNAL_CMDNAME = _descriptor.EnumDescriptor(
+  name='CmdName',
+  full_name='signal.v1.Signal.CmdName',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='COMMAND_DIRECTION_UNSPECIFIED', index=0, number=0,
+      name='CMD_NAME_UNSPECIFIED', index=0, number=0,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='COMMAND_DIRECTION_GET', index=1, number=1,
+      name='CMD_NAME_VERSION', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='COMMAND_DIRECTION_SET', index=2, number=2,
+      name='CMD_NAME_LOCATION', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CMD_NAME_BATTERY', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CMD_NAME_LIST_PINS_ANALOG', index=4, number=4,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CMD_NAME_LIST_PINS_DIGITAL', index=5, number=5,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CMD_NAME_PIN_VALUE', index=6, number=6,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CMD_NAME_PIN_MODE', index=7, number=7,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=415,
-  serialized_end=522,
+  serialized_start=378,
+  serialized_end=590,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNAL_COMMANDDIRECTION)
+_sym_db.RegisterEnumDescriptor(_SIGNAL_CMDNAME)
 
 
 _SIGNAL_COMMAND = _descriptor.Descriptor(
@@ -121,7 +126,7 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='signal.v1.Signal.Command.direction', index=1,
+      name='name', full_name='signal.v1.Signal.Command.name', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -146,8 +151,46 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=83,
-  serialized_end=207,
+  serialized_start=125,
+  serialized_end=231,
+)
+
+_SIGNAL_PINCOMMAND = _descriptor.Descriptor(
+  name='PinCommand',
+  full_name='signal.v1.Signal.PinCommand',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='command', full_name='signal.v1.Signal.PinCommand.command', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pin', full_name='signal.v1.Signal.PinCommand.pin', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=233,
+  serialized_end=302,
 )
 
 _SIGNAL = _descriptor.Descriptor(
@@ -159,8 +202,15 @@ _SIGNAL = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='commands', full_name='signal.v1.Signal.commands', index=0,
+      name='cmd', full_name='signal.v1.Signal.cmd', index=0,
       number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='cmd_pin', full_name='signal.v1.Signal.cmd_pin', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -168,10 +218,10 @@ _SIGNAL = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_SIGNAL_COMMAND, ],
+  nested_types=[_SIGNAL_COMMAND, _SIGNAL_PINCOMMAND, ],
   enum_types=[
-    _SIGNAL_COMMANDTYPE,
-    _SIGNAL_COMMANDDIRECTION,
+    _SIGNAL_CMDTYPE,
+    _SIGNAL_CMDNAME,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -180,15 +230,18 @@ _SIGNAL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=28,
-  serialized_end=522,
+  serialized_end=590,
 )
 
-_SIGNAL_COMMAND.fields_by_name['type'].enum_type = _SIGNAL_COMMANDTYPE
-_SIGNAL_COMMAND.fields_by_name['direction'].enum_type = _SIGNAL_COMMANDDIRECTION
+_SIGNAL_COMMAND.fields_by_name['type'].enum_type = _SIGNAL_CMDTYPE
+_SIGNAL_COMMAND.fields_by_name['name'].enum_type = _SIGNAL_CMDNAME
 _SIGNAL_COMMAND.containing_type = _SIGNAL
-_SIGNAL.fields_by_name['commands'].message_type = _SIGNAL_COMMAND
-_SIGNAL_COMMANDTYPE.containing_type = _SIGNAL
-_SIGNAL_COMMANDDIRECTION.containing_type = _SIGNAL
+_SIGNAL_PINCOMMAND.fields_by_name['command'].message_type = _SIGNAL_COMMAND
+_SIGNAL_PINCOMMAND.containing_type = _SIGNAL
+_SIGNAL.fields_by_name['cmd'].message_type = _SIGNAL_COMMAND
+_SIGNAL.fields_by_name['cmd_pin'].message_type = _SIGNAL_PINCOMMAND
+_SIGNAL_CMDTYPE.containing_type = _SIGNAL
+_SIGNAL_CMDNAME.containing_type = _SIGNAL
 DESCRIPTOR.message_types_by_name['Signal'] = _SIGNAL
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -200,12 +253,20 @@ Signal = _reflection.GeneratedProtocolMessageType('Signal', (_message.Message,),
     # @@protoc_insertion_point(class_scope:signal.v1.Signal.Command)
     })
   ,
+
+  'PinCommand' : _reflection.GeneratedProtocolMessageType('PinCommand', (_message.Message,), {
+    'DESCRIPTOR' : _SIGNAL_PINCOMMAND,
+    '__module__' : 'signal_pb2'
+    # @@protoc_insertion_point(class_scope:signal.v1.Signal.PinCommand)
+    })
+  ,
   'DESCRIPTOR' : _SIGNAL,
   '__module__' : 'signal_pb2'
   # @@protoc_insertion_point(class_scope:signal.v1.Signal)
   })
 _sym_db.RegisterMessage(Signal)
 _sym_db.RegisterMessage(Signal.Command)
+_sym_db.RegisterMessage(Signal.PinCommand)
 
 
 # @@protoc_insertion_point(module_scope)

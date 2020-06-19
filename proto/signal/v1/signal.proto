@@ -33,5 +33,11 @@ message Signal {
       CmdName name  = 2; // Command name
       string value  = 3; // UTF-8 String
     }
-    Command commands = 1; // One command per signal
+    Command cmd = 1; // One command per signal
+
+    message PinCommand {
+      Command command = 1;
+      int64 pin  = 2;
+    }
+    PinCommand cmd_pin = 2;
 }
