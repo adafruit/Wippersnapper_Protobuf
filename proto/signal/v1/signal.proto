@@ -40,8 +40,8 @@ message Signal {
     *  the pin */
     message PinCommand {
       Command command      = 1; // Standard command message
-      Direction direction  = 2; // Pin direction
-      string pin           = 3; // Desired pin name
+      string pin           = 2; // Desired pin name
+      Direction direction  = 3; // Pin direction
       Mode mode            = 4; // Pin mode
       Pull pull            = 5; // Pull value
       string value         = 6; // Pin value or logic level
