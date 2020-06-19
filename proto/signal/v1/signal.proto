@@ -7,38 +7,32 @@ package signal.v1;
    Feed name: devices/ID/signals 
 */
 message Signal {
-
-    /* BlinkaConnect command directions */
-    enum CommandDirection {
-      COMMAND_DIRECTION_UNSPECIFIED = 0; // Unspecified/invalid command name
-      COMMAND_DIRECTION_GET         = 1; // Get data
-      COMMAND_DIRECTION_SET         = 2; // Sets data
+    /* BlinkaConnect command method */
+    enum CmdMethod {
+      CMD_METHOD_UNSPECIFIED = 0; // Unspecified/invalid command name
+      CMD_METHOD_GET         = 1; // Gets data from a device OR IO
+      CMD_METHOD_SET         = 2; // Sets data to a device OR IO
     }
 
     /* BlinkaConnect command types */
-    enum CommandType {
-      COMMAND_TYPE_UNSPECIFIED  = 0; // Unspecified/invalid command name
-      COMMAND_TYPE_VERSION      = 1; // BlinkaConnect version
-      COMMAND_TYPE_LOCATION     = 2; // Device location
-      COMMAND_TYPE_BATTERY      = 3; // Device battery level
-      COMMAND_TYPE_PIN_MAP      = 4; // Map of all pins
-      COMMAND_TYPE_PIN_STATE    = 5; // Map of all pin states
-      COMMAND_TYPE_PIN_MODE     = 6; // Pin mode
-      // TODO! Add more here!
+    enum CmdType {
+      CMD_TYPE_UNSPECIFIED        = 0; // Unspecified/invalid command name
+      CMD_TYPE_VERSION            = 1; // BlinkaConnect version
+      CMD_TYPE_LOCATION           = 2; // Device location
+      CMD_TYPE_BATTERY            = 3; // Device battery level
+      CMD_TYPE_LIST_PINS_ANALOG   = 4; // List all analog pins
+      CMD_TYPE_LIST_PINS_DIGITAL  = 5; // List all digital pins
+      CMD_TYPE_PIN_VALUE          = 6; // Pin value
+      CMD_TYPE_PIN_MODE           = 7; // Pin mode
+      // TODO: Add more commands here
     }
 
     /* Command message format */
     message Command {
-      CommandDirection direction = 1;
-      CommandType type           = 2;
-      int64 pin                  = 3; // pin number
-      // TODO: the pin implementation needs work
-      // specifically how do you define between an
-      // analog and digital pin
-      // would we want multiple command types??
-      // i,.e: command WritePins
-      // commandReadPin, commandI2c
-      string value               = 3;
+      CmdMethod method  = 1; // Command method
+      CmdType type      = 2; // Command type
+      int64 pin         = 3; // Optional pin number
+      string value      = 4; // Optional value
     }
     Command commands = 1; // One command per signal
 }
