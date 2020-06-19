@@ -31,6 +31,7 @@ message Signal {
     message Command {
       CmdType type  = 1; // Command type
       CmdName name  = 2; // Command name
+      PinCommand pin_cmd = 3; // Pin-specific command parameters
     }
     Command cmd = 1; // One command per signal
 
@@ -39,7 +40,6 @@ message Signal {
     *  plus additional information about
     *  the pin */
     message PinCommand {
-      Command command      = 1; // Standard command message
       string pin           = 2; // Desired pin name
       Direction direction  = 3; // Pin direction
       Mode mode            = 4; // Pin mode
