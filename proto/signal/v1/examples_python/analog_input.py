@@ -19,7 +19,7 @@ signal = signal_pb2.Signal()
 """
 PUBLISH from Adafruit IO to Device
 
-Set up an ADC pin output
+Set up an ADC input pin
 """
 command = signal.cmd
 # command message
@@ -28,7 +28,7 @@ command.name = signal.CMD_NAME_PIN_MODE
 # pin message
 command.pin_info.pin = "A0"
 command.pin_info.mode = signal.pin_info.MODE_ANALOG
-command.pin_info.direction = signal.pin_info.DIRECTION_OUTPUT
+command.pin_info.direction = signal.pin_info.DIRECTION_INPUT
 
 print(signal)
 serialize_protobuf(signal)
@@ -37,14 +37,30 @@ signal.Clear()
 """
 PUBLISH from Adafruit IO to Device
 
-Set the value on the analog pin
+Get the value from an ADC pin
 """
 command = signal.cmd
 # command message
-command.type = signal.CMD_TYPE_SET
+command.type = signal.CMD_TYPE_GET
 command.name = signal.CMD_NAME_PIN_VALUE
 # pin message
-command.pin_info.pin = "A0"
+command.pin_info.pin = "D5"
+
+print(signal)
+serialize_protobuf(signal)
+signal.Clear()
+
+"""
+PUBLISH from Adafruit IO to Device
+
+Get the value from an ADC pin
+"""
+command = signal.cmd
+# command message
+command.type = signal.CMD_TYPE_GET
+command.name = signal.CMD_NAME_PIN_VALUE
+# pin message
+command.pin_info.pin = "D5"
 command.pin_info.value = "512"
 
 print(signal)
