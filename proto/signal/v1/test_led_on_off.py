@@ -7,11 +7,16 @@
 import signal_pb2
 
 def serialize_protobuf(buf):
+    """Serializes protobuf
+    to a string. Displays the protobuf and
+    the protobuf information.
+
+    """
     buf = buf.SerializeToString()
     print('Serialized Protobuf: ', buf)
     print('length: %i bytes'%len(buf))
 
-
+# Create new signal message
 signal = signal_pb2.Signal()
 
 """
@@ -29,8 +34,7 @@ cmd.direction = signal.pin_cmd.PIN_DIRECTION_OUTPUT
 
 print(signal)
 serialize_protobuf(signal)
-
-signal.Clear() # Clear the command on the signal message
+signal.Clear()
 
 """
 led.Value = True
@@ -45,8 +49,7 @@ cmd.command.value = "True"
 
 print(signal)
 serialize_protobuf(signal)
-
-signal.Clear() # Clear the command on the signal message
+signal.Clear()
 
 """
 led.Value = False
@@ -61,3 +64,4 @@ cmd.command.value = "False"
 
 print(signal)
 serialize_protobuf(signal)
+signal.Clear()
