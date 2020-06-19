@@ -40,22 +40,32 @@ message Signal {
     *  the pin */
     message PinCommand {
       Command command     = 1;
-      Direction direction = 2;
-      int64 pin           = 3;
-      Mode mode           = 4;
+      Direction direction = 2; // Pin direction
+      string pin          = 3; // Desired pin name
+      Mode mode           = 4; // Pin mode
       string value        = 5; // UTF-8 String
 
       enum Mode {
-        MODE_UNSPECIFIED = 0;
-        MODE_ANALOG = 1;
-        MODE_DIGITAL = 2;
-        MODE_PWM = 3;
+        MODE_UNSPECIFIED = 0; // Invalid pin mode
+        MODE_ANALOG      = 1; // Analog pin
+        MODE_DIGITAL     = 2; // Digital pin
+        MODE_PULL_UP     = 3; // Digital pin with a pull value
+        MODE_PWM         = 4; // PWM-capible pin
+      }
+      // TODO: We set up pullup but how do we configure it..
+
+      /* Defines which direction the values are going */
+      enum Direction {
+        DIRECTION_UNSPECIFIED = 0; // Invalid direction
+        DIRECTION_INPUT       = 1; // Read data in
+        DIRECTION_OUTPUT      = 2; // Write data out
       }
 
-      enum Direction {
-        DIRECTION_UNSPECIFIED = 0;
-        DIRECTION_INPUT = 1;
-        DIRECTION_OUTPUT = 2;
+      /* Defines the pull value for digital pin reads */
+      enum Pull {
+        PULL_UNSPECIFIED = 0; // Invalid pull value
+        PULL_UP          = 1; // Pull the line high
+        PULL_DOWN        = 2; // Pull the line low
       }
 
     }
