@@ -39,11 +39,12 @@ message Signal {
     *  plus additional information about
     *  the pin */
     message PinCommand {
-      Command command     = 1;
-      Direction direction = 2; // Pin direction
-      string pin          = 3; // Desired pin name
-      Mode mode           = 4; // Pin mode
-      string value        = 5; // UTF-8 String
+      Command command      = 1; // Standard command message
+      Direction direction  = 2; // Pin direction
+      string pin           = 3; // Desired pin name
+      Mode mode            = 4; // Pin mode
+      Pull pull            = 5; // Pull value
+      string value         = 6; // Pin value or logic level
 
       enum Mode {
         MODE_UNSPECIFIED = 0; // Invalid pin mode
@@ -52,7 +53,6 @@ message Signal {
         MODE_PULL_UP     = 3; // Digital pin with a pull value
         MODE_PWM         = 4; // PWM-capible pin
       }
-      // TODO: We set up pullup but how do we configure it..
 
       /* Defines which direction the values are going */
       enum Direction {
