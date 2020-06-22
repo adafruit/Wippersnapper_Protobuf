@@ -12,12 +12,12 @@ message Pin {
     Pull pull            = 4; // Pull value
     string value         = 5; // Pin value or logic level
 
+
     enum Mode {
         MODE_UNSPECIFIED = 0; // Invalid pin mode
         MODE_ANALOG      = 1; // Analog pin
         MODE_DIGITAL     = 2; // Digital pin
         MODE_PULL_UP     = 3; // Digital pin with a pull value
-        MODE_PWM         = 4; // PWM-capible pin
     }
 
     /* Defines which direction the values are going */

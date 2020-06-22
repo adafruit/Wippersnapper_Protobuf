@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10pin/v1/pin.proto\x12\x06pin.v1\"\xfa\x02\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1e\n\x04mode\x18\x02 \x01(\x0e\x32\x10.pin.v1.Pin.Mode\x12(\n\tdirection\x18\x03 \x01(\x0e\x32\x15.pin.v1.Pin.Direction\x12\x1e\n\x04pull\x18\x04 \x01(\x0e\x32\x10.pin.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\"_\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\x12\x0c\n\x08MODE_PWM\x10\x04\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\x62\x06proto3'
+  serialized_pb=b'\n\x10pin/v1/pin.proto\x12\x06pin.v1\"\xec\x02\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1e\n\x04mode\x18\x02 \x01(\x0e\x32\x10.pin.v1.Pin.Mode\x12(\n\tdirection\x18\x03 \x01(\x0e\x32\x15.pin.v1.Pin.Direction\x12\x1e\n\x04pull\x18\x04 \x01(\x0e\x32\x10.pin.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\x62\x06proto3'
 )
 
 
@@ -51,16 +51,11 @@ _PIN_MODE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='MODE_PWM', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=171,
-  serialized_end=266,
+  serialized_end=252,
 )
 _sym_db.RegisterEnumDescriptor(_PIN_MODE)
 
@@ -89,8 +84,8 @@ _PIN_DIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=268,
-  serialized_end=349,
+  serialized_start=254,
+  serialized_end=335,
 )
 _sym_db.RegisterEnumDescriptor(_PIN_DIRECTION)
 
@@ -119,8 +114,8 @@ _PIN_PULL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=351,
-  serialized_end=407,
+  serialized_start=337,
+  serialized_end=393,
 )
 _sym_db.RegisterEnumDescriptor(_PIN_PULL)
 
@@ -184,7 +179,7 @@ _PIN = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=29,
-  serialized_end=407,
+  serialized_end=393,
 )
 
 _PIN.fields_by_name['mode'].enum_type = _PIN_MODE
