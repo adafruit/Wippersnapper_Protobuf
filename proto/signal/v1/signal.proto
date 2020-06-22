@@ -3,6 +3,7 @@ syntax = "proto3";
 package signal.v1;
 
 import "semver/v1/semver.proto";
+import "pin/v1/pin.proto";
 
 /* Signal is a device command or response
    transmitted by an Adafruit IO feed.
@@ -33,44 +34,8 @@ message Signal {
     message Command {
       CmdType type  = 1; // Command type
       CmdName name  = 2; // Command name
-      PinInfo pin_info = 3; // Pin-specific command parameters
+      pin.v1.Pin pin = 3; // Pin-specific command parameters
       semver.v1.Version version = 4; // Library version metadata
     }
-    Command cmd = 1; // One command per signal
-
-    /* PinInfo Message
-    *  Uses standard command message
-    *  plus additional information about
-    *  the pin */
-    message PinInfo {
-      string pin           = 1; // The pin to control
-      Mode mode            = 2; // Pin mode
-      Direction direction  = 3; // Pin direction
-      Pull pull            = 4; // Pull value
-      string value         = 5; // Pin value or logic level
-
-      enum Mode {
-        MODE_UNSPECIFIED = 0; // Invalid pin mode
-        MODE_ANALOG      = 1; // Analog pin
-        MODE_DIGITAL     = 2; // Digital pin
-        MODE_PULL_UP     = 3; // Digital pin with a pull value
-        MODE_PWM         = 4; // PWM-capible pin
-      }
-
-      /* Defines which direction the values are going */
-      enum Direction {
-        DIRECTION_UNSPECIFIED = 0; // Invalid direction
-        DIRECTION_INPUT       = 1; // Read data in
-        DIRECTION_OUTPUT      = 2; // Write data out
-      }
-
-      /* Defines the pull value for digital pin reads */
-      enum Pull {
-        PULL_UNSPECIFIED = 0; // Invalid pull value
-        PULL_UP          = 1; // Pull the line high
-        PULL_DOWN        = 2; // Pull the line low
-      }
-
-    }
-    PinInfo pin_info = 2;
+    Command command = 1;
 }

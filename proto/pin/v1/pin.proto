@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package pin.v1;
+
+/* Pin Message
+ * Provides analog and digital pin support
+*/
+message Pin {
+    string pin           = 1; // The pin to control
+    Mode mode            = 2; // Pin mode
+    Direction direction  = 3; // Pin direction
+    Pull pull            = 4; // Pull value
+    string value         = 5; // Pin value or logic level
+
+    enum Mode {
+        MODE_UNSPECIFIED = 0; // Invalid pin mode
+        MODE_ANALOG      = 1; // Analog pin
+        MODE_DIGITAL     = 2; // Digital pin
+        MODE_PULL_UP     = 3; // Digital pin with a pull value
+        MODE_PWM         = 4; // PWM-capible pin
+    }
+
+    /* Defines which direction the values are going */
+    enum Direction {
+        DIRECTION_UNSPECIFIED = 0; // Invalid direction
+        DIRECTION_INPUT       = 1; // Read data in
+        DIRECTION_OUTPUT      = 2; // Write data out
+    }
+
+    /* Defines the pull value for digital pin reads */
+    enum Pull {
+        PULL_UNSPECIFIED = 0; // Invalid pull value
+        PULL_UP          = 1; // Pull the line high
+        PULL_DOWN        = 2; // Pull the line low
+    }
+}
