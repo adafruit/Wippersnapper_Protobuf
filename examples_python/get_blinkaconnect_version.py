@@ -22,7 +22,7 @@ def serialize_protobuf(buf):
 signal = signal_pb2.Signal()
 
 """
-GET library version from device.
+GET library version from adafruit io to the device
 """
 command = signal.cmd
 # command message
@@ -34,7 +34,7 @@ signal.Clear()
 
 
 """
-GET library version from device.
+SET library version from device to Adafruit IO
 """
 command = signal.cmd
 # command message
