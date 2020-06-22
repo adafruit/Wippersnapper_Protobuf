@@ -1,23 +1,12 @@
 # SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
-# strict system paths
 import sys
 sys.path.insert(1, 'semver/v1')
 sys.path.insert(1, 'signal/v1')
 sys.path.insert(1, 'pin/v1')
 
 import signal_pb2
-
-def serialize_protobuf(buf):
-    """Serializes protobuf
-    to a string. Displays the protobuf and
-    the protobuf information.
-
-    """
-    buf = buf.SerializeToString()
-    print('Serialized Protobuf: ', buf)
-    print('length: %i bytes'%len(buf))
 
 # Create new signal message
 signal = signal_pb2.Signal()

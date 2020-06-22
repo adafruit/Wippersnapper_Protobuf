@@ -1,37 +1,42 @@
 # SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
+import sys
+sys.path.insert(1, 'semver/v1')
+sys.path.insert(1, 'signal/v1')
+sys.path.insert(1, 'pin/v1')
+
 import signal_pb2
-
-def serialize_protobuf(buf):
-    """Serializes protobuf
-    to a string. Displays the protobuf and
-    the protobuf information.
-
-    """
-    buf = buf.SerializeToString()
-    print('Serialized Protobuf: ', buf)
-    print('length: %i bytes'%len(buf))
 
 # Create new signal message
 signal = signal_pb2.Signal()
 
 """
-PUBLISH from Adafruit IO to Device
-
-Set up an ADC input pin
+Configure pin A0 as an ADC input pin
 """
-command = signal.cmd
+cmd = signal.command
 # command message
-command.type = signal.CMD_TYPE_SET
-command.name = signal.CMD_NAME_PIN_MODE
+cmd.type = signal.CMD_TYPE_SET
+cmd.name = signal.CMD_NAME_PIN_MODE
 # pin message
-command.pin_info.pin = "A0"
-command.pin_info.mode = signal.pin_info.MODE_ANALOG
-command.pin_info.direction = signal.pin_info.DIRECTION_INPUT
+cmd.pin.name = "A0"
+cmd.pin.mode = signal.command.pin.MODE_ANALOG
+cmd.pin.direction = signal.command.pin.DIRECTION_INPUT
 
 print(signal)
-serialize_protobuf(signal)
+signal.Clear()
+
+"""
+GET the value from pin A0
+"""
+cmd = signal.command
+# command message
+cmd.type = signal.CMD_TYPE_GET
+cmd.name = signal.CMD_NAME_PIN_VALUE
+# pin message
+cmd.pin.name = "D5"
+
+print(signal)
 signal.Clear()
 
 """
@@ -39,30 +44,13 @@ PUBLISH from Adafruit IO to Device
 
 Get the value from an ADC pin
 """
-command = signal.cmd
+cmd = signal.command
 # command message
-command.type = signal.CMD_TYPE_GET
-command.name = signal.CMD_NAME_PIN_VALUE
+cmd.type = signal.CMD_TYPE_GET
+cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
-command.pin_info.pin = "D5"
+cmd.pin.name = "D5"
+cmd.pin.value = "512"
 
 print(signal)
-serialize_protobuf(signal)
-signal.Clear()
-
-"""
-PUBLISH from Adafruit IO to Device
-
-Get the value from an ADC pin
-"""
-command = signal.cmd
-# command message
-command.type = signal.CMD_TYPE_GET
-command.name = signal.CMD_NAME_PIN_VALUE
-# pin message
-command.pin_info.pin = "D5"
-command.pin_info.value = "512"
-
-print(signal)
-serialize_protobuf(signal)
 signal.Clear()

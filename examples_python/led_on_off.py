@@ -4,69 +4,57 @@
 # Messages transmitted by Adafruit IO
 # to toggle a LED on a device
 
+
+# strict system paths
+import sys
+sys.path.insert(1, 'semver/v1')
+sys.path.insert(1, 'signal/v1')
+sys.path.insert(1, 'pin/v1')
+
 import signal_pb2
-
-def serialize_protobuf(buf):
-    """Serializes protobuf
-    to a string. Displays the protobuf and
-    the protobuf information.
-
-    """
-    buf = buf.SerializeToString()
-    print('Serialized Protobuf: ', buf)
-    print('length: %i bytes'%len(buf))
 
 # Create new signal message
 signal = signal_pb2.Signal()
 
 """
-PUBLISH from Adafruit IO to Device
-
-Set up a digital pin as an output.
+Configure a digital output pin on D13
 """
-command = signal.cmd
+cmd = signal.command
 # command message
-command.type = signal.CMD_TYPE_SET
-command.name = signal.CMD_NAME_PIN_MODE
+cmd.type = signal.CMD_TYPE_SET
+cmd.name = signal.CMD_NAME_PIN_MODE
 # pin message
-command.pin_info.pin = "D13"
-command.pin_info.mode = signal.pin_info.MODE_DIGITAL
-command.pin_info.direction = signal.pin_info.DIRECTION_OUTPUT
+cmd.pin.name = "D3"
+cmd.pin.mode = signal.command.pin.MODE_DIGITAL
+cmd.pin.direction = signal.command.pin.DIRECTION_OUTPUT
 
 print(signal)
-serialize_protobuf(signal)
 signal.Clear()
 
 """
-PUBLISH from Adafruit IO to Device
-
-Set the pin's digital logic level to True.
+Turn ON the LED
 """
-command = signal.cmd
+cmd = signal.command
 # command message
-command.type = signal.CMD_TYPE_SET
-command.name = signal.CMD_NAME_PIN_VALUE
+cmd.type = signal.CMD_TYPE_SET
+cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
-command.pin_info.pin = "D13"
-command.pin_info.value = "True"
+cmd.pin.name = "D13"
+cmd.pin.value = "1"
 
 print(signal)
-serialize_protobuf(signal)
 signal.Clear()
 
 """
-PUBLISH from Adafruit IO to Device
-
-Set the pin's digital logic level to False.
+Turn OFF the LED
 """
-command = signal.cmd
+cmd = signal.command
 # command message
-command.type = signal.CMD_TYPE_SET
-command.name = signal.CMD_NAME_PIN_VALUE
+cmd.type = signal.CMD_TYPE_SET
+cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
-command.pin_info.pin = "D13"
-command.pin_info.value = "False"
+cmd.pin.name = "D13"
+cmd.pin.value = "0"
 
 print(signal)
-serialize_protobuf(signal)
 signal.Clear()
