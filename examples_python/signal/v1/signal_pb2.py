@@ -13,6 +13,7 @@ _sym_db = _symbol_database.Default()
 
 from semver.v1 import semver_pb2 as semver_dot_v1_dot_semver__pb2
 from pin.v1 import pin_pb2 as pin_dot_v1_dot_pin__pb2
+from pwm.v1 import pwm_pb2 as pwm_dot_v1_dot_pwm__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -21,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16semver/v1/semver.proto\x1a\x10pin/v1/pin.proto\"\xf1\x03\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\x9a\x01\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\x18\n\x03pin\x18\x03 \x01(\x0b\x32\x0b.pin.v1.Pin\x12#\n\x07version\x18\x04 \x01(\x0b\x32\x12.semver.v1.Version\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xd4\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x62\x06proto3'
+  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16semver/v1/semver.proto\x1a\x10pin/v1/pin.proto\x1a\x10pwm/v1/pwm.proto\"\xa4\x04\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\xb4\x01\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\x18\n\x03pin\x18\x03 \x01(\x0b\x32\x0b.pin.v1.Pin\x12#\n\x07version\x18\x04 \x01(\x0b\x32\x12.semver.v1.Version\x12\x18\n\x03pwm\x18\x05 \x01(\x0b\x32\x0b.pwm.v1.PWM\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xed\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x12\x17\n\x13\x43MD_NAME_PWM_OUTPUT\x10\x08\x62\x06proto3'
   ,
-  dependencies=[semver_dot_v1_dot_semver__pb2.DESCRIPTOR,pin_dot_v1_dot_pin__pb2.DESCRIPTOR,])
+  dependencies=[semver_dot_v1_dot_semver__pb2.DESCRIPTOR,pin_dot_v1_dot_pin__pb2.DESCRIPTOR,pwm_dot_v1_dot_pwm__pb2.DESCRIPTOR,])
 
 
 
@@ -52,8 +53,8 @@ _SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=291,
-  serialized_end=362,
+  serialized_start=335,
+  serialized_end=406,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_CMDTYPE)
 
@@ -104,11 +105,16 @@ _SIGNAL_CMDNAME = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CMD_NAME_PWM_OUTPUT', index=8, number=8,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=365,
-  serialized_end=577,
+  serialized_start=409,
+  serialized_end=646,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_CMDNAME)
 
@@ -149,6 +155,13 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pwm', full_name='signal.v1.Signal.Command.pwm', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -161,8 +174,8 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=135,
-  serialized_end=289,
+  serialized_start=153,
+  serialized_end=333,
 )
 
 _SIGNAL = _descriptor.Descriptor(
@@ -194,14 +207,15 @@ _SIGNAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=80,
-  serialized_end=577,
+  serialized_start=98,
+  serialized_end=646,
 )
 
 _SIGNAL_COMMAND.fields_by_name['type'].enum_type = _SIGNAL_CMDTYPE
 _SIGNAL_COMMAND.fields_by_name['name'].enum_type = _SIGNAL_CMDNAME
 _SIGNAL_COMMAND.fields_by_name['pin'].message_type = pin_dot_v1_dot_pin__pb2._PIN
 _SIGNAL_COMMAND.fields_by_name['version'].message_type = semver_dot_v1_dot_semver__pb2._VERSION
+_SIGNAL_COMMAND.fields_by_name['pwm'].message_type = pwm_dot_v1_dot_pwm__pb2._PWM
 _SIGNAL_COMMAND.containing_type = _SIGNAL
 _SIGNAL.fields_by_name['command'].message_type = _SIGNAL_COMMAND
 _SIGNAL_CMDTYPE.containing_type = _SIGNAL
