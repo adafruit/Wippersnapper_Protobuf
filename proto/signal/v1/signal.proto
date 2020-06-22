@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package signal.v1;
 
+import "semver/v1/semver.proto";
+
 /* Signal is a device command or response
    transmitted by an Adafruit IO feed.
    Feed name: devices/ID/signals 
@@ -32,6 +34,7 @@ message Signal {
       CmdType type  = 1; // Command type
       CmdName name  = 2; // Command name
       PinInfo pin_info = 3; // Pin-specific command parameters
+      semver.v1.Version version = 4; // Library version metadata
     }
     Command cmd = 1; // One command per signal
 
