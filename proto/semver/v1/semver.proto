@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package semver.v1;
 
+/* Version - Transmits BlinkaConnect's firmware API version */
 message Version {
   uint64 major = 1;
   uint64 minor = 2;

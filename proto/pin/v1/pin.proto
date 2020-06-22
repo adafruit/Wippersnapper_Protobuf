@@ -2,9 +2,7 @@ syntax = "proto3";
 
 package pin.v1;
 
-/* Pin Message
- * Provides analog and digital pin support
-*/
+/* Pin - API for interfacing with analog or digital pins  */
 message Pin {
     string name          = 1; // Name of pin to access
     Mode mode            = 2; // Pin mode

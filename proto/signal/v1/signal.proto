@@ -2,19 +2,20 @@ syntax = "proto3";
 
 package signal.v1;
 
+// Device command API 
 import "semver/v1/semver.proto";
-import "pin/v1/pin.proto";
 
-/* Signal is a device command or response
-   transmitted by an Adafruit IO feed.
-   Feed name: devices/ID/signals 
-*/
+// Device pin API
+import "pin/v1/pin.proto";
+import "pwm/v1/pwm.proto";
+
+/* Signal Message */
 message Signal {
     /* BlinkaConnect command type */
     enum CmdType {
-      CMD_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
-      CMD_TYPE_GET         = 1; // Gets data from a device OR IO
-      CMD_TYPE_SET         = 2; // Sets data to a device OR IO
+      CMD_TYPE_UNSPECIFIED  = 0; // Unspecified/invalid command name
+      CMD_TYPE_GET          = 1; // Gets data from a device OR IO
+      CMD_TYPE_SET          = 2; // Sets data to a device OR IO
     }
 
     /* BlinkaConnect command types */
@@ -25,17 +26,19 @@ message Signal {
       CMD_NAME_BATTERY            = 3; // Device battery level
       CMD_NAME_LIST_PINS_ANALOG   = 4; // List all analog pins
       CMD_NAME_LIST_PINS_DIGITAL  = 5; // List all digital pins
-      CMD_NAME_PIN_VALUE          = 6; // Pin value
-      CMD_NAME_PIN_MODE           = 7; // Pin mode
+      CMD_NAME_PIN_VALUE          = 6; // Digital or analog pin value
+      CMD_NAME_PIN_MODE           = 7; // Digital or analog pin mode
+      CMD_NAME_PWM_OUTPUT         = 8; // Output PWM on a provided pin
       // TODO: Add more commands here
     }
 
     /* Standard command message */
     message Command {
-      CmdType type  = 1; // Command type
-      CmdName name  = 2; // Command name
-      pin.v1.Pin pin = 3; // Pin-specific command parameters
-      semver.v1.Version version = 4; // Library version metadata
+      CmdType type               = 1; // Command type
+      CmdName name               = 2; // Command name
+      pin.v1.Pin pin             = 3; // Pin-specific command parameters
+      semver.v1.Version version  = 4; // Library version metadata
+      pwm.v1.PWM pwm             = 5; // Library version metadata
     }
     Command command = 1;
 }
