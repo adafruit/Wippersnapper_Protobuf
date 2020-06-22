@@ -6,7 +6,7 @@ package pin.v1;
  * Provides analog and digital pin support
 */
 message Pin {
-    string pin           = 1; // The pin to control
+    string name          = 1; // Name of pin to access
     Mode mode            = 2; // Pin mode
     Direction direction  = 3; // Pin direction
     Pull pull            = 4; // Pull value

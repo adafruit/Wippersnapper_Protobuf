@@ -5,6 +5,7 @@
 import sys
 sys.path.insert(1, 'semver/v1')
 sys.path.insert(1, 'signal/v1')
+sys.path.insert(1, 'pin/v1')
 
 import signal_pb2
 

@@ -1,6 +1,12 @@
 # SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
+# strict system paths
+import sys
+sys.path.insert(1, 'semver/v1')
+sys.path.insert(1, 'signal/v1')
+sys.path.insert(1, 'pin/v1')
+
 import signal_pb2
 
 def serialize_protobuf(buf):
@@ -17,35 +23,44 @@ def serialize_protobuf(buf):
 signal = signal_pb2.Signal()
 
 """
-Example: Read digital input, no server-side polling
+Configure digital pin D3 as a digital input
 """
-cmd = signal.pin_cmd
-
-# -- setup pin --- #
+cmd = signal.command
 # command message
-cmd.command.type = signal.CMD_TYPE_SET
-cmd.command.name = signal.CMD_NAME_PIN_MODE
+cmd.type = signal.CMD_TYPE_SET
+cmd.name = signal.CMD_NAME_PIN_MODE
 # pin message
-cmd.pin = 2
-cmd.mode = signal.pin_cmd.MODE_DIGITAL
-cmd.direction = signal.pin_cmd.DIRECTION_INPUT
+cmd.pin.name = "D3"
+cmd.pin.mode = cmd.pin.MODE_DIGITAL
+cmd.pin.direction = cmd.pin.DIRECTION_INPUT
 
 print(signal)
-serialize_protobuf(signal)
 signal.Clear()
 
 
-# -- read pin --- #
-cmd = signal.pin_cmd
+"""
+GET value of pin D3 from device
+"""
+cmd = signal.command
 # command message
-cmd.command.type = signal.CMD_TYPE_SET
-cmd.command.name = signal.CMD_NAME_PIN_VALUE
+cmd.type = signal.CMD_TYPE_GET
+cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
-cmd.pin = 2
-cmd.value = "1"
-cmd.mode = signal.pin_cmd.MODE_DIGITAL
+cmd.pin.name = "D3"
 
 print(signal)
-serialize_protobuf(signal)
 signal.Clear()
 
+"""
+SET value of pin D3
+"""
+cmd = signal.command
+# command message
+cmd.type = signal.CMD_TYPE_GET
+cmd.name = signal.CMD_NAME_PIN_VALUE
+# pin message
+cmd.pin.name = "D3"
+cmd.pin.value = "1"
+
+print(signal)
+signal.Clear()
