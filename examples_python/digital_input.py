@@ -31,15 +31,15 @@ cmd.type = signal.CMD_TYPE_SET
 cmd.name = signal.CMD_NAME_PIN_MODE
 # pin message
 cmd.pin.name = "D3"
-cmd.pin.mode = cmd.pin.MODE_DIGITAL
-cmd.pin.direction = cmd.pin.DIRECTION_INPUT
+cmd.pin.mode = signal.command.pin.MODE_DIGITAL
+cmd.pin.direction = signal.command.pin.DIRECTION_INPUT
 
 print(signal)
 signal.Clear()
 
 
 """
-GET value of pin D3 from device
+GET value of pin D3 from Adafruit IO
 """
 cmd = signal.command
 # command message
