@@ -24,7 +24,7 @@ GET library version from adafruit io to the device
 command = signal.cmd
 # command message
 command.type = signal.CMD_MODE_GET
-command.name = signal.CMD_NAME_VERSION
+command.name = signal.CMD_TYPE_VERSION
 
 print(command)
 signal.Clear()
@@ -36,7 +36,7 @@ SET library version from device to Adafruit IO
 command = signal.cmd
 # command message
 command.type = signal.CMD_MODE_SET
-command.name = signal.CMD_NAME_VERSION
+command.name = signal.CMD_TYPE_VERSION
 # version message
 command.version.major = 1
 command.version.minor = 2

@@ -14,7 +14,7 @@ Configure pin A0 as an analog output
 cmd = signal.command
 # command message
 cmd.mode = signal.CMD_MODE_SET
-cmd.name = signal.CMD_NAME_PIN_MODE
+cmd.type = signal.CMD_TYPE_PIN_MODE
 # pin message
 cmd.pin.name = "A0"
 cmd.pin.mode = signal.command.pin.MODE_ANALOG
@@ -29,7 +29,7 @@ Set the value of pin A0
 cmd = signal.command
 # command message
 cmd.mode = signal.CMD_MODE_SET
-cmd.name = signal.CMD_NAME_PIN_VALUE
+cmd.type = signal.CMD_TYPE_PIN_VALUE
 # pin message
 cmd.pin.name = "A0"
 cmd.pin.value = "512"

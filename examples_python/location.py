@@ -14,7 +14,7 @@ GET device location
 cmd = signal.command
 # command message
 cmd.mode = signal.CMD_MODE_GET
-cmd.name = signal.CMD_NAME_LOCATION
+cmd.type = signal.CMD_TYPE_LOCATION
 print(signal)
 signal.Clear()
 
@@ -23,7 +23,7 @@ SET device location
 """
 cmd = signal.command
 cmd.mode = signal.CMD_MODE_SET
-cmd.name = signal.CMD_NAME_LOCATION
+cmd.type = signal.CMD_TYPE_LOCATION
 # fill location
 cmd.location.latitude = 34.211
 cmd.location.longitude = -52.91

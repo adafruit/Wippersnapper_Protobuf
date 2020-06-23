@@ -12,23 +12,23 @@ message Signal {
     }
 
     /* BlinkaConnect command types */
-    enum CmdName {
-      CMD_NAME_UNSPECIFIED        = 0; // Unspecified/invalid command name
-      CMD_NAME_VERSION            = 1; // BlinkaConnect version
-      CMD_NAME_LOCATION           = 2; // Device location
-      CMD_NAME_BATTERY            = 3; // Device battery level
-      CMD_NAME_LIST_PINS_ANALOG   = 4; // List all analog pins
-      CMD_NAME_LIST_PINS_DIGITAL  = 5; // List all digital pins
-      CMD_NAME_PIN_VALUE          = 6; // Digital or analog pin value
-      CMD_NAME_PIN_MODE           = 7; // Digital or analog pin mode
-      CMD_NAME_PWM_OUTPUT         = 8; // Output PWM on a provided pin
+    enum CmdType {
+      CMD_TYPE_UNSPECIFIED        = 0; // Unspecified/invalid command name
+      CMD_TYPE_VERSION            = 1; // BlinkaConnect version
+      CMD_TYPE_LOCATION           = 2; // Device location
+      CMD_TYPE_BATTERY            = 3; // Device battery level
+      CMD_TYPE_LIST_PINS_ANALOG   = 4; // List all analog pins
+      CMD_TYPE_LIST_PINS_DIGITAL  = 5; // List all digital pins
+      CMD_TYPE_PIN_VALUE          = 6; // Digital or analog pin value
+      CMD_TYPE_PIN_MODE           = 7; // Digital or analog pin mode
+      CMD_TYPE_PWM_OUTPUT         = 8; // Output PWM on a provided pin
       // TODO: Add more commands here
     }
 
     /* Standard command message */
     message Command {
       CmdMode mode      = 1; // Command mode
-      CmdName name      = 2; // Command name
+      CmdType type      = 2; // Command type
       Pin pin           = 3; // Pin-specific command parameters
       Version version   = 4; // Library version metadata
       PWM pwm           = 5; // TODO

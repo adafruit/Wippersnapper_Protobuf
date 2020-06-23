@@ -14,7 +14,7 @@ Configure digital pin D3 as a digital input
 cmd = signal.command
 # command message
 cmd.mode = signal.CMD_MODE_SET
-cmd.name = signal.CMD_NAME_PIN_MODE
+cmd.type = signal.CMD_TYPE_PIN_MODE
 # pin message
 cmd.pin.name = "D3"
 cmd.pin.mode = signal.command.pin.MODE_DIGITAL
@@ -30,7 +30,7 @@ GET value of pin D3 from Adafruit IO
 cmd = signal.command
 # command message
 cmd.mode = signal.CMD_MODE_GET
-cmd.name = signal.CMD_NAME_PIN_VALUE
+cmd.type = signal.CMD_TYPE_PIN_VALUE
 # pin message
 cmd.pin.name = "D3"
 
@@ -43,7 +43,7 @@ SET value of pin D3
 cmd = signal.command
 # command message
 cmd.mode = signal.CMD_MODE_GET
-cmd.name = signal.CMD_NAME_PIN_VALUE
+cmd.type = signal.CMD_TYPE_PIN_VALUE
 # pin message
 cmd.pin.name = "D3"
 cmd.pin.value = "1"
