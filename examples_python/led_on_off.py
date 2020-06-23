@@ -1,15 +1,7 @@
 # SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
 # SPDX-License-Identifier: MIT
-
-# Messages transmitted by Adafruit IO
-# to toggle a LED on a device
-
-
-# strict system paths
 import sys
-sys.path.insert(1, 'semver/v1')
 sys.path.insert(1, 'signal/v1')
-sys.path.insert(1, 'pin/v1')
 
 import signal_pb2
 
