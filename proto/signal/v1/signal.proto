@@ -33,6 +33,7 @@ message Signal {
       Version version   = 4; // Library version metadata
       PWM pwm           = 5; // TODO
       Location location = 6; // TODO
+      Battery battery   = 7; // TODO
     }
     Command command = 1;
 }
@@ -51,6 +52,11 @@ message Location {
     float latitude   = 1;
     float longitude  = 2;
     float altitude   = 3;
+}
+
+// Battery level
+message Battery {
+    float level = 1;
 }
 
 /* Pin - API for interfacing with analog or digital pins  */
@@ -90,3 +96,4 @@ message PWM {
     int32 duty_cycle  = 2; // Fraction of one period the pulse is high
     int32 frequency   = 3; // Frequency, in Hertz
 }
+
