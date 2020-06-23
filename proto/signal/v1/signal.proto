@@ -48,9 +48,9 @@ message Signal {
 
 // Device location
 message Location {
-    uint64 latitude   = 1;
-    uint64 longitude  = 2;
-    uint64 altitude   = 3;
+    float latitude   = 1;
+    float longitude  = 2;
+    float altitude   = 3;
 }
 
 /* Pin - API for interfacing with analog or digital pins  */

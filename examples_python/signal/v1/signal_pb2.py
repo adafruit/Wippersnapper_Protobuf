@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\"\xd1\x04\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\xe1\x01\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\x1b\n\x03pin\x18\x03 \x01(\x0b\x32\x0e.signal.v1.Pin\x12#\n\x07version\x18\x04 \x01(\x0b\x32\x12.signal.v1.Version\x12\x1b\n\x03pwm\x18\x05 \x01(\x0b\x32\x0e.signal.v1.PWM\x12%\n\x08location\x18\x06 \x01(\x0b\x32\x13.signal.v1.Location\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xed\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x12\x17\n\x13\x43MD_NAME_PWM_OUTPUT\x10\x08\"E\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\"A\n\x08Location\x12\x10\n\x08latitude\x18\x01 \x01(\x04\x12\x11\n\tlongitude\x18\x02 \x01(\x04\x12\x10\n\x08\x61ltitude\x18\x03 \x01(\x04\"\xf5\x02\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x04mode\x18\x02 \x01(\x0e\x32\x13.signal.v1.Pin.Mode\x12+\n\tdirection\x18\x03 \x01(\x0e\x32\x18.signal.v1.Pin.Direction\x12!\n\x04pull\x18\x04 \x01(\x0e\x32\x13.signal.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\">\n\x03PWM\x12\x10\n\x08pin_name\x18\x01 \x01(\t\x12\x12\n\nduty_cycle\x18\x02 \x01(\x05\x12\x11\n\tfrequency\x18\x03 \x01(\x05\x62\x06proto3'
+  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\"\xd1\x04\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\xe1\x01\n\x07\x43ommand\x12\'\n\x04type\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\'\n\x04name\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdName\x12\x1b\n\x03pin\x18\x03 \x01(\x0b\x32\x0e.signal.v1.Pin\x12#\n\x07version\x18\x04 \x01(\x0b\x32\x12.signal.v1.Version\x12\x1b\n\x03pwm\x18\x05 \x01(\x0b\x32\x0e.signal.v1.PWM\x12%\n\x08location\x18\x06 \x01(\x0b\x32\x13.signal.v1.Location\"G\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_GET\x10\x01\x12\x10\n\x0c\x43MD_TYPE_SET\x10\x02\"\xed\x01\n\x07\x43mdName\x12\x18\n\x14\x43MD_NAME_UNSPECIFIED\x10\x00\x12\x14\n\x10\x43MD_NAME_VERSION\x10\x01\x12\x15\n\x11\x43MD_NAME_LOCATION\x10\x02\x12\x14\n\x10\x43MD_NAME_BATTERY\x10\x03\x12\x1d\n\x19\x43MD_NAME_LIST_PINS_ANALOG\x10\x04\x12\x1e\n\x1a\x43MD_NAME_LIST_PINS_DIGITAL\x10\x05\x12\x16\n\x12\x43MD_NAME_PIN_VALUE\x10\x06\x12\x15\n\x11\x43MD_NAME_PIN_MODE\x10\x07\x12\x17\n\x13\x43MD_NAME_PWM_OUTPUT\x10\x08\"E\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\"A\n\x08Location\x12\x10\n\x08latitude\x18\x01 \x01(\x02\x12\x11\n\tlongitude\x18\x02 \x01(\x02\x12\x10\n\x08\x61ltitude\x18\x03 \x01(\x02\"\xf5\x02\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x04mode\x18\x02 \x01(\x0e\x32\x13.signal.v1.Pin.Mode\x12+\n\tdirection\x18\x03 \x01(\x0e\x32\x18.signal.v1.Pin.Direction\x12!\n\x04pull\x18\x04 \x01(\x0e\x32\x13.signal.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\">\n\x03PWM\x12\x10\n\x08pin_name\x18\x01 \x01(\t\x12\x12\n\nduty_cycle\x18\x02 \x01(\x05\x12\x11\n\tfrequency\x18\x03 \x01(\x05\x62\x06proto3'
 )
 
 
@@ -373,22 +373,22 @@ _LOCATION = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='latitude', full_name='signal.v1.Location.latitude', index=0,
-      number=1, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='longitude', full_name='signal.v1.Location.longitude', index=1,
-      number=2, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='altitude', full_name='signal.v1.Location.altitude', index=2,
-      number=3, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
