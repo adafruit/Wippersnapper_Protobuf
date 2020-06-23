@@ -13,7 +13,7 @@ Configure pin A0 as an ADC input pin
 """
 cmd = signal.command
 # command message
-cmd.type = signal.CMD_TYPE_SET
+cmd.mode = signal.CMD_MODE_SET
 cmd.name = signal.CMD_NAME_PIN_MODE
 # pin message
 cmd.pin.name = "A0"
@@ -28,7 +28,7 @@ GET the value from pin A0
 """
 cmd = signal.command
 # command message
-cmd.type = signal.CMD_TYPE_GET
+cmd.mode = signal.CMD_MODE_GET
 cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
 cmd.pin.name = "D5"
@@ -43,7 +43,7 @@ Get the value from an ADC pin
 """
 cmd = signal.command
 # command message
-cmd.type = signal.CMD_TYPE_GET
+cmd.mode = signal.CMD_MODE_GET
 cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
 cmd.pin.name = "D5"

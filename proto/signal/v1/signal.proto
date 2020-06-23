@@ -4,11 +4,11 @@ package signal.v1;
 
 /* Signal Message */
 message Signal {
-    /* BlinkaConnect command type */
-    enum CmdType {
-      CMD_TYPE_UNSPECIFIED  = 0; // Unspecified/invalid command name
-      CMD_TYPE_GET          = 1; // Gets data from a device OR IO
-      CMD_TYPE_SET          = 2; // Sets data to a device OR IO
+    /* BlinkaConnect command mode */
+    enum CmdMode {
+      CMD_MODE_UNSPECIFIED  = 0; // Unspecified/invalid command name
+      CMD_MODE_GET          = 1; // Gets data from a device OR IO
+      CMD_MODE_SET          = 2; // Sets data to a device OR IO
     }
 
     /* BlinkaConnect command types */
@@ -27,7 +27,7 @@ message Signal {
 
     /* Standard command message */
     message Command {
-      CmdType type      = 1; // Command type
+      CmdMode mode      = 1; // Command mode
       CmdName name      = 2; // Command name
       Pin pin           = 3; // Pin-specific command parameters
       Version version   = 4; // Library version metadata

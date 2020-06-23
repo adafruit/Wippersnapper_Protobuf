@@ -13,7 +13,7 @@ Output a 50% duty cycle on pin D13
 """
 cmd = signal.command
 # command message
-cmd.type = signal.CMD_TYPE_SET
+cmd.mode = signal.CMD_MODE_SET
 cmd.name = signal.CMD_NAME_PWM_OUTPUT
 # pin message
 cmd.pwm.pin_name = "D13"

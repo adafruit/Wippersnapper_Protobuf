@@ -15,7 +15,7 @@ Set up digital input on D5 switch with a pull up.
 """
 cmd = signal.command
 # command message
-cmd.type = signal.CMD_TYPE_SET
+cmd.mode = signal.CMD_MODE_SET
 cmd.name = signal.CMD_NAME_PIN_MODE
 # pin message
 cmd.pin.name = "D5"
@@ -31,7 +31,7 @@ GET value of pin D5 from Adafruit IO
 """
 cmd = signal.command
 # command message
-cmd.type = signal.CMD_TYPE_GET
+cmd.mode = signal.CMD_MODE_GET
 cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
 cmd.pin.name = "D5"
@@ -48,7 +48,7 @@ device to Adafruit IO.
 """
 cmd = signal.command
 # command message
-cmd.type = signal.CMD_TYPE_SET
+cmd.mode = signal.CMD_MODE_SET
 cmd.name = signal.CMD_NAME_PIN_VALUE
 # pin message
 cmd.pin.name = "D5"
