@@ -3,11 +3,11 @@ syntax = "proto3";
 package registration.v1;
 
 message Device {
-    string name         = 0; // User-defined device identifier, often the MQTT Client ID.
-    uint64 vid          = 1; // USB Vendor ID
-    uint64 pid          = 2; // USB Product ID
-    Transport transport = 3; // Data transport modes
-    Version version     = 4; // BlinkaConnect firmware/library version
+    string name         = 1; // User-defined device identifier, often the MQTT Client ID.
+    uint64 vid          = 2; // USB Vendor ID
+    uint64 pid          = 3; // USB Product ID
+    Transport transport = 4; // Data transport modes
+    Version version     = 5; // BlinkaConnect firmware/library version
 
     // Data transport modes supported by BlinkaConnect
     enum Transport {
@@ -22,10 +22,10 @@ message Device {
 
     // Contains BlinkaConnect's firmware API version
     message Version {
-        uint64 major = 0;
-        uint64 minor = 1;
-        uint64 micro = 2;
-        string label = 3;
+        uint64 major = 1;
+        uint64 minor = 2;
+        uint64 micro = 3;
+        string label = 4;
     }
 
 }

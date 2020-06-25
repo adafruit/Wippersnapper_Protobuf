@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package sensor.v1;
+
+
+// Describes basic details about a specific sensor
+message Sensor {
+    // common characteristics
+    string type = 1;
+    uint32 period = 2;
+    // sensor type
+    SensorDigital digital = 3;
+    SensorADC adc = 4;
+    SensorTemperature temperature = 5;
+    SensorLight light = 6;
+}
+
+// Digital Pin
+// TODO: This should be R+W, not just R
+message SensorDigital {
+    bool value = 1;
+}
+
+// Analog-to-Digital Pin
+// TODO: This should be R+W, not just R
+message SensorADC {
+    int32 value = 1;
+    float current = 2;
+    float voltage = 3;
+}
+
+// Reads the current temperature in degrees Celsius
+message SensorTemperature {
+    float temperature = 1;
+}
+
+// Reads non-unit-specific light levels
+message SensorLight {
+    float light = 1;
+}
