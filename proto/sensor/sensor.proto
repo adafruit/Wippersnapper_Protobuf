@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package registration.v1;
+
+
+// Describes basic details about a specific sensor
+message Sensor {
+    string type = 0;
+    uint32 period = 1;
+
+    // Standardized Measurement Types
+    enum Type {
+        TYPE_UNSPECIFIED = 0; // undefined sensor type
+        // Pin
+        TYPE_VALUE = 1;
+        TYPE_BUTTON = 2;
+        TYPE_CURRENT = 3;
+        TYPE_VOLTAGE = 4;
+        TYPE_DUTY_CYCLE = 5;
+        TYPE_FREQUENCY = 6;
+        // Environmental
+        TYPE_TEMPERATURE = 7;
+        TYPE_HUMIDITY = 8;
+        TYPE_PRESSURE = 9;
+        TYPE_EC02 = 10;
+        TYPE_TVOC = 11;
+        TYPE_LIGHT = 12;
+        // Motion
+        TYPE_ACCELERATION = 13;
+        TYPE_MAGNETIC = 14;
+        TYPE_ORIENTATION = 15;
+        TYPE_GYRO = 16;
+    }
+}

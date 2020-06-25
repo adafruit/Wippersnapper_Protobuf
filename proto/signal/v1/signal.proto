@@ -69,7 +69,6 @@ message Pin {
     Pull pull            = 4; // Pull value
     string value         = 5; // Pin value or logic level
 
-
     enum Mode {
         MODE_UNSPECIFIED = 0; // Invalid pin mode
         MODE_ANALOG      = 1; // Analog pin
