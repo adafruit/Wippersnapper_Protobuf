@@ -15,13 +15,14 @@ message Signal {
     enum CmdType {
       CMD_TYPE_UNSPECIFIED        = 0; // Unspecified/invalid command name
       CMD_TYPE_VERSION            = 1; // BlinkaConnect version
-      CMD_TYPE_LOCATION           = 2; // Device location
-      CMD_TYPE_BATTERY            = 3; // Device battery level
-      CMD_TYPE_LIST_PINS_ANALOG   = 4; // List all analog pins
-      CMD_TYPE_LIST_PINS_DIGITAL  = 5; // List all digital pins
-      CMD_TYPE_PIN_VALUE          = 6; // Digital or analog pin value
-      CMD_TYPE_PIN_MODE           = 7; // Digital or analog pin mode
-      CMD_TYPE_PWM_OUTPUT         = 8; // Output PWM on a provided pin
+      CMD_TYPE_HARDWARE           = 2; // CircuitPython machine name
+      CMD_TYPE_LOCATION           = 3; // Device location
+      CMD_TYPE_BATTERY            = 4; // Device battery level
+      CMD_TYPE_LIST_PINS_ANALOG   = 5; // List all analog pins
+      CMD_TYPE_LIST_PINS_DIGITAL  = 6; // List all digital pins
+      CMD_TYPE_PIN_VALUE          = 7; // Digital or analog pin value
+      CMD_TYPE_PIN_MODE           = 8; // Digital or analog pin mode
+      CMD_TYPE_PWM_OUTPUT         = 9; // Output PWM on a provided pin
       // TODO: Add more commands here
     }
 
@@ -31,9 +32,10 @@ message Signal {
       CmdType type      = 2; // Command type
       Pin pin           = 3; // Pin-specific command parameters
       Version version   = 4; // Library version metadata
-      PWM pwm           = 5; // TODO
-      Location location = 6; // TODO
-      Battery battery   = 7; // TODO
+      string board_name = 5; // Hardware name
+      PWM pwm           = 6; // PWM output command
+      Location location = 7; // Location metadata
+      Battery battery   = 8; // Battery metadata
     }
     Command command = 1;
 }
