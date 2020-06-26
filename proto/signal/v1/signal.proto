@@ -4,6 +4,18 @@ package signal.v1;
 
 /* Signal Message */
 message Signal {
+
+    /* Standard command message */
+    message Command {
+        CmdMode mode      = 1; // Command mode
+        CmdType type      = 2; // Command type
+        Pin pin           = 3; // Pin-specific command parameters
+        string board_name = 4; // Hardware name
+        PWM pwm           = 5; // PWM output command
+        Location location = 6; // Location metadata
+      }
+      Command command = 1;
+
     /* BlinkaConnect command mode */
     enum CmdMode {
       CMD_MODE_UNSPECIFIED  = 0; // Unspecified/invalid command name
@@ -14,40 +26,16 @@ message Signal {
     /* BlinkaConnect command types */
     enum CmdType {
       CMD_TYPE_UNSPECIFIED        = 0; // Unspecified/invalid command name
-      CMD_TYPE_VERSION            = 1; // BlinkaConnect version
-      CMD_TYPE_HARDWARE           = 2; // CircuitPython machine name
-      CMD_TYPE_LOCATION           = 3; // Device location
-      CMD_TYPE_BATTERY            = 4; // Device battery level
-      CMD_TYPE_LIST_PINS_ANALOG   = 5; // List all analog pins
-      CMD_TYPE_LIST_PINS_DIGITAL  = 6; // List all digital pins
-      CMD_TYPE_PIN_VALUE          = 7; // Digital or analog pin value
-      CMD_TYPE_PIN_MODE           = 8; // Digital or analog pin mode
-      CMD_TYPE_PWM_OUTPUT         = 9; // Output PWM on a provided pin
+      CMD_TYPE_LOCATION           = 1; // Device location
+      CMD_TYPE_BATTERY            = 2; // Device battery level
+      CMD_TYPE_LIST_PINS_ANALOG   = 3; // List all analog pins
+      CMD_TYPE_LIST_PINS_DIGITAL  = 4; // List all digital pins
+      CMD_TYPE_PIN_VALUE          = 5; // Digital or analog pin value
+      CMD_TYPE_PIN_MODE           = 6; // Digital or analog pin mode
+      CMD_TYPE_PWM_OUTPUT         = 7; // Output PWM on a provided pin
       // TODO: Add more commands here
     }
-
-    /* Standard command message */
-    message Command {
-      CmdMode mode      = 1; // Command mode
-      CmdType type      = 2; // Command type
-      Pin pin           = 3; // Pin-specific command parameters
-      Version version   = 4; // Library version metadata
-      string board_name = 5; // Hardware name
-      PWM pwm           = 6; // PWM output command
-      Location location = 7; // Location metadata
-      Battery battery   = 8; // Battery metadata
-    }
-    Command command = 1;
 }
-
-// Version
-// Contains BlinkaConnect's firmware API version
- message Version {
-    uint64 major = 1;
-    uint64 minor = 2;
-    uint64 micro = 3;
-    string label = 4;
-  }
 
 // Device location
 message Location {
@@ -56,18 +44,14 @@ message Location {
     float altitude   = 3;
 }
 
-// Battery level
-message Battery {
-    float level = 1;
-}
-
-/* Pin - API for interfacing with analog or digital pins  */
+/* Pin  API for interfacing with analog or digital pins  */
 message Pin {
-    string name          = 1; // Name of pin to access
-    Mode mode            = 2; // Pin mode
-    Direction direction  = 3; // Pin direction
-    Pull pull            = 4; // Pull value
-    string value         = 5; // Pin value or logic level
+    string name         = 1; // Name of pin to access
+    Mode mode           = 2; // Pin mode
+    Direction direction = 3; // Pin direction
+    Pull pull           = 4; // Pull value
+    string value        = 5; // Pin value or logic level
+    int32 period        = 6; // Number of milliseconds between measurements
 
     enum Mode {
         MODE_UNSPECIFIED = 0; // Invalid pin mode
@@ -91,7 +75,7 @@ message Pin {
     }
 }
 
-/* Pin - API for outputting a PWM signal on a provided pin  */
+/* PWM API for outputting a PWM signal on a provided pin  */
 message PWM {
     string pin_name   = 1; // Output pin
     int32 duty_cycle  = 2; // Fraction of one period the pulse is high
