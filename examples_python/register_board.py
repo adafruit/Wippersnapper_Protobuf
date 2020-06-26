@@ -5,28 +5,27 @@ sys.path.insert(1, 'registration/v1')
 
 import registration_pb2
 
+__version__ = "0.0.0-alpha.1"
+PYPORTAL_VID = 0x239A
+PYPORTAL_PID = 0x8036
+
 device = registration_pb2.Device()
 
 # User-assigned device name (MQTT Client ID)
-device.name = "PyPortal"
+device.display_name = "PyPortal"
 # PyPortal VID
-device.vid = 0x239A
+device.usb_vid = PYPORTAL_VID
 # PyPortal PID
-device.pid = 0x8036
+device.usb_pid = PYPORTAL_PID
 
 # Connection type
 device.transport = device.TRANSPORT_WIFI
 
-# TODO: All of the above should be kept in the library,
-# or some type of master repository so one could
-# pass the device name into blinkaconnect
-# NOTE: The library should also contain the board's pin
-# mapping in addition to capibilities of each pin in the map
-
-# blinkaconnect library version
-device.version.major = 0
-device.version.minor = 0
-device.version.micro = 1
-device.version.label = "alpha.1"
+# blinkaconnect code.py version
+ver = __version__.split("-")
+device.version.major = int(ver[0].split(".")[0])
+device.version.minor = int(ver[0].split(".")[1])
+device.version.micro = int(ver[0].split(".")[2])
+device.version.label = ver[1]
 
 print(device)

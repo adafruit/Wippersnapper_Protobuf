@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"registration/v1/registration.proto\x12\x0fregistration.v1\"\x97\x03\n\x06\x44\x65vice\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03vid\x18\x02 \x01(\x04\x12\x0b\n\x03pid\x18\x03 \x01(\x04\x12\x34\n\ttransport\x18\x04 \x01(\x0e\x32!.registration.v1.Device.Transport\x12\x30\n\x07version\x18\x05 \x01(\x0b\x32\x1f.registration.v1.Device.Version\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\"\xb5\x01\n\tTransport\x12\x19\n\x15TRANSPORT_UNSPECIFIED\x10\x00\x12\x12\n\x0eTRANSPORT_WIFI\x10\x01\x12\x11\n\rTRANSPORT_ETH\x10\x02\x12\x19\n\x15TRANSPORT_CELLULAR_2G\x10\x03\x12\x19\n\x15TRANSPORT_CELLULAR_3G\x10\x04\x12\x19\n\x15TRANSPORT_CELLULAR_4G\x10\x05\x12\x15\n\x11TRANSPORT_LORAWAN\x10\x06\x62\x06proto3'
+  serialized_pb=b'\n\"registration/v1/registration.proto\x12\x0fregistration.v1\"\xa7\x03\n\x06\x44\x65vice\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x0f\n\x07usb_vid\x18\x02 \x01(\x04\x12\x0f\n\x07usb_pid\x18\x03 \x01(\x04\x12\x34\n\ttransport\x18\x04 \x01(\x0e\x32!.registration.v1.Device.Transport\x12\x30\n\x07version\x18\x05 \x01(\x0b\x32\x1f.registration.v1.Device.Version\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\"\xb5\x01\n\tTransport\x12\x19\n\x15TRANSPORT_UNSPECIFIED\x10\x00\x12\x12\n\x0eTRANSPORT_WIFI\x10\x01\x12\x11\n\rTRANSPORT_ETH\x10\x02\x12\x19\n\x15TRANSPORT_CELLULAR_2G\x10\x03\x12\x19\n\x15TRANSPORT_CELLULAR_3G\x10\x04\x12\x19\n\x15TRANSPORT_CELLULAR_4G\x10\x05\x12\x15\n\x11TRANSPORT_LORAWAN\x10\x06\x62\x06proto3'
 )
 
 
@@ -69,8 +69,8 @@ _DEVICE_TRANSPORT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=282,
-  serialized_end=463,
+  serialized_start=298,
+  serialized_end=479,
 )
 _sym_db.RegisterEnumDescriptor(_DEVICE_TRANSPORT)
 
@@ -123,8 +123,8 @@ _DEVICE_VERSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=210,
-  serialized_end=279,
+  serialized_start=226,
+  serialized_end=295,
 )
 
 _DEVICE = _descriptor.Descriptor(
@@ -136,21 +136,21 @@ _DEVICE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='registration.v1.Device.name', index=0,
+      name='display_name', full_name='registration.v1.Device.display_name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='vid', full_name='registration.v1.Device.vid', index=1,
+      name='usb_vid', full_name='registration.v1.Device.usb_vid', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pid', full_name='registration.v1.Device.pid', index=2,
+      name='usb_pid', full_name='registration.v1.Device.usb_pid', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -184,7 +184,7 @@ _DEVICE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=56,
-  serialized_end=463,
+  serialized_end=479,
 )
 
 _DEVICE_VERSION.containing_type = _DEVICE

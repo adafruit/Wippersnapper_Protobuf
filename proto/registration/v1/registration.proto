@@ -3,10 +3,10 @@ syntax = "proto3";
 package registration.v1;
 
 message Device {
-    string name         = 1; // User-defined device identifier, often the MQTT Client ID.
-    uint64 vid          = 2; // USB Vendor ID
-    uint64 pid          = 3; // USB Product ID
-    Transport transport = 4; // Data transport modes
+    string display_name = 1; // User-defined hardware identifier, often the MQTT Client ID.
+    uint64 usb_vid      = 2; // USB Vendor ID
+    uint64 usb_pid      = 3; // USB Product ID
+    Transport transport = 4; // Hardware's data transport mode
     Version version     = 5; // BlinkaConnect firmware/library version
 
     // Data transport modes supported by BlinkaConnect
@@ -20,7 +20,7 @@ message Device {
         TRANSPORT_LORAWAN     = 6; // LoRaWAN
       }
 
-    // Contains BlinkaConnect's firmware API version
+    // BlinkaConnect code.py version
     message Version {
         uint64 major = 1;
         uint64 minor = 2;
