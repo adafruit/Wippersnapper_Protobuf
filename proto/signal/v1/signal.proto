@@ -13,6 +13,7 @@ message Signal {
         Location location = 4; // Location metadata
         Pin pin           = 5; // Pin-specific command parameters
         PWM pwm           = 6; // PWM output command
+        Sensor sensor     = 7; // Unified Sensor API
       }
       Command command = 1;
 
@@ -28,21 +29,16 @@ message Signal {
       CMD_TYPE_UNSPECIFIED        = 0; // Unspecified/invalid command name
       CMD_TYPE_LOCATION           = 1; // Device location
       CMD_TYPE_BATTERY            = 2; // Device battery level
-      CMD_TYPE_LIST_PINS_ANALOG   = 3; // List all analog pins
-      CMD_TYPE_LIST_PINS_DIGITAL  = 4; // List all digital pins
-      CMD_TYPE_PIN_VALUE          = 5; // Digital or analog pin value
-      CMD_TYPE_PIN_MODE           = 6; // Digital or analog pin mode
-      CMD_TYPE_PWM_OUTPUT         = 7; // Output PWM on a provided pin
+      CMD_TYPE_PIN_VALUE          = 3; // Digital or analog pin value
+      CMD_TYPE_PIN_MODE           = 4; // Digital or analog pin mode
+      CMD_TYPE_PWM_OUTPUT         = 5; // Output PWM on a provided pin
+      CMD_TYPE_SENSOR             = 6; // Read sensor details
       // TODO: Add more commands here
     }
 }
 
 /* Unified Sensor API */
-
 message Sensor {
-
-    Sensor sensor = 1;
-
     // Data about the sensor itself
     message Type {
         string name = 1; // Sensor name
@@ -74,7 +70,6 @@ message Sensor {
             SENSOR_TYPE_COLOR               = 17;
         }
     }
-
     // Data about sensor event
     message Event {
         // sensor event identification
