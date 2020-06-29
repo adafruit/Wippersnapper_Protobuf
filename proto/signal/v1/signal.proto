@@ -4,24 +4,23 @@ package signal.v1;
 
 /* Signal Message */
 message Signal {
-
     /* Standard command message */
     message Command {
-        CmdMode mode      = 1; // Command mode
-        CmdType type      = 2; // Command type
-        string board_name = 3; // Hardware name
-        Location location = 4; // Location metadata
-        Pin pin           = 5; // Pin-specific command parameters
-        PWM pwm           = 6; // PWM output command
-        Sensor sensor     = 7; // Unified Sensor API
+        CmdMode mode           = 1; // Command mode
+        CmdType type           = 2; // Command type
+        string board_name      = 3; // Hardware name
+        Location location      = 4; // Location metadata
+        Pin pin                = 5; // Pin-specific command parameters
+        PWM pwm                = 6; // PWM output command
+        repeated Sensor sensors = 7; // Unified Sensor API
       }
       Command command = 1;
 
     /* BlinkaConnect command mode */
     enum CmdMode {
       CMD_MODE_UNSPECIFIED  = 0; // Unspecified/invalid command name
-      CMD_MODE_GET          = 1; // Gets data from a device OR IO
-      CMD_MODE_SET          = 2; // Sets data to a device OR IO
+      CMD_MODE_GET          = 1; // Gets data from a device or IO
+      CMD_MODE_SET          = 2; // Sets data from a device or IO
     }
 
     /* BlinkaConnect command types */
@@ -39,18 +38,19 @@ message Signal {
 
 /* Unified Sensor API */
 message Sensor {
-    // Data about the sensor itself
+    Type type = 1;
+    Event event = 2;
+
     message Type {
-        string name = 1; // Sensor name
-        int32 sensor_id = 2; // Unique sensor identifier
-        SensorType type = 3; // TODO: implement type enum
-        float max_value = 4; // Maximum value of this sensor's value in SI units.
-        float min_value = 5; // Minimum value of this sensor's value in SI units.
-        float resolution = 6; // Smallest difference between two values reported by this sensor.
+        string name              = 1; // Sensor name
+        int32 sensor_id          = 2; // Unique sensor identifier
+        SensorType type          = 3; // Sensor type identifier
+        float max_value          = 4; // Maximum value of this sensor's value in SI units.
+        float min_value          = 5; // Minimum value of this sensor's value in SI units.
+        float resolution         = 6; // Smallest difference between two values reported by this sensor.
         int32 measurement_period = 7; // Milliseconds between measurements
 
         enum SensorType {
-            // TODO: desc. for each sensor type
             SENSOR_TYPE_UNSPECIFIED         = 0; // Unspecified sensor type
             SENSOR_TYPE_ACCELEROMETER       = 1; //  Gravity + linear acceleration
             SENSOR_TYPE_MAGNETIC_FIELD      = 2;
@@ -70,22 +70,23 @@ message Sensor {
             SENSOR_TYPE_COLOR               = 17;
         }
     }
-    // Data about sensor event
+
+    // Data about a sensor event
     message Event {
         // sensor event identification
-        int32 sensor_id = 1;
+        int32 sensor_id   = 1;
         float sensor_type = 2; // TODO: This needs to be sensor_type enum.
-        int32 timestamp = 3; // event occurance, in milliseconds
+        int32 timestamp   = 3; // event occurance, in milliseconds
 
         // optional sensor data
-        float data = 4; // raw data
-        float temperature = 5; // in degrees centigrade (Celsius)
-        float distance = 6; // distance in centimeters
-        float light = 7; // light in SI lux units
-        float pressure = 8; //pressure in hectopascal (hPa)
+        float data              = 4; // raw data
+        float temperature       = 5; // in degrees centigrade (Celsius)
+        float distance          = 6; // distance in centimeters
+        float light             = 7; // light in SI lux units
+        float pressure          = 8; //pressure in hectopascal (hPa)
         float relative_humidity = 9; // relative humidity in percent
-        float current = 10; // current in milliamps (mA)
-        float voltage = 11; // voltage in volts (V)
+        float current           = 10; // current in milliamps (mA)
+        float voltage           = 11; // voltage in volts (V)
         // Special sensor data
         // TODO: Acceleration
         // TODO: Orientation
@@ -94,7 +95,6 @@ message Sensor {
         // TODO: Color
     }
 }
-
 
 // Device location
 message Location {
