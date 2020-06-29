@@ -19,60 +19,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"registration/v1/registration.proto\x12\x0fregistration.v1\"\xa7\x03\n\x06\x44\x65vice\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x0f\n\x07usb_vid\x18\x02 \x01(\x04\x12\x0f\n\x07usb_pid\x18\x03 \x01(\x04\x12\x34\n\ttransport\x18\x04 \x01(\x0e\x32!.registration.v1.Device.Transport\x12\x30\n\x07version\x18\x05 \x01(\x0b\x32\x1f.registration.v1.Device.Version\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\"\xb5\x01\n\tTransport\x12\x19\n\x15TRANSPORT_UNSPECIFIED\x10\x00\x12\x12\n\x0eTRANSPORT_WIFI\x10\x01\x12\x11\n\rTRANSPORT_ETH\x10\x02\x12\x19\n\x15TRANSPORT_CELLULAR_2G\x10\x03\x12\x19\n\x15TRANSPORT_CELLULAR_3G\x10\x04\x12\x19\n\x15TRANSPORT_CELLULAR_4G\x10\x05\x12\x15\n\x11TRANSPORT_LORAWAN\x10\x06\x62\x06proto3'
+  serialized_pb=b'\n\"registration/v1/registration.proto\x12\x0fregistration.v1\"\xb9\x01\n\x06\x44\x65vice\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x0f\n\x07usb_vid\x18\x02 \x01(\x04\x12\x0f\n\x07usb_pid\x18\x03 \x01(\x04\x12\x30\n\x07version\x18\x04 \x01(\x0b\x32\x1f.registration.v1.Device.Version\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\tb\x06proto3'
 )
 
 
-
-_DEVICE_TRANSPORT = _descriptor.EnumDescriptor(
-  name='Transport',
-  full_name='registration.v1.Device.Transport',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='TRANSPORT_UNSPECIFIED', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='TRANSPORT_WIFI', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='TRANSPORT_ETH', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='TRANSPORT_CELLULAR_2G', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='TRANSPORT_CELLULAR_3G', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='TRANSPORT_CELLULAR_4G', index=5, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='TRANSPORT_LORAWAN', index=6, number=6,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=298,
-  serialized_end=479,
-)
-_sym_db.RegisterEnumDescriptor(_DEVICE_TRANSPORT)
 
 
 _DEVICE_VERSION = _descriptor.Descriptor(
@@ -123,8 +73,8 @@ _DEVICE_VERSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=226,
-  serialized_end=295,
+  serialized_start=172,
+  serialized_end=241,
 )
 
 _DEVICE = _descriptor.Descriptor(
@@ -157,15 +107,8 @@ _DEVICE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='transport', full_name='registration.v1.Device.transport', index=3,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='version', full_name='registration.v1.Device.version', index=4,
-      number=5, type=11, cpp_type=10, label=1,
+      name='version', full_name='registration.v1.Device.version', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -175,7 +118,6 @@ _DEVICE = _descriptor.Descriptor(
   ],
   nested_types=[_DEVICE_VERSION, ],
   enum_types=[
-    _DEVICE_TRANSPORT,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -184,13 +126,11 @@ _DEVICE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=56,
-  serialized_end=479,
+  serialized_end=241,
 )
 
 _DEVICE_VERSION.containing_type = _DEVICE
-_DEVICE.fields_by_name['transport'].enum_type = _DEVICE_TRANSPORT
 _DEVICE.fields_by_name['version'].message_type = _DEVICE_VERSION
-_DEVICE_TRANSPORT.containing_type = _DEVICE
 DESCRIPTOR.message_types_by_name['Device'] = _DEVICE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 

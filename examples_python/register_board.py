@@ -18,9 +18,6 @@ device.usb_vid = PYPORTAL_VID
 # PyPortal PID
 device.usb_pid = PYPORTAL_PID
 
-# Connection type
-device.transport = device.TRANSPORT_WIFI
-
 # blinkaconnect code.py version
 ver = __version__.split("-")
 device.version.major = int(ver[0].split(".")[0])

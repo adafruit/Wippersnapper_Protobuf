@@ -6,19 +6,7 @@ message Device {
     string display_name = 1; // User-defined hardware identifier, often the MQTT Client ID.
     uint64 usb_vid      = 2; // USB Vendor ID
     uint64 usb_pid      = 3; // USB Product ID
-    Transport transport = 4; // Hardware's data transport mode
-    Version version     = 5; // BlinkaConnect firmware/library version
-
-    // Data transport modes supported by BlinkaConnect
-    enum Transport {
-        TRANSPORT_UNSPECIFIED = 0; // Unspecified transport mode
-        TRANSPORT_WIFI        = 1; // WiFi
-        TRANSPORT_ETH         = 2; // Ethernet
-        TRANSPORT_CELLULAR_2G = 3; // 2G GSM cellular
-        TRANSPORT_CELLULAR_3G = 4; // 3G cellular
-        TRANSPORT_CELLULAR_4G = 5; // 4G LTE cellular
-        TRANSPORT_LORAWAN     = 6; // LoRaWAN
-      }
+    Version version     = 4; // BlinkaConnect firmware/library version
 
     // BlinkaConnect code.py version
     message Version {
