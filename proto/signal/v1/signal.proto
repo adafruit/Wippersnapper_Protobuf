@@ -75,7 +75,7 @@ message Sensor {
     message Event {
         // sensor event identification
         int32 sensor_id   = 1;
-        float sensor_type = 2; // TODO: This needs to be sensor_type enum.
+        int32 sensor_type = 2; // TODO: This needs to be sensor_type enum.
         int32 timestamp   = 3; // event occurance, in milliseconds
 
         // optional sensor data
