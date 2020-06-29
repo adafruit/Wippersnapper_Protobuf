@@ -9,10 +9,10 @@ message Signal {
     message Command {
         CmdMode mode      = 1; // Command mode
         CmdType type      = 2; // Command type
-        Pin pin           = 3; // Pin-specific command parameters
-        string board_name = 4; // Hardware name
-        PWM pwm           = 5; // PWM output command
-        Location location = 6; // Location metadata
+        string board_name = 3; // Hardware name
+        Location location = 4; // Location metadata
+        Pin pin           = 5; // Pin-specific command parameters
+        PWM pwm           = 6; // PWM output command
       }
       Command command = 1;
 
@@ -36,6 +36,70 @@ message Signal {
       // TODO: Add more commands here
     }
 }
+
+/* Unified Sensor API */
+
+message Sensor {
+
+    Sensor sensor = 1;
+
+    // Data about the sensor itself
+    message Type {
+        string name = 1; // Sensor name
+        int32 sensor_id = 2; // Unique sensor identifier
+        SensorType type = 3; // TODO: implement type enum
+        float max_value = 4; // Maximum value of this sensor's value in SI units.
+        float min_value = 5; // Minimum value of this sensor's value in SI units.
+        float resolution = 6; // Smallest difference between two values reported by this sensor.
+        int32 measurement_period = 7; // Milliseconds between measurements
+
+        enum SensorType {
+            // TODO: desc. for each sensor type
+            SENSOR_TYPE_UNSPECIFIED         = 0; // Unspecified sensor type
+            SENSOR_TYPE_ACCELEROMETER       = 1; //  Gravity + linear acceleration
+            SENSOR_TYPE_MAGNETIC_FIELD      = 2;
+            SENSOR_TYPE_ORIENTATION         = 3;
+            SENSOR_TYPE_GYROSCOPE           = 4;
+            SENSOR_TYPE_LIGHT               = 5;
+            SENSOR_TYPE_PRESSURE            = 6;
+            SENSOR_TYPE_PROXIMITY           = 8;
+            SENSOR_TYPE_GRAVITY             = 9;
+            SENSOR_TYPE_LINEAR_ACCELERATION = 10; // Acceleration not including gravity
+            SENSOR_TYPE_ROTATION_VECTOR     = 11;
+            SENSOR_TYPE_RELATIVE_HUMIDITY   = 12;
+            SENSOR_TYPE_AMBIENT_TEMPERATURE = 13;
+            SENSOR_TYPE_OBJECT_TEMPERATURE  = 14;
+            SENSOR_TYPE_VOLTAGE             = 15;
+            SENSOR_TYPE_CURRENT             = 16;
+            SENSOR_TYPE_COLOR               = 17;
+        }
+    }
+
+    // Data about sensor event
+    message Event {
+        // sensor event identification
+        int32 sensor_id = 1;
+        float sensor_type = 2; // TODO: This needs to be sensor_type enum.
+        int32 timestamp = 3; // event occurance, in milliseconds
+
+        // optional sensor data
+        float data = 4; // raw data
+        float temperature = 5; // in degrees centigrade (Celsius)
+        float distance = 6; // distance in centimeters
+        float light = 7; // light in SI lux units
+        float pressure = 8; //pressure in hectopascal (hPa)
+        float relative_humidity = 9; // relative humidity in percent
+        float current = 10; // current in milliamps (mA)
+        float voltage = 11; // voltage in volts (V)
+        // Special sensor data
+        // TODO: Acceleration
+        // TODO: Orientation
+        // TODO: Gyro
+        // TODO: Magnetic
+        // TODO: Color
+    }
+}
+
 
 // Device location
 message Location {
