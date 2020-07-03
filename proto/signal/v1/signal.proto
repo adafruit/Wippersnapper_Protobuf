@@ -3,6 +3,7 @@ syntax = "proto3";
 package signal.v1;
 
 import "sensor/v1/sensor.proto";
+import "pin/v1/pin.proto";
 
 /* Signal Message */
 message Signal {
@@ -12,7 +13,7 @@ message Signal {
         CmdType type            = 2; // Command type
         string board_name       = 3; // Hardware name
         Location location       = 4; // Location metadata
-        Pin pin                 = 5; // Pin-specific command parameters
+        pin.v1.Pin pin                 = 5; // Pin-specific command parameters
         PWM pwm                 = 6; // PWM output command, TODO!
         repeated sensor.v1.Sensor sensors = 7; // Unified Sensor API
         Pixel pixel             = 8; // Pixel API
@@ -66,37 +67,6 @@ message Location {
     float latitude  = 1;
     float longitude = 2;
     float altitude  = 3;
-}
-
-/* Pin  API for interfacing with analog or digital pins  */
-message Pin {
-    string name         = 1; // Name of pin to access
-    Mode mode           = 2; // Pin mode
-    Direction direction = 3; // Pin direction
-    Pull pull           = 4; // Pull value
-    string value        = 5; // Pin value or logic level
-    int32 period        = 6; // Number of milliseconds between measurements
-
-    enum Mode {
-        MODE_UNSPECIFIED = 0; // Invalid pin mode
-        MODE_ANALOG      = 1; // Analog pin
-        MODE_DIGITAL     = 2; // Digital pin
-        MODE_PULL_UP     = 3; // Digital pin with a pull value
-    }
-
-    /* Defines which direction the values are going */
-    enum Direction {
-        DIRECTION_UNSPECIFIED = 0; // Invalid direction
-        DIRECTION_INPUT       = 1; // Read data in
-        DIRECTION_OUTPUT      = 2; // Write data out
-    }
-
-    /* Defines the pull value for digital pin reads */
-    enum Pull {
-        PULL_UNSPECIFIED = 0; // Invalid pull value
-        PULL_UP          = 1; // Pull the line high
-        PULL_DOWN        = 2; // Pull the line low
-    }
 }
 
 // PWM API for outputting a PWM signal on a provided pin 
