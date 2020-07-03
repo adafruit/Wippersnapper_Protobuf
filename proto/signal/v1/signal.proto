@@ -74,9 +74,9 @@ message Sensor {
         SensorVect magnetic     = 13; // magnetic vector values are in micro-Tesla (uT)
         SensorVect orientation  = 14; // orientation values are in degrees
         SensorVect gyro         = 15; // gyroscope values are in rad/s */
-        // TODO: sensors_color_t
+        SensorColor colors      = 16;
 
-        // used to return a vector in a common format
+        // Contains a vector in a common format
         message SensorVect {
             float x       = 1; // X component of vector
             float y       = 2; // Y component of vector
@@ -92,6 +92,14 @@ message Sensor {
                                  and magnetic north, measured clockwise when viewing from
                                  the top of the device. 0-359 degrees */
             bytes status = 7;
+        }
+
+        // Contains color data in a common format
+        message SensorColor {
+            float r     = 1; // Red component
+            float g     = 2; // Green component
+            float b     = 3; // Blue component
+            uint32 rgba = 4; // 24-bit RGBA value
         }
     }
 
