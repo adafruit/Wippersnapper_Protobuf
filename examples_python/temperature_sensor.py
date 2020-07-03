@@ -4,6 +4,12 @@ import sys
 sys.path.insert(1, 'signal/v1')
 import signal_pb2
 
+# Example: Send message from device to Adafruit IO advertising
+#           the pyportal's temperature sensor and light sensor.
+
+
+# TODO HERE!!
+
 # EXAMPLE: Send message from device advertising a temperature sensor to Adafruit IO
 # NOTE: This will create a new `component` on the device's definition
 signal = signal_pb2.Signal()
