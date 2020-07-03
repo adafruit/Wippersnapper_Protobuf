@@ -9,7 +9,7 @@ import "pixel/v1/pixel.proto";
 import "pwm/v1/pwm.proto";
 
 // Metadata
-import "location/v1/location.proto";
+//import "location/v1/location.proto";
 
 /* Signal Message */
 message Signal {
@@ -18,7 +18,7 @@ message Signal {
         CmdMode mode                      = 1; // Command mode
         CmdType type                      = 2; // Command type
         string board_name                 = 3; // Hardware name
-        location.v1.Location location     = 4; // Location metadata
+        //location.v1.Location loc        = 4; // Location metadata TODO, causing a compile include error
         pin.v1.Pin pin                    = 5; // Pin API
         pwm.v1.PWM pwm                    = 6; // Pulse-width-modulation API
         repeated sensor.v1.Sensor sensors = 7; // Unified Sensor API
@@ -31,6 +31,7 @@ message Signal {
       CMD_MODE_UNSPECIFIED = 0; // Unspecified/invalid command name
       CMD_MODE_GET         = 1; // Gets data from a device or IO
       CMD_MODE_SET         = 2; // Sets data from a device or IO
+      CMD_MODE_DEL         = 3; // Deletes a sensor/component from a device definition
     }
 
     /* BlinkaConnect command types */

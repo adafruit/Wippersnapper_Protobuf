@@ -12,6 +12,9 @@ _sym_db = _symbol_database.Default()
 
 
 from sensor.v1 import sensor_pb2 as sensor_dot_v1_dot_sensor__pb2
+from pin.v1 import pin_pb2 as pin_dot_v1_dot_pin__pb2
+from pixel.v1 import pixel_pb2 as pixel_dot_v1_dot_pixel__pb2
+from pwm.v1 import pwm_pb2 as pwm_dot_v1_dot_pwm__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16sensor/v1/sensor.proto\"\xd9\x04\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\x95\x02\n\x07\x43ommand\x12\'\n\x04mode\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdMode\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\x12\n\nboard_name\x18\x03 \x01(\t\x12%\n\x08location\x18\x04 \x01(\x0b\x32\x13.signal.v1.Location\x12\x1b\n\x03pin\x18\x05 \x01(\x0b\x32\x0e.signal.v1.Pin\x12\x1b\n\x03pwm\x18\x06 \x01(\x0b\x32\x0e.signal.v1.PWM\x12\"\n\x07sensors\x18\x07 \x03(\x0b\x32\x11.sensor.v1.Sensor\x12\x1f\n\x05pixel\x18\x08 \x01(\x0b\x32\x10.signal.v1.Pixel\"G\n\x07\x43mdMode\x12\x18\n\x14\x43MD_MODE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_MODE_GET\x10\x01\x12\x10\n\x0c\x43MD_MODE_SET\x10\x02\"\xc1\x01\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11\x43MD_TYPE_LOCATION\x10\x01\x12\x14\n\x10\x43MD_TYPE_BATTERY\x10\x02\x12\x16\n\x12\x43MD_TYPE_PIN_VALUE\x10\x03\x12\x15\n\x11\x43MD_TYPE_PIN_MODE\x10\x04\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x05\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x06\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x07\"\xa2\x02\n\x05Pixel\x12\x11\n\tpixel_pin\x18\x01 \x01(\x05\x12.\n\npixel_type\x18\x02 \x01(\x0e\x32\x1a.signal.v1.Pixel.PixelType\x12.\n\npixel_data\x18\x03 \x01(\x0b\x32\x1a.signal.v1.Pixel.PixelData\x12\x13\n\x0bpixelbuf_sz\x18\x04 \x01(\x05\x1a:\n\tPixelData\x12\x10\n\x08\x62yte_idx\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x03(\t\"U\n\tPixelType\x12\x1a\n\x16PIXEL_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11PIXEL_TYPE_WS2812\x10\x01\x12\x15\n\x11PIXEL_TYPE_APA201\x10\x02\"A\n\x08Location\x12\x10\n\x08latitude\x18\x01 \x01(\x02\x12\x11\n\tlongitude\x18\x02 \x01(\x02\x12\x10\n\x08\x61ltitude\x18\x03 \x01(\x02\"\x85\x03\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x04mode\x18\x02 \x01(\x0e\x32\x13.signal.v1.Pin.Mode\x12+\n\tdirection\x18\x03 \x01(\x0e\x32\x18.signal.v1.Pin.Direction\x12!\n\x04pull\x18\x04 \x01(\x0e\x32\x13.signal.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\x12\x0e\n\x06period\x18\x06 \x01(\x05\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\">\n\x03PWM\x12\x10\n\x08pin_name\x18\x01 \x01(\t\x12\x12\n\nduty_cycle\x18\x02 \x01(\x05\x12\x11\n\tfrequency\x18\x03 \x01(\x05\x62\x06proto3'
+  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16sensor/v1/sensor.proto\x1a\x10pin/v1/pin.proto\x1a\x14pixel/v1/pixel.proto\x1a\x10pwm/v1/pwm.proto\"\xbd\x04\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\xe7\x01\n\x07\x43ommand\x12\'\n\x04mode\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdMode\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\x12\n\nboard_name\x18\x03 \x01(\t\x12\x18\n\x03pin\x18\x05 \x01(\x0b\x32\x0b.pin.v1.Pin\x12\x18\n\x03pwm\x18\x06 \x01(\x0b\x32\x0b.pwm.v1.PWM\x12\"\n\x07sensors\x18\x07 \x03(\x0b\x32\x11.sensor.v1.Sensor\x12\x1e\n\x05pixel\x18\x08 \x01(\x0b\x32\x0f.pixel.v1.Pixel\"Y\n\x07\x43mdMode\x12\x18\n\x14\x43MD_MODE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_MODE_GET\x10\x01\x12\x10\n\x0c\x43MD_MODE_SET\x10\x02\x12\x10\n\x0c\x43MD_MODE_DEL\x10\x03\"\xc1\x01\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11\x43MD_TYPE_LOCATION\x10\x01\x12\x14\n\x10\x43MD_TYPE_BATTERY\x10\x02\x12\x16\n\x12\x43MD_TYPE_PIN_VALUE\x10\x03\x12\x15\n\x11\x43MD_TYPE_PIN_MODE\x10\x04\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x05\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x06\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x07\x62\x06proto3'
   ,
-  dependencies=[sensor_dot_v1_dot_sensor__pb2.DESCRIPTOR,])
+  dependencies=[sensor_dot_v1_dot_sensor__pb2.DESCRIPTOR,pin_dot_v1_dot_pin__pb2.DESCRIPTOR,pixel_dot_v1_dot_pixel__pb2.DESCRIPTOR,pwm_dot_v1_dot_pwm__pb2.DESCRIPTOR,])
 
 
 
@@ -48,11 +51,16 @@ _SIGNAL_CMDMODE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='CMD_MODE_DEL', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=396,
-  serialized_end=467,
+  serialized_start=408,
+  serialized_end=497,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_CMDMODE)
 
@@ -106,135 +114,10 @@ _SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=470,
-  serialized_end=663,
+  serialized_start=500,
+  serialized_end=693,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_CMDTYPE)
-
-_PIXEL_PIXELTYPE = _descriptor.EnumDescriptor(
-  name='PixelType',
-  full_name='signal.v1.Pixel.PixelType',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='PIXEL_TYPE_UNSPECIFIED', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='PIXEL_TYPE_WS2812', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='PIXEL_TYPE_APA201', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=871,
-  serialized_end=956,
-)
-_sym_db.RegisterEnumDescriptor(_PIXEL_PIXELTYPE)
-
-_PIN_MODE = _descriptor.EnumDescriptor(
-  name='Mode',
-  full_name='signal.v1.Pin.Mode',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='MODE_UNSPECIFIED', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='MODE_ANALOG', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='MODE_DIGITAL', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='MODE_PULL_UP', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=1193,
-  serialized_end=1274,
-)
-_sym_db.RegisterEnumDescriptor(_PIN_MODE)
-
-_PIN_DIRECTION = _descriptor.EnumDescriptor(
-  name='Direction',
-  full_name='signal.v1.Pin.Direction',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='DIRECTION_UNSPECIFIED', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='DIRECTION_INPUT', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='DIRECTION_OUTPUT', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=1276,
-  serialized_end=1357,
-)
-_sym_db.RegisterEnumDescriptor(_PIN_DIRECTION)
-
-_PIN_PULL = _descriptor.EnumDescriptor(
-  name='Pull',
-  full_name='signal.v1.Pin.Pull',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='PULL_UNSPECIFIED', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='PULL_UP', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='PULL_DOWN', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=1359,
-  serialized_end=1415,
-)
-_sym_db.RegisterEnumDescriptor(_PIN_PULL)
 
 
 _SIGNAL_COMMAND = _descriptor.Descriptor(
@@ -267,35 +150,28 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='location', full_name='signal.v1.Signal.Command.location', index=3,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='pin', full_name='signal.v1.Signal.Command.pin', index=4,
+      name='pin', full_name='signal.v1.Signal.Command.pin', index=3,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pwm', full_name='signal.v1.Signal.Command.pwm', index=5,
+      name='pwm', full_name='signal.v1.Signal.Command.pwm', index=4,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sensors', full_name='signal.v1.Signal.Command.sensors', index=6,
+      name='sensors', full_name='signal.v1.Signal.Command.sensors', index=5,
       number=7, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pixel', full_name='signal.v1.Signal.Command.pixel', index=7,
+      name='pixel', full_name='signal.v1.Signal.Command.pixel', index=6,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -313,8 +189,8 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=117,
-  serialized_end=394,
+  serialized_start=175,
+  serialized_end=406,
 )
 
 _SIGNAL = _descriptor.Descriptor(
@@ -346,297 +222,21 @@ _SIGNAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=62,
-  serialized_end=663,
-)
-
-
-_PIXEL_PIXELDATA = _descriptor.Descriptor(
-  name='PixelData',
-  full_name='signal.v1.Pixel.PixelData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='byte_idx', full_name='signal.v1.Pixel.PixelData.byte_idx', index=0,
-      number=1, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='flags', full_name='signal.v1.Pixel.PixelData.flags', index=1,
-      number=2, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='data', full_name='signal.v1.Pixel.PixelData.data', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=811,
-  serialized_end=869,
-)
-
-_PIXEL = _descriptor.Descriptor(
-  name='Pixel',
-  full_name='signal.v1.Pixel',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='pixel_pin', full_name='signal.v1.Pixel.pixel_pin', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='pixel_type', full_name='signal.v1.Pixel.pixel_type', index=1,
-      number=2, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='pixel_data', full_name='signal.v1.Pixel.pixel_data', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='pixelbuf_sz', full_name='signal.v1.Pixel.pixelbuf_sz', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[_PIXEL_PIXELDATA, ],
-  enum_types=[
-    _PIXEL_PIXELTYPE,
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=666,
-  serialized_end=956,
-)
-
-
-_LOCATION = _descriptor.Descriptor(
-  name='Location',
-  full_name='signal.v1.Location',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='latitude', full_name='signal.v1.Location.latitude', index=0,
-      number=1, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='longitude', full_name='signal.v1.Location.longitude', index=1,
-      number=2, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='altitude', full_name='signal.v1.Location.altitude', index=2,
-      number=3, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=958,
-  serialized_end=1023,
-)
-
-
-_PIN = _descriptor.Descriptor(
-  name='Pin',
-  full_name='signal.v1.Pin',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='signal.v1.Pin.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='mode', full_name='signal.v1.Pin.mode', index=1,
-      number=2, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='direction', full_name='signal.v1.Pin.direction', index=2,
-      number=3, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='pull', full_name='signal.v1.Pin.pull', index=3,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='signal.v1.Pin.value', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='period', full_name='signal.v1.Pin.period', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-    _PIN_MODE,
-    _PIN_DIRECTION,
-    _PIN_PULL,
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1026,
-  serialized_end=1415,
-)
-
-
-_PWM = _descriptor.Descriptor(
-  name='PWM',
-  full_name='signal.v1.PWM',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='pin_name', full_name='signal.v1.PWM.pin_name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='duty_cycle', full_name='signal.v1.PWM.duty_cycle', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='frequency', full_name='signal.v1.PWM.frequency', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1417,
-  serialized_end=1479,
+  serialized_start=120,
+  serialized_end=693,
 )
 
 _SIGNAL_COMMAND.fields_by_name['mode'].enum_type = _SIGNAL_CMDMODE
 _SIGNAL_COMMAND.fields_by_name['type'].enum_type = _SIGNAL_CMDTYPE
-_SIGNAL_COMMAND.fields_by_name['location'].message_type = _LOCATION
-_SIGNAL_COMMAND.fields_by_name['pin'].message_type = _PIN
-_SIGNAL_COMMAND.fields_by_name['pwm'].message_type = _PWM
+_SIGNAL_COMMAND.fields_by_name['pin'].message_type = pin_dot_v1_dot_pin__pb2._PIN
+_SIGNAL_COMMAND.fields_by_name['pwm'].message_type = pwm_dot_v1_dot_pwm__pb2._PWM
 _SIGNAL_COMMAND.fields_by_name['sensors'].message_type = sensor_dot_v1_dot_sensor__pb2._SENSOR
-_SIGNAL_COMMAND.fields_by_name['pixel'].message_type = _PIXEL
+_SIGNAL_COMMAND.fields_by_name['pixel'].message_type = pixel_dot_v1_dot_pixel__pb2._PIXEL
 _SIGNAL_COMMAND.containing_type = _SIGNAL
 _SIGNAL.fields_by_name['command'].message_type = _SIGNAL_COMMAND
 _SIGNAL_CMDMODE.containing_type = _SIGNAL
 _SIGNAL_CMDTYPE.containing_type = _SIGNAL
-_PIXEL_PIXELDATA.containing_type = _PIXEL
-_PIXEL.fields_by_name['pixel_type'].enum_type = _PIXEL_PIXELTYPE
-_PIXEL.fields_by_name['pixel_data'].message_type = _PIXEL_PIXELDATA
-_PIXEL_PIXELTYPE.containing_type = _PIXEL
-_PIN.fields_by_name['mode'].enum_type = _PIN_MODE
-_PIN.fields_by_name['direction'].enum_type = _PIN_DIRECTION
-_PIN.fields_by_name['pull'].enum_type = _PIN_PULL
-_PIN_MODE.containing_type = _PIN
-_PIN_DIRECTION.containing_type = _PIN
-_PIN_PULL.containing_type = _PIN
 DESCRIPTOR.message_types_by_name['Signal'] = _SIGNAL
-DESCRIPTOR.message_types_by_name['Pixel'] = _PIXEL
-DESCRIPTOR.message_types_by_name['Location'] = _LOCATION
-DESCRIPTOR.message_types_by_name['Pin'] = _PIN
-DESCRIPTOR.message_types_by_name['PWM'] = _PWM
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Signal = _reflection.GeneratedProtocolMessageType('Signal', (_message.Message,), {
@@ -653,42 +253,6 @@ Signal = _reflection.GeneratedProtocolMessageType('Signal', (_message.Message,),
   })
 _sym_db.RegisterMessage(Signal)
 _sym_db.RegisterMessage(Signal.Command)
-
-Pixel = _reflection.GeneratedProtocolMessageType('Pixel', (_message.Message,), {
-
-  'PixelData' : _reflection.GeneratedProtocolMessageType('PixelData', (_message.Message,), {
-    'DESCRIPTOR' : _PIXEL_PIXELDATA,
-    '__module__' : 'signal.v1.signal_pb2'
-    # @@protoc_insertion_point(class_scope:signal.v1.Pixel.PixelData)
-    })
-  ,
-  'DESCRIPTOR' : _PIXEL,
-  '__module__' : 'signal.v1.signal_pb2'
-  # @@protoc_insertion_point(class_scope:signal.v1.Pixel)
-  })
-_sym_db.RegisterMessage(Pixel)
-_sym_db.RegisterMessage(Pixel.PixelData)
-
-Location = _reflection.GeneratedProtocolMessageType('Location', (_message.Message,), {
-  'DESCRIPTOR' : _LOCATION,
-  '__module__' : 'signal.v1.signal_pb2'
-  # @@protoc_insertion_point(class_scope:signal.v1.Location)
-  })
-_sym_db.RegisterMessage(Location)
-
-Pin = _reflection.GeneratedProtocolMessageType('Pin', (_message.Message,), {
-  'DESCRIPTOR' : _PIN,
-  '__module__' : 'signal.v1.signal_pb2'
-  # @@protoc_insertion_point(class_scope:signal.v1.Pin)
-  })
-_sym_db.RegisterMessage(Pin)
-
-PWM = _reflection.GeneratedProtocolMessageType('PWM', (_message.Message,), {
-  'DESCRIPTOR' : _PWM,
-  '__module__' : 'signal.v1.signal_pb2'
-  # @@protoc_insertion_point(class_scope:signal.v1.PWM)
-  })
-_sym_db.RegisterMessage(PWM)
 
 
 # @@protoc_insertion_point(module_scope)
