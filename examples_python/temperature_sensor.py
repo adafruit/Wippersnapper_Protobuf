@@ -4,8 +4,7 @@ import sys
 sys.path.insert(1, 'signal/v1')
 import signal_pb2
 
-
-# Send message from device advertising a temperature sensor to Adafruit IO
+# EXAMPLE: Send message from device advertising a temperature sensor to Adafruit IO
 # NOTE: This will create a new `component` on the device's definition
 signal = signal_pb2.Signal()
 cmd = signal.command
@@ -20,7 +19,22 @@ cmd.sensor.type.measurement_period = 0
 cmd.sensor.type.min_value = -55.0
 cmd.sensor.type.max_value = 150.0
 cmd.sensor.type.resolution = 0.01
-print('* Signal Message \n', signal)
 
-signal = signal.SerializeToString()
-print("* Serialized signal message \n", signal)
+print('* Signal Message \n', signal)
+msg = signal.SerializeToString()
+print("* Serialized signal message\n", msg)
+signal.Clear() # clean up
+
+# EXAMPLE: Send sensor event data from device to Adafruit IO
+signal = signal_pb2.Signal()
+cmd = signal.command
+cmd.mode = signal.CMD_MODE_SET
+cmd.type = signal.CMD_TYPE_SENSOR
+cmd.sensor.event.sensor_id = 0x01
+cmd.sensor.event.timestamp = 0 # TODO: pull this from cpython timestamp monotonic
+cmd.sensor.event.temperature = 32.0
+
+print('\n* Signal Message \n', signal)
+msg = signal.SerializeToString()
+print("* Serialized signal message\n", msg)
+signal.Clear() # clean up
