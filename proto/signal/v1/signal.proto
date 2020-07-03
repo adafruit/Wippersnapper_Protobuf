@@ -43,41 +43,21 @@ message Sensor {
     Event event = 2;
 
     message Type {
-        string name              = 1; // Sensor name
+        string name              = 1; // Sensor object name.
         int32 sensor_id          = 2; // Unique sensor identifier
-        SensorType type          = 3; // Sensor type identifier
-        float max_value          = 4; // Maximum value of this sensor's value in SI units.
-        float min_value          = 5; // Minimum value of this sensor's value in SI units.
-        float resolution         = 6; // Smallest difference between two values reported by this sensor.
-        int32 measurement_period = 7; // Milliseconds between measurements
-
-        enum SensorType {
-            SENSOR_TYPE_UNSPECIFIED         = 0; // Unspecified sensor type
-            SENSOR_TYPE_ACCELEROMETER       = 1; //  Gravity + linear acceleration
-            SENSOR_TYPE_MAGNETIC_FIELD      = 2;
-            SENSOR_TYPE_ORIENTATION         = 3;
-            SENSOR_TYPE_GYROSCOPE           = 4;
-            SENSOR_TYPE_LIGHT               = 5;
-            SENSOR_TYPE_PRESSURE            = 6;
-            SENSOR_TYPE_PROXIMITY           = 8;
-            SENSOR_TYPE_GRAVITY             = 9;
-            SENSOR_TYPE_LINEAR_ACCELERATION = 10; // Acceleration not including gravity
-            SENSOR_TYPE_ROTATION_VECTOR     = 11;
-            SENSOR_TYPE_RELATIVE_HUMIDITY   = 12;
-            SENSOR_TYPE_AMBIENT_TEMPERATURE = 13;
-            SENSOR_TYPE_OBJECT_TEMPERATURE  = 14;
-            SENSOR_TYPE_VOLTAGE             = 15;
-            SENSOR_TYPE_CURRENT             = 16;
-            SENSOR_TYPE_COLOR               = 17;
-        }
+        Sensor.SensorType type          = 3; // Optional, sensor type identifier
+        float max_value          = 4; // Optional, maximum value of this sensor's value in SI units.
+        float min_value          = 5; // Optional, minumum value of this sensor's value in SI units.
+        float resolution         = 6; // Optional, smallest difference between two values reported by this sensor.
+        int32 measurement_period = 7; // Optional, milliseconds between measurements
     }
 
     // Data about a sensor event
     message Event {
         // sensor event identification
-        int32 sensor_id   = 1;
-        int32 sensor_type = 2; // TODO: This needs to be sensor_type enum.
-        int32 timestamp   = 3; // event occurance, in milliseconds
+        int32 sensor_id        = 1;
+        Sensor.SensorType type = 2; // Optional, sensor type identifier
+        int32 timestamp        = 3; // event occurance, in milliseconds
 
         // optional sensor data
         float data              = 4; // raw data
@@ -95,6 +75,28 @@ message Sensor {
         // TODO: Magnetic
         // TODO: Color
     }
+
+    // Sensor types
+    enum SensorType {
+        SENSOR_TYPE_UNSPECIFIED         = 0; // Unspecified sensor type
+        SENSOR_TYPE_ACCELEROMETER       = 1; //  Gravity + linear acceleration
+        SENSOR_TYPE_MAGNETIC_FIELD      = 2;
+        SENSOR_TYPE_ORIENTATION         = 3;
+        SENSOR_TYPE_GYROSCOPE           = 4;
+        SENSOR_TYPE_LIGHT               = 5;
+        SENSOR_TYPE_PRESSURE            = 6;
+        SENSOR_TYPE_PROXIMITY           = 8;
+        SENSOR_TYPE_GRAVITY             = 9;
+        SENSOR_TYPE_LINEAR_ACCELERATION = 10; // Acceleration not including gravity
+        SENSOR_TYPE_ROTATION_VECTOR     = 11;
+        SENSOR_TYPE_RELATIVE_HUMIDITY   = 12;
+        SENSOR_TYPE_AMBIENT_TEMPERATURE = 13;
+        SENSOR_TYPE_OBJECT_TEMPERATURE  = 14;
+        SENSOR_TYPE_VOLTAGE             = 15;
+        SENSOR_TYPE_CURRENT             = 16;
+        SENSOR_TYPE_COLOR               = 17;
+    }
+
 }
 
 // Addressable Pixel API
