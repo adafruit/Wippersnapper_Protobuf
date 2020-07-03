@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package location.v1;
+
+// Device location
+message Location {
+    float latitude  = 1;
+    float longitude = 2;
+    float altitude  = 3;
+}
