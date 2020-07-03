@@ -6,37 +6,38 @@ package signal.v1;
 message Signal {
     /* Standard command message */
     message Command {
-        CmdMode mode           = 1; // Command mode
-        CmdType type           = 2; // Command type
-        string board_name      = 3; // Hardware name
-        Location location      = 4; // Location metadata
-        Pin pin                = 5; // Pin-specific command parameters
-        PWM pwm                = 6; // PWM output command
+        CmdMode mode            = 1; // Command mode
+        CmdType type            = 2; // Command type
+        string board_name       = 3; // Hardware name
+        Location location       = 4; // Location metadata
+        Pin pin                 = 5; // Pin-specific command parameters
+        PWM pwm                 = 6; // PWM output command, TODO!
         repeated Sensor sensors = 7; // Unified Sensor API
+        Pixel pixel             = 8; // Pixel API
       }
       Command command = 1;
 
     /* BlinkaConnect command mode */
     enum CmdMode {
-      CMD_MODE_UNSPECIFIED  = 0; // Unspecified/invalid command name
-      CMD_MODE_GET          = 1; // Gets data from a device or IO
-      CMD_MODE_SET          = 2; // Sets data from a device or IO
+      CMD_MODE_UNSPECIFIED = 0; // Unspecified/invalid command name
+      CMD_MODE_GET         = 1; // Gets data from a device or IO
+      CMD_MODE_SET         = 2; // Sets data from a device or IO
     }
 
     /* BlinkaConnect command types */
     enum CmdType {
-      CMD_TYPE_UNSPECIFIED        = 0; // Unspecified/invalid command name
-      CMD_TYPE_LOCATION           = 1; // Device location
-      CMD_TYPE_BATTERY            = 2; // Device battery level
-      CMD_TYPE_PIN_VALUE          = 3; // Digital or analog pin value
-      CMD_TYPE_PIN_MODE           = 4; // Digital or analog pin mode
-      CMD_TYPE_PWM_OUTPUT         = 5; // Output PWM on a provided pin
-      CMD_TYPE_SENSOR             = 6; // Read sensor details
-      // TODO: Add more commands here
+      CMD_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
+      CMD_TYPE_LOCATION    = 1; // Device location
+      CMD_TYPE_BATTERY     = 2; // Device battery level
+      CMD_TYPE_PIN_VALUE   = 3; // Digital or analog pin value
+      CMD_TYPE_PIN_MODE    = 4; // Digital or analog pin mode
+      CMD_TYPE_PWM_OUTPUT  = 5; // Output PWM on a provided pin
+      CMD_TYPE_SENSOR      = 6; // Read sensor details
+      CMD_TYPE_PIXEL       = 7; // Pixel API
     }
 }
 
-/* Unified Sensor API */
+// Unified sensor API
 message Sensor {
     Type type = 1;
     Event event = 2;
@@ -104,8 +105,8 @@ message Pixel {
     int32 pixelbuf_sz    = 4; // Buffer size required to store the pixel_data
 
     message PixelData {
-        uint32 byte_idx = 1;
-        uint32 flags = 2;
+        uint32 byte_idx      = 1;
+        uint32 flags         = 2;
         repeated string data = 3;
     }
 
@@ -119,9 +120,9 @@ message Pixel {
 
 // Device location
 message Location {
-    float latitude   = 1;
-    float longitude  = 2;
-    float altitude   = 3;
+    float latitude  = 1;
+    float longitude = 2;
+    float altitude  = 3;
 }
 
 /* Pin  API for interfacing with analog or digital pins  */
