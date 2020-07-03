@@ -60,20 +60,39 @@ message Sensor {
         int32 timestamp               = 3; // event occurance, in milliseconds
 
         // optional sensor data
-        float data              = 4; // raw data
-        float temperature       = 5; // in degrees centigrade (Celsius)
-        float distance          = 6; // distance in centimeters
-        float light             = 7; // light in SI lux units
-        float pressure          = 8; //pressure in hectopascal (hPa)
-        float relative_humidity = 9; // relative humidity in percent
-        float current           = 10; // current in milliamps (mA)
-        float voltage           = 11; // voltage in volts (V)
+        float data               = 4; // raw data
+        float temperature        = 5; // in degrees centigrade (Celsius)
+        float distance           = 6; // distance in centimeters
+        float light              = 7; // light in SI lux units
+        float pressure           = 8; //pressure in hectopascal (hPa)
+        float relative_humidity  = 9; // relative humidity in percent
+        float current            = 10; // current in milliamps (mA)
+        float voltage            = 11; // voltage in volts (V)
         // Special sensor data
-        // TODO: Acceleration
-        // TODO: Orientation
-        // TODO: Gyro
-        // TODO: Magnetic
-        // TODO: Color
+        SensorVect acceleration = 12; /* acceleration values are in meter per second
+                                   per second (m/s^2) */
+        SensorVect magnetic     = 13; // magnetic vector values are in micro-Tesla (uT)
+        SensorVect orientation  = 14; // orientation values are in degrees
+        SensorVect gyro         = 15; // gyroscope values are in rad/s */
+        // TODO: sensors_color_t
+
+        // used to return a vector in a common format
+        message SensorVect {
+            float x       = 1; // X component of vector
+            float y       = 2; // Y component of vector
+            float z       = 3; // Z component of vector
+            // orientation sensors
+            float roll    = 4; /* Rotation around the longitudinal axis (the plane body, 'X
+                                 axis'). Roll is positive and increasing when moving
+                                 downward. -90 degrees <= roll <= 90 degrees */
+            float pitch   = 5; /* Rotation around the lateral axis (the wing span, 'Y
+                                 axis'). Pitch is positive and increasing when moving
+                                 upwards. -180 degrees <= pitch <= 180 degrees) */
+            float heading = 6; /* Angle between the longitudinal axis (the plane body)
+                                 and magnetic north, measured clockwise when viewing from
+                                 the top of the device. 0-359 degrees */
+            bytes status = 7;
+        }
     }
 
     // Sensor types
