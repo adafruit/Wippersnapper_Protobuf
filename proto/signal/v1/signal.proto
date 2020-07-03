@@ -12,7 +12,7 @@ message Signal {
         Location location       = 4; // Location metadata
         Pin pin                 = 5; // Pin-specific command parameters
         PWM pwm                 = 6; // PWM output command, TODO!
-        Sensor sensor = 7; // Unified Sensor API
+        repeated Sensor sensors = 7; // Unified Sensor API
         Pixel pixel             = 8; // Pixel API
       }
       Command command = 1;

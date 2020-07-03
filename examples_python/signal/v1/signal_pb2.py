@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\"\xd8\x04\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\x94\x02\n\x07\x43ommand\x12\'\n\x04mode\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdMode\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\x12\n\nboard_name\x18\x03 \x01(\t\x12%\n\x08location\x18\x04 \x01(\x0b\x32\x13.signal.v1.Location\x12\x1b\n\x03pin\x18\x05 \x01(\x0b\x32\x0e.signal.v1.Pin\x12\x1b\n\x03pwm\x18\x06 \x01(\x0b\x32\x0e.signal.v1.PWM\x12!\n\x06sensor\x18\x07 \x01(\x0b\x32\x11.signal.v1.Sensor\x12\x1f\n\x05pixel\x18\x08 \x01(\x0b\x32\x10.signal.v1.Pixel\"G\n\x07\x43mdMode\x12\x18\n\x14\x43MD_MODE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_MODE_GET\x10\x01\x12\x10\n\x0c\x43MD_MODE_SET\x10\x02\"\xc1\x01\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11\x43MD_TYPE_LOCATION\x10\x01\x12\x14\n\x10\x43MD_TYPE_BATTERY\x10\x02\x12\x16\n\x12\x43MD_TYPE_PIN_VALUE\x10\x03\x12\x15\n\x11\x43MD_TYPE_PIN_MODE\x10\x04\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x05\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x06\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x07\"\xbd\x0b\n\x06Sensor\x12$\n\x04type\x18\x01 \x01(\x0b\x32\x16.signal.v1.Sensor.Type\x12&\n\x05\x65vent\x18\x02 \x01(\x0b\x32\x17.signal.v1.Sensor.Event\x1a\xb0\x01\n\x04Type\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tsensor_id\x18\x02 \x01(\x05\x12\x31\n\x0bsensor_type\x18\x03 \x01(\x0e\x32\x1c.signal.v1.Sensor.SensorType\x12\x11\n\tmax_value\x18\x04 \x01(\x02\x12\x11\n\tmin_value\x18\x05 \x01(\x02\x12\x12\n\nresolution\x18\x06 \x01(\x02\x12\x1a\n\x12measurement_period\x18\x07 \x01(\x05\x1a\xae\x05\n\x05\x45vent\x12\x11\n\tsensor_id\x18\x01 \x01(\x05\x12\x31\n\x0bsensor_type\x18\x02 \x01(\x0e\x32\x1c.signal.v1.Sensor.SensorType\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x04 \x01(\x02\x12\x13\n\x0btemperature\x18\x05 \x01(\x02\x12\x10\n\x08\x64istance\x18\x06 \x01(\x02\x12\r\n\x05light\x18\x07 \x01(\x02\x12\x10\n\x08pressure\x18\x08 \x01(\x02\x12\x19\n\x11relative_humidity\x18\t \x01(\x02\x12\x0f\n\x07\x63urrent\x18\n \x01(\x02\x12\x0f\n\x07voltage\x18\x0b \x01(\x02\x12\x38\n\x0c\x61\x63\x63\x65leration\x18\x0c \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x34\n\x08magnetic\x18\r \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x37\n\x0borientation\x18\x0e \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x30\n\x04gyro\x18\x0f \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x33\n\x06\x63olors\x18\x10 \x01(\x0b\x32#.signal.v1.Sensor.Event.SensorColor\x1ak\n\nSensorVect\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\x0c\n\x04roll\x18\x04 \x01(\x02\x12\r\n\x05pitch\x18\x05 \x01(\x02\x12\x0f\n\x07heading\x18\x06 \x01(\x02\x12\x0e\n\x06status\x18\x07 \x01(\x0c\x1a<\n\x0bSensorColor\x12\t\n\x01r\x18\x01 \x01(\x02\x12\t\n\x01g\x18\x02 \x01(\x02\x12\t\n\x01\x62\x18\x03 \x01(\x02\x12\x0c\n\x04rgba\x18\x04 \x01(\r\"\x80\x04\n\nSensorType\x12\x1b\n\x17SENSOR_TYPE_UNSPECIFIED\x10\x00\x12\x1d\n\x19SENSOR_TYPE_ACCELEROMETER\x10\x01\x12\x1e\n\x1aSENSOR_TYPE_MAGNETIC_FIELD\x10\x02\x12\x1b\n\x17SENSOR_TYPE_ORIENTATION\x10\x03\x12\x19\n\x15SENSOR_TYPE_GYROSCOPE\x10\x04\x12\x15\n\x11SENSOR_TYPE_LIGHT\x10\x05\x12\x18\n\x14SENSOR_TYPE_PRESSURE\x10\x06\x12\x19\n\x15SENSOR_TYPE_PROXIMITY\x10\x08\x12\x17\n\x13SENSOR_TYPE_GRAVITY\x10\t\x12#\n\x1fSENSOR_TYPE_LINEAR_ACCELERATION\x10\n\x12\x1f\n\x1bSENSOR_TYPE_ROTATION_VECTOR\x10\x0b\x12!\n\x1dSENSOR_TYPE_RELATIVE_HUMIDITY\x10\x0c\x12#\n\x1fSENSOR_TYPE_AMBIENT_TEMPERATURE\x10\r\x12\"\n\x1eSENSOR_TYPE_OBJECT_TEMPERATURE\x10\x0e\x12\x17\n\x13SENSOR_TYPE_VOLTAGE\x10\x0f\x12\x17\n\x13SENSOR_TYPE_CURRENT\x10\x10\x12\x15\n\x11SENSOR_TYPE_COLOR\x10\x11\"\xa2\x02\n\x05Pixel\x12\x11\n\tpixel_pin\x18\x01 \x01(\x05\x12.\n\npixel_type\x18\x02 \x01(\x0e\x32\x1a.signal.v1.Pixel.PixelType\x12.\n\npixel_data\x18\x03 \x01(\x0b\x32\x1a.signal.v1.Pixel.PixelData\x12\x13\n\x0bpixelbuf_sz\x18\x04 \x01(\x05\x1a:\n\tPixelData\x12\x10\n\x08\x62yte_idx\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x03(\t\"U\n\tPixelType\x12\x1a\n\x16PIXEL_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11PIXEL_TYPE_WS2812\x10\x01\x12\x15\n\x11PIXEL_TYPE_APA201\x10\x02\"A\n\x08Location\x12\x10\n\x08latitude\x18\x01 \x01(\x02\x12\x11\n\tlongitude\x18\x02 \x01(\x02\x12\x10\n\x08\x61ltitude\x18\x03 \x01(\x02\"\x85\x03\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x04mode\x18\x02 \x01(\x0e\x32\x13.signal.v1.Pin.Mode\x12+\n\tdirection\x18\x03 \x01(\x0e\x32\x18.signal.v1.Pin.Direction\x12!\n\x04pull\x18\x04 \x01(\x0e\x32\x13.signal.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\x12\x0e\n\x06period\x18\x06 \x01(\x05\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\">\n\x03PWM\x12\x10\n\x08pin_name\x18\x01 \x01(\t\x12\x12\n\nduty_cycle\x18\x02 \x01(\x05\x12\x11\n\tfrequency\x18\x03 \x01(\x05\x62\x06proto3'
+  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\"\xd9\x04\n\x06Signal\x12*\n\x07\x63ommand\x18\x01 \x01(\x0b\x32\x19.signal.v1.Signal.Command\x1a\x95\x02\n\x07\x43ommand\x12\'\n\x04mode\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdMode\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\x12\n\nboard_name\x18\x03 \x01(\t\x12%\n\x08location\x18\x04 \x01(\x0b\x32\x13.signal.v1.Location\x12\x1b\n\x03pin\x18\x05 \x01(\x0b\x32\x0e.signal.v1.Pin\x12\x1b\n\x03pwm\x18\x06 \x01(\x0b\x32\x0e.signal.v1.PWM\x12\"\n\x07sensors\x18\x07 \x03(\x0b\x32\x11.signal.v1.Sensor\x12\x1f\n\x05pixel\x18\x08 \x01(\x0b\x32\x10.signal.v1.Pixel\"G\n\x07\x43mdMode\x12\x18\n\x14\x43MD_MODE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_MODE_GET\x10\x01\x12\x10\n\x0c\x43MD_MODE_SET\x10\x02\"\xc1\x01\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11\x43MD_TYPE_LOCATION\x10\x01\x12\x14\n\x10\x43MD_TYPE_BATTERY\x10\x02\x12\x16\n\x12\x43MD_TYPE_PIN_VALUE\x10\x03\x12\x15\n\x11\x43MD_TYPE_PIN_MODE\x10\x04\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x05\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x06\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x07\"\xc8\x0b\n\x06Sensor\x12$\n\x04type\x18\x01 \x01(\x0b\x32\x16.signal.v1.Sensor.Type\x12&\n\x05\x65vent\x18\x02 \x01(\x0b\x32\x17.signal.v1.Sensor.Event\x12\t\n\x01i\x18\x03 \x01(\t\x1a\xb0\x01\n\x04Type\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tsensor_id\x18\x02 \x01(\x05\x12\x31\n\x0bsensor_type\x18\x03 \x01(\x0e\x32\x1c.signal.v1.Sensor.SensorType\x12\x11\n\tmax_value\x18\x04 \x01(\x02\x12\x11\n\tmin_value\x18\x05 \x01(\x02\x12\x12\n\nresolution\x18\x06 \x01(\x02\x12\x1a\n\x12measurement_period\x18\x07 \x01(\x05\x1a\xae\x05\n\x05\x45vent\x12\x11\n\tsensor_id\x18\x01 \x01(\x05\x12\x31\n\x0bsensor_type\x18\x02 \x01(\x0e\x32\x1c.signal.v1.Sensor.SensorType\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x04 \x01(\x02\x12\x13\n\x0btemperature\x18\x05 \x01(\x02\x12\x10\n\x08\x64istance\x18\x06 \x01(\x02\x12\r\n\x05light\x18\x07 \x01(\x02\x12\x10\n\x08pressure\x18\x08 \x01(\x02\x12\x19\n\x11relative_humidity\x18\t \x01(\x02\x12\x0f\n\x07\x63urrent\x18\n \x01(\x02\x12\x0f\n\x07voltage\x18\x0b \x01(\x02\x12\x38\n\x0c\x61\x63\x63\x65leration\x18\x0c \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x34\n\x08magnetic\x18\r \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x37\n\x0borientation\x18\x0e \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x30\n\x04gyro\x18\x0f \x01(\x0b\x32\".signal.v1.Sensor.Event.SensorVect\x12\x33\n\x06\x63olors\x18\x10 \x01(\x0b\x32#.signal.v1.Sensor.Event.SensorColor\x1ak\n\nSensorVect\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\x0c\n\x04roll\x18\x04 \x01(\x02\x12\r\n\x05pitch\x18\x05 \x01(\x02\x12\x0f\n\x07heading\x18\x06 \x01(\x02\x12\x0e\n\x06status\x18\x07 \x01(\x0c\x1a<\n\x0bSensorColor\x12\t\n\x01r\x18\x01 \x01(\x02\x12\t\n\x01g\x18\x02 \x01(\x02\x12\t\n\x01\x62\x18\x03 \x01(\x02\x12\x0c\n\x04rgba\x18\x04 \x01(\r\"\x80\x04\n\nSensorType\x12\x1b\n\x17SENSOR_TYPE_UNSPECIFIED\x10\x00\x12\x1d\n\x19SENSOR_TYPE_ACCELEROMETER\x10\x01\x12\x1e\n\x1aSENSOR_TYPE_MAGNETIC_FIELD\x10\x02\x12\x1b\n\x17SENSOR_TYPE_ORIENTATION\x10\x03\x12\x19\n\x15SENSOR_TYPE_GYROSCOPE\x10\x04\x12\x15\n\x11SENSOR_TYPE_LIGHT\x10\x05\x12\x18\n\x14SENSOR_TYPE_PRESSURE\x10\x06\x12\x19\n\x15SENSOR_TYPE_PROXIMITY\x10\x08\x12\x17\n\x13SENSOR_TYPE_GRAVITY\x10\t\x12#\n\x1fSENSOR_TYPE_LINEAR_ACCELERATION\x10\n\x12\x1f\n\x1bSENSOR_TYPE_ROTATION_VECTOR\x10\x0b\x12!\n\x1dSENSOR_TYPE_RELATIVE_HUMIDITY\x10\x0c\x12#\n\x1fSENSOR_TYPE_AMBIENT_TEMPERATURE\x10\r\x12\"\n\x1eSENSOR_TYPE_OBJECT_TEMPERATURE\x10\x0e\x12\x17\n\x13SENSOR_TYPE_VOLTAGE\x10\x0f\x12\x17\n\x13SENSOR_TYPE_CURRENT\x10\x10\x12\x15\n\x11SENSOR_TYPE_COLOR\x10\x11\"\xa2\x02\n\x05Pixel\x12\x11\n\tpixel_pin\x18\x01 \x01(\x05\x12.\n\npixel_type\x18\x02 \x01(\x0e\x32\x1a.signal.v1.Pixel.PixelType\x12.\n\npixel_data\x18\x03 \x01(\x0b\x32\x1a.signal.v1.Pixel.PixelData\x12\x13\n\x0bpixelbuf_sz\x18\x04 \x01(\x05\x1a:\n\tPixelData\x12\x10\n\x08\x62yte_idx\x18\x01 \x01(\r\x12\r\n\x05\x66lags\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x03(\t\"U\n\tPixelType\x12\x1a\n\x16PIXEL_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11PIXEL_TYPE_WS2812\x10\x01\x12\x15\n\x11PIXEL_TYPE_APA201\x10\x02\"A\n\x08Location\x12\x10\n\x08latitude\x18\x01 \x01(\x02\x12\x11\n\tlongitude\x18\x02 \x01(\x02\x12\x10\n\x08\x61ltitude\x18\x03 \x01(\x02\"\x85\x03\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x04mode\x18\x02 \x01(\x0e\x32\x13.signal.v1.Pin.Mode\x12+\n\tdirection\x18\x03 \x01(\x0e\x32\x18.signal.v1.Pin.Direction\x12!\n\x04pull\x18\x04 \x01(\x0e\x32\x13.signal.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\x12\x0e\n\x06period\x18\x06 \x01(\x05\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\">\n\x03PWM\x12\x10\n\x08pin_name\x18\x01 \x01(\t\x12\x12\n\nduty_cycle\x18\x02 \x01(\x05\x12\x11\n\tfrequency\x18\x03 \x01(\x05\x62\x06proto3'
 )
 
 
@@ -49,8 +49,8 @@ _SIGNAL_CMDMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=371,
-  serialized_end=442,
+  serialized_start=372,
+  serialized_end=443,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_CMDMODE)
 
@@ -104,8 +104,8 @@ _SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=445,
-  serialized_end=638,
+  serialized_start=446,
+  serialized_end=639,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_CMDTYPE)
 
@@ -204,8 +204,8 @@ _SENSOR_SENSORTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1598,
-  serialized_end=2110,
+  serialized_start=1610,
+  serialized_end=2122,
 )
 _sym_db.RegisterEnumDescriptor(_SENSOR_SENSORTYPE)
 
@@ -234,8 +234,8 @@ _PIXEL_PIXELTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2318,
-  serialized_end=2403,
+  serialized_start=2330,
+  serialized_end=2415,
 )
 _sym_db.RegisterEnumDescriptor(_PIXEL_PIXELTYPE)
 
@@ -269,8 +269,8 @@ _PIN_MODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2640,
-  serialized_end=2721,
+  serialized_start=2652,
+  serialized_end=2733,
 )
 _sym_db.RegisterEnumDescriptor(_PIN_MODE)
 
@@ -299,8 +299,8 @@ _PIN_DIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2723,
-  serialized_end=2804,
+  serialized_start=2735,
+  serialized_end=2816,
 )
 _sym_db.RegisterEnumDescriptor(_PIN_DIRECTION)
 
@@ -329,8 +329,8 @@ _PIN_PULL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2806,
-  serialized_end=2862,
+  serialized_start=2818,
+  serialized_end=2874,
 )
 _sym_db.RegisterEnumDescriptor(_PIN_PULL)
 
@@ -386,9 +386,9 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sensor', full_name='signal.v1.Signal.Command.sensor', index=6,
-      number=7, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='sensors', full_name='signal.v1.Signal.Command.sensors', index=6,
+      number=7, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -412,7 +412,7 @@ _SIGNAL_COMMAND = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=93,
-  serialized_end=369,
+  serialized_end=370,
 )
 
 _SIGNAL = _descriptor.Descriptor(
@@ -445,7 +445,7 @@ _SIGNAL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=38,
-  serialized_end=638,
+  serialized_end=639,
 )
 
 
@@ -518,8 +518,8 @@ _SENSOR_TYPE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=730,
-  serialized_end=906,
+  serialized_start=742,
+  serialized_end=918,
 )
 
 _SENSOR_EVENT_SENSORVECT = _descriptor.Descriptor(
@@ -591,8 +591,8 @@ _SENSOR_EVENT_SENSORVECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1426,
-  serialized_end=1533,
+  serialized_start=1438,
+  serialized_end=1545,
 )
 
 _SENSOR_EVENT_SENSORCOLOR = _descriptor.Descriptor(
@@ -643,8 +643,8 @@ _SENSOR_EVENT_SENSORCOLOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1535,
-  serialized_end=1595,
+  serialized_start=1547,
+  serialized_end=1607,
 )
 
 _SENSOR_EVENT = _descriptor.Descriptor(
@@ -779,8 +779,8 @@ _SENSOR_EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=909,
-  serialized_end=1595,
+  serialized_start=921,
+  serialized_end=1607,
 )
 
 _SENSOR = _descriptor.Descriptor(
@@ -805,6 +805,13 @@ _SENSOR = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='i', full_name='signal.v1.Sensor.i', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -818,8 +825,8 @@ _SENSOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=641,
-  serialized_end=2110,
+  serialized_start=642,
+  serialized_end=2122,
 )
 
 
@@ -864,8 +871,8 @@ _PIXEL_PIXELDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2258,
-  serialized_end=2316,
+  serialized_start=2270,
+  serialized_end=2328,
 )
 
 _PIXEL = _descriptor.Descriptor(
@@ -917,8 +924,8 @@ _PIXEL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2113,
-  serialized_end=2403,
+  serialized_start=2125,
+  serialized_end=2415,
 )
 
 
@@ -963,8 +970,8 @@ _LOCATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2405,
-  serialized_end=2470,
+  serialized_start=2417,
+  serialized_end=2482,
 )
 
 
@@ -1033,8 +1040,8 @@ _PIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2473,
-  serialized_end=2862,
+  serialized_start=2485,
+  serialized_end=2874,
 )
 
 
@@ -1079,8 +1086,8 @@ _PWM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2864,
-  serialized_end=2926,
+  serialized_start=2876,
+  serialized_end=2938,
 )
 
 _SIGNAL_COMMAND.fields_by_name['mode'].enum_type = _SIGNAL_CMDMODE
@@ -1088,7 +1095,7 @@ _SIGNAL_COMMAND.fields_by_name['type'].enum_type = _SIGNAL_CMDTYPE
 _SIGNAL_COMMAND.fields_by_name['location'].message_type = _LOCATION
 _SIGNAL_COMMAND.fields_by_name['pin'].message_type = _PIN
 _SIGNAL_COMMAND.fields_by_name['pwm'].message_type = _PWM
-_SIGNAL_COMMAND.fields_by_name['sensor'].message_type = _SENSOR
+_SIGNAL_COMMAND.fields_by_name['sensors'].message_type = _SENSOR
 _SIGNAL_COMMAND.fields_by_name['pixel'].message_type = _PIXEL
 _SIGNAL_COMMAND.containing_type = _SIGNAL
 _SIGNAL.fields_by_name['command'].message_type = _SIGNAL_COMMAND
