@@ -4,20 +4,13 @@ import sys
 sys.path.insert(1, 'signal/v1')
 import signal_pb2
 
-# Example: Send message from device to Adafruit IO advertising
-#           the pyportal's temperature sensor and light sensor.
-
-
-# TODO HERE!!
-
 # EXAMPLE: Send message from device advertising a temperature sensor to Adafruit IO
 # NOTE: This will create a new `component` on the device's definition
 signal = signal_pb2.Signal()
-cmd = signal.command
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_SENSOR
+signal.mode = signal.CmdMode.CMD_MODE_SET
+signal.type = signal.CmdType.CMD_TYPE_SENSOR
 
-temperature = cmd.sensors.add() # add a temperature sensor
+temperature = signal.sensor
 temperature.type.name = "adt"
 temperature.type.sensor_id = 0x00
 temperature.type.sensor_type = temperature.SENSOR_TYPE_AMBIENT_TEMPERATURE
@@ -33,11 +26,11 @@ signal.Clear() # clean up
 
 
 # EXAMPLE: Send message from device to Adafruit IO on sensor event
-cmd = signal.command
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_SENSOR
+signal = signal_pb2.Signal()
+signal.mode = signal.CmdMode.CMD_MODE_SET
+signal.type = signal.CmdType.CMD_TYPE_SENSOR
 
-temperature = cmd.sensors.add()
+temperature = signal.sensor
 temperature.event.sensor_id = 0x00
 temperature.event.timestamp = 0
 temperature.event.temperature = 32.0
