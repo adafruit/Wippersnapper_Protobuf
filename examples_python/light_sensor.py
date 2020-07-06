@@ -7,11 +7,10 @@ import signal_pb2
 # EXAMPLE: Send message from device advertising a new light sensor to Adafruit IO
 # NOTE: This will create a new `component` on the device's definition
 signal = signal_pb2.Signal()
-cmd = signal.command
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_SENSOR
+signal.mode = signal.CMD_MODE_SET
+signal.type = signal.CMD_TYPE_SENSOR
 
-light = cmd.sensors.add() # add a light sensor
+light = signal.sensor # add a light sensor
 # Configure required sensor properties
 light.type.name = "light"
 light.type.sensor_id = 0x01
@@ -28,10 +27,9 @@ signal.Clear() # clean up
 
 # EXAMPLE: Send sensor event data from device to Adafruit IO
 signal = signal_pb2.Signal()
-cmd = signal.command
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_SENSOR
-light = cmd.sensors.add()
+signal.mode = signal.CMD_MODE_SET
+signal.type = signal.CMD_TYPE_SENSOR
+light = signal.sensor
 light.event.sensor_id = 0x01
 light.event.timestamp = 0 # TODO: pull this from cpython timestamp monotonic
 light.event.light = 1255.0
