@@ -20,26 +20,25 @@ message Sensor {
     // Data about a sensor event
     message Event {
         // sensor event identification
-        int32 sensor_id               = 1;
-        Sensor.SensorType sensor_type = 2; // Optional, sensor type identifier
-        int32 timestamp               = 3; // event occurance, in milliseconds
+        int32 sensor_id               = 1; // Unique sensor identifier
+        int32 timestamp               = 2; // event occurance, in milliseconds
 
-        // optional sensor data
-        float data               = 4; // raw data
-        float temperature        = 5; // in degrees centigrade (Celsius)
-        float distance           = 6; // distance in centimeters
-        float light              = 7; // light in SI lux units
-        float pressure           = 8; //pressure in hectopascal (hPa)
-        float relative_humidity  = 9; // relative humidity in percent
-        float current            = 10; // current in milliamps (mA)
-        float voltage            = 11; // voltage in volts (V)
-        // Special sensor data
-        SensorVect acceleration = 12; /* acceleration values are in meter per second
-                                   per second (m/s^2) */
-        SensorVect magnetic     = 13; // magnetic vector values are in micro-Tesla (uT)
-        SensorVect orientation  = 14; // orientation values are in degrees
-        SensorVect gyro         = 15; // gyroscope values are in rad/s */
-        SensorColor colors      = 16;
+        oneof value {
+            float data               = 3; // raw data
+            float temperature        = 4; // in degrees centigrade (Celsius)
+            float distance           = 5; // distance in centimeters
+            float light              = 6; // light in SI lux units
+            float pressure           = 7; //pressure in hectopascal (hPa)
+            float relative_humidity  = 8; // relative humidity in percent
+            float current            = 9; // current in milliamps (mA)
+            float voltage            = 10; // voltage in volts (V)
+            SensorVect acceleration = 11; /* acceleration values are in meter per second
+                                            per second (m/s^2) */
+            SensorVect magnetic     = 12; // magnetic vector values are in micro-Tesla (uT)
+            SensorVect orientation  = 13; // orientation values are in degrees
+            SensorVect gyro         = 14; // gyroscope values are in rad/s */
+            SensorColor colors      = 15; // color data in RGB/RGBA format
+        }
 
         // Contains a vector in a common format
         message SensorVect {

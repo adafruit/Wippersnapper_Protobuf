@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16sensor/v1/sensor.proto\x12\tsensor.v1\"\xbd\x0b\n\x06Sensor\x12$\n\x04type\x18\x01 \x01(\x0b\x32\x16.sensor.v1.Sensor.Type\x12&\n\x05\x65vent\x18\x02 \x01(\x0b\x32\x17.sensor.v1.Sensor.Event\x1a\xb0\x01\n\x04Type\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tsensor_id\x18\x02 \x01(\x05\x12\x31\n\x0bsensor_type\x18\x03 \x01(\x0e\x32\x1c.sensor.v1.Sensor.SensorType\x12\x11\n\tmax_value\x18\x04 \x01(\x02\x12\x11\n\tmin_value\x18\x05 \x01(\x02\x12\x12\n\nresolution\x18\x06 \x01(\x02\x12\x1a\n\x12measurement_period\x18\x07 \x01(\x05\x1a\xae\x05\n\x05\x45vent\x12\x11\n\tsensor_id\x18\x01 \x01(\x05\x12\x31\n\x0bsensor_type\x18\x02 \x01(\x0e\x32\x1c.sensor.v1.Sensor.SensorType\x12\x11\n\ttimestamp\x18\x03 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x04 \x01(\x02\x12\x13\n\x0btemperature\x18\x05 \x01(\x02\x12\x10\n\x08\x64istance\x18\x06 \x01(\x02\x12\r\n\x05light\x18\x07 \x01(\x02\x12\x10\n\x08pressure\x18\x08 \x01(\x02\x12\x19\n\x11relative_humidity\x18\t \x01(\x02\x12\x0f\n\x07\x63urrent\x18\n \x01(\x02\x12\x0f\n\x07voltage\x18\x0b \x01(\x02\x12\x38\n\x0c\x61\x63\x63\x65leration\x18\x0c \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVect\x12\x34\n\x08magnetic\x18\r \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVect\x12\x37\n\x0borientation\x18\x0e \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVect\x12\x30\n\x04gyro\x18\x0f \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVect\x12\x33\n\x06\x63olors\x18\x10 \x01(\x0b\x32#.sensor.v1.Sensor.Event.SensorColor\x1ak\n\nSensorVect\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\x0c\n\x04roll\x18\x04 \x01(\x02\x12\r\n\x05pitch\x18\x05 \x01(\x02\x12\x0f\n\x07heading\x18\x06 \x01(\x02\x12\x0e\n\x06status\x18\x07 \x01(\x0c\x1a<\n\x0bSensorColor\x12\t\n\x01r\x18\x01 \x01(\x02\x12\t\n\x01g\x18\x02 \x01(\x02\x12\t\n\x01\x62\x18\x03 \x01(\x02\x12\x0c\n\x04rgba\x18\x04 \x01(\r\"\x80\x04\n\nSensorType\x12\x1b\n\x17SENSOR_TYPE_UNSPECIFIED\x10\x00\x12\x1d\n\x19SENSOR_TYPE_ACCELEROMETER\x10\x01\x12\x1e\n\x1aSENSOR_TYPE_MAGNETIC_FIELD\x10\x02\x12\x1b\n\x17SENSOR_TYPE_ORIENTATION\x10\x03\x12\x19\n\x15SENSOR_TYPE_GYROSCOPE\x10\x04\x12\x15\n\x11SENSOR_TYPE_LIGHT\x10\x05\x12\x18\n\x14SENSOR_TYPE_PRESSURE\x10\x06\x12\x19\n\x15SENSOR_TYPE_PROXIMITY\x10\x08\x12\x17\n\x13SENSOR_TYPE_GRAVITY\x10\t\x12#\n\x1fSENSOR_TYPE_LINEAR_ACCELERATION\x10\n\x12\x1f\n\x1bSENSOR_TYPE_ROTATION_VECTOR\x10\x0b\x12!\n\x1dSENSOR_TYPE_RELATIVE_HUMIDITY\x10\x0c\x12#\n\x1fSENSOR_TYPE_AMBIENT_TEMPERATURE\x10\r\x12\"\n\x1eSENSOR_TYPE_OBJECT_TEMPERATURE\x10\x0e\x12\x17\n\x13SENSOR_TYPE_VOLTAGE\x10\x0f\x12\x17\n\x13SENSOR_TYPE_CURRENT\x10\x10\x12\x15\n\x11SENSOR_TYPE_COLOR\x10\x11\x62\x06proto3'
+  serialized_pb=b'\n\x16sensor/v1/sensor.proto\x12\tsensor.v1\"\xad\x0b\n\x06Sensor\x12$\n\x04type\x18\x01 \x01(\x0b\x32\x16.sensor.v1.Sensor.Type\x12&\n\x05\x65vent\x18\x02 \x01(\x0b\x32\x17.sensor.v1.Sensor.Event\x1a\xb0\x01\n\x04Type\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x11\n\tsensor_id\x18\x02 \x01(\x05\x12\x31\n\x0bsensor_type\x18\x03 \x01(\x0e\x32\x1c.sensor.v1.Sensor.SensorType\x12\x11\n\tmax_value\x18\x04 \x01(\x02\x12\x11\n\tmin_value\x18\x05 \x01(\x02\x12\x12\n\nresolution\x18\x06 \x01(\x02\x12\x1a\n\x12measurement_period\x18\x07 \x01(\x05\x1a\x9e\x05\n\x05\x45vent\x12\x11\n\tsensor_id\x18\x01 \x01(\x05\x12\x11\n\ttimestamp\x18\x02 \x01(\x05\x12\x0e\n\x04\x64\x61ta\x18\x03 \x01(\x02H\x00\x12\x15\n\x0btemperature\x18\x04 \x01(\x02H\x00\x12\x12\n\x08\x64istance\x18\x05 \x01(\x02H\x00\x12\x0f\n\x05light\x18\x06 \x01(\x02H\x00\x12\x12\n\x08pressure\x18\x07 \x01(\x02H\x00\x12\x1b\n\x11relative_humidity\x18\x08 \x01(\x02H\x00\x12\x11\n\x07\x63urrent\x18\t \x01(\x02H\x00\x12\x11\n\x07voltage\x18\n \x01(\x02H\x00\x12:\n\x0c\x61\x63\x63\x65leration\x18\x0b \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVectH\x00\x12\x36\n\x08magnetic\x18\x0c \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVectH\x00\x12\x39\n\x0borientation\x18\r \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVectH\x00\x12\x32\n\x04gyro\x18\x0e \x01(\x0b\x32\".sensor.v1.Sensor.Event.SensorVectH\x00\x12\x35\n\x06\x63olors\x18\x0f \x01(\x0b\x32#.sensor.v1.Sensor.Event.SensorColorH\x00\x1ak\n\nSensorVect\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\x0c\n\x04roll\x18\x04 \x01(\x02\x12\r\n\x05pitch\x18\x05 \x01(\x02\x12\x0f\n\x07heading\x18\x06 \x01(\x02\x12\x0e\n\x06status\x18\x07 \x01(\x0c\x1a<\n\x0bSensorColor\x12\t\n\x01r\x18\x01 \x01(\x02\x12\t\n\x01g\x18\x02 \x01(\x02\x12\t\n\x01\x62\x18\x03 \x01(\x02\x12\x0c\n\x04rgba\x18\x04 \x01(\rB\x07\n\x05value\"\x80\x04\n\nSensorType\x12\x1b\n\x17SENSOR_TYPE_UNSPECIFIED\x10\x00\x12\x1d\n\x19SENSOR_TYPE_ACCELEROMETER\x10\x01\x12\x1e\n\x1aSENSOR_TYPE_MAGNETIC_FIELD\x10\x02\x12\x1b\n\x17SENSOR_TYPE_ORIENTATION\x10\x03\x12\x19\n\x15SENSOR_TYPE_GYROSCOPE\x10\x04\x12\x15\n\x11SENSOR_TYPE_LIGHT\x10\x05\x12\x18\n\x14SENSOR_TYPE_PRESSURE\x10\x06\x12\x19\n\x15SENSOR_TYPE_PROXIMITY\x10\x08\x12\x17\n\x13SENSOR_TYPE_GRAVITY\x10\t\x12#\n\x1fSENSOR_TYPE_LINEAR_ACCELERATION\x10\n\x12\x1f\n\x1bSENSOR_TYPE_ROTATION_VECTOR\x10\x0b\x12!\n\x1dSENSOR_TYPE_RELATIVE_HUMIDITY\x10\x0c\x12#\n\x1fSENSOR_TYPE_AMBIENT_TEMPERATURE\x10\r\x12\"\n\x1eSENSOR_TYPE_OBJECT_TEMPERATURE\x10\x0e\x12\x17\n\x13SENSOR_TYPE_VOLTAGE\x10\x0f\x12\x17\n\x13SENSOR_TYPE_CURRENT\x10\x10\x12\x15\n\x11SENSOR_TYPE_COLOR\x10\x11\x62\x06proto3'
 )
 
 
@@ -119,8 +119,8 @@ _SENSOR_SENSORTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=995,
-  serialized_end=1507,
+  serialized_start=979,
+  serialized_end=1491,
 )
 _sym_db.RegisterEnumDescriptor(_SENSOR_SENSORTYPE)
 
@@ -267,8 +267,8 @@ _SENSOR_EVENT_SENSORVECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=823,
-  serialized_end=930,
+  serialized_start=798,
+  serialized_end=905,
 )
 
 _SENSOR_EVENT_SENSORCOLOR = _descriptor.Descriptor(
@@ -319,8 +319,8 @@ _SENSOR_EVENT_SENSORCOLOR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=932,
-  serialized_end=992,
+  serialized_start=907,
+  serialized_end=967,
 )
 
 _SENSOR_EVENT = _descriptor.Descriptor(
@@ -339,106 +339,99 @@ _SENSOR_EVENT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sensor_type', full_name='sensor.v1.Sensor.Event.sensor_type', index=1,
-      number=2, type=14, cpp_type=8, label=1,
+      name='timestamp', full_name='sensor.v1.Sensor.Event.timestamp', index=1,
+      number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='timestamp', full_name='sensor.v1.Sensor.Event.timestamp', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='data', full_name='sensor.v1.Sensor.Event.data', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='data', full_name='sensor.v1.Sensor.Event.data', index=3,
+      name='temperature', full_name='sensor.v1.Sensor.Event.temperature', index=3,
       number=4, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='temperature', full_name='sensor.v1.Sensor.Event.temperature', index=4,
+      name='distance', full_name='sensor.v1.Sensor.Event.distance', index=4,
       number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='distance', full_name='sensor.v1.Sensor.Event.distance', index=5,
+      name='light', full_name='sensor.v1.Sensor.Event.light', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='light', full_name='sensor.v1.Sensor.Event.light', index=6,
+      name='pressure', full_name='sensor.v1.Sensor.Event.pressure', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pressure', full_name='sensor.v1.Sensor.Event.pressure', index=7,
+      name='relative_humidity', full_name='sensor.v1.Sensor.Event.relative_humidity', index=7,
       number=8, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='relative_humidity', full_name='sensor.v1.Sensor.Event.relative_humidity', index=8,
+      name='current', full_name='sensor.v1.Sensor.Event.current', index=8,
       number=9, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='current', full_name='sensor.v1.Sensor.Event.current', index=9,
+      name='voltage', full_name='sensor.v1.Sensor.Event.voltage', index=9,
       number=10, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='voltage', full_name='sensor.v1.Sensor.Event.voltage', index=10,
-      number=11, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
+      name='acceleration', full_name='sensor.v1.Sensor.Event.acceleration', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='acceleration', full_name='sensor.v1.Sensor.Event.acceleration', index=11,
+      name='magnetic', full_name='sensor.v1.Sensor.Event.magnetic', index=11,
       number=12, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='magnetic', full_name='sensor.v1.Sensor.Event.magnetic', index=12,
+      name='orientation', full_name='sensor.v1.Sensor.Event.orientation', index=12,
       number=13, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='orientation', full_name='sensor.v1.Sensor.Event.orientation', index=13,
+      name='gyro', full_name='sensor.v1.Sensor.Event.gyro', index=13,
       number=14, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='gyro', full_name='sensor.v1.Sensor.Event.gyro', index=14,
+      name='colors', full_name='sensor.v1.Sensor.Event.colors', index=14,
       number=15, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='colors', full_name='sensor.v1.Sensor.Event.colors', index=15,
-      number=16, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -454,9 +447,14 @@ _SENSOR_EVENT = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='value', full_name='sensor.v1.Sensor.Event.value',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=306,
-  serialized_end=992,
+  serialized_end=976,
 )
 
 _SENSOR = _descriptor.Descriptor(
@@ -495,20 +493,58 @@ _SENSOR = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=38,
-  serialized_end=1507,
+  serialized_end=1491,
 )
 
 _SENSOR_TYPE.fields_by_name['sensor_type'].enum_type = _SENSOR_SENSORTYPE
 _SENSOR_TYPE.containing_type = _SENSOR
 _SENSOR_EVENT_SENSORVECT.containing_type = _SENSOR_EVENT
 _SENSOR_EVENT_SENSORCOLOR.containing_type = _SENSOR_EVENT
-_SENSOR_EVENT.fields_by_name['sensor_type'].enum_type = _SENSOR_SENSORTYPE
 _SENSOR_EVENT.fields_by_name['acceleration'].message_type = _SENSOR_EVENT_SENSORVECT
 _SENSOR_EVENT.fields_by_name['magnetic'].message_type = _SENSOR_EVENT_SENSORVECT
 _SENSOR_EVENT.fields_by_name['orientation'].message_type = _SENSOR_EVENT_SENSORVECT
 _SENSOR_EVENT.fields_by_name['gyro'].message_type = _SENSOR_EVENT_SENSORVECT
 _SENSOR_EVENT.fields_by_name['colors'].message_type = _SENSOR_EVENT_SENSORCOLOR
 _SENSOR_EVENT.containing_type = _SENSOR
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['data'])
+_SENSOR_EVENT.fields_by_name['data'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['temperature'])
+_SENSOR_EVENT.fields_by_name['temperature'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['distance'])
+_SENSOR_EVENT.fields_by_name['distance'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['light'])
+_SENSOR_EVENT.fields_by_name['light'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['pressure'])
+_SENSOR_EVENT.fields_by_name['pressure'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['relative_humidity'])
+_SENSOR_EVENT.fields_by_name['relative_humidity'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['current'])
+_SENSOR_EVENT.fields_by_name['current'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['voltage'])
+_SENSOR_EVENT.fields_by_name['voltage'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['acceleration'])
+_SENSOR_EVENT.fields_by_name['acceleration'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['magnetic'])
+_SENSOR_EVENT.fields_by_name['magnetic'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['orientation'])
+_SENSOR_EVENT.fields_by_name['orientation'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['gyro'])
+_SENSOR_EVENT.fields_by_name['gyro'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
+_SENSOR_EVENT.oneofs_by_name['value'].fields.append(
+  _SENSOR_EVENT.fields_by_name['colors'])
+_SENSOR_EVENT.fields_by_name['colors'].containing_oneof = _SENSOR_EVENT.oneofs_by_name['value']
 _SENSOR.fields_by_name['type'].message_type = _SENSOR_TYPE
 _SENSOR.fields_by_name['event'].message_type = _SENSOR_EVENT
 _SENSOR_SENSORTYPE.containing_type = _SENSOR
