@@ -1,8 +1,7 @@
 # SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
 # SPDX-License-Identifier: MIT
 import sys
-sys.path.insert(1, '/Users/brentrubell/Desktop/github_brentru/BlinkaConnect_ProtoBuf/generated_python/signal/v1')
-sys.path.insert(1, '/Users/brentrubell/Desktop/github_brentru/BlinkaConnect_ProtoBuf/generated_python/sensor/v1')
+sys.path.insert(1, 'signal/v1')
 import signal_pb2
 
 # EXAMPLE: Send message from device advertising a temperature sensor to Adafruit IO
