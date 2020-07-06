@@ -11,14 +11,13 @@ signal = signal_pb2.Signal()
 """
 Configure pin A0 as an analog output
 """
-cmd = signal.command
 # command message
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_PIN_MODE
+signal.mode = signal.CMD_MODE_SET
+signal.type = signal.CMD_TYPE_PIN_MODE
 # pin message
-cmd.pin.name = "A0"
-cmd.pin.mode = signal.command.pin.MODE_ANALOG
-cmd.pin.direction = signal.command.pin.DIRECTION_OUTPUT
+signal.pin.name = "A0"
+signal.pin.mode = signal.pin.MODE_ANALOG
+signal.pin.direction = signal.pin.DIRECTION_OUTPUT
 
 print(signal)
 signal.Clear()
@@ -26,13 +25,12 @@ signal.Clear()
 """
 Set the value of pin A0
 """
-cmd = signal.command
 # command message
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_PIN_VALUE
+signal.mode = signal.CMD_MODE_SET
+signal.type = signal.CMD_TYPE_PIN_VALUE
 # pin message
-cmd.pin.name = "A0"
-cmd.pin.value = "512"
+signal.pin.name = "A0"
+signal.pin.value = "512"
 
 print(signal)
 signal.Clear()

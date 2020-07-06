@@ -13,15 +13,14 @@ PUBLISH from Adafruit IO to Device
 
 Set up digital input on D5 switch with a pull up.
 """
-cmd = signal.command
 # command message
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_PIN_MODE
+signal.mode = signal.CMD_MODE_SET
+signal.type = signal.CMD_TYPE_PIN_MODE
 # pin message
-cmd.pin.name = "D5"
-cmd.pin.mode = signal.command.pin.MODE_DIGITAL
-cmd.pin.direction = signal.command.pin.DIRECTION_INPUT
-cmd.pin.pull = signal.command.pin.PULL_UP
+signal.pin.name = "D5"
+signal.pin.mode = signal.pin.MODE_DIGITAL
+signal.pin.direction = signal.pin.DIRECTION_INPUT
+signal.pin.pull = signal.pin.PULL_UP
 
 print(signal)
 signal.Clear()
@@ -29,12 +28,11 @@ signal.Clear()
 """
 GET value of pin D5 from Adafruit IO
 """
-cmd = signal.command
 # command message
-cmd.mode = signal.CMD_MODE_GET
-cmd.type = signal.CMD_TYPE_PIN_VALUE
+signal.mode = signal.CMD_MODE_GET
+signal.type = signal.CMD_TYPE_PIN_VALUE
 # pin message
-cmd.pin.name = "D5"
+signal.pin.name = "D5"
 
 print(signal)
 signal.Clear()
@@ -46,12 +44,11 @@ PUBLISH from Device to Adafruit IO
 Send digital logic level of the pin from the
 device to Adafruit IO.
 """
-cmd = signal.command
 # command message
-cmd.mode = signal.CMD_MODE_SET
-cmd.type = signal.CMD_TYPE_PIN_VALUE
+signal.mode = signal.CMD_MODE_SET
+signal.type = signal.CMD_TYPE_PIN_VALUE
 # pin message
-cmd.pin.name = "D5"
-cmd.pin.value = "1"
+signal.pin.name = "D5"
+signal.pin.value = "1"
 print(signal)
 signal.Clear()
