@@ -1,19 +1,20 @@
 syntax = "proto3";
 
-package registration.v1;
+package description.v1;
 
-message Device {
+// Defines which hardware description (https://github.com/adafruit/BlinkaConnect_Boards)
+// to assign to a device.
+message Description {
     string display_name = 1; // User-defined hardware identifier, often the MQTT Client ID.
     uint64 usb_vid      = 2; // USB Vendor ID
     uint64 usb_pid      = 3; // USB Product ID
-    Version version     = 4; // BlinkaConnect firmware/library version
+    Version version     = 4; // BlinkaConnect library version
 
-    // BlinkaConnect code.py version
+    // Semantic Version
     message Version {
         uint64 major = 1;
         uint64 minor = 2;
         uint64 micro = 3;
         string label = 4;
     }
-
 }
