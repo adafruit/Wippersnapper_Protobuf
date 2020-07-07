@@ -4,8 +4,8 @@ package sensor.v1;
 
 // Unified Sensor API
 message Sensor {
-    Type type = 1;
-    Event event = 2;
+    Type type = 1;   // Describes metadata about the sensor
+    Event event = 2; // Describes a sensor event
 
     message Type {
         string name                   = 1; // Sensor object name.

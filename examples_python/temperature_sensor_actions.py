@@ -4,8 +4,10 @@ import sys
 sys.path.insert(1, 'signal/v1')
 import signal_pb2
 
-# EXAMPLE: Send message from device advertising a temperature sensor to Adafruit IO
-# NOTE: This will create a new `component` on the device's definition
+# Example of creating a new temperature sensor component,
+# updating the component with a new value, and deleting the component
+
+# CREATE a new temperature sensor component
 signal = signal_pb2.Signal()
 signal.mode = signal.CmdMode.CMD_MODE_SET
 signal.type = signal.CmdType.CMD_TYPE_SENSOR
@@ -18,23 +20,25 @@ temperature.type.min_value = -55.0
 temperature.type.max_value = 150.0
 temperature.type.measurement_period = -1
 
-print('* Signal Message \n', signal)
-msg = signal.SerializeToString()
-print("* Serialized signal message\n", msg)
-signal.Clear() # clean up
+print('* Creating Sensor...\n', signal)
+signal.Clear()
+# Update a temperature sensor component with a new temperature value
 
-
-# EXAMPLE: Send message from device to Adafruit IO on sensor event
-signal = signal_pb2.Signal()
 signal.mode = signal.CmdMode.CMD_MODE_SET
+signal.type = signal.CmdType.CMD_TYPE_SENSOR
+temperature = signal.sensor
+temperature.event.sensor_id = 0x00
+temperature.event.timestamp = 0 # TODO: This need to be changed within sensor.proto to a UTC timestamp
+temperature.event.temperature = 32.0
+
+print('* Setting temperature value...\n', signal)
+signal.Clear()
+
+# Delete a temperature sensor component from a device
+signal.mode = signal.CmdMode.CMD_MODE_DEL
 signal.type = signal.CmdType.CMD_TYPE_SENSOR
 
 temperature = signal.sensor
-temperature.event.sensor_id = 0x00
-temperature.event.timestamp = 0
-temperature.event.temperature = 32.0
+temperature.type.sensor_id = 0x01
 
-print('\n* Signal Message \n', signal)
-msg = signal.SerializeToString()
-print("* Serialized signal message\n", msg)
-signal.Clear() # clean up
+print('* Deleting temperature sensor component\n', signal)
