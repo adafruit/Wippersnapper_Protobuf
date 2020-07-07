@@ -16,7 +16,6 @@ temperature.type.sensor_id = 0x00
 temperature.type.sensor_type = temperature.SENSOR_TYPE_AMBIENT_TEMPERATURE
 temperature.type.min_value = -55.0
 temperature.type.max_value = 150.0
-temperature.type.resolution = 0.01
 temperature.type.measurement_period = -1
 
 print('* Signal Message \n', signal)

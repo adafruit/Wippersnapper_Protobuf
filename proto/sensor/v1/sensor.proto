@@ -13,7 +13,6 @@ message Sensor {
         Sensor.SensorType sensor_type = 3; // Optional, sensor type identifier
         float max_value               = 4; // Optional, maximum value of this sensor's value in SI units.
         float min_value               = 5; // Optional, minumum value of this sensor's value in SI units.
-        float resolution              = 6; // Optional, smallest difference between two values reported by this sensor.
         int32 measurement_period      = 7; // Optional, milliseconds between measurements
     }
 
