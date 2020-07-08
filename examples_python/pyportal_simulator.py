@@ -10,24 +10,60 @@ import description_pb2
 
 class BlinkaConnect:
     """Command interface API for Adafruit IO."""
-    def __init__(self, board_def):
+    def __init__(self, device_id, debug=True):
         self.mock_mmqtt_client_iface = None
-        self._board = board_def
-    
-    def register_board(self):
-        """Serializes the board message and displays it as a string.
-        """
-        payload = self._board.SerializeToString()
-        print(payload)
+        self._device_id = device_id
+        self._debug = debug
+        # Attempt to get_board definition from IO if it exists
+        # for the device ID
+        definition = self.get_board()
+        if not definition:
+            print("Could not obtain board definition, attempting to create one...")
+        else:
+            print("Board definition: ", definition)
 
+    def get_board(self):
+        """Returns the board definition as JSON data.
+        """
+        return True
+
+    def attach_sensor(self, sensor_def):
+        """Attaches a new sensor to an Adafruit IO board definition
+        """
+        pass
+
+    def register_board(self, board_def):
+        """Serializes the board definition and sends it to Adafruit IO.
+        """
+        # TODO: Check if board definition already exists on IO.
+        payload = board_def.SerializeToString()
+        if self._debug:
+            print("Sending board definition to Adafruit IO", payload)
+
+    class Sensor:
+        """Provides methods for accessing a sensor component's
+        protocol buffer message and related fields.
+
+        """
+        pass
 
     class Board:
-        def __init__(self, pid, vid, version):
+        """Provides methods for accessing a board definition
+        protocol buffer message and related fields.
+
+        """
+        def __init__(self):
             self._board = description_pb2.Description() # init desc. protobuf msg
             self._name = None
             self._version = None
             self._pid = None
             self._vid = None
+
+        def SerializeToString(self):
+            return self._board.SerializeToString()
+        
+        def Clear(self):
+            self._board.Clear()
 
         @property
         def name(self):
@@ -46,18 +82,13 @@ class BlinkaConnect:
             return self._version
         
         @version.setter
-        def version(self, v_major, v_minor, v_micro, v_label):
+        def version(self, version):
             """Sets version message field
-            :param int v_major: Version major
-            :param int v_minor: Version minor
-            :param int v_micro: Version patch
-            :param str v_micro: Version label
-
             """
-            self._board.version.major = v_major
-            self._board.version.v_minor = v_minor
-            self._board.version.v_micro = v_micro
-            self._board.version.v_label = v_label
+            self._board.version.major = int(version.split(".")[0])
+            self._board.version.minor = int(version.split(".")[1])
+            self._board.version.micro = int(version.split(".")[3])
+            self._board.version.label = version.split(".")[2]
         
         @property
         def vid(self):
@@ -65,7 +96,7 @@ class BlinkaConnect:
         
         @vid.setter
         def vid(self, vid):
-            self._board.vid = vid
+            self._board.usb_vid = vid
 
         @property
         def pid(self):
@@ -73,29 +104,21 @@ class BlinkaConnect:
         
         @pid.setter
         def pid(self, pid):
-            self._board.pid = pid
+            self._board.usb_pid = pid
 
+
+# initialize BlinkaConnect client
 bc = BlinkaConnect()
 
-# PyPortal Information
-__version__ = "0.0.0-alpha.1"
-PYPORTAL_VID = 0x239A
-PYPORTAL_PID = 0x8036
-
-pyportal = description_pb2.Description()
-
-# User-assigned device name (MQTT Client ID)
+# create new pyportal
+pyportal = bc.Board()
 pyportal.display_name = "PyPortal"
-# PyPortal VID
-pyportal.usb_vid = PYPORTAL_VID
-# PyPortal PID
-pyportal.usb_pid = PYPORTAL_PID
+# Manufacturer ID
+pyportal.vid = 0x239A
+pyportal.pid = 0x8036
+# Library version
+pyportal.version = "0.0.0-alpha.1"
 
-# blinkaconnect code.py version
-ver = __version__.split("-")
-pyportal.version.major = int(ver[0].split(".")[0])
-pyportal.version.minor = int(ver[0].split(".")[1])
-pyportal.version.micro = int(ver[0].split(".")[2])
-pyportal.version.label = ver[1]
-
-print(pyportal)
+# Serialize the message as a string and send to Adafruit IO
+# on `device/ID/description/update` topic
+bc.register_board(pyportal)
