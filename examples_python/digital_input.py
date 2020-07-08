@@ -8,42 +8,24 @@ import signal_pb2
 # Create new signal message
 signal = signal_pb2.Signal()
 
-"""
-Configure digital pin D3 as a digital input
-"""
-# command message
+
+# Set up pin D3 as a digital input
 signal.mode = signal.CMD_MODE_SET
-signal.type = signal.CMD_TYPE_PIN_MODE
-# pin message
-signal.pin.name = "D3"
-signal.pin.mode = signal.pin.MODE_DIGITAL
-signal.pin.direction = signal.pin.DIRECTION_INPUT
+signal.type = signal.CMD_TYPE_PIN
+
+signal.pin.name = "D3" 
+signal.pin.config.mode = signal.pin.config.MODE_DIGITAL
+signal.pin.config.direction = signal.pin.config.DIRECTION_INPUT
+signal.pin.config.period = 100
 
 print(signal)
 signal.Clear()
 
-
-"""
-GET value of pin D3 from Adafruit IO
-"""
-# command message
-signal.mode = signal.CMD_MODE_GET
-signal.type = signal.CMD_TYPE_PIN_VALUE
-# pin message
+# Send pin D3 value to Adafruit IO
+signal.mode = signal.CMD_MODE_SET
+signal.type = signal.CMD_TYPE_PIN
 signal.pin.name = "D3"
-
+signal.pin.event.i_val = 1
 print(signal)
-signal.Clear()
 
-"""
-SET value of pin D3
-"""
-# command message
-signal.mode = signal.CMD_MODE_GET
-signal.type = signal.CMD_TYPE_PIN_VALUE
-# pin message
-signal.pin.name = "D3"
-signal.pin.value = "1"
-
-print(signal)
-signal.Clear()
+# TODO: Get Pin value from IO

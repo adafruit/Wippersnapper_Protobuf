@@ -19,14 +19,14 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10pin/v1/pin.proto\x12\x06pin.v1\"\xfc\x02\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1e\n\x04mode\x18\x02 \x01(\x0e\x32\x10.pin.v1.Pin.Mode\x12(\n\tdirection\x18\x03 \x01(\x0e\x32\x15.pin.v1.Pin.Direction\x12\x1e\n\x04pull\x18\x04 \x01(\x0e\x32\x10.pin.v1.Pin.Pull\x12\r\n\x05value\x18\x05 \x01(\t\x12\x0e\n\x06period\x18\x06 \x01(\x05\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\x62\x06proto3'
+  serialized_pb=b'\n\x10pin/v1/pin.proto\x12\x06pin.v1\"\xcc\x04\n\x03Pin\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x06\x63onfig\x18\x02 \x01(\x0b\x32\x19.pin.v1.Pin.Configuration\x12 \n\x05\x65vent\x18\x03 \x01(\x0b\x32\x11.pin.v1.Pin.Event\x1a\x93\x03\n\rConfiguration\x12,\n\x04mode\x18\x01 \x01(\x0e\x32\x1e.pin.v1.Pin.Configuration.Mode\x12\x36\n\tdirection\x18\x02 \x01(\x0e\x32#.pin.v1.Pin.Configuration.Direction\x12,\n\x04pull\x18\x03 \x01(\x0e\x32\x1e.pin.v1.Pin.Configuration.Pull\x12\x0e\n\x06period\x18\x04 \x01(\x05\"Q\n\x04Mode\x12\x14\n\x10MODE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bMODE_ANALOG\x10\x01\x12\x10\n\x0cMODE_DIGITAL\x10\x02\x12\x10\n\x0cMODE_PULL_UP\x10\x03\"Q\n\tDirection\x12\x19\n\x15\x44IRECTION_UNSPECIFIED\x10\x00\x12\x13\n\x0f\x44IRECTION_INPUT\x10\x01\x12\x14\n\x10\x44IRECTION_OUTPUT\x10\x02\"8\n\x04Pull\x12\x14\n\x10PULL_UNSPECIFIED\x10\x00\x12\x0b\n\x07PULL_UP\x10\x01\x12\r\n\tPULL_DOWN\x10\x02\x1aT\n\x05\x45vent\x12\x0f\n\x05i_val\x18\x01 \x01(\x05H\x00\x12\x0f\n\x05\x62_val\x18\x02 \x01(\x08H\x00\x12\x0f\n\x05\x66_val\x18\x03 \x01(\x02H\x00\x12\x0f\n\x05s_val\x18\x04 \x01(\tH\x00\x42\x07\n\x05valueb\x06proto3'
 )
 
 
 
-_PIN_MODE = _descriptor.EnumDescriptor(
+_PIN_CONFIGURATION_MODE = _descriptor.EnumDescriptor(
   name='Mode',
-  full_name='pin.v1.Pin.Mode',
+  full_name='pin.v1.Pin.Configuration.Mode',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -54,14 +54,14 @@ _PIN_MODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=187,
-  serialized_end=268,
+  serialized_start=309,
+  serialized_end=390,
 )
-_sym_db.RegisterEnumDescriptor(_PIN_MODE)
+_sym_db.RegisterEnumDescriptor(_PIN_CONFIGURATION_MODE)
 
-_PIN_DIRECTION = _descriptor.EnumDescriptor(
+_PIN_CONFIGURATION_DIRECTION = _descriptor.EnumDescriptor(
   name='Direction',
-  full_name='pin.v1.Pin.Direction',
+  full_name='pin.v1.Pin.Configuration.Direction',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -84,14 +84,14 @@ _PIN_DIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=270,
-  serialized_end=351,
+  serialized_start=392,
+  serialized_end=473,
 )
-_sym_db.RegisterEnumDescriptor(_PIN_DIRECTION)
+_sym_db.RegisterEnumDescriptor(_PIN_CONFIGURATION_DIRECTION)
 
-_PIN_PULL = _descriptor.EnumDescriptor(
+_PIN_CONFIGURATION_PULL = _descriptor.EnumDescriptor(
   name='Pull',
-  full_name='pin.v1.Pin.Pull',
+  full_name='pin.v1.Pin.Configuration.Pull',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -114,11 +114,123 @@ _PIN_PULL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=353,
-  serialized_end=409,
+  serialized_start=475,
+  serialized_end=531,
 )
-_sym_db.RegisterEnumDescriptor(_PIN_PULL)
+_sym_db.RegisterEnumDescriptor(_PIN_CONFIGURATION_PULL)
 
+
+_PIN_CONFIGURATION = _descriptor.Descriptor(
+  name='Configuration',
+  full_name='pin.v1.Pin.Configuration',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='mode', full_name='pin.v1.Pin.Configuration.mode', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='direction', full_name='pin.v1.Pin.Configuration.direction', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='pull', full_name='pin.v1.Pin.Configuration.pull', index=2,
+      number=3, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='period', full_name='pin.v1.Pin.Configuration.period', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _PIN_CONFIGURATION_MODE,
+    _PIN_CONFIGURATION_DIRECTION,
+    _PIN_CONFIGURATION_PULL,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=128,
+  serialized_end=531,
+)
+
+_PIN_EVENT = _descriptor.Descriptor(
+  name='Event',
+  full_name='pin.v1.Pin.Event',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='i_val', full_name='pin.v1.Pin.Event.i_val', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='b_val', full_name='pin.v1.Pin.Event.b_val', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='f_val', full_name='pin.v1.Pin.Event.f_val', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='s_val', full_name='pin.v1.Pin.Event.s_val', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='value', full_name='pin.v1.Pin.Event.value',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=533,
+  serialized_end=617,
+)
 
 _PIN = _descriptor.Descriptor(
   name='Pin',
@@ -136,48 +248,24 @@ _PIN = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='mode', full_name='pin.v1.Pin.mode', index=1,
-      number=2, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
+      name='config', full_name='pin.v1.Pin.config', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='pin.v1.Pin.direction', index=2,
-      number=3, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='pull', full_name='pin.v1.Pin.pull', index=3,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='pin.v1.Pin.value', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='period', full_name='pin.v1.Pin.period', index=5,
-      number=6, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='event', full_name='pin.v1.Pin.event', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_PIN_CONFIGURATION, _PIN_EVENT, ],
   enum_types=[
-    _PIN_MODE,
-    _PIN_DIRECTION,
-    _PIN_PULL,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -186,24 +274,56 @@ _PIN = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=29,
-  serialized_end=409,
+  serialized_end=617,
 )
 
-_PIN.fields_by_name['mode'].enum_type = _PIN_MODE
-_PIN.fields_by_name['direction'].enum_type = _PIN_DIRECTION
-_PIN.fields_by_name['pull'].enum_type = _PIN_PULL
-_PIN_MODE.containing_type = _PIN
-_PIN_DIRECTION.containing_type = _PIN
-_PIN_PULL.containing_type = _PIN
+_PIN_CONFIGURATION.fields_by_name['mode'].enum_type = _PIN_CONFIGURATION_MODE
+_PIN_CONFIGURATION.fields_by_name['direction'].enum_type = _PIN_CONFIGURATION_DIRECTION
+_PIN_CONFIGURATION.fields_by_name['pull'].enum_type = _PIN_CONFIGURATION_PULL
+_PIN_CONFIGURATION.containing_type = _PIN
+_PIN_CONFIGURATION_MODE.containing_type = _PIN_CONFIGURATION
+_PIN_CONFIGURATION_DIRECTION.containing_type = _PIN_CONFIGURATION
+_PIN_CONFIGURATION_PULL.containing_type = _PIN_CONFIGURATION
+_PIN_EVENT.containing_type = _PIN
+_PIN_EVENT.oneofs_by_name['value'].fields.append(
+  _PIN_EVENT.fields_by_name['i_val'])
+_PIN_EVENT.fields_by_name['i_val'].containing_oneof = _PIN_EVENT.oneofs_by_name['value']
+_PIN_EVENT.oneofs_by_name['value'].fields.append(
+  _PIN_EVENT.fields_by_name['b_val'])
+_PIN_EVENT.fields_by_name['b_val'].containing_oneof = _PIN_EVENT.oneofs_by_name['value']
+_PIN_EVENT.oneofs_by_name['value'].fields.append(
+  _PIN_EVENT.fields_by_name['f_val'])
+_PIN_EVENT.fields_by_name['f_val'].containing_oneof = _PIN_EVENT.oneofs_by_name['value']
+_PIN_EVENT.oneofs_by_name['value'].fields.append(
+  _PIN_EVENT.fields_by_name['s_val'])
+_PIN_EVENT.fields_by_name['s_val'].containing_oneof = _PIN_EVENT.oneofs_by_name['value']
+_PIN.fields_by_name['config'].message_type = _PIN_CONFIGURATION
+_PIN.fields_by_name['event'].message_type = _PIN_EVENT
 DESCRIPTOR.message_types_by_name['Pin'] = _PIN
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Pin = _reflection.GeneratedProtocolMessageType('Pin', (_message.Message,), {
+
+  'Configuration' : _reflection.GeneratedProtocolMessageType('Configuration', (_message.Message,), {
+    'DESCRIPTOR' : _PIN_CONFIGURATION,
+    '__module__' : 'pin.v1.pin_pb2'
+    # @@protoc_insertion_point(class_scope:pin.v1.Pin.Configuration)
+    })
+  ,
+
+  'Event' : _reflection.GeneratedProtocolMessageType('Event', (_message.Message,), {
+    'DESCRIPTOR' : _PIN_EVENT,
+    '__module__' : 'pin.v1.pin_pb2'
+    # @@protoc_insertion_point(class_scope:pin.v1.Pin.Event)
+    })
+  ,
   'DESCRIPTOR' : _PIN,
   '__module__' : 'pin.v1.pin_pb2'
   # @@protoc_insertion_point(class_scope:pin.v1.Pin)
   })
 _sym_db.RegisterMessage(Pin)
+_sym_db.RegisterMessage(Pin.Configuration)
+_sym_db.RegisterMessage(Pin.Event)
 
 
 # @@protoc_insertion_point(module_scope)

@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16sensor/v1/sensor.proto\x1a\x10pin/v1/pin.proto\x1a\x14pixel/v1/pixel.proto\x1a\x10pwm/v1/pwm.proto\"\x80\x04\n\x06Signal\x12\'\n\x04mode\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdMode\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\x1a\n\x03pin\x18\x03 \x01(\x0b\x32\x0b.pin.v1.PinH\x00\x12\x1a\n\x03pwm\x18\x04 \x01(\x0b\x32\x0b.pwm.v1.PWMH\x00\x12#\n\x06sensor\x18\x05 \x01(\x0b\x32\x11.sensor.v1.SensorH\x00\x12 \n\x05pixel\x18\x06 \x01(\x0b\x32\x0f.pixel.v1.PixelH\x00\"Y\n\x07\x43mdMode\x12\x18\n\x14\x43MD_MODE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_MODE_GET\x10\x01\x12\x10\n\x0c\x43MD_MODE_SET\x10\x02\x12\x10\n\x0c\x43MD_MODE_DEL\x10\x03\"\xc1\x01\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11\x43MD_TYPE_LOCATION\x10\x01\x12\x14\n\x10\x43MD_TYPE_BATTERY\x10\x02\x12\x16\n\x12\x43MD_TYPE_PIN_VALUE\x10\x03\x12\x15\n\x11\x43MD_TYPE_PIN_MODE\x10\x04\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x05\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x06\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x07\x42\x06\n\x04\x64\x61tab\x06proto3'
+  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16sensor/v1/sensor.proto\x1a\x10pin/v1/pin.proto\x1a\x14pixel/v1/pixel.proto\x1a\x10pwm/v1/pwm.proto\"\xe3\x03\n\x06Signal\x12\'\n\x04mode\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdMode\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\x1a\n\x03pin\x18\x03 \x01(\x0b\x32\x0b.pin.v1.PinH\x00\x12\x1a\n\x03pwm\x18\x04 \x01(\x0b\x32\x0b.pwm.v1.PWMH\x00\x12#\n\x06sensor\x18\x05 \x01(\x0b\x32\x11.sensor.v1.SensorH\x00\x12 \n\x05pixel\x18\x06 \x01(\x0b\x32\x0f.pixel.v1.PixelH\x00\"Y\n\x07\x43mdMode\x12\x18\n\x14\x43MD_MODE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_MODE_GET\x10\x01\x12\x10\n\x0c\x43MD_MODE_SET\x10\x02\x12\x10\n\x0c\x43MD_MODE_DEL\x10\x03\"\xa4\x01\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11\x43MD_TYPE_LOCATION\x10\x01\x12\x14\n\x10\x43MD_TYPE_BATTERY\x10\x02\x12\x10\n\x0c\x43MD_TYPE_PIN\x10\x03\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x04\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x05\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x06\x42\x06\n\x04\x64\x61tab\x06proto3'
   ,
   dependencies=[sensor_dot_v1_dot_sensor__pb2.DESCRIPTOR,pin_dot_v1_dot_pin__pb2.DESCRIPTOR,pixel_dot_v1_dot_pixel__pb2.DESCRIPTOR,pwm_dot_v1_dot_pwm__pb2.DESCRIPTOR,])
 
@@ -87,27 +87,22 @@ _SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_PIN_VALUE', index=3, number=3,
+      name='CMD_TYPE_PIN', index=3, number=3,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_PIN_MODE', index=4, number=4,
+      name='CMD_TYPE_PWM_OUTPUT', index=4, number=4,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_PWM_OUTPUT', index=5, number=5,
+      name='CMD_TYPE_SENSOR', index=5, number=5,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_SENSOR', index=6, number=6,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_PIXEL', index=7, number=7,
+      name='CMD_TYPE_PIXEL', index=6, number=6,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -115,7 +110,7 @@ _SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
   containing_type=None,
   serialized_options=None,
   serialized_start=431,
-  serialized_end=624,
+  serialized_end=595,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNAL_CMDTYPE)
 
@@ -190,7 +185,7 @@ _SIGNAL = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=120,
-  serialized_end=632,
+  serialized_end=603,
 )
 
 _SIGNAL.fields_by_name['mode'].enum_type = _SIGNAL_CMDMODE

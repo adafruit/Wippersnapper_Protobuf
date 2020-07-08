@@ -34,11 +34,10 @@ message Signal {
       CMD_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
       CMD_TYPE_LOCATION    = 1; // Device location
       CMD_TYPE_BATTERY     = 2; // Device battery level
-      CMD_TYPE_PIN_VALUE   = 3; // Digital or analog pin value
-      CMD_TYPE_PIN_MODE    = 4; // Digital or analog pin mode
-      CMD_TYPE_PWM_OUTPUT  = 5; // Output PWM on a provided pin
-      CMD_TYPE_SENSOR      = 6; // Read sensor details
-      CMD_TYPE_PIXEL       = 7; // Pixel API
+      CMD_TYPE_PIN         = 3; // Pin command
+      CMD_TYPE_PWM_OUTPUT  = 4; // Output PWM on a provided pin
+      CMD_TYPE_SENSOR      = 5; // Read sensor details
+      CMD_TYPE_PIXEL       = 6; // Pixel API
     }
 }
 
