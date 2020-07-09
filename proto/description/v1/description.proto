@@ -44,5 +44,5 @@ message GetDefinitionRequest {
 // Response from Adafruit IO with the JSON board definition as a string
 // MQTT Topic: `device/ID/description/get`
 message GetDefinitionResponse {
-    string boardDefinition = 1; // Response is JSON data encoded as a string
+    string board_definition = 1; // Response is JSON data encoded as a string
 }
