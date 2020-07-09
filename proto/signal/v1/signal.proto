@@ -6,13 +6,15 @@ package signal.v1;
 
 import "sensor/v1/sensor.proto";
 import "pin/v1/pin.proto";
+import "location/v1/location.proto";
 
 message CreateSignalRequest {
     oneof payload {
-        pin.v1.ConfigurePinRequest pin_config                        = 1; // Update pin information
-        pin.v1.PinEventRequest pin_event                             = 2; // Pin event
-        sensor.v1.AttachOrUpdateSensorRequest sensor_config   = 3; // Update sensor information
-        sensor.v1.SensorEventRequest sensor_event                          = 4; // Sensor event
+        pin.v1.ConfigurePinRequest pin_config               = 1; // Update pin information
+        pin.v1.PinEventRequest pin_event                    = 2; // Pin event
+        sensor.v1.AttachOrUpdateSensorRequest sensor_config = 3; // Update sensor information
+        sensor.v1.SensorEventRequest sensor_event           = 4; // Sensor event
+        location.v1.GetLocationRequest location_request     = 5; // Request location data from a device
     }
 }
 
@@ -22,5 +24,6 @@ message CreateSignalResponse {
         pin.v1.PinEventResponse pin_update_resp                   = 2;
         sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resp = 3;
         sensor.v1.SensorEventResponse sensor_event_resp           = 4;
+        location.v1.GetLocationResponse location_resp             = 5;
     }
 }

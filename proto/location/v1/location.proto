@@ -1,9 +1,17 @@
+// SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
 syntax = "proto3";
 
 package location.v1;
 
-// Device location
-message Location {
+
+// Request location data from Adafruit IO to the device
+message GetLocationRequest {
+    string payload = 1; // Can be an any message
+}
+
+// Sends location from device to Adafruit IO
+message GetLocationResponse {
     float latitude  = 1;
     float longitude = 2;
     float altitude  = 3;
