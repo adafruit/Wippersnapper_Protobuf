@@ -1,11 +1,14 @@
+// SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+// Messages for describing hardware over the `/device/ID/description` topic
 syntax = "proto3";
 
 package description.v1;
 
-// Defines which hardware description (https://github.com/adafruit/BlinkaConnect_Boards)
-// to assign to a device.
-message Description {
-    string display_name = 1; // User-defined hardware identifier, often the MQTT Client ID.
+// Request sent by device to Adafruit IO to select or update a device's board definition
+// MQTT Topic: `/device/ID/description/update`
+message CreateDescription {
+    string display_name = 1; // User-defined hardware identifier, often a MQTT Client ID.
     uint64 usb_vid      = 2; // USB Vendor ID
     uint64 usb_pid      = 3; // USB Product ID
     Version version     = 4; // BlinkaConnect library version
@@ -17,4 +20,29 @@ message Description {
         uint64 micro = 3;
         string label = 4;
     }
+}
+
+// Response sent by Adafruit IO to the hardware
+// MQTT Topic: `/device/ID/description/update`
+message CreateDescriptionResponse {
+    Response response = 1; // Response type
+
+    enum Response {
+        RESPONSE_UNSPECIFIED   = 0; // Invalid response from server
+        RESPONSE_OK            = 1; // Board found within definition index
+        RESPONSE_VID_NOT_FOUND = 2; // USB vendor identifer not found in definition index
+        RESPONSE_PID_NOT_FOUND = 3; // USB product identifer not found in definition index
+    }
+}
+
+// Request the board definition JSON from a device
+// MQTT Topic: `device/ID/description/get`
+message GetDefinitionRequest {
+    string data = 1; // Request may be any UTF-8 string value
+}
+
+// Response from Adafruit IO with the JSON board definition as a string
+// MQTT Topic: `device/ID/description/get`
+message GetDefinitionResponse {
+    string boardDefinition = 1; // Response is JSON data encoded as a string
 }
