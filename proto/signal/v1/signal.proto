@@ -9,16 +9,18 @@ import "pin/v1/pin.proto";
 
 message CreateSignalRequest {
     oneof payload {
-        pin.v1.ConfigurePinRequest pin_config = 1; // Update pin information
-        pin.v1.PinEventRequest pin_event      = 2; // Pin event
-        sensor.v1.Sensor.Type sensor_config   = 3; // Update sensor information
-        sensor.v1.Sensor.Event sensor_event   = 4; // Sensor event
+        pin.v1.ConfigurePinRequest pin_config                        = 1; // Update pin information
+        pin.v1.PinEventRequest pin_event                             = 2; // Pin event
+        sensor.v1.CreateOrUpdateSensorRequest sensor_config   = 3; // Update sensor information
+        sensor.v1.SensorEventRequest sensor_event                          = 4; // Sensor event
     }
 }
 
 message CreateSignalResponse {
     oneof response {
-        pin.v1.ConfigurePinResponse pin_create_resp = 1;
-        pin.v1.PinEventResponse pin_update_resp          = 2;
+        pin.v1.ConfigurePinResponse pin_create_resp               = 1;
+        pin.v1.PinEventResponse pin_update_resp                   = 2;
+        sensor.v1.CreateOrUpdateSensorResponse sensor_create_resp = 3;
+        sensor.v1.SensorEventResponse sensor_event_resp           = 4;
     }
 }
