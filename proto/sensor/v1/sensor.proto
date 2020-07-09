@@ -6,18 +6,20 @@ package sensor.v1;
 
 /* Unified Sensor API */
 
+// Sensor responses
 enum SensorResponses {
     SENSOR_RESPONSES_UNSPECIFIED                = 0; // Invalid CreateOrUpdateSensorRequest
-    SENSOR_RESPONSES_OK                         = 1;
+    SENSOR_RESPONSES_OK                         = 1; // Sensor action was successful
     SENSOR_RESPONSES_DUPLICATE_ID               = 2; // sensor_id already defined on board definition
-    SENSOR_RESPONSES_INVALID_SENSOR_TYPE        = 3; // Invalid SensorType requested
-    SENSOR_RESPONSES_MAX_MIN_VALUE_TYPE         = 4; // max_value and min_value not provided as float types
-    SENSOR_RESPONSES_MEASUREMENT_PERIOD_INVALID = 5; // Measurement period may not be < -1 (no readings)
+    SENSOR_RESPONSES_MISSING_SENSOR_ID          = 3; // sensor_id not found on board definition
+    SENSOR_RESPONSES_INVALID_SENSOR_TYPE        = 4; // Invalid SensorType requested
+    SENSOR_RESPONSES_MAX_MIN_VALUE_TYPE         = 5; // max_value and min_value not provided as float types
+    SENSOR_RESPONSES_MEASUREMENT_PERIOD_INVALID = 6; // Measurement period may not be < -1 (no readings)
 }
 
 // Creates or updates a sensor component on the board definition
 // MQTT Topic: `/device/ID/signal`
-message CreateOrUpdateSensorRequest {
+message AttachOrUpdateSensorRequest {
     string name                   = 1; // Sensor object name.
     int32 sensor_id               = 2; // Unique sensor identifier
     SensorType sensor_type        = 3; // Optional, sensor type identifier
@@ -47,13 +49,25 @@ message CreateOrUpdateSensorRequest {
     }
 }
 
-// Response from Adafruit IO
+// CreateOrUpdateSensorResponse from Adafruit IO
 // MQTT Topic: `/device/ID/signal`
-message CreateOrUpdateSensorResponse {
+message AttachOrUpdateSensorResponse {
     SensorResponses response = 1;
 }
 
-// Encapsulates and sends details about a sensor reading (event)
+// Detaches/removes a sensor from a board definition
+// MQTT Topic: `/device/ID/signal`
+message DetachSensorRequest {
+    int32 sensor_id = 1; // Unique sensor identifier
+}
+
+// Response from detaching or removing a sensor from a board definition
+// MQTT Topic: `/device/ID/signal`
+message DetachSensorResponse {
+    SensorResponses response = 1;
+}
+
+// Encapsulates and sends details about a sensor reading (event) to Adafruit IO
 // MQTT Topic: `/device/ID/signal`
 message SensorEventRequest {
     int32 sensor_id               = 1; // Unique sensor identifier
@@ -103,7 +117,7 @@ message SensorEventRequest {
     }
 }
 
-// Response from Adafruit IO
+// SensorEventResponse from Adafruit IO to device
 // MQTT Topic: `/device/ID/signal`
 message SensorEventResponse {
     SensorResponses response = 1;
