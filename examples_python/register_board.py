@@ -1,28 +1,29 @@
 # Example for registering a device with
 # the Adafruit IO BlinkaConnect server
 import sys
-sys.path.insert(1, 'registration/v1')
+sys.path.insert(1, 'description/v1')
 
-import registration_pb2
+import description_pb2
 
-__version__ = "0.0.0-alpha.1"
-PYPORTAL_VID = 0x239A
-PYPORTAL_PID = 0x8036
 
-device = registration_pb2.Device()
+# Request sent by device to Adafruit IO
+# to set the board definition to a PyPortal
+pyportal = description_pb2.CreateDescriptionRequest()
 
-# User-assigned device name (MQTT Client ID)
-device.display_name = "PyPortal"
-# PyPortal VID
-device.usb_vid = PYPORTAL_VID
-# PyPortal PID
-device.usb_pid = PYPORTAL_PID
+pyportal.display_name = "PyPortal"
+pyportal.usb_vid = 0x239A
+pyportal.usb_pid = 0x8036
+pyportal.version.major = 0
+pyportal.version.minor = 0
+pyportal.version.micro = 0
+pyportal.version.label = "alpha.1"
 
-# blinkaconnect code.py version
-ver = __version__.split("-")
-device.version.major = int(ver[0].split(".")[0])
-device.version.minor = int(ver[0].split(".")[1])
-device.version.micro = int(ver[0].split(".")[2])
-device.version.label = ver[1]
+print(pyportal)
 
-print(device)
+# Request sent by a device to Adafruit IO
+# on `device/ID/description/get` to request the board
+# definition as a string
+definition = description_pb2.GetDefinitionRequest()
+definition.data = "\0"
+
+print(definition)

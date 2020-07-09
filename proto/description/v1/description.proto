@@ -7,7 +7,7 @@ package description.v1;
 
 // Request sent by device to Adafruit IO to select or update a device's board definition
 // MQTT Topic: `/device/ID/description/update`
-message CreateDescription {
+message CreateDescriptionRequest {
     string display_name = 1; // User-defined hardware identifier, often a MQTT Client ID.
     uint64 usb_vid      = 2; // USB Vendor ID
     uint64 usb_pid      = 3; // USB Product ID

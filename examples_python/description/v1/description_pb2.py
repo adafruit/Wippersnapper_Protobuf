@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n description/v1/description.proto\x12\x0e\x64\x65scription.v1\"\xce\x01\n\x11\x43reateDescription\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x0f\n\x07usb_vid\x18\x02 \x01(\x04\x12\x0f\n\x07usb_pid\x18\x03 \x01(\x04\x12:\n\x07version\x18\x04 \x01(\x0b\x32).description.v1.CreateDescription.Version\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\"\xd0\x01\n\x19\x43reateDescriptionResponse\x12\x44\n\x08response\x18\x01 \x01(\x0e\x32\x32.description.v1.CreateDescriptionResponse.Response\"m\n\x08Response\x12\x18\n\x14RESPONSE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bRESPONSE_OK\x10\x01\x12\x1a\n\x16RESPONSE_VID_NOT_FOUND\x10\x02\x12\x1a\n\x16RESPONSE_PID_NOT_FOUND\x10\x03\"$\n\x14GetDefinitionRequest\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\"0\n\x15GetDefinitionResponse\x12\x17\n\x0f\x62oardDefinition\x18\x01 \x01(\tb\x06proto3'
+  serialized_pb=b'\n description/v1/description.proto\x12\x0e\x64\x65scription.v1\"\xdc\x01\n\x18\x43reateDescriptionRequest\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x0f\n\x07usb_vid\x18\x02 \x01(\x04\x12\x0f\n\x07usb_pid\x18\x03 \x01(\x04\x12\x41\n\x07version\x18\x04 \x01(\x0b\x32\x30.description.v1.CreateDescriptionRequest.Version\x1a\x45\n\x07Version\x12\r\n\x05major\x18\x01 \x01(\x04\x12\r\n\x05minor\x18\x02 \x01(\x04\x12\r\n\x05micro\x18\x03 \x01(\x04\x12\r\n\x05label\x18\x04 \x01(\t\"\xd0\x01\n\x19\x43reateDescriptionResponse\x12\x44\n\x08response\x18\x01 \x01(\x0e\x32\x32.description.v1.CreateDescriptionResponse.Response\"m\n\x08Response\x12\x18\n\x14RESPONSE_UNSPECIFIED\x10\x00\x12\x0f\n\x0bRESPONSE_OK\x10\x01\x12\x1a\n\x16RESPONSE_VID_NOT_FOUND\x10\x02\x12\x1a\n\x16RESPONSE_PID_NOT_FOUND\x10\x03\"$\n\x14GetDefinitionRequest\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\"0\n\x15GetDefinitionResponse\x12\x17\n\x0f\x62oardDefinition\x18\x01 \x01(\tb\x06proto3'
 )
 
 
@@ -54,43 +54,43 @@ _CREATEDESCRIPTIONRESPONSE_RESPONSE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=361,
-  serialized_end=470,
+  serialized_start=375,
+  serialized_end=484,
 )
 _sym_db.RegisterEnumDescriptor(_CREATEDESCRIPTIONRESPONSE_RESPONSE)
 
 
-_CREATEDESCRIPTION_VERSION = _descriptor.Descriptor(
+_CREATEDESCRIPTIONREQUEST_VERSION = _descriptor.Descriptor(
   name='Version',
-  full_name='description.v1.CreateDescription.Version',
+  full_name='description.v1.CreateDescriptionRequest.Version',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='major', full_name='description.v1.CreateDescription.Version.major', index=0,
+      name='major', full_name='description.v1.CreateDescriptionRequest.Version.major', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='minor', full_name='description.v1.CreateDescription.Version.minor', index=1,
+      name='minor', full_name='description.v1.CreateDescriptionRequest.Version.minor', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='micro', full_name='description.v1.CreateDescription.Version.micro', index=2,
+      name='micro', full_name='description.v1.CreateDescriptionRequest.Version.micro', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='label', full_name='description.v1.CreateDescription.Version.label', index=3,
+      name='label', full_name='description.v1.CreateDescriptionRequest.Version.label', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -108,41 +108,41 @@ _CREATEDESCRIPTION_VERSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=190,
-  serialized_end=259,
+  serialized_start=204,
+  serialized_end=273,
 )
 
-_CREATEDESCRIPTION = _descriptor.Descriptor(
-  name='CreateDescription',
-  full_name='description.v1.CreateDescription',
+_CREATEDESCRIPTIONREQUEST = _descriptor.Descriptor(
+  name='CreateDescriptionRequest',
+  full_name='description.v1.CreateDescriptionRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='display_name', full_name='description.v1.CreateDescription.display_name', index=0,
+      name='display_name', full_name='description.v1.CreateDescriptionRequest.display_name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='usb_vid', full_name='description.v1.CreateDescription.usb_vid', index=1,
+      name='usb_vid', full_name='description.v1.CreateDescriptionRequest.usb_vid', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='usb_pid', full_name='description.v1.CreateDescription.usb_pid', index=2,
+      name='usb_pid', full_name='description.v1.CreateDescriptionRequest.usb_pid', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='version', full_name='description.v1.CreateDescription.version', index=3,
+      name='version', full_name='description.v1.CreateDescriptionRequest.version', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -151,7 +151,7 @@ _CREATEDESCRIPTION = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_CREATEDESCRIPTION_VERSION, ],
+  nested_types=[_CREATEDESCRIPTIONREQUEST_VERSION, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -161,7 +161,7 @@ _CREATEDESCRIPTION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=53,
-  serialized_end=259,
+  serialized_end=273,
 )
 
 
@@ -193,8 +193,8 @@ _CREATEDESCRIPTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=262,
-  serialized_end=470,
+  serialized_start=276,
+  serialized_end=484,
 )
 
 
@@ -225,8 +225,8 @@ _GETDEFINITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=472,
-  serialized_end=508,
+  serialized_start=486,
+  serialized_end=522,
 )
 
 
@@ -257,34 +257,34 @@ _GETDEFINITIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=510,
-  serialized_end=558,
+  serialized_start=524,
+  serialized_end=572,
 )
 
-_CREATEDESCRIPTION_VERSION.containing_type = _CREATEDESCRIPTION
-_CREATEDESCRIPTION.fields_by_name['version'].message_type = _CREATEDESCRIPTION_VERSION
+_CREATEDESCRIPTIONREQUEST_VERSION.containing_type = _CREATEDESCRIPTIONREQUEST
+_CREATEDESCRIPTIONREQUEST.fields_by_name['version'].message_type = _CREATEDESCRIPTIONREQUEST_VERSION
 _CREATEDESCRIPTIONRESPONSE.fields_by_name['response'].enum_type = _CREATEDESCRIPTIONRESPONSE_RESPONSE
 _CREATEDESCRIPTIONRESPONSE_RESPONSE.containing_type = _CREATEDESCRIPTIONRESPONSE
-DESCRIPTOR.message_types_by_name['CreateDescription'] = _CREATEDESCRIPTION
+DESCRIPTOR.message_types_by_name['CreateDescriptionRequest'] = _CREATEDESCRIPTIONREQUEST
 DESCRIPTOR.message_types_by_name['CreateDescriptionResponse'] = _CREATEDESCRIPTIONRESPONSE
 DESCRIPTOR.message_types_by_name['GetDefinitionRequest'] = _GETDEFINITIONREQUEST
 DESCRIPTOR.message_types_by_name['GetDefinitionResponse'] = _GETDEFINITIONRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-CreateDescription = _reflection.GeneratedProtocolMessageType('CreateDescription', (_message.Message,), {
+CreateDescriptionRequest = _reflection.GeneratedProtocolMessageType('CreateDescriptionRequest', (_message.Message,), {
 
   'Version' : _reflection.GeneratedProtocolMessageType('Version', (_message.Message,), {
-    'DESCRIPTOR' : _CREATEDESCRIPTION_VERSION,
+    'DESCRIPTOR' : _CREATEDESCRIPTIONREQUEST_VERSION,
     '__module__' : 'description.v1.description_pb2'
-    # @@protoc_insertion_point(class_scope:description.v1.CreateDescription.Version)
+    # @@protoc_insertion_point(class_scope:description.v1.CreateDescriptionRequest.Version)
     })
   ,
-  'DESCRIPTOR' : _CREATEDESCRIPTION,
+  'DESCRIPTOR' : _CREATEDESCRIPTIONREQUEST,
   '__module__' : 'description.v1.description_pb2'
-  # @@protoc_insertion_point(class_scope:description.v1.CreateDescription)
+  # @@protoc_insertion_point(class_scope:description.v1.CreateDescriptionRequest)
   })
-_sym_db.RegisterMessage(CreateDescription)
-_sym_db.RegisterMessage(CreateDescription.Version)
+_sym_db.RegisterMessage(CreateDescriptionRequest)
+_sym_db.RegisterMessage(CreateDescriptionRequest.Version)
 
 CreateDescriptionResponse = _reflection.GeneratedProtocolMessageType('CreateDescriptionResponse', (_message.Message,), {
   'DESCRIPTOR' : _CREATEDESCRIPTIONRESPONSE,
