@@ -2,43 +2,30 @@ syntax = "proto3";
 
 package signal.v1;
 
-// Command message APIs
 import "sensor/v1/sensor.proto";
 import "pin/v1/pin.proto";
-import "pixel/v1/pixel.proto";
-import "pwm/v1/pwm.proto";
 
-// Metadata
-//import "location/v1/location.proto";
-
-message Signal {
-    CmdMode mode                 = 1; // Command mode
-    CmdType type                 = 2; // Command type
-    oneof data {                      // Command data
-        pin.v1.Pin pin           = 3; // Pin API
-        pwm.v1.PWM pwm           = 4; // Pulse-width-modulation API
-        sensor.v1.Sensor sensor  = 5; // Unified Sensor API
-        pixel.v1.Pixel pixel     = 6; // Pixel API
-    }
-
-    // Command modes
-    enum CmdMode {
-      CMD_MODE_UNSPECIFIED = 0; // Unspecified/invalid command name
-      CMD_MODE_GET         = 1; // Gets data from a device or IO
-      CMD_MODE_SET         = 2; // Sets data from a device or IO
-      CMD_MODE_DEL         = 3; // Deletes a sensor/component from a device definition
+message CreateSignalRequest {
+    CmdType type = 1;
+    oneof command {
+        pin.v1.CreateOrUpdatePinRequest.Configuration pin_config = 2; // Configure pin
+        pin.v1.CreateOrUpdatePinRequest.Event pin_event = 3; // Configure pin
+        sensor.v1.Sensor.Type sensor_config = 4; // Unified Sensor API
+        sensor.v1.Sensor.Event sensor_event = 5; // Unified Sensor API
     }
 
     // Command types
     enum CmdType {
       CMD_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
-      CMD_TYPE_LOCATION    = 1; // Device location
-      CMD_TYPE_BATTERY     = 2; // Device battery level
-      CMD_TYPE_PIN         = 3; // Pin command
-      CMD_TYPE_PWM_OUTPUT  = 4; // Output PWM on a provided pin
-      CMD_TYPE_SENSOR      = 5; // Read sensor details
-      CMD_TYPE_PIXEL       = 6; // Pixel API
+      CMD_TYPE_PIN         = 1; // Pin command
+      CMD_TYPE_PWM_OUTPUT  = 2; // Output PWM on a provided pin
+      CMD_TYPE_SENSOR      = 3; // Read sensor details
+      CMD_TYPE_PIXEL       = 4; // Pixel API
     }
 }
 
-
+message CreateSignalResponse {
+    oneof response {
+        pin.v1.CreateOrUpdatePinResponse pin_resp = 1;
+    }
+}

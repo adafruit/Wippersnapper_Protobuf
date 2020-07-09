@@ -13,8 +13,6 @@ _sym_db = _symbol_database.Default()
 
 from sensor.v1 import sensor_pb2 as sensor_dot_v1_dot_sensor__pb2
 from pin.v1 import pin_pb2 as pin_dot_v1_dot_pin__pb2
-from pixel.v1 import pixel_pb2 as pixel_dot_v1_dot_pixel__pb2
-from pwm.v1 import pwm_pb2 as pwm_dot_v1_dot_pwm__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -23,50 +21,15 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16sensor/v1/sensor.proto\x1a\x10pin/v1/pin.proto\x1a\x14pixel/v1/pixel.proto\x1a\x10pwm/v1/pwm.proto\"\xe3\x03\n\x06Signal\x12\'\n\x04mode\x18\x01 \x01(\x0e\x32\x19.signal.v1.Signal.CmdMode\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.signal.v1.Signal.CmdType\x12\x1a\n\x03pin\x18\x03 \x01(\x0b\x32\x0b.pin.v1.PinH\x00\x12\x1a\n\x03pwm\x18\x04 \x01(\x0b\x32\x0b.pwm.v1.PWMH\x00\x12#\n\x06sensor\x18\x05 \x01(\x0b\x32\x11.sensor.v1.SensorH\x00\x12 \n\x05pixel\x18\x06 \x01(\x0b\x32\x0f.pixel.v1.PixelH\x00\"Y\n\x07\x43mdMode\x12\x18\n\x14\x43MD_MODE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_MODE_GET\x10\x01\x12\x10\n\x0c\x43MD_MODE_SET\x10\x02\x12\x10\n\x0c\x43MD_MODE_DEL\x10\x03\"\xa4\x01\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x15\n\x11\x43MD_TYPE_LOCATION\x10\x01\x12\x14\n\x10\x43MD_TYPE_BATTERY\x10\x02\x12\x10\n\x0c\x43MD_TYPE_PIN\x10\x03\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x04\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x05\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x06\x42\x06\n\x04\x64\x61tab\x06proto3'
+  serialized_pb=b'\n\x16signal/v1/signal.proto\x12\tsignal.v1\x1a\x16sensor/v1/sensor.proto\x1a\x10pin/v1/pin.proto\"\xb4\x03\n\x13\x43reateSignalRequest\x12\x34\n\x04type\x18\x01 \x01(\x0e\x32&.signal.v1.CreateSignalRequest.CmdType\x12\x44\n\npin_config\x18\x02 \x01(\x0b\x32..pin.v1.CreateOrUpdatePinRequest.ConfigurationH\x00\x12;\n\tpin_event\x18\x03 \x01(\x0b\x32&.pin.v1.CreateOrUpdatePinRequest.EventH\x00\x12/\n\rsensor_config\x18\x04 \x01(\x0b\x32\x16.sensor.v1.Sensor.TypeH\x00\x12/\n\x0csensor_event\x18\x05 \x01(\x0b\x32\x17.sensor.v1.Sensor.EventH\x00\"w\n\x07\x43mdType\x12\x18\n\x14\x43MD_TYPE_UNSPECIFIED\x10\x00\x12\x10\n\x0c\x43MD_TYPE_PIN\x10\x01\x12\x17\n\x13\x43MD_TYPE_PWM_OUTPUT\x10\x02\x12\x13\n\x0f\x43MD_TYPE_SENSOR\x10\x03\x12\x12\n\x0e\x43MD_TYPE_PIXEL\x10\x04\x42\t\n\x07\x63ommand\"Y\n\x14\x43reateSignalResponse\x12\x35\n\x08pin_resp\x18\x01 \x01(\x0b\x32!.pin.v1.CreateOrUpdatePinResponseH\x00\x42\n\n\x08responseb\x06proto3'
   ,
-  dependencies=[sensor_dot_v1_dot_sensor__pb2.DESCRIPTOR,pin_dot_v1_dot_pin__pb2.DESCRIPTOR,pixel_dot_v1_dot_pixel__pb2.DESCRIPTOR,pwm_dot_v1_dot_pwm__pb2.DESCRIPTOR,])
+  dependencies=[sensor_dot_v1_dot_sensor__pb2.DESCRIPTOR,pin_dot_v1_dot_pin__pb2.DESCRIPTOR,])
 
 
 
-_SIGNAL_CMDMODE = _descriptor.EnumDescriptor(
-  name='CmdMode',
-  full_name='signal.v1.Signal.CmdMode',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='CMD_MODE_UNSPECIFIED', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CMD_MODE_GET', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CMD_MODE_SET', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CMD_MODE_DEL', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=339,
-  serialized_end=428,
-)
-_sym_db.RegisterEnumDescriptor(_SIGNAL_CMDMODE)
-
-_SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
+_CREATESIGNALREQUEST_CMDTYPE = _descriptor.EnumDescriptor(
   name='CmdType',
-  full_name='signal.v1.Signal.CmdType',
+  full_name='signal.v1.CreateSignalRequest.CmdType',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -77,90 +40,73 @@ _SIGNAL_CMDTYPE = _descriptor.EnumDescriptor(
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_LOCATION', index=1, number=1,
+      name='CMD_TYPE_PIN', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_BATTERY', index=2, number=2,
+      name='CMD_TYPE_PWM_OUTPUT', index=2, number=2,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_PIN', index=3, number=3,
+      name='CMD_TYPE_SENSOR', index=3, number=3,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_PWM_OUTPUT', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_SENSOR', index=5, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CMD_TYPE_PIXEL', index=6, number=6,
+      name='CMD_TYPE_PIXEL', index=4, number=4,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=431,
-  serialized_end=595,
+  serialized_start=386,
+  serialized_end=505,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNAL_CMDTYPE)
+_sym_db.RegisterEnumDescriptor(_CREATESIGNALREQUEST_CMDTYPE)
 
 
-_SIGNAL = _descriptor.Descriptor(
-  name='Signal',
-  full_name='signal.v1.Signal',
+_CREATESIGNALREQUEST = _descriptor.Descriptor(
+  name='CreateSignalRequest',
+  full_name='signal.v1.CreateSignalRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='mode', full_name='signal.v1.Signal.mode', index=0,
+      name='type', full_name='signal.v1.CreateSignalRequest.type', index=0,
       number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='type', full_name='signal.v1.Signal.type', index=1,
-      number=2, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
+      name='pin_config', full_name='signal.v1.CreateSignalRequest.pin_config', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pin', full_name='signal.v1.Signal.pin', index=2,
+      name='pin_event', full_name='signal.v1.CreateSignalRequest.pin_event', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='pwm', full_name='signal.v1.Signal.pwm', index=3,
+      name='sensor_config', full_name='signal.v1.CreateSignalRequest.sensor_config', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='sensor', full_name='signal.v1.Signal.sensor', index=4,
+      name='sensor_event', full_name='signal.v1.CreateSignalRequest.sensor_event', index=4,
       number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='pixel', full_name='signal.v1.Signal.pixel', index=5,
-      number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -170,8 +116,7 @@ _SIGNAL = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _SIGNAL_CMDMODE,
-    _SIGNAL_CMDTYPE,
+    _CREATESIGNALREQUEST_CMDTYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -179,44 +124,91 @@ _SIGNAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
-      name='data', full_name='signal.v1.Signal.data',
+      name='command', full_name='signal.v1.CreateSignalRequest.command',
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=120,
-  serialized_end=603,
+  serialized_start=80,
+  serialized_end=516,
 )
 
-_SIGNAL.fields_by_name['mode'].enum_type = _SIGNAL_CMDMODE
-_SIGNAL.fields_by_name['type'].enum_type = _SIGNAL_CMDTYPE
-_SIGNAL.fields_by_name['pin'].message_type = pin_dot_v1_dot_pin__pb2._PIN
-_SIGNAL.fields_by_name['pwm'].message_type = pwm_dot_v1_dot_pwm__pb2._PWM
-_SIGNAL.fields_by_name['sensor'].message_type = sensor_dot_v1_dot_sensor__pb2._SENSOR
-_SIGNAL.fields_by_name['pixel'].message_type = pixel_dot_v1_dot_pixel__pb2._PIXEL
-_SIGNAL_CMDMODE.containing_type = _SIGNAL
-_SIGNAL_CMDTYPE.containing_type = _SIGNAL
-_SIGNAL.oneofs_by_name['data'].fields.append(
-  _SIGNAL.fields_by_name['pin'])
-_SIGNAL.fields_by_name['pin'].containing_oneof = _SIGNAL.oneofs_by_name['data']
-_SIGNAL.oneofs_by_name['data'].fields.append(
-  _SIGNAL.fields_by_name['pwm'])
-_SIGNAL.fields_by_name['pwm'].containing_oneof = _SIGNAL.oneofs_by_name['data']
-_SIGNAL.oneofs_by_name['data'].fields.append(
-  _SIGNAL.fields_by_name['sensor'])
-_SIGNAL.fields_by_name['sensor'].containing_oneof = _SIGNAL.oneofs_by_name['data']
-_SIGNAL.oneofs_by_name['data'].fields.append(
-  _SIGNAL.fields_by_name['pixel'])
-_SIGNAL.fields_by_name['pixel'].containing_oneof = _SIGNAL.oneofs_by_name['data']
-DESCRIPTOR.message_types_by_name['Signal'] = _SIGNAL
+
+_CREATESIGNALRESPONSE = _descriptor.Descriptor(
+  name='CreateSignalResponse',
+  full_name='signal.v1.CreateSignalResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='pin_resp', full_name='signal.v1.CreateSignalResponse.pin_resp', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='response', full_name='signal.v1.CreateSignalResponse.response',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=518,
+  serialized_end=607,
+)
+
+_CREATESIGNALREQUEST.fields_by_name['type'].enum_type = _CREATESIGNALREQUEST_CMDTYPE
+_CREATESIGNALREQUEST.fields_by_name['pin_config'].message_type = pin_dot_v1_dot_pin__pb2._CREATEORUPDATEPINREQUEST_CONFIGURATION
+_CREATESIGNALREQUEST.fields_by_name['pin_event'].message_type = pin_dot_v1_dot_pin__pb2._CREATEORUPDATEPINREQUEST_EVENT
+_CREATESIGNALREQUEST.fields_by_name['sensor_config'].message_type = sensor_dot_v1_dot_sensor__pb2._SENSOR_TYPE
+_CREATESIGNALREQUEST.fields_by_name['sensor_event'].message_type = sensor_dot_v1_dot_sensor__pb2._SENSOR_EVENT
+_CREATESIGNALREQUEST_CMDTYPE.containing_type = _CREATESIGNALREQUEST
+_CREATESIGNALREQUEST.oneofs_by_name['command'].fields.append(
+  _CREATESIGNALREQUEST.fields_by_name['pin_config'])
+_CREATESIGNALREQUEST.fields_by_name['pin_config'].containing_oneof = _CREATESIGNALREQUEST.oneofs_by_name['command']
+_CREATESIGNALREQUEST.oneofs_by_name['command'].fields.append(
+  _CREATESIGNALREQUEST.fields_by_name['pin_event'])
+_CREATESIGNALREQUEST.fields_by_name['pin_event'].containing_oneof = _CREATESIGNALREQUEST.oneofs_by_name['command']
+_CREATESIGNALREQUEST.oneofs_by_name['command'].fields.append(
+  _CREATESIGNALREQUEST.fields_by_name['sensor_config'])
+_CREATESIGNALREQUEST.fields_by_name['sensor_config'].containing_oneof = _CREATESIGNALREQUEST.oneofs_by_name['command']
+_CREATESIGNALREQUEST.oneofs_by_name['command'].fields.append(
+  _CREATESIGNALREQUEST.fields_by_name['sensor_event'])
+_CREATESIGNALREQUEST.fields_by_name['sensor_event'].containing_oneof = _CREATESIGNALREQUEST.oneofs_by_name['command']
+_CREATESIGNALRESPONSE.fields_by_name['pin_resp'].message_type = pin_dot_v1_dot_pin__pb2._CREATEORUPDATEPINRESPONSE
+_CREATESIGNALRESPONSE.oneofs_by_name['response'].fields.append(
+  _CREATESIGNALRESPONSE.fields_by_name['pin_resp'])
+_CREATESIGNALRESPONSE.fields_by_name['pin_resp'].containing_oneof = _CREATESIGNALRESPONSE.oneofs_by_name['response']
+DESCRIPTOR.message_types_by_name['CreateSignalRequest'] = _CREATESIGNALREQUEST
+DESCRIPTOR.message_types_by_name['CreateSignalResponse'] = _CREATESIGNALRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Signal = _reflection.GeneratedProtocolMessageType('Signal', (_message.Message,), {
-  'DESCRIPTOR' : _SIGNAL,
+CreateSignalRequest = _reflection.GeneratedProtocolMessageType('CreateSignalRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATESIGNALREQUEST,
   '__module__' : 'signal.v1.signal_pb2'
-  # @@protoc_insertion_point(class_scope:signal.v1.Signal)
+  # @@protoc_insertion_point(class_scope:signal.v1.CreateSignalRequest)
   })
-_sym_db.RegisterMessage(Signal)
+_sym_db.RegisterMessage(CreateSignalRequest)
+
+CreateSignalResponse = _reflection.GeneratedProtocolMessageType('CreateSignalResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CREATESIGNALRESPONSE,
+  '__module__' : 'signal.v1.signal_pb2'
+  # @@protoc_insertion_point(class_scope:signal.v1.CreateSignalResponse)
+  })
+_sym_db.RegisterMessage(CreateSignalResponse)
 
 
 # @@protoc_insertion_point(module_scope)

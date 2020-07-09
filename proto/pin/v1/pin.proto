@@ -2,8 +2,13 @@ syntax = "proto3";
 
 package pin.v1;
 
-/* Pin  API for interfacing with analog or digital pins  */
-message Pin {
+/* Pin API for interfacing with analog or digital pins  */
+
+// todo: split out config and mode from here
+
+// Request to create or update a pin's configuration
+// MQTT Topic: `/device/ID/signal`
+message CreateOrUpdatePinRequest {
     string name          = 1; // Name of pin to access
     Configuration config = 2; // Carries pin configuration data
     Event event          = 3; // Describes a pin event
@@ -44,6 +49,16 @@ message Pin {
             string s_val = 4;
         }
     }
+}
 
-
+// Response from creating or updating a pin's configuration
+// MQTT Topic: `/device/ID/signal`
+message CreateOrUpdatePinResponse {
+    PinResponse response = 1;
+    enum PinResponse { // TODO this might need to be shared for GetPin
+        PIN_RESPONSE_UNSPECIFIED = 0; // Invalid Pin Response
+        PIN_RESPONSE_INPUT_ONLY  = 1; // Pin is input only
+        PIN_RESPONSE_INVALID_DIRECTION  = 2; // Pin direction is invalid
+        PIN_RESPONSE_INVALID_PULL = 3; // Unsupported pull value
+    }
 }
