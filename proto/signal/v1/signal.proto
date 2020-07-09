@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
 syntax = "proto3";
 
 package signal.v1;
@@ -6,26 +8,17 @@ import "sensor/v1/sensor.proto";
 import "pin/v1/pin.proto";
 
 message CreateSignalRequest {
-    CmdType type = 1;
-    oneof command {
-        pin.v1.CreateOrUpdatePinRequest.Configuration pin_config = 2; // Configure pin
-        pin.v1.CreateOrUpdatePinRequest.Event pin_event = 3; // Configure pin
-        sensor.v1.Sensor.Type sensor_config = 4; // Unified Sensor API
-        sensor.v1.Sensor.Event sensor_event = 5; // Unified Sensor API
-    }
-
-    // Command types
-    enum CmdType {
-      CMD_TYPE_UNSPECIFIED = 0; // Unspecified/invalid command name
-      CMD_TYPE_PIN         = 1; // Pin command
-      CMD_TYPE_PWM_OUTPUT  = 2; // Output PWM on a provided pin
-      CMD_TYPE_SENSOR      = 3; // Read sensor details
-      CMD_TYPE_PIXEL       = 4; // Pixel API
+    oneof payload {
+        pin.v1.ConfigurePinRequest pin_config = 1; // Update pin information
+        pin.v1.PinEventRequest pin_event      = 2; // Pin event
+        sensor.v1.Sensor.Type sensor_config   = 3; // Update sensor information
+        sensor.v1.Sensor.Event sensor_event   = 4; // Sensor event
     }
 }
 
 message CreateSignalResponse {
     oneof response {
-        pin.v1.CreateOrUpdatePinResponse pin_resp = 1;
+        pin.v1.ConfigurePinResponse pin_create_resp = 1;
+        pin.v1.PinEventResponse pin_update_resp          = 2;
     }
 }
