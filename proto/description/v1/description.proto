@@ -8,12 +8,11 @@ package description.v1;
 // Request sent by device to Adafruit IO to select or update a device's board definition
 // MQTT Topic: `/device/ID/description/update`
 message CreateDescriptionRequest {
-    string display_name = 1; // User-defined hardware identifier, often a MQTT Client ID.
-    uint64 usb_vid      = 2; // USB Vendor ID
-    uint64 usb_pid      = 3; // USB Product ID
-    Version version     = 4; // BlinkaConnect library version
+    bytes uid           = 1; // Network adapter MAC address
+    string machine_name = 2; // Machine name
+    Version version     = 3; // Library version
 
-    // Semantic Version
+    // Semantic version message
     message Version {
         uint64 major = 1;
         uint64 minor = 2;
@@ -30,8 +29,8 @@ message CreateDescriptionResponse {
     enum Response {
         RESPONSE_UNSPECIFIED   = 0; // Invalid response from server
         RESPONSE_OK            = 1; // Board found within definition index
-        RESPONSE_VID_NOT_FOUND = 2; // USB vendor identifer not found in definition index
-        RESPONSE_PID_NOT_FOUND = 3; // USB product identifer not found in definition index
+        RESPONSE_INVALID_BOARD = 2; // Board name not found within definition index
+        RESPONSE_INVALID_MAC   = 3; // Invalid MAC address format provided
     }
 }
 
