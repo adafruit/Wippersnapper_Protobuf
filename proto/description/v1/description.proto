@@ -8,7 +8,7 @@ package description.v1;
 // Request sent by device to Adafruit IO to select or update a device's board definition
 // MQTT Topic: `/device/ID/description/update`
 message CreateDescriptionRequest {
-    bytes uid           = 1; // Network adapter MAC address
+    string uid          = 1; // serial number
     string machine_name = 2; // Machine name
     Version version     = 3; // Library version
 
