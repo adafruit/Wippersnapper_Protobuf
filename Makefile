@@ -9,7 +9,7 @@ PROJECT := buf-example
 # the remote repository directly.
 #
 # Basic authentication is available, see https://buf.build/docs/inputs#https for more details.
-HTTPS_GIT := https://github.com/brentru/blinkaconnect-protobuf.git
+HTTPS_GIT := https://github.com/brentru/Wippersnapper-protobuf.git
 # This controls the remote SSH git location to compare against for breaking changes in CI.
 #
 # CI providers will typically have an SSH key installed as part of your setup for both
@@ -18,7 +18,7 @@ HTTPS_GIT := https://github.com/brentru/blinkaconnect-protobuf.git
 # configuration. We demo this with CircleCI.
 #
 # See https://buf.build/docs/inputs#ssh for more details.
-SSH_GIT := ssh://git@github.com:brentru/blinkaconnect-protobuf.git
+SSH_GIT := ssh://git@github.com:brentru/Wippersnapper-protobuf.git
 # This controls the version of buf to install and use.
 BUF_VERSION := 0.17.0
 # If true, Buf is installed from source instead of from releases
