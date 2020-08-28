@@ -30,7 +30,7 @@ message ConfigurePinRequest {
         MODE_UNSPECIFIED = 0; // Invalid pin mode
         MODE_ANALOG      = 1; // Analog pin
         MODE_DIGITAL     = 2; // Digital pin
-        MODE_PULL_UP     = 3; // Digital pin with a pull value
+        MODE_DEINIT      = 3; // De-initializes configured pin
     }
 
     /* Defines which direction the values are going */
