@@ -9,9 +9,10 @@ package description.v1;
 // MQTT Topic: `/device/ID/description/update`
 message CreateDescriptionRequest {
     string machine_name = 1; // Board identifier string
-    int32 usb_vid      = 2; // Optional USB Vendor ID
-    int32 usb_pid      = 3; // Optional USB Product ID
-    Version version     = 4; // Wippersnapper library version
+    int32 mac_addr      = 2; // Last 3 bytes of device MAC address
+    int32 usb_vid       = 3; // Optional USB Vendor ID
+    int32 usb_pid       = 4; // Optional USB Product ID
+    Version version     = 5; // Wippersnapper library version
 
     // Semantic Version
     message Version {
