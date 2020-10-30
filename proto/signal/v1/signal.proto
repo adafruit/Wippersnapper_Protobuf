@@ -10,7 +10,7 @@ import "sensor/v1/sensor.proto";
 
 
 message CreateSignalRequest {
-  oneof OBSOLETE_payload {
+  oneof obsolete_payload {
     // Update pin information
     pin.v1.ConfigurePinRequest pin_config               = 1;
     // Pin event
@@ -35,7 +35,7 @@ message CreateSignalRequest {
 }
 
 message CreateSignalResponse {
-  oneof OBSOLETE_response {
+  oneof obsolete_payload {
     pin.v1.ConfigurePinResponse pin_create_resp               = 1;
     pin.v1.PinEventResponse pin_update_resp                   = 2;
     sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resp = 3;
