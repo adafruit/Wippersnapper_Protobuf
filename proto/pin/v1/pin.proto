@@ -6,63 +6,75 @@ package pin.v1;
 
 /* Pin API for interfacing with analog or digital pins  */
 
-// Responses from Adafruit IO or the board
-enum PinResponse {
+// Request to create or update a pin's configuration
+// MQTT Topic: `/device/ID/signal`
+message ConfigurePinRequest {
+  string pin_name     = 1; // Name of pin to access
+  Mode mode           = 2; // Pin mode
+  Direction direction = 3; // Pin direction
+  Pull pull           = 4; // Pull value
+  int32 period        = 5; // Number of milliseconds between measurements
+
+  /* Defines pin mode */
+  enum Mode {
+    MODE_UNSPECIFIED = 0; // Invalid pin mode
+    MODE_ANALOG      = 1; // Analog pin
+    MODE_DIGITAL     = 2; // Digital pin
+  }
+
+  /* Defines which direction the values are going */
+  enum Direction {
+    DIRECTION_UNSPECIFIED = 0; // Invalid direction
+    DIRECTION_INPUT       = 1; // Read data in
+    DIRECTION_OUTPUT      = 2; // Write data out
+  }
+
+  /* Defines a pull value for digital pin reads */
+  enum Pull {
+    PULL_UNSPECIFIED = 0; // Invalid pull value
+    PULL_UP          = 1; // Pulls the line high
+    PULL_DOWN        = 2; // Pulls the line low
+  }
+}
+
+// Response from creating or updating a pin's configuration
+// MQTT Topic: `/device/ID/signal`
+message ConfigurePinResponse {
+  PinResponse response = 1;
+
+  // Responses from device firmware.
+  enum PinResponse {
     PIN_RESPONSE_UNSPECIFIED       = 0; // Invalid Pin Response
     PIN_RESPONSE_OK                = 1; // Pin request OK
     PIN_RESPONSE_INPUT_ONLY        = 2; // Pin is input only
     PIN_RESPONSE_INVALID_DIRECTION = 3; // Pin direction is invalid
     PIN_RESPONSE_INVALID_PULL      = 4; // Unsupported pull value
     PIN_RESPONSE_INVALID_DATA      = 5; // Invalid pin data
+  }
 }
 
-// Request to create or update a pin's configuration
-// MQTT Topic: `/device/ID/signal`
-message ConfigurePinRequest {
-    string pin_name     = 1; // Name of pin to access
-    Mode mode           = 2; // Pin mode
-    Direction direction = 3; // Pin direction
-    Pull pull           = 4; // Pull value
-    int32 period        = 5; // Number of milliseconds between measurements
-
-    /* Defines pin mode */
-    enum Mode {
-        MODE_UNSPECIFIED = 0; // Invalid pin mode
-        MODE_ANALOG      = 1; // Analog pin
-        MODE_DIGITAL     = 2; // Digital pin
-    }
-
-    /* Defines which direction the values are going */
-    enum Direction {
-        DIRECTION_UNSPECIFIED = 0; // Invalid direction
-        DIRECTION_INPUT       = 1; // Read data in
-        DIRECTION_OUTPUT      = 2; // Write data out
-    }
-
-    /* Defines a pull value for digital pin reads */
-    enum Pull {
-        PULL_UNSPECIFIED = 0; // Invalid pull value
-        PULL_UP          = 1; // Pulls the line high
-        PULL_DOWN        = 2; // Pulls the line low
-    }
+// Sends data about the value of a pin, bi-directional
+message PinEvent {
+  string pin_name = 1;
+  string pin_value = 2;
 }
 
-// Response from creating or updating a pin's configuration
-// MQTT Topic: `/device/ID/signal`
-message ConfigurePinResponse {
-    PinResponse response = 1;
+// Pin event response
+message PinEventResponse {
+  PinResponse obselete_response = 1;
+  PinEventResponse response = 2;
+
+  enum PinEventResponse {
+    PIN_EVENT_RESPONSE_UNSPECIFIED = 0;
+    PIN_EVENT_RESPONSE_OK          = 1;
+    PIN_EVENT_RESPONSE_INVALID     = 2;
+  }
 }
 
-
+// ! OBSELETE !
 // Sends information about a pin event, updates board definition
 // MQTT Topic: `/device/ID/signal`
-message PinEventRequest {
-    string pin_name  = 1; // Name of pin to access
-    string pin_value = 2; // Pin value, as a UTF-8 string
-}
-
-// Information about a PinEvent
-// MQTT Topic: `/device/ID/signal`
-message PinEventResponse {
-   PinResponse response = 1;
+message ObseletePinEventRequest {
+  string obselete_pin_name  = 1; // Name of pin to access
+  string obselete_pin_value = 2; // Pin value, as a UTF-8 string
 }
