@@ -56,11 +56,11 @@ message DeviceDescriptionResponse {
 
   enum Response {
     // Invalid response from server
-    DEVICE_RESPONSE_UNSPECIFIED   = 0;
+    RESPONSE_UNSPECIFIED   = 0;
     // Device transitioning to idle state
-    DEVICE_RESPONSE_READY         = 1;
+    RESPONSE_READY         = 1;
     // Device transitioning to disconnect state
-    DEVICE_RESPONSE_DISCONNECTING = 2;
+    RESPONSE_DISCONNECTING = 2;
   }
 }
 
