@@ -1,11 +1,23 @@
-name: lint-proto-files
-on: [push]
+name: Quality control pull requests
+
+on: pull_request
+
 jobs:
-  do-linting:
+  lint:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout source
-      uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: wizhi/setup-buf@v1
+        with:
+          version: 0.31.0
+      - run: buf check lint
 
-    - name: run protolint
-      uses: plexsystems/protolint-action@v0.2.0
+
+  breaking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: wizhi/setup-buf@v1
+        with:
+          version: 0.31.0
+      - run: buf check breaking --against-input ".git#ref=${{ github.base_ref }}"
