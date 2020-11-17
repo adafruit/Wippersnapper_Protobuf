@@ -9,6 +9,9 @@ jobs:
       with:
         version: '3.13.0'
     - name: Generate Python & JS Files
+      run: pwd
+      run: mkdir python_out
+      run: mkdir js_out
       run: protoc --proto_path=proto --js_out=js_out --python_out=python_out ./proto/description/v1/description.proto ./proto/location/v1/location.proto ./proto/pin/v1/pin.proto ./proto/pixel/v1/pixel.proto ./proto/pwm/v1/pwm.proto ./proto/sensor/v1/sensor.proto ./proto/signal/v1/signal.proto
     - name: Open PR to WipperSnapper Python Client
       run: echo 'TODO'
