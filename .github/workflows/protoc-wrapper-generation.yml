@@ -12,7 +12,7 @@ jobs:
     - run: mkdir js_out
     - run: ls -la
     - name: Generate Python & JS Files
-      run: protoc --proto_path=./proto ./proto/*/*/*.proto --js_out=js_out --python_out=python_out
+      run: protoc --proto_path=`pwd`/proto `pwd`/proto/*/*/*.proto --js_out=js_out --python_out=python_out
     - name: Open PR to WipperSnapper Python Client
       run: echo 'TODO'
     - name: Open PR to WipperSnapper Node Broker
