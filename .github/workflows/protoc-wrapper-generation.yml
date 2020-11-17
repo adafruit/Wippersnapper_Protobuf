@@ -1,0 +1,16 @@
+name: Generate .proto Wrapper Files
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Protoc
+      uses: arduino/setup-protoc@v1
+      with:
+        version: '3.13.0'
+    - name: Generate Python & JS Files
+      run: protoc --proto_path=proto --js_out=js_out --python_out=python_out ./proto/description/v1/description.proto ./proto/location/v1/location.proto ./proto/pin/v1/pin.proto ./proto/pixel/v1/pixel.proto ./proto/pwm/v1/pwm.proto ./proto/sensor/v1/sensor.proto ./proto/signal/v1/signal.proto
+    - name: Open PR to WipperSnapper Python Client
+      run: echo 'TODO'
+    - name: Open PR to WipperSnapper Node Broker
+      run: echo 'TODO'
