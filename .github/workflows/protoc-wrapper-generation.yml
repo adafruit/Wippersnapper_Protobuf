@@ -8,13 +8,23 @@ jobs:
       uses: arduino/setup-protoc@v1
       with:
         version: '3.13.0'
-    - name: Checkout
+    - name: Self Checkout
       uses: actions/checkout@v1
-    - run: mkdir ./python_out
-    - run: mkdir ./js_out
-    - run: ls . -la
-    - name: Generate Python & JS Files
-      run: protoc --proto_path=./proto ./proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
+    - name: Generate Python & JS Wrapper Files from .proto Files
+      run: |
+        mkdir ./python_out
+        mkdir ./js_out
+        protoc --proto_path=./proto ./proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
+    - name: Checkout Python Client
+      uses: actions/checkout@v2
+      with:
+        repository: adafruit/Adafruit_Wippersnapper_Python
+        path: Adafruit_Wippersnapper_Python
+    - name: Copy Python Files
+      run: |
+        cp -r ./python_out/ ./Adafruit_Wippersnapper_Python/adafruit_wippersnapper/
+        cd Adafruit_Wippersnapper_Python
+        git status
     - name: Open PR to WipperSnapper Python Client
       run: echo 'TODO'
     - name: Open PR to WipperSnapper Node Broker
