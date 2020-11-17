@@ -9,7 +9,7 @@ PROJECT := buf-example
 # the remote repository directly.
 #
 # Basic authentication is available, see https://buf.build/docs/inputs#https for more details.
-HTTPS_GIT := https://github.com/brentru/Wippersnapper-protobuf.git
+HTTPS_GIT := https://github.com/adafruit/Wippersnapper_Protobuf.git
 # This controls the remote SSH git location to compare against for breaking changes in CI.
 #
 # CI providers will typically have an SSH key installed as part of your setup for both
@@ -18,9 +18,9 @@ HTTPS_GIT := https://github.com/brentru/Wippersnapper-protobuf.git
 # configuration. We demo this with CircleCI.
 #
 # See https://buf.build/docs/inputs#ssh for more details.
-SSH_GIT := ssh://git@github.com:brentru/Wippersnapper-protobuf.git
+SSH_GIT := ssh://git@github.com/adafruit/Wippersnapper_Protobuf.git
 # This controls the version of buf to install and use.
-BUF_VERSION := 0.17.0
+BUF_VERSION := 0.31.0
 # If true, Buf is installed from source instead of from releases
 BUF_INSTALL_FROM_SOURCE := false
 
@@ -78,7 +78,7 @@ deps: $(BUF)
 .PHONY: local
 local: $(BUF)
 	buf check lint
-#	buf check breaking --against-input '.git#branch=master'
+	# buf check breaking --against '.git#branch=master'
 
 # https is what we run when testing in most CI providers.
 # This does breaking change detection against our remote HTTPS git repository.
@@ -86,7 +86,7 @@ local: $(BUF)
 .PHONY: https
 https: $(BUF)
 	buf check lint
-#	buf check breaking --against-input "$(HTTPS_GIT)#branch=master"
+	buf check breaking --against "$(HTTPS_GIT)#branch=master"
 
 # ssh is what we run when testing in CI providers that provide ssh public key authentication.
 # This does breaking change detection against our remote HTTPS ssh repository.
@@ -95,7 +95,7 @@ https: $(BUF)
 .PHONY: ssh
 ssh: $(BUF)
 	buf check lint
-#	buf check breaking --against-input "$(SSH_GIT)#branch=master"
+	buf check breaking --against "$(SSH_GIT)#branch=master"
 
 # clean deletes any files not checked in and the cache for all platforms.
 
@@ -111,5 +111,9 @@ updateversion:
 ifndef VERSION
 	$(error "VERSION must be set")
 else
+ifeq ($(UNAME_OS),Darwin)
+	sed -i '' "s/BUF_VERSION := [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*/BUF_VERSION := $(VERSION)/g" Makefile
+else
 	sed -i "s/BUF_VERSION := [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*/BUF_VERSION := $(VERSION)/g" Makefile
+endif
 endif

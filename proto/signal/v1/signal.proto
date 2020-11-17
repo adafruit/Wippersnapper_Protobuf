@@ -14,7 +14,7 @@ message CreateSignalRequest {
     // Update pin information
     pin.v1.ConfigurePinRequest pin_config               = 1;
     // Pin event
-    pin.v1.PinEventRequest pin_event                    = 2;
+    pin.v1.ObseletePinEventRequest pin_event            = 2;
     // Update sensor information
     sensor.v1.AttachOrUpdateSensorRequest sensor_config = 3;
     // Sensor event
@@ -26,7 +26,7 @@ message CreateSignalRequest {
   // Create, Update, Delete a GPIO pin
   repeated pin.v1.ConfigurePinRequest pin_configs               = 6;
   // Updates a pin's state
-  repeated pin.v1.PinEventRequest pin_events                    = 7;
+  repeated pin.v1.ObseletePinEventRequest pin_events            = 7;
 
   // Create, Update, Delete a sensor
   repeated sensor.v1.AttachOrUpdateSensorRequest sensor_configs = 8;

@@ -61,7 +61,6 @@ message PinEvent {
 
 // Pin event response
 message PinEventResponse {
-  PinResponse obselete_response = 1;
   PinEventResponse response = 2;
 
   enum PinEventResponse {
