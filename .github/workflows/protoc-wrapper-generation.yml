@@ -18,8 +18,9 @@ jobs:
     - name: Checkout Python Client
       uses: actions/checkout@v2
       with:
-        repository: adafruit/Adafruit_Wippersnapper_Python
         path: Adafruit_Wippersnapper_Python
+        repository: adafruit/Adafruit_Wippersnapper_Python
+        ref: master
     - name: Copy Python Files
       run: |
         cp -r ./python_out/ ./Adafruit_Wippersnapper_Python/adafruit_wippersnapper/
