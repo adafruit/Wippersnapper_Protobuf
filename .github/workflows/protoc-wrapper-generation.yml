@@ -8,11 +8,11 @@ jobs:
       uses: arduino/setup-protoc@v1
       with:
         version: '3.13.0'
-    - run: mkdir python_out
-    - run: mkdir js_out
-    - run: ls -la
+    - run: mkdir `pwd`/python_out
+    - run: mkdir `pwd`/js_out
+    - run: ls `pwd` -la
     - name: Generate Python & JS Files
-      run: protoc --proto_path=`pwd`/proto `pwd`/proto/*/*/*.proto --js_out=js_out --python_out=python_out
+      run: protoc --proto_path=`pwd`/proto `pwd`/proto/*/*/*.proto --js_out=`pwd`/js_out --python_out=`pwd`/python_out
     - name: Open PR to WipperSnapper Python Client
       run: echo 'TODO'
     - name: Open PR to WipperSnapper Node Broker
