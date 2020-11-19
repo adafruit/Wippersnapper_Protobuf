@@ -21,6 +21,7 @@ jobs:
         path: Adafruit_Wippersnapper_Python
         repository: adafruit/Adafruit_Wippersnapper_Python
         ref: master
+        token: ${{ secrets.IO_BOT_PAT }}
     - name: Copy Python Files
       run: |
         cp -r ./python_out/ ./Adafruit_Wippersnapper_Python/adafruit_wippersnapper/
