@@ -18,18 +18,16 @@ jobs:
     - name: Checkout Python Client
       uses: actions/checkout@v2
       with:
-        path: Adafruit_Wippersnapper_Python
+        path: python-checkout
         repository: adafruit/Adafruit_Wippersnapper_Python
         ref: master
         token: ${{ secrets.IO_BOT_PAT }}
     - name: Copy Python Files
-      run: |
-        cd Adafruit_Wippersnapper_Python
-        cp -r ../python_out/* ./adafruit_wippersnapper/
+      run: cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/
     - name: Open PR to WipperSnapper Python Client
       uses: peter-evans/create-pull-request@v3
       with:
-        path: Adafruit_Wippersnapper_Python
+        path: python-checkout
         token: ${{ secrets.IO_BOT_PAT }}
     - name: Open PR to WipperSnapper Node Broker
       run: echo 'TODO'
