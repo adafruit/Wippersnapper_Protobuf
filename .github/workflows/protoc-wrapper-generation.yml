@@ -32,6 +32,7 @@ jobs:
       with:
         token: ${{ secrets.IO_BOT_PAT }}
         item: python-checkout/adafruit_wippersnapper
+        repo_base_branch: master
         repo_target_dir: adafruit_wippersnapper
         repo: Adafruit_Wippersnapper_Python
         repo_owner: adafruit
