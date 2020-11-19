@@ -9,12 +9,15 @@ jobs:
       with:
         version: '3.13.0'
     - name: Self Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
+      with:
+        path: protobuf-checkout
     - name: Generate Python & JS Wrapper Files from .proto Files
       run: |
         mkdir ./python_out
         mkdir ./js_out
-        protoc --proto_path=./proto ./proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
+        la -la
+        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
     - name: Checkout Python Client
       uses: actions/checkout@v2
       with:
