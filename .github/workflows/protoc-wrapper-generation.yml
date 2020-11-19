@@ -31,6 +31,6 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         path: python-checkout
-        token: ${{ secrets.IO_BOT_PAT }}
+        # token: ${{ secrets.IO_BOT_PAT }}
     - name: Open PR to WipperSnapper Node Broker
       run: echo 'TODO'
