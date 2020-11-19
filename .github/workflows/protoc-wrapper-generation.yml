@@ -28,9 +28,12 @@ jobs:
     - name: Copy Python Files
       run: cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/
     - name: Open PR to WipperSnapper Python Client
-      uses: peter-evans/create-pull-request@v3
+      uses: TickX/auto-cross-pr@v0.1.3
       with:
-        path: python-checkout
-        # token: ${{ secrets.IO_BOT_PAT }}
+        token: ${{ secrets.IO_BOT_PAT }}
+        item: python-checkout/adafruit_wippersnapper
+        repo_target_dir: adafruit_wippersnapper
+        repo: Adafruit_Wippersnapper_Python
+        repo_owner: adafruit
     - name: Open PR to WipperSnapper Node Broker
       run: echo 'TODO'
