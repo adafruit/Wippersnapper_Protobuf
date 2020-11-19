@@ -16,7 +16,7 @@ jobs:
       run: |
         mkdir ./python_out
         mkdir ./js_out
-        la -la
+        ls -la
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
     - name: Checkout Python Client
       uses: actions/checkout@v2
