@@ -18,6 +18,23 @@ jobs:
         mkdir ./js_out
         ls -la
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
+    - name: Install hub
+      uses: geertvdc/setup-hub@master
+    - name: Checkout Python, Modify Files, Open PR
+      env:
+        GITHUB_USER: adafruitio
+        GITHUB_TOKEN: ${{ secrets.IO_BOT_PAT }}
+      run: |
+        hub clone adafruit/Adafruit_Wippersnapper_Python python-checkout
+        cd python-checkout
+        git checkout -b protobuf-update
+        cp -r ../python_out/* ./adafruit_wippersnapper/
+        git config --global user.name "AdafruitIO Bot"
+        git config --global user.email adafruitio@adafruit.com
+        git commit -am "Updating protobuf wrappers"
+        hub push origin
+        hub pull-request
+
     # - name: Checkout Python Client
     #   uses: actions/checkout@v2
     #   with:
@@ -27,14 +44,5 @@ jobs:
     #     token: ${{ secrets.IO_BOT_PAT }}
     # - name: Copy Python Files
     #   run: cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/
-    - name: Open PR to WipperSnapper Python Client
-      uses: TickX/auto-cross-pr@v0.1.3
-      with:
-        token: ${{ secrets.IO_BOT_PAT }}
-        item: ./python_out
-        repo_base_branch: master
-        repo_target_dir: adafruit_wippersnapper
-        repo: Adafruit_Wippersnapper_Python
-        repo_owner: adafruit
     - name: Open PR to WipperSnapper Node Broker
       run: echo 'TODO'
