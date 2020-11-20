@@ -27,7 +27,7 @@ jobs:
         GITHUB_USER: adafruitio
         GITHUB_TOKEN: ${{ secrets.IO_BOT_PAT }}
       run: |
-        git clone https://adafruitio:${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python python-checkout
+        git clone https://${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python python-checkout
         cd python-checkout
         git checkout -b protobuf-update
         cp -r ../python_out/* ./adafruit_wippersnapper/
