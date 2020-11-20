@@ -29,6 +29,9 @@ jobs:
       run: |
         git clone https://adafruitio:${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python python-checkout
         cd python-checkout
+        git remote
+        git remote set-url origin https://adafruitio:${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python
+        git remote
         git checkout -b protobuf-update
         cp -r ../python_out/* ./adafruit_wippersnapper/
         git config --global user.name "AdafruitIO Bot"
