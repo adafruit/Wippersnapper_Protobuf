@@ -22,12 +22,12 @@ jobs:
       uses: geertvdc/setup-hub@master
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-    # - name: Checkout Python Repo
-    #   uses: actions/checkout@master
-    #   with:
-    #     repository: adafruit/Adafruit_Wippersnapper_Python
-    #     token: ${{ secrets.IO_BOT_PAT }}
-    #     path: python-checkout
+    - name: Checkout Python Repo
+      uses: actions/checkout@v2
+      with:
+        repository: adafruit/Adafruit_Wippersnapper_Python
+        token: ${{ secrets.IO_BOT_PAT }}
+        path: python-checkout
     - name: Modify Files, Open PR
       env:
         GITHUB_USER: adafruitio
@@ -36,7 +36,6 @@ jobs:
       run: |
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
-        hub clone adafruit/Adafruit_Wippersnapper_Python python-checkout
         cd python-checkout
         git checkout -b $PROTOBUF_BRANCH_NAME
         cp -r ../python_out/* ./adafruit_wippersnapper/
