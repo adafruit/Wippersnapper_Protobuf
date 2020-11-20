@@ -34,7 +34,7 @@ jobs:
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
         git commit -am "Updating protobuf wrappers"
-        git push --force https://adafruitio:${secrets.IO_BOT_PAT}@github.com/adafruit/Adafruit_Wippersnapper_Python.git protobuf-update
+        git push --force https://adafruitio:${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python.git protobuf-update
         hub pull-request
 
     # - name: Checkout Python Client
