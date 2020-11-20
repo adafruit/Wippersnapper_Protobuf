@@ -22,17 +22,19 @@ jobs:
       uses: geertvdc/setup-hub@master
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-    - name: Checkout Python Repo
-      uses: actions/checkout@master
-      with:
-        repository: adafruit/Adafruit_Wippersnapper_Python
-        token: ${{ secrets.IO_BOT_PAT }}
-        path: python-checkout
+    # - name: Checkout Python Repo
+    #   uses: actions/checkout@master
+    #   with:
+    #     repository: adafruit/Adafruit_Wippersnapper_Python
+    #     token: ${{ secrets.IO_BOT_PAT }}
+    #     path: python-checkout
     - name: Modify Files, Open PR
       env:
         GITHUB_USER: adafruitio
         GITHUB_TOKEN: ${{ secrets.IO_BOT_PAT }}
       run: |
+        git config --global hub.protocol https
+        hub clone adafruit/Adafruit_Wippersnapper_Python python-checkout
         cd python-checkout
         git checkout -b protobuf-update
         cp -r ../python_out/* ./adafruit_wippersnapper/
@@ -40,7 +42,7 @@ jobs:
         git config --global user.password ${{ secrets.IO_BOT_PAT }}
         git config --global user.email adafruitio@adafruit.com
         git commit -am "Updating protobuf wrappers"
-        git push origin protobuf-update
+        hub push origin
         hub pull-request
 
     # - name: Checkout Python Client
