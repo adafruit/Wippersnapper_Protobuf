@@ -32,17 +32,18 @@ jobs:
       env:
         GITHUB_USER: adafruitio
         GITHUB_TOKEN: ${{ secrets.IO_BOT_PAT }}
+        PROTOBUF_BRANCH_NAME: protobuf-update
       run: |
-        git config --global hub.protocol https
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
-        hub clone https://adafruitio:${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python python-checkout
+        hub clone adafruit/Adafruit_Wippersnapper_Python python-checkout
         cd python-checkout
-        git checkout -b protobuf-update
+        git checkout -b $PROTOBUF_BRANCH_NAME
         cp -r ../python_out/* ./adafruit_wippersnapper/
-        git commit -am "Updating protobuf wrappers"
-        hub push origin protobuf-update
-        hub pull-request
+        git add adafruit_wippersnapper
+        git commit -m "Updating protobuf wrappers"
+        hub push origin $PROTOBUF_BRANCH_NAME
+        hub pull-request --message ".proto file wrappers updated"
 
     # - name: Checkout Python Client
     #   uses: actions/checkout@v2
