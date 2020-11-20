@@ -5,7 +5,6 @@ syntax = "proto3";
 package pin.v1;
 
 /* Pin API for interfacing with analog or digital pins  */
-
 // Request to create or update a pin's configuration
 // MQTT Topic: `/device/ID/signal`
 message ConfigurePinRequest {
@@ -70,7 +69,33 @@ message PinEventResponse {
   }
 }
 
-// ! OBSELETE !
+/* PWM Pin API */
+
+// Configures a PWM output pin
+message ConfigurePWMPinRequest {
+  // Pin to write to
+  string pin_name         = 1;
+
+  // Duty cycle between always off (0)
+  // and always on (255)
+  int32 duty_cycle        = 2;
+
+  // Target frequency, in Hz
+  int32 frequency         = 3;
+
+  // If the frequency changes over time
+  // NOTE: CIRCUITPYTHON-API ONLY
+  bool variable_frequency = 4;
+}
+
+// Write duty cycle to a pin PWM output pin
+message PWMPinEvent {
+  // Duty cycle between always off (0)
+  // and always on (255)
+  int32 duty_cycle        = 2;
+}
+
+/* ! OBSELETE API ! */
 // Sends information about a pin event, updates board definition
 // MQTT Topic: `/device/ID/signal`
 message ObseletePinEventRequest {

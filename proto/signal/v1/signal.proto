@@ -23,15 +23,21 @@ message CreateSignalRequest {
     location.v1.GetLocationRequest location_request     = 5;
   }
 
-  // Create, Update, Delete a GPIO pin
+  // Create, update or remove a GPIO pin
   repeated pin.v1.ConfigurePinRequest pin_configs               = 6;
   // Updates a pin's state
   repeated pin.v1.ObseletePinEventRequest pin_events            = 7;
 
-  // Create, Update, Delete a sensor
+  // Create, update or remove a sensor
   repeated sensor.v1.AttachOrUpdateSensorRequest sensor_configs = 8;
   // Updates a sensor's state
   repeated sensor.v1.SensorEventRequest sensor_events           = 9;
+
+  // Create, update or remove a PWM output pin
+  repeated pin.v1.ConfigurePWMPinRequest pwm_pin_config         = 10;
+
+  // Write duty cycle to a PWM output pin
+  repeated pin.v1.ConfigurePWMPinEvent pwm_pin_event            = 11;
 }
 
 message CreateSignalResponse {
