@@ -34,7 +34,7 @@ jobs:
         git config --global user.name "AdafruitIO Bot"
         git config --global user.email adafruitio@adafruit.com
         git commit -am "Updating protobuf wrappers"
-        hub push origin
+        git push --set-upstream origin protobuf-update
         hub pull-request
 
     # - name: Checkout Python Client
