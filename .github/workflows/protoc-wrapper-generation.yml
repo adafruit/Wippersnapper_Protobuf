@@ -36,7 +36,7 @@ jobs:
         git config --global hub.protocol https
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
-        hub clone adafruit/Adafruit_Wippersnapper_Python python-checkout
+        hub clone https://adafruitio:${{ secrets.IO_BOT_PAT }}@adafruit/Adafruit_Wippersnapper_Python python-checkout
         cd python-checkout
         git remote -v
         git checkout -b protobuf-update
