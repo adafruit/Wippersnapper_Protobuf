@@ -1,4 +1,4 @@
-name: Quality control pull requests
+name: Linting and Backwards-Compatibility Checks
 on: push
 jobs:
   build:
