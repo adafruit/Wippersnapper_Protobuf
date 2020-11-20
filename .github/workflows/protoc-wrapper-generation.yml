@@ -37,6 +37,7 @@ jobs:
         git checkout -b protobuf-update
         cp -r ../python_out/* ./adafruit_wippersnapper/
         git config --global user.name adafruitio
+        git config --global user.password ${{ secrets.IO_BOT_PAT }}
         git config --global user.email adafruitio@adafruit.com
         git commit -am "Updating protobuf wrappers"
         git push origin protobuf-update
