@@ -27,14 +27,14 @@ jobs:
         GITHUB_USER: adafruitio
         GITHUB_TOKEN: ${{ secrets.IO_BOT_PAT }}
       run: |
-        git clone https://${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python python-checkout
+        git clone https://${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python.git python-checkout
         cd python-checkout
         git checkout -b protobuf-update
         cp -r ../python_out/* ./adafruit_wippersnapper/
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
         git commit -am "Updating protobuf wrappers"
-        git push --force https://adafruitio:${{ secrets.IO_BOT_PAT }}@github.com/adafruit/Adafruit_Wippersnapper_Python.git protobuf-update
+        git push origin protobuf-update
         hub pull-request
 
     # - name: Checkout Python Client
