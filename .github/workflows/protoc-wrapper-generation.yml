@@ -38,7 +38,7 @@ jobs:
       env:
         GITHUB_USER: adafruitio
         GITHUB_TOKEN: ${{ secrets.IO_BOT_PAT }}
-        PROTOBUF_BRANCH_NAME: protobuf-update-${{ env.GITHUB_SHA }}
+        PROTOBUF_BRANCH_NAME: protobuf-update-${GITHUB_SHA::6}
       run: |
         cd python-checkout
         git checkout -b $PROTOBUF_BRANCH_NAME
