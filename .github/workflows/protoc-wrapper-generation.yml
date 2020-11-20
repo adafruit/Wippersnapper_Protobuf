@@ -20,6 +20,8 @@ jobs:
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
     - name: Install hub
       uses: geertvdc/setup-hub@master
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     - name: Checkout Python, Modify Files, Open PR
       env:
         GITHUB_USER: adafruitio
