@@ -37,7 +37,7 @@ message CreateSignalRequest {
   repeated pin.v1.ConfigurePWMPinRequest pwm_pin_config         = 10;
 
   // Write duty cycle to a PWM output pin
-  repeated pin.v1.ConfigurePWMPinEvent pwm_pin_event            = 11;
+  repeated pin.v1.PWMPinEvent pwm_pin_event            = 11;
 }
 
 message CreateSignalResponse {
