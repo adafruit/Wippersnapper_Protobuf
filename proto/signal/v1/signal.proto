@@ -36,8 +36,12 @@ message CreateSignalRequest {
   // Create, update or remove a PWM output pin
   repeated pin.v1.ConfigurePWMPinRequest pwm_pin_config         = 10;
 
+  // OBSELETE
   // Write duty cycle to a PWM output pin
-  repeated pin.v1.PWMPinEvent pwm_pin_event            = 11;
+  repeated pin.v1.ObseleteConfigurePWMPinEvent obselete_pwm_pin_event    = 11;
+
+  // Write duty cycle to a PWM output pin
+  repeated pin.v1.PWMPinEvent pwm_pin_event                     = 12;
 }
 
 message CreateSignalResponse {
