@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 
-package signal.v1;
-
 import "location.proto";
 import "pin.proto";
 import "sensor.proto";
@@ -12,45 +10,45 @@ import "sensor.proto";
 message CreateSignalRequest {
   oneof obsolete_payload {
     // Update pin information
-    pin.v1.ConfigurePinRequest pin_config               = 1;
+    ConfigurePinRequest pin_config               = 1;
     // Pin event
-    pin.v1.ObseletePinEventRequest pin_event            = 2;
+    ObseletePinEventRequest pin_event            = 2;
     // Update sensor information
-    sensor.v1.AttachOrUpdateSensorRequest sensor_config = 3;
+    AttachOrUpdateSensorRequest sensor_config = 3;
     // Sensor event
-    sensor.v1.SensorEventRequest sensor_event           = 4;
+    SensorEventRequest sensor_event           = 4;
     // Request location data from a device
-    location.v1.GetLocationRequest location_request     = 5;
+    GetLocationRequest location_request     = 5;
   }
 
   // Create, update or remove a GPIO pin
-  repeated pin.v1.ConfigurePinRequest pin_configs               = 6;
+  repeated ConfigurePinRequest pin_configs               = 6;
   // Updates a pin's state
-  repeated pin.v1.ObseletePinEventRequest pin_events            = 7;
+  repeated ObseletePinEventRequest pin_events            = 7;
 
   // Create, update or remove a sensor
-  repeated sensor.v1.AttachOrUpdateSensorRequest sensor_configs = 8;
+  repeated AttachOrUpdateSensorRequest sensor_configs = 8;
   // Updates a sensor's state
-  repeated sensor.v1.SensorEventRequest sensor_events           = 9;
+  repeated SensorEventRequest sensor_events           = 9;
 
   // Create, update or remove a PWM output pin
-  repeated pin.v1.ConfigurePWMPinRequest pwm_pin_config         = 10;
+  repeated ConfigurePWMPinRequest pwm_pin_config         = 10;
 
   // Write duty cycle to a PWM output pin
-  repeated pin.v1.PWMPinEvent pwm_pin_event                     = 12;
+  repeated PWMPinEvent pwm_pin_event                     = 12;
 }
 
 message CreateSignalResponse {
   oneof obsolete_payload {
-    pin.v1.ConfigurePinResponse pin_create_resp               = 1;
-    pin.v1.PinEventResponse pin_update_resp                   = 2;
-    sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resp = 3;
-    sensor.v1.SensorEventResponse sensor_event_resp           = 4;
-    location.v1.GetLocationResponse location_resp             = 5;
+    ConfigurePinResponse pin_create_resp               = 1;
+    PinEventResponse pin_update_resp                   = 2;
+    AttachOrUpdateSensorResponse sensor_attach_resp = 3;
+    SensorEventResponse sensor_event_resp           = 4;
+    GetLocationResponse location_resp             = 5;
   }
   // ACKs a _Response
-  repeated pin.v1.ConfigurePinResponse pin_create_resps               = 6;
-  repeated pin.v1.PinEventResponse pin_update_resps                   = 7;
-  repeated sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 8;
-  repeated sensor.v1.SensorEventResponse sensor_event_resps           = 9;
+  repeated ConfigurePinResponse pin_create_resps               = 6;
+  repeated PinEventResponse pin_update_resps                   = 7;
+  repeated AttachOrUpdateSensorResponse sensor_attach_resps = 8;
+  repeated SensorEventResponse sensor_event_resps           = 9;
 }

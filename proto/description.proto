@@ -3,8 +3,6 @@
 // Messages for describing hardware over the description topic
 syntax = "proto3";
 
-package description.v1;
-
 // Request sent by device to Adafruit IO to select
 // or update a device's board definition
 // MQTT Topic: `/devices/description/`
