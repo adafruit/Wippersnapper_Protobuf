@@ -1,7 +1,7 @@
 name: Generate .proto Wrapper Files
-on:
-  push:
-    branches: master
+on: [ push ]
+  # push:
+  #   branches: master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +19,7 @@ jobs:
         mkdir ./python_out
         mkdir ./js_out
         ls -la
-        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/*/*/*.proto --js_out=./js_out --python_out=./python_out
+        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/*.proto --js_out=./js_out --python_out=./python_out
     - name: Configure Git
       run: |
         git config --global user.name adafruitio
