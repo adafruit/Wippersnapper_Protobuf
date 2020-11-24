@@ -4,9 +4,9 @@ syntax = "proto3";
 
 package signal.v1;
 
-import "location/v1/location.proto";
-import "pin/v1/pin.proto";
-import "sensor/v1/sensor.proto";
+import "location.proto";
+import "pin.proto";
+import "sensor.proto";
 
 
 message CreateSignalRequest {
