@@ -1,7 +1,7 @@
 name: Generate .proto Wrapper Files
-on: [ push ]
-  # push:
-  #   branches: master
+on:
+  push:
+    branches: master
 jobs:
   build:
     runs-on: ubuntu-latest
