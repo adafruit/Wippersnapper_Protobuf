@@ -31,7 +31,7 @@ jobs:
         token: ${{ secrets.IO_BOT_PAT }}
         path: python-checkout
     - name: Copy Python Files
-      run: cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/
+      run: cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/proto/
     - name: Open Python Pull Request
       env:
         GITHUB_USER: adafruitio
