@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-package pixel.v1;
-
 // Addressable Pixel API
 message Pixel {
     int32 pixel_pin      = 1; // Pin to send data to

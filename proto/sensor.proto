@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 
-package sensor.v1;
-
 /* Unified Sensor API */
 
 // Sensor responses
