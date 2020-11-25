@@ -3,6 +3,8 @@
 // Messages for describing hardware over the description topic
 syntax = "proto3";
 
+package wippersnapper.description.v1;
+
 // Request sent by device to Adafruit IO to select
 // or update a device's board definition
 // MQTT Topic: `/devices/description/`
@@ -22,18 +24,6 @@ message CreateDescriptionRequest {
   }
 }
 
-// OBSOLETE
-// Response sent from Adafruit IO to a board
-// MQTT Topic: `/device/ID/description/update`
-message ObsoleteCreateDescriptionResponse {
-  Response response = 1; // Response type
-
-  enum Response {
-    RESPONSE_UNSPECIFIED     = 0; // Invalid response from server
-    RESPONSE_OK              = 1; // Board found within definition index
-    RESPONSE_BOARD_NOT_FOUND = 2; // Board not found in definition index
-  }
-}
 
 // ACK Response sent from Adafruit IO to a board upon CreateDescriptionRequest
 // MQTT Topic: `/device/myDevice/description/status/device`
