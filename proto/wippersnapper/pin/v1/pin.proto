@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 
+package wippersnapper.pin.v1;
+
 /* Pin API for interfacing with analog or digital pins  */
 // Request to create or update a pin's configuration
 // MQTT Topic: `/device/ID/signal`
@@ -91,12 +93,4 @@ message PWMPinEvent {
   // Duty cycle between always off (0)
   // and always on (255)
   int32 duty_cycle        = 2;
-}
-
-/* ! OBSELETE API ! */
-// Sends information about a pin event, updates board definition
-// MQTT Topic: `/device/ID/signal`
-message ObseletePinEventRequest {
-  string obselete_pin_name  = 1; // Name of pin to access
-  string obselete_pin_value = 2; // Pin value, as a UTF-8 string
 }

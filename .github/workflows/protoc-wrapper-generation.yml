@@ -19,7 +19,7 @@ jobs:
         mkdir ./python_out
         mkdir ./js_out
         ls -la
-        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/*.proto --js_out=./js_out --python_out=./python_out
+        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=./js_out --python_out=./python_out
     - name: Configure Git
       run: |
         git config --global user.name adafruitio
@@ -31,7 +31,9 @@ jobs:
         token: ${{ secrets.IO_BOT_PAT }}
         path: python-checkout
     - name: Copy Python Files
-      run: cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/proto/
+      run: |
+        rm -rf ./python-checkout/adafruit_wippersnapper/proto/
+        cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/proto/
     - name: Open Python Pull Request
       env:
         GITHUB_USER: adafruitio

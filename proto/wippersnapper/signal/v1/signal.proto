@@ -1,0 +1,30 @@
+// SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+
+package wippersnapper.signal.v1;
+
+import "wippersnapper/pin/v1/pin.proto";
+import "wippersnapper/sensor/v1/sensor.proto";
+
+
+message CreateSignalRequest {
+  // Create, update or remove a GPIO pin
+  repeated wippersnapper.pin.v1.ConfigurePinRequest pin_configs               = 6;
+  // Create, update or remove a sensor
+  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorRequest sensor_configs = 8;
+  // Updates a sensor's state
+  repeated wippersnapper.sensor.v1.SensorEventRequest sensor_events           = 9;
+  // Create, update or remove a PWM output pin
+  repeated wippersnapper.pin.v1.ConfigurePWMPinRequest pwm_pin_config         = 10;
+  // Write duty cycle to a PWM output pin
+  repeated wippersnapper.pin.v1.PWMPinEvent pwm_pin_event                     = 12;
+}
+
+message CreateSignalResponse {
+  // ACKs a _Response
+  repeated wippersnapper.pin.v1.ConfigurePinResponse pin_create_resps               = 6;
+  repeated wippersnapper.pin.v1.PinEventResponse pin_update_resps                   = 7;
+  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 8;
+  repeated wippersnapper.sensor.v1.SensorEventResponse sensor_event_resps           = 9;
+}
