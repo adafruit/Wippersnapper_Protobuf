@@ -33,7 +33,7 @@ jobs:
     - name: Copy Python Files
       run: |
         rm -rf ./python-checkout/adafruit_wippersnapper/proto/
-        cp -r ./python_out/* ./python-checkout/adafruit_wippersnapper/proto/
+        cp -r ./python_out/ ./python-checkout/adafruit_wippersnapper/proto/
     - name: Open Python Pull Request
       env:
         GITHUB_USER: adafruitio
