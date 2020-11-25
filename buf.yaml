@@ -5,8 +5,6 @@ build:
 lint:
   use:
     - DEFAULT
-  except:
-    - PACKAGE_DEFINED
 # TODO: Note that we've turned off breaking change detection
 # while we develop the protobuffs, re-enable this in the repo
 # for accepting changes to finalized protobufs.
