@@ -49,6 +49,10 @@ message AttachOrUpdateSensorRequest {
     }
 }
 
+message AttachOrUpdateSensorRequests {
+  repeated AttachOrUpdateSensorRequest list = 1;
+}
+
 // CreateOrUpdateSensorResponse from Adafruit IO
 // MQTT Topic: `/device/ID/signal`
 message AttachOrUpdateSensorResponse {
@@ -115,6 +119,10 @@ message SensorEventRequest {
         float b     = 3; // Blue component
         uint32 rgba = 4; // 24-bit RGBA value
     }
+}
+
+message SensorEventRequests {
+  repeated SensorEventRequest list = 1;
 }
 
 // SensorEventResponse from Adafruit IO to device

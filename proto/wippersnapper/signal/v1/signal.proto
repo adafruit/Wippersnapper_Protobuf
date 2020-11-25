@@ -9,16 +9,20 @@ import "wippersnapper/sensor/v1/sensor.proto";
 
 
 message CreateSignalRequest {
-  // Create, update or remove a GPIO pin
-  repeated wippersnapper.pin.v1.ConfigurePinRequest pin_configs               = 6;
-  // Create, update or remove a sensor
-  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorRequest sensor_configs = 8;
-  // Updates a sensor's state
-  repeated wippersnapper.sensor.v1.SensorEventRequest sensor_events           = 9;
-  // Create, update or remove a PWM output pin
-  repeated wippersnapper.pin.v1.ConfigurePWMPinRequest pwm_pin_config         = 10;
-  // Write duty cycle to a PWM output pin
-  repeated wippersnapper.pin.v1.PWMPinEvent pwm_pin_event                     = 12;
+  oneof payload {
+    // Create, update or remove a GPIO pin
+    wippersnapper.pin.v1.ConfigurePinRequests pin_configs               = 6;
+    // Update a pin's state
+    wippersnapper.pin.v1.PinEvents pin_events                           = 7;
+    // Create, update or remove a sensor
+    wippersnapper.sensor.v1.AttachOrUpdateSensorRequests sensor_configs = 8;
+    // Updates a sensor's state
+    wippersnapper.sensor.v1.SensorEventRequests sensor_events           = 9;
+    // Create, update or remove a PWM output pin
+    wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10;
+    // Write duty cycle to a PWM output pin
+    wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12;
+  }
 }
 
 message CreateSignalResponse {
