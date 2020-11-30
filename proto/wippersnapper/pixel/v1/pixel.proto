@@ -1,19 +1,16 @@
+// SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
 syntax = "proto3";
 
 package wippersnapper.pixel.v1;
 
-// Addressable Pixel API
-message Pixel {
-    int32 pixel_pin      = 1; // Pin to send data to
-    PixelType pixel_type = 2; // Type of pixel connected to pin
-    PixelData pixel_data = 3; // Represents pixel data
-    int32 pixelbuf_sz    = 4; // Buffer size required to store the pixel_data
+/* High-level Addressable Pixel API
+Provides an extensible interface for configuring
+and controlling addressable pixel hardware.
+*/
 
-    message PixelData {
-        uint32 byte_idx      = 1;
-        uint32 flags         = 2;
-        repeated string data = 3;
-    }
+// Initializes hardware's pixel library constructor
+message ConfigurePixels {
 
     // Type of pixel connected to hardware
     enum PixelType {
@@ -21,4 +18,51 @@ message Pixel {
         PIXEL_TYPE_WS2812      = 1; // WS2812 (NeoPixel)
         PIXEL_TYPE_APA201      = 2; // APA201 (DotStar)
     }
+
+    // Order to transmit pixels
+    enum PixelOrder {
+        PIXEL_ORDER_UNSPECIFIED = 0;
+        // NeoPixel transmit order
+        PIXEL_ORDER_NEOPIXEL_RGB = 1;
+        PIXEL_ORDER_NEOPIXEL_RBG = 2;
+        PIXEL_ORDER_NEOPIXEL_RGBW = 3;
+        PIXEL_ORDER_NEOPIXEL_GRB = 4;
+        PIXEL_ORDER_NEOPIXEL_GRBW = 5;
+        // Dotstar transmit order
+        PIXEL_ORDER_DOTSTAR_RGB = 6;
+        PIXEL_ORDER_NEOPIXEL_RBG = 7;
+        PIXEL_ORDER_NEOPIXEL_GRB = 8;
+        PIXEL_ORDER_NEOPIXEL_GBR = 9;
+        PIXEL_ORDER_NEOPIXEL_BGR = 10;
+        PIXEL_ORDER_NEOPIXEL_BRG = 11;
+    }
+
+    // Pin to send data to
+    string pixel_pin = 1;
+
+    // Type of pixel connected to pin
+    // used for hardware initialization
+    PixelType pixel_type = 2;
+
+    // Order to transmit pixels
+    PixelOrder pixel_order = 3;
+
+    // Length of pixel strip, 1 by default
+    uint32 pixel_number = 4;
+}
+
+// Transmits pixel data to pixel hardware
+message PixelEvent {
+    // 32-bit color value. Most significant byte is 0,
+    // second is red, then green, and least significant byte is blue.
+    // e.g. 0x00RRGGBB.
+    // If all arguments are unspecified, this will be 0 (off).
+    uint32 color = 0;
+
+    // Index of first pixel from 0, starting from 0
+    uint32 first_pixel = 1;
+
+    // Number of pixels to fill.
+    // Note - Passing 0 or leaving unspecified will fill to end of a pixel strip.
+    uint32 pixel_count = 2;
 }
