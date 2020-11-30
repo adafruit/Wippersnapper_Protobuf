@@ -30,11 +30,11 @@ message ConfigurePixels {
         PIXEL_ORDER_NEOPIXEL_GRBW = 5;
         // Dotstar transmit order
         PIXEL_ORDER_DOTSTAR_RGB = 6;
-        PIXEL_ORDER_NEOPIXEL_RBG = 7;
-        PIXEL_ORDER_NEOPIXEL_GRB = 8;
-        PIXEL_ORDER_NEOPIXEL_GBR = 9;
-        PIXEL_ORDER_NEOPIXEL_BGR = 10;
-        PIXEL_ORDER_NEOPIXEL_BRG = 11;
+        PIXEL_ORDER_DOTSTAR_RBG = 7;
+        PIXEL_ORDER_DOTSTAR_GRB = 8;
+        PIXEL_ORDER_DOTSTAR_GBR = 9;
+        PIXEL_ORDER_DOTSTAR_BGR = 10;
+        PIXEL_ORDER_DOTSTAR_BRG = 11;
     }
 
     // Pin to send data to
@@ -57,12 +57,12 @@ message PixelEvent {
     // second is red, then green, and least significant byte is blue.
     // e.g. 0x00RRGGBB.
     // If all arguments are unspecified, this will be 0 (off).
-    uint32 color = 0;
+    uint32 color = 1;
 
     // Index of first pixel from 0, starting from 0
-    uint32 first_pixel = 1;
+    uint32 idx_first_pixel = 2;
 
     // Number of pixels to fill.
     // Note - Passing 0 or leaving unspecified will fill to end of a pixel strip.
-    uint32 pixel_count = 2;
+    uint32 pixel_count = 3;
 }

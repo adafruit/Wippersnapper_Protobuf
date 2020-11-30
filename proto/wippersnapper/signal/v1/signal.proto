@@ -6,6 +6,7 @@ package wippersnapper.signal.v1;
 
 import "wippersnapper/pin/v1/pin.proto";
 import "wippersnapper/sensor/v1/sensor.proto";
+import "wippersnapper/pixel/v1/pixel.proto";
 
 
 message CreateSignalRequest {
@@ -22,6 +23,10 @@ message CreateSignalRequest {
     wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10;
     // Write duty cycle to a PWM output pin
     wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12;
+    // Configure addressible pixel hardware
+    wippersnapper.pixel.v1.ConfigurePixels pixel_config                 = 13;
+    // Transmit pixel data
+    wippersnapper.pixel.v1.PixelEvent pixel_event                       = 14;
   }
 }
 
