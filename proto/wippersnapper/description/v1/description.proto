@@ -27,28 +27,13 @@ message CreateDescriptionRequest {
 
 // ACK Response sent from Adafruit IO to a board upon CreateDescriptionRequest
 // MQTT Topic: `/device/myDevice/description/status/device`
-message BrokerDescriptionResponse {
+message CreateDescriptionResponse {
   Response response = 1; // Response type
 
   enum Response {
     RESPONSE_UNSPECIFIED     = 0; // Invalid response from server
     RESPONSE_OK              = 1; // Board found within definition index
     RESPONSE_BOARD_NOT_FOUND = 2; // Board not found in definition index
-  }
-}
-
-// ACK Response sent from a device to Adafruit IO upon BrokerDescriptionResponse
-// MQTT Topic: `/device/myDevice/description/status/device`
-message DeviceDescriptionResponse {
-  Response response = 1; // Response type
-
-  enum Response {
-    // Invalid response from server
-    RESPONSE_UNSPECIFIED   = 0;
-    // Device transitioning to idle state
-    RESPONSE_READY         = 1;
-    // Device transitioning to disconnect state
-    RESPONSE_DISCONNECTING = 2;
   }
 }
 
