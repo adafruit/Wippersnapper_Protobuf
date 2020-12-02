@@ -52,6 +52,7 @@ jobs:
         repository: AdafruitInternalDev/io-node
         token: ${{ secrets.IO_BOT_PAT }}
         path: js-checkout
+        ref: wprsnpr # TODO: remove this when io-node@wprsnpr gets merged!
     - name: Copy JS Files
       run: |
         rm -rf ./js-checkout/lib/wprsnpr/protobufs/wippersnapper/
