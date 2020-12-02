@@ -54,8 +54,8 @@ jobs:
         path: js-checkout
     - name: Copy JS Files
       run: |
-        rm -rf ./js-checkout/lib/wprsnpr/protobufs/wippersnapper
-        cp -r ./js_out/ ./js-checkout/lib/wprsnpr/protobufs/wippersnapper
+        rm -rf ./js-checkout/lib/wprsnpr/protobufs/wippersnapper/
+        cp -r ./js_out/wippersnapper/ ./js-checkout/lib/wprsnpr/protobufs/wippersnapper/
     - name: Open Node Pull Request
       env:
         GITHUB_USER: adafruitio
