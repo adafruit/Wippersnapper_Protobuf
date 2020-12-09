@@ -1,0 +1,46 @@
+// SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+
+// This file defines an interface for transporting
+// error messages between Adafruit IO and a
+// Wippersnapper client listener
+
+syntax = "proto3";
+
+package wippersnapper.error.v1;
+
+message Error {
+
+    enum StatusCode {
+        // Unknown error
+        STATUS_CODE_UNSPECIFIED       = 0;
+
+        // Attempting to send or request data too quickly
+        // NOTE: The amount of time, in seconds, the user is throttled
+        //          for should be sent as a `message` string.
+        STATUS_CODE_THROTTLE          = 1;
+
+        /* SUBSCRIBE Errors */
+        // User is temporarily blocked from subscribing
+        STATUS_CODE_SUB_USER_BLOCKED  = 2;
+        // Invalid topic format
+        STATUS_CODE_SUB_INVALID_TOPIC = 3;
+        // User is unauthorized to subscribe to resource
+        STATUS_CODE_SUB_UNAUTHORIZED  = 4;
+
+        /* PUBLISH Errors */
+        // User is temporarily blocked from publishing
+        STATUS_CODE_PUB_USER_BLOCKED  = 5;
+        // Invalid topic format
+        STATUS_CODE_PUB_INVALID_TOPIC = 6;
+        // User is unauthorized to publish to resource
+        STATUS_CODE_PUB_UNAUTHORIZED  = 7;
+    }
+
+    // The status code
+    StatusCode status_code = 1;
+
+    // A message from the client to the server
+    // Localization of this message should be performed by the IO broker
+    string message = 2;
+}
