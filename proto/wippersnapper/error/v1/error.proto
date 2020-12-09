@@ -10,7 +10,6 @@ syntax = "proto3";
 package wippersnapper.error.v1;
 
 message Error {
-
     enum StatusCode {
         // Unknown error
         STATUS_CODE_UNSPECIFIED       = 0;
