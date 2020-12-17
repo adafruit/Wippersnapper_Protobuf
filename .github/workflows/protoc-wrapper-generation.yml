@@ -32,7 +32,6 @@ jobs:
       run: |
         mkdir ./arduino_out
         ls -la
-        python3 nanopb/generator/nanopb_generator.py proto/wippersnapper/pin/v1/pin.proto -v
         protoc --plugin=./nanopb/generator/protoc-gen-nanopb --nanopb_out=./arduino_out ./protobuf-checkout/proto/wippersnapper/pin/v1/pin.proto
         ls -la arduino_out/
     - name: Configure Git
