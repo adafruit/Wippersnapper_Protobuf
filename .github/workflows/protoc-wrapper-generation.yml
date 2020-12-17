@@ -24,6 +24,12 @@ jobs:
         mkdir ./js_out
         ls -la
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
+    - name: Generate nanopb files from .proto descriptions
+      run: |
+        mkdir ./arduino_out
+        ls -la
+        protoc --plugin=/nanopb/generator/protoc-gen-nanopb --nanopb_out=./arduino_out ./proto/wippersnapper/pin/v1/pin.proto
+        ls -la arduino_out/
     - name: Configure Git
       run: |
         git config --global user.name adafruitio
