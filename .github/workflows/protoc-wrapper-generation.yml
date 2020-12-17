@@ -1,7 +1,5 @@
 name: Generate .proto Wrapper Files
-on:
-  push:
-    branches: master, add-arduino-automation
+on: [ push ]
 jobs:
   build:
     runs-on: ubuntu-latest
