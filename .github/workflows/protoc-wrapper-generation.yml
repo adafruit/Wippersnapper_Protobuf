@@ -6,10 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
     - name: Install Protoc
       uses: arduino/setup-protoc@v1
       with:
         version: '3.13.0'
+    - name: Install nanopb
+      run : |
+        git clone https://github.com/nanopb/nanopb.git
     - name: Self Checkout
       uses: actions/checkout@v2
       with:
