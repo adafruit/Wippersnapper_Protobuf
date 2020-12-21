@@ -33,7 +33,7 @@ jobs:
         mkdir ./arduino_out
         mkdir ./arduino_out/proto
         ls -la
-        protoc --plugin=./nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
+        protoc --plugin=./nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto
     - name: Configure Git
       run: |
         git config --global user.name adafruitio
