@@ -46,7 +46,7 @@ jobs:
     - name: Copy Generated Arduino Files to Arduino Repo
       run: |
         rm -rf ./arduino-checkout/src/wippersnapper/
-        cp -r ./arduino_out/ ./arduino-checkout/src/
+        cp -r arduino_out/ ./arduino-checkout/src/
     - name: Open Arduino Pull Request
       env:
         GITHUB_USER: adafruitio
