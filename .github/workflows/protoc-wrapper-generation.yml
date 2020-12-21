@@ -31,7 +31,6 @@ jobs:
     - name: Generate Arduino files from .proto Files
       run: |
         mkdir ./arduino_out
-        mkdir ./arduino_out/proto
         ls -la
         protoc --plugin=./nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
     - name: Configure Git
@@ -46,7 +45,7 @@ jobs:
         path: arduino-checkout
     - name: Copy Generated Arduino Files to Arduino Repo
       run: |
-        rm -rf ./arduino-checkout/src/proto/
+        rm -rf ./arduino-checkout/src/wippersnapper/
         cp -r ./arduino_out/ ./arduino-checkout/src/
     - name: Open Arduino Pull Request
       env:
