@@ -37,7 +37,7 @@ jobs:
       run: |
         mkdir ./arduino_out
         ls -la
-        protoc --plugin=./nanopb/generator/protoc-gen-nanopb \
+        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb \
         -Inanopb/generator/proto \
         --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto
         --nanopb_out=./arduino_out \
