@@ -32,6 +32,7 @@ jobs:
         mkdir ./js_out
         ls -la
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
+        protoc -I=./protobuf-checkout/proto/nanopb/nanopb.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
     - name: Checkout Python Repo
       uses: actions/checkout@v2
       with:
