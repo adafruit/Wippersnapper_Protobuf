@@ -41,10 +41,9 @@ jobs:
         path: python-checkout
     - name: Copy Python Files
       run: |
-        mkdir ./python_out/wippersnapper/nanopb
-        mv ./python_nanopb_out/protobuf_checkout/nanopb/generator/proto/nanopb_pb2.py ./python_out/wippersnapper/nanopb/.
         rm -rf ./python-checkout/adafruit_wippersnapper/proto/
         cp -r ./python_out/ ./python-checkout/adafruit_wippersnapper/proto/
+        mv ./python_nanopb_out/protobuf_checkout/nanopb/generator/proto/nanopb_pb2.py ./python-checkout/adafruit_wippersnapper/proto/
     - name: Open Python Pull Request
       env:
         GITHUB_USER: adafruitio
