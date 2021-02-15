@@ -41,6 +41,7 @@ jobs:
         path: python-checkout
     - name: Copy Python Files
       run: |
+        ls -la python_out/
         mv ./python_out/wippersnapper/nanopb/generator/proto/nanopb_pb2.py ./python_out/wippersnapper/nanopb_pb2.py
         rm -rf ./python-checkout/adafruit_wippersnapper/proto/
         cp -r ./python_out/ ./python-checkout/adafruit_wippersnapper/proto/
