@@ -29,11 +29,11 @@ jobs:
     - name: Generate Python & JS Wrapper Files from .proto Files
       run: |
         mkdir ./python_out
+        mkdir ./python_nanopb_out
         mkdir ./js_out
         ls -la
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
-        protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
-        ls python_out/
+        protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_nanopb_out
     - name: Checkout Python Repo
       uses: actions/checkout@v2
       with:
@@ -42,8 +42,9 @@ jobs:
         path: python-checkout
     - name: Copy Python Files
       run: |
+        ls /python_nanopb_out/nanopb/generator
         mkdir ./python_out/wippersnapper/nanopb
-        mv /python_out/nanopb/generator/proto/nanopb_pb2.py /python_out/wippersnapper/nanopb/.
+        mv ./python_nanopb_out/nanopb/generator/proto/nanopb_pb2.py ./python_out/wippersnapper/nanopb/.
         rm -rf ./python-checkout/adafruit_wippersnapper/proto/
         cp -r ./python_out/ ./python-checkout/adafruit_wippersnapper/proto/
     - name: Open Python Pull Request
