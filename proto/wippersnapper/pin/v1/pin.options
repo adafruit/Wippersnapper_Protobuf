@@ -1,4 +1,0 @@
-wippersnapper.pin.v1.ConfigurePinRequest.pin_name       max_size:5
-wippersnapper.pin.v1.PinEvent.pin_name                  max_size:5
-wippersnapper.pin.v1.PinEvent.pin_value                 max_size:12
-wippersnapper.pin.v1.ConfigurePWMPinRequest.pin_name    max_size:5
