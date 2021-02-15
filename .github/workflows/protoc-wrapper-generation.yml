@@ -1,7 +1,8 @@
 name: Generate .proto Wrapper Files
-on:
-  push:
-    branches: master
+#on:
+#  push:
+#    branches: master
+on: [ push ]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,7 +38,12 @@ jobs:
       run: |
         mkdir ./arduino_out
         ls -la
-        protoc --plugin=./nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
+        protoc --plugin=./nanopb/generator/protoc-gen-nanopb \
+        -Inanopb/generator/proto \
+        --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto
+        --nanopb_out=./arduino_out \
+        --nanopb_opt=-I./protobuf-checkout/proto \
+        --nanopb_opt=-t
     - name: Checkout Arduino Repo
       uses: actions/checkout@v2
       with:
