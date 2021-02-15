@@ -23,7 +23,7 @@ jobs:
       with:
         path: protobuf-checkout
     - name: Checkout nanopb submodule
-      run: git submodule update --init --recursive
+      run: git submodule update --init --recursive --remote
     - name: Configure Git
       run: |
         git config --global user.name adafruitio
