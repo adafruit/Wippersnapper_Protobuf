@@ -8,11 +8,11 @@ package wippersnapper.pin.v1;
 // Request to create or update a pin's configuration
 // MQTT Topic: `/device/ID/signal`
 message ConfigurePinRequest {
-  string pin_name     = 1; // Name of pin to access
-  Mode mode           = 2; // Pin mode
-  Direction direction = 3; // Pin direction
-  Pull pull           = 4; // Pull value
-  int32 period        = 5; // Number of milliseconds between measurements
+  string pin_name      = 1; // Name of pin to access
+  Mode mode            = 2; // Pin mode
+  Direction direction  = 3; // Pin direction
+  Pull pull            = 4; // Pull value
+  uint32 period        = 5; // Number of milliseconds between measurements
 
   /* Defines pin mode */
   enum Mode {
