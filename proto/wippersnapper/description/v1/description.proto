@@ -4,12 +4,13 @@
 syntax = "proto3";
 
 package wippersnapper.description.v1;
+import "nanopb/nanopb.proto";
 
 // Request sent by device to Adafruit IO to select
 // or update a device's board definition
 // MQTT Topic: `/devices/description/`
 message CreateDescriptionRequest {
-  string machine_name = 1; // Board identifier string
+  string machine_name = 1 [(nanopb).max_size = 64]; // Board identifier string
   int32 mac_addr      = 2; // Last 3 bytes of device MAC address
   int32 usb_vid       = 3; // Optional USB Vendor ID
   int32 usb_pid       = 4; // Optional USB Product ID

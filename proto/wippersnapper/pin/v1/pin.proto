@@ -3,12 +3,13 @@
 syntax = "proto3";
 
 package wippersnapper.pin.v1;
+import "nanopb/nanopb.proto";
 
 /* Pin API for interfacing with analog or digital pins  */
 // Request to create or update a pin's configuration
 // MQTT Topic: `/device/ID/signal`
 message ConfigurePinRequest {
-  string pin_name      = 1; // Name of pin to access
+  string pin_name      = 1 [(nanopb).max_size = 5]; // Name of pin to access
   Mode mode            = 2; // Pin mode
   Direction direction  = 3; // Pin direction
   Pull pull            = 4; // Pull value
@@ -58,8 +59,8 @@ message ConfigurePinResponse {
 
 // Sends data about the value of a pin, bi-directional
 message PinEvent {
-  string pin_name = 1;
-  string pin_value = 2;
+  string pin_name = 1 [(nanopb).max_size = 5];
+  string pin_value = 2 [(nanopb).max_size = 12];
 }
 
 message PinEvents {
@@ -82,7 +83,7 @@ message PinEventResponse {
 // Configures a PWM output pin
 message ConfigurePWMPinRequest {
   // Pin to write to
-  string pin_name         = 1;
+  string pin_name         = 1 [(nanopb).max_size = 5];
 
   // Duty cycle between always off (0)
   // and always on (255)
