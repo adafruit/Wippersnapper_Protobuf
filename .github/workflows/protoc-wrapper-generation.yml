@@ -13,9 +13,6 @@ jobs:
       uses: arduino/setup-protoc@v1
       with:
         version: '3.13.0'
-    - name: Install nanopb
-      run : |
-        git clone https://github.com/nanopb/nanopb.git
     - name: Install Python dependencies
       run : |
         python -m pip install --upgrade pip
@@ -24,6 +21,12 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: protobuf-checkout
+    - name: Checkout nanopb submodule
+      run: git submodule update --init --recursive
+    - name: Configure Git
+      run: |
+        git config --global user.name adafruitio
+        git config --global user.email adafruitio@adafruit.com
     - name: Generate Python & JS Wrapper Files from .proto Files
       run: |
         mkdir ./python_out
@@ -35,10 +38,6 @@ jobs:
         mkdir ./arduino_out
         ls -la
         protoc --plugin=./nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
-    - name: Configure Git
-      run: |
-        git config --global user.name adafruitio
-        git config --global user.email adafruitio@adafruit.com
     - name: Checkout Arduino Repo
       uses: actions/checkout@v2
       with:
