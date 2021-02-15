@@ -22,14 +22,14 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: protobuf-checkout
-    - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@master
-      with:
-        remote: true
     - name: Configure Git
       run: |
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
+    - name: Checkout submodules
+      uses: textbook/git-checkout-submodule-action@master
+      with:
+        remote: true
     - name: Generate Python & JS Wrapper Files from .proto Files
       run: |
         mkdir ./python_out
