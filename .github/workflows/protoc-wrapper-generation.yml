@@ -27,9 +27,9 @@ jobs:
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
     - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@master
+      uses: srt32/git-actions@v0.0.3
       with:
-        remote: true
+        args: git submodule update --init --recursive --remote
     - name: Generate Python & JS Wrapper Files from .proto Files
       run: |
         mkdir ./python_out
