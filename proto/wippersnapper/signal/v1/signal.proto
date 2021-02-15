@@ -8,8 +8,10 @@ import "wippersnapper/pin/v1/pin.proto";
 import "wippersnapper/sensor/v1/sensor.proto";
 import "wippersnapper/pixel/v1/pixel.proto";
 
+import "nanopb.proto";
 
 message CreateSignalRequest {
+  option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
     // Create, update or remove a GPIO pin
     wippersnapper.pin.v1.ConfigurePinRequests pin_configs               = 6;
