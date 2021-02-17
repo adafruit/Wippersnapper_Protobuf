@@ -5,36 +5,54 @@ syntax = "proto3";
 package wippersnapper.pin.v1;
 import "nanopb/nanopb.proto";
 
-/* Pin API for interfacing with analog or digital pins  */
-// Request to create or update a pin's configuration
-// MQTT Topic: `/device/ID/signal`
+/**
+ * Represents a request from the broker to create, update, or delete a GPIO pin.
+ */
 message ConfigurePinRequest {
-  string pin_name      = 1 [(nanopb).max_size = 5]; // Name of pin to access
-  Mode mode            = 2; // Pin mode
-  Direction direction  = 3; // Pin direction
-  Pull pull            = 4; // Pull value
-  uint32 period        = 5; // Number of milliseconds between measurements
+  string pin_name          = 1 [(nanopb).max_size = 5]; /** The name of pin we are accessing. */
+  Mode mode                = 2; /** Specifies the pin's type, analog or input. */
+  Direction direction      = 3; /** Specifies the pin's behavior. */
+  Pull pull                = 4; /** Specifies an optional pullup resistor value. */
+  uint32 period            = 5; /** Specifies the time between measurements, in ms. */
+  RequestType request_type = 6; /** Specifies the type of ConfigurePinRequest. */
 
-  /* Defines pin mode */
+  /**
+   * Mode. Specifies if a GPIO pin is an analog or digital pin.
+   */
   enum Mode {
-    MODE_UNSPECIFIED = 0; // Invalid pin mode
-    MODE_ANALOG      = 1; // Analog pin
-    MODE_DIGITAL     = 2; // Digital pin
+    MODE_UNSPECIFIED = 0; /** Invalid Mode from Broker. */
+    MODE_ANALOG      = 1; /** Set up an analog pin. */
+    MODE_DIGITAL     = 2; /** Set up a digital pin. */
   }
 
-  /* Defines which direction the values are going */
+  /**
+   * Direction. Specifies the pin's direction, INPUT or OUTPUT.
+   */
   enum Direction {
-    DIRECTION_UNSPECIFIED = 0; // Invalid direction
-    DIRECTION_INPUT       = 1; // Read data in
-    DIRECTION_OUTPUT      = 2; // Write data out
+    DIRECTION_UNSPECIFIED = 0; /** Invalid Direction from Broker. */
+    DIRECTION_INPUT       = 1; /** Set the pin to behave as an input. */
+    DIRECTION_OUTPUT      = 2; /** Set the pin to behave as an output. */
   }
 
-  /* Defines a pull value for digital pin reads */
+  /**
+   * Pull. An optional pullup resistor value
+   */
   enum Pull {
-    PULL_UNSPECIFIED = 0; // Invalid pull value
-    PULL_UP          = 1; // Pulls the line high
-    PULL_DOWN        = 2; // Pulls the line low
+    PULL_UNSPECIFIED = 0; /** Invalid Direction from Broker. */
+    PULL_UP          = 1; /** Set the pin to pull high. */
+    PULL_DOWN        = 2; /** Set the pin to pull low. */
   }
+
+  /**
+   * Request Type. Describes the type of ConfigurePinRequest for the hardware to operate on.
+   */
+  enum RequestType {
+    REQUEST_TYPE_UNSPECIFIED = 0; /** Invalid request from Broker. */
+    REQUEST_TYPE_CREATE      = 1; /** The request creates a pin. */
+    REQUEST_TYPE_UPDATE      = 2; /** The request updates a previously created pin. */
+    REQUEST_TYPE_DELETE      = 3; /** The request deletes a previously created pin. */
+  }
+
 }
 
 message ConfigurePinRequests {
