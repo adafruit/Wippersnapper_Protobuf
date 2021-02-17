@@ -9,12 +9,12 @@ import "nanopb/nanopb.proto";
  * Represents a request from the broker to create, update, or delete a GPIO pin.
  */
 message ConfigurePinRequest {
-  string pin_name         = 1 [(nanopb).max_size = 5]; /** The name of pin we are accessing. */
-  Mode mode               = 2; /** Specifies the pin's type, analog or input. */
-  Direction direction     = 3; /** Specifies the pin's behavior. */
-  Pull pull               = 4; /** Specifies an optional pullup resistor value. */
-  uint32 period           = 5; /** Specifies the time between measurements, in ms. */
-  RequestType requestType = 6; /** Specifies the type of ConfigurePinRequest. */
+  string pin_name          = 1 [(nanopb).max_size = 5]; /** The name of pin we are accessing. */
+  Mode mode                = 2; /** Specifies the pin's type, analog or input. */
+  Direction direction      = 3; /** Specifies the pin's behavior. */
+  Pull pull                = 4; /** Specifies an optional pullup resistor value. */
+  uint32 period            = 5; /** Specifies the time between measurements, in ms. */
+  RequestType request_type = 6; /** Specifies the type of ConfigurePinRequest. */
 
   /**
    * Mode. Specifies if a GPIO pin is an analog or digital pin.
