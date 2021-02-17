@@ -33,9 +33,5 @@ message CreateSignalRequest {
 }
 
 message CreateSignalResponse {
-  // ACKs a _Response
-  repeated wippersnapper.pin.v1.ConfigurePinResponse pin_create_resps               = 6;
-  repeated wippersnapper.pin.v1.PinEventResponse pin_update_resps                   = 7;
   repeated wippersnapper.sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 8;
-  repeated wippersnapper.sensor.v1.SensorEventResponse sensor_event_resps           = 9;
 }

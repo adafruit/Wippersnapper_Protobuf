@@ -41,22 +41,6 @@ message ConfigurePinRequests {
   repeated ConfigurePinRequest list = 1;
 }
 
-// Response from creating or updating a pin's configuration
-// MQTT Topic: `/device/ID/signal`
-message ConfigurePinResponse {
-  PinResponse response = 1;
-
-  // Responses from device firmware.
-  enum PinResponse {
-    PIN_RESPONSE_UNSPECIFIED       = 0; // Invalid Pin Response
-    PIN_RESPONSE_OK                = 1; // Pin request OK
-    PIN_RESPONSE_INPUT_ONLY        = 2; // Pin is input only
-    PIN_RESPONSE_INVALID_DIRECTION = 3; // Pin direction is invalid
-    PIN_RESPONSE_INVALID_PULL      = 4; // Unsupported pull value
-    PIN_RESPONSE_INVALID_DATA      = 5; // Invalid pin data
-  }
-}
-
 // Sends data about the value of a pin, bi-directional
 message PinEvent {
   string pin_name = 1 [(nanopb).max_size = 5];
@@ -65,17 +49,6 @@ message PinEvent {
 
 message PinEvents {
   repeated PinEvent list = 1;
-}
-
-// Pin event response
-message PinEventResponse {
-  PinEventResponse response = 2;
-
-  enum PinEventResponse {
-    PIN_EVENT_RESPONSE_UNSPECIFIED = 0;
-    PIN_EVENT_RESPONSE_OK          = 1;
-    PIN_EVENT_RESPONSE_INVALID     = 2;
-  }
 }
 
 /* PWM Pin API */
