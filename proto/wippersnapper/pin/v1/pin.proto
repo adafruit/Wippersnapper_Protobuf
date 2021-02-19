@@ -22,7 +22,7 @@ message ConfigurePinRequest {
   Mode mode                = 2; /** Specifies the pin's type, analog or input. */
   Direction direction      = 3; /** Specifies the pin's behavior. */
   Pull pull                = 4; /** Specifies an optional pullup resistor value. */
-  uint32 period            = 5; /** Specifies the time between measurements, in ms. */
+  float period             = 5; /** Specifies the time between measurements, in seconds. */
   RequestType request_type = 6; /** Specifies the type of ConfigurePinRequest. */
 
   /**
