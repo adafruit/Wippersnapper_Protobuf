@@ -6,6 +6,15 @@ package wippersnapper.pin.v1;
 import "nanopb/nanopb.proto";
 
 /**
+* Mode. Specifies if a GPIO pin is an analog or digital pin.
+*/
+enum Mode {
+  MODE_UNSPECIFIED = 0; /** Invalid Mode from Broker. */
+  MODE_ANALOG      = 1; /** Set up an analog pin. */
+  MODE_DIGITAL     = 2; /** Set up a digital pin. */
+}
+
+/**
  * Represents a request from the broker to create, update, or delete a GPIO pin.
  */
 message ConfigurePinRequest {
@@ -15,15 +24,6 @@ message ConfigurePinRequest {
   Pull pull                = 4; /** Specifies an optional pullup resistor value. */
   uint32 period            = 5; /** Specifies the time between measurements, in ms. */
   RequestType request_type = 6; /** Specifies the type of ConfigurePinRequest. */
-
-  /**
-   * Mode. Specifies if a GPIO pin is an analog or digital pin.
-   */
-  enum Mode {
-    MODE_UNSPECIFIED = 0; /** Invalid Mode from Broker. */
-    MODE_ANALOG      = 1; /** Set up an analog pin. */
-    MODE_DIGITAL     = 2; /** Set up a digital pin. */
-  }
 
   /**
    * Direction. Specifies the pin's direction, INPUT or OUTPUT.
@@ -59,10 +59,13 @@ message ConfigurePinRequests {
   repeated ConfigurePinRequest list = 1;
 }
 
-// Sends data about the value of a pin, bi-directional
+/**
+* Pin Event. Describes a pin's value.
+*/
 message PinEvent {
-  string pin_name = 1 [(nanopb).max_size = 5];
-  string pin_value = 2 [(nanopb).max_size = 12];
+  string pin_name  = 1 [(nanopb).max_size = 5]; /** Specifies the pin's name. */
+  string pin_value = 2 [(nanopb).max_size = 12]; /** Specifies the value to write to the pin. */
+  Mode mode        = 3; /** Specifies the pin's type, analog or input. */
 }
 
 message PinEvents {
