@@ -96,6 +96,9 @@ jobs:
       run: |
         rm -rf ./js-checkout/lib/wprsnpr/protobufs/wippersnapper/
         cp -r ./js_out/wippersnapper/ ./js-checkout/lib/wprsnpr/protobufs/wippersnapper/
+        rm -rf ./js-checkout/lib/wprsnpr/protobufs/nanopb/
+        mkdir ./js-checkout/lib/wprsnpr/protobufs/nanopb/
+        mv ./js_out/protobuf-checkout/nanopb/generator/proto/nanopb_pb.js ./js-checkout/lib/wprsnpr/protobufs/nanopb/nanopb_pb.js
     - name: Open Node Pull Request
       env:
         GITHUB_USER: adafruitio
@@ -104,7 +107,7 @@ jobs:
       run: |
         cd js-checkout
         git checkout -b $PROTOBUF_BRANCH_NAME-$GITHUB_SHA
-        git add lib/wprsnpr/protobufs/wippersnapper
+        git add lib/wprsnpr/protobufs/
         git commit -m "Updating protobuf wrappers"
         hub push origin $PROTOBUF_BRANCH_NAME-$GITHUB_SHA
         # TODO: remove '--base wprsnpr' when io-node@wprsnpr gets merged
