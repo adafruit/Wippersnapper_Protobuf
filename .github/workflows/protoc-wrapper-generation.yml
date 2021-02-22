@@ -108,7 +108,7 @@ jobs:
       run: |
         cd js-checkout
         git checkout -b $PROTOBUF_BRANCH_NAME-$GITHUB_SHA
-        git add lib/wprsnpr/protobufs/wippersnapper
+        git add lib/wprsnpr/protobufs/
         git commit -m "Updating protobuf wrappers"
         hub push origin $PROTOBUF_BRANCH_NAME-$GITHUB_SHA
         # TODO: remove '--base wprsnpr' when io-node@wprsnpr gets merged
