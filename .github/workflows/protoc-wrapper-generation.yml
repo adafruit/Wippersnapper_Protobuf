@@ -96,7 +96,6 @@ jobs:
       run: |
         rm -rf ./js-checkout/lib/wprsnpr/protobufs/wippersnapper/
         cp -r ./js_out/wippersnapper/ ./js-checkout/lib/wprsnpr/protobufs/wippersnapper/
-        ls -R ./js_out
         rm -rf ./js-checkout/lib/wprsnpr/protobufs/nanopb/
         mkdir ./js-checkout/lib/wprsnpr/protobufs/nanopb/
         mv ./js_out/protobuf-checkout/nanopb/generator/proto/nanopb_pb.js ./js-checkout/lib/wprsnpr/protobufs/nanopb/nanopb_pb.js
