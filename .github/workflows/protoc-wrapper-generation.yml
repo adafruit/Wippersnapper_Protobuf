@@ -99,7 +99,7 @@ jobs:
         ls -R ./js_out
         rm -rf ./js-checkout/lib/wprsnpr/protobufs/nanopb/
         mkdir ./js-checkout/lib/wprsnpr/protobufs/nanopb/
-        mv ./js_out/protobuf_checkout/nanopb/generator/proto/nanopb_pb2.js ./js-checkout/lib/wprsnpr/protobufs/nanopb/nanopb_pb2.js
+        mv ./js_out/protobuf-checkout/nanopb/generator/proto/nanopb_pb2.js ./js-checkout/lib/wprsnpr/protobufs/nanopb/nanopb_pb2.js
     # - name: Open Node Pull Request
     #   env:
     #     GITHUB_USER: adafruitio
