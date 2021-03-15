@@ -16,7 +16,7 @@ message CreateSignalRequest {
     // Create, update or remove a GPIO pin
     wippersnapper.pin.v1.ConfigurePinRequests pin_configs               = 6;
     // Update a pin's state
-    wippersnapper.pin.v1.PinEvents pin_events                           = 7;
+    wippersnapper.pin.v1.PinEvent pin_event                           = 7;
     // Create, update or remove a sensor
     wippersnapper.sensor.v1.AttachOrUpdateSensorRequests sensor_configs = 8;
     // Updates a sensor's state

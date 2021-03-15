@@ -68,6 +68,10 @@ message PinEvent {
   Mode mode        = 3; /** Specifies the pin's type, analog or input. */
 }
 
+/**
+* Sends a list of PinEvents
+* NOTE: Not working with nanopb decode repeated
+*/
 message PinEvents {
   repeated PinEvent list = 1;
 }
