@@ -25,13 +25,14 @@ message ConfigurePinRequests {
  * Represents a request from the broker to create, update, or delete a GPIO pin.
  */
 message ConfigurePinRequest {
-  string pin_name          = 1 [(nanopb).max_size = 5]; /** The name of pin we are accessing. */
-  Mode mode                = 2; /** Specifies the pin's type, analog or input. */
-  Direction direction      = 3; /** Specifies the pin's behavior. */
-  Pull pull                = 4; /** Specifies an optional pullup resistor value. */
-  float period             = 5; /** Specifies the time between measurements, in seconds. */
-  float aref               = 7; /** Specifies the reference voltage used for analog input, defaults to 3.3v. */
-  RequestType request_type = 6; /** Specifies the type of ConfigurePinRequest. */
+  string pin_name                  = 1 [(nanopb).max_size = 5]; /** The name of pin we are accessing. */
+  Mode mode                        = 2; /** Specifies the pin's type, analog or input. */
+  Direction direction              = 3; /** Specifies the pin's behavior. */
+  Pull pull                        = 4; /** Specifies an optional pullup resistor value. */
+  float period                     = 5; /** Specifies the time between measurements, in seconds. */
+  RequestType request_type         = 6; /** Specifies the type of ConfigurePinRequest. */
+  float aref                       = 7; /** ANALOG-ONLY: Specifies the reference voltage used for analog input, defaults to 3.3v. */
+  AnalogReadMode analog_read_mode  = 8; /** ANALOG-ONLY: Specifies the read mode for an analog pin. */
 
   /**
    * Direction. Specifies the pin's direction, INPUT or OUTPUT.
@@ -61,8 +62,19 @@ message ConfigurePinRequest {
     REQUEST_TYPE_DELETE      = 3; /** The request deletes a previously created pin. */
   }
 
-}
+  /**
+   * Selects the type of value read by an analog pin.
+   * PIN_VALUE: Raw ADC reading.
+   * PIN_VOLTAGE: Calculated voltage reading.
+   * NOTE: This is only applicable to analog pins.
+   */
+  enum AnalogReadMode {
+    ANALOG_READ_MODE_UNSPECIFIED = 0;
+    ANALOG_READ_MODE_PIN_VALUE   = 1;
+    ANALOG_READ_MODE_PIN_VOLTAGE = 2;
+  }
 
+}
 
 
 /**
@@ -83,7 +95,6 @@ message PinEvents {
   option deprecated = true; 
   repeated PinEvent list = 1;
 }
-
 
 /* PWM Pin API */
 
