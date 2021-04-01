@@ -14,27 +14,12 @@ message CreateSignalRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
     // Create, update or remove a GPIO pin
-    wippersnapper.pin.v1.ConfigurePinRequests pin_configs               = 6;
-    // Update a pin's state
-    // DEPRECATED - replaced by pin_event, tag #15
-    wippersnapper.pin.v1.PinEvents pin_events                           = 7;
-    // Create, update or remove a sensor
-    wippersnapper.sensor.v1.AttachOrUpdateSensorRequests sensor_configs = 8;
-    // Updates a sensor's state
-    wippersnapper.sensor.v1.SensorEventRequests sensor_events           = 9;
-    // Create, update or remove a PWM output pin
-    wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10;
-    // Write duty cycle to a PWM output pin
-    wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12;
-    // Configure addressible pixel hardware
-    wippersnapper.pixel.v1.ConfigurePixels pixel_config                 = 13;
-    // Transmit pixel data
-    wippersnapper.pixel.v1.PixelEvent pixel_event                       = 14;
+    wippersnapper.pin.v1.ConfigurePinRequests pin_configs               = 1;
     // Update a pins state
-    wippersnapper.pin.v1.PinEvent pin_event                             = 15;
+    wippersnapper.pin.v1.PinEvent pin_event                             = 2;
   }
 }
 
 message CreateSignalResponse {
-  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 8;
+  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 1;
 }

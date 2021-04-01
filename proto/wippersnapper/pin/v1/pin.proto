@@ -6,12 +6,19 @@ package wippersnapper.pin.v1;
 import "nanopb/nanopb.proto";
 
 /**
-* Mode. Specifies if a GPIO pin is an analog or digital pin.
+* Specifies if a GPIO pin is an analog or digital pin.
 */
 enum Mode {
   MODE_UNSPECIFIED = 0; /** Invalid Mode from Broker. */
   MODE_ANALOG      = 1; /** Set up an analog pin. */
   MODE_DIGITAL     = 2; /** Set up a digital pin. */
+}
+
+/**
+* Represents a list of ConfigurePinRequest messages.
+*/
+message ConfigurePinRequests {
+  repeated ConfigurePinRequest list = 1;
 }
 
 /**
@@ -23,6 +30,7 @@ message ConfigurePinRequest {
   Direction direction      = 3; /** Specifies the pin's behavior. */
   Pull pull                = 4; /** Specifies an optional pullup resistor value. */
   float period             = 5; /** Specifies the time between measurements, in seconds. */
+  float aref               = 7; /** Specifies the reference voltage used for analog input, defaults to 3.3v. */
   RequestType request_type = 6; /** Specifies the type of ConfigurePinRequest. */
 
   /**
@@ -55,57 +63,15 @@ message ConfigurePinRequest {
 
 }
 
-message ConfigurePinRequests {
-  repeated ConfigurePinRequest list = 1;
-}
+
 
 /**
 * Pin Event. Describes a pin's value.
 */
 message PinEvent {
-  string pin_name  = 1 [(nanopb).max_size = 5]; /** Specifies the pin's name. */
-  string pin_value = 2 [(nanopb).max_size = 12]; /** Specifies the value to write to the pin. */
-  Mode mode        = 3; /** Specifies the pin's type, analog or input. */
+  string pin_name    = 1 [(nanopb).max_size = 5]; /** Specifies the pin's name. */
+  string pin_value   = 2 [(nanopb).max_size = 12]; /** Optional, specifies the value to write to the pin. */
+  float  pin_voltage = 4; /** Optional, specifies an anlog pin's voltage. */ 
+  Mode mode          = 3; /** Specifies the pin's mode, analog or digital. */
 }
 
-/**
-* Sends a list of PinEvents
-* NOTE: Not working with nanopb decode repeated
-*/
-message PinEvents {
-  repeated PinEvent list = 1;
-}
-
-/* PWM Pin API */
-
-// Configures a PWM output pin
-message ConfigurePWMPinRequest {
-  // Pin to write to
-  string pin_name         = 1 [(nanopb).max_size = 5];
-
-  // Duty cycle between always off (0)
-  // and always on (255)
-  int32 duty_cycle        = 2;
-
-  // Target frequency, in Hz
-  int32 frequency         = 3;
-
-  // If the frequency changes over time
-  // NOTE: CIRCUITPYTHON-API ONLY
-  bool variable_frequency = 4;
-}
-
-message ConfigurePWMPinRequests {
-  repeated ConfigurePWMPinRequest list = 1;
-}
-
-// Write duty cycle to a pin PWM output pin
-message PWMPinEvent {
-  // Duty cycle between always off (0)
-  // and always on (255)
-  int32 duty_cycle        = 2;
-}
-
-message PWMPinEvents {
-  repeated PWMPinEvent list = 1;
-}
