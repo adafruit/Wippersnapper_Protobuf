@@ -15,9 +15,8 @@ message CreateSignalRequest {
   oneof payload {
     // Create, update or remove a GPIO pin
     wippersnapper.pin.v1.ConfigurePinRequests pin_configs               = 6;
-    // Update a pin's state
-    // DEPRECATED - replaced by pin_event, tag #15
-    wippersnapper.pin.v1.PinEvents pin_events                           = 7;
+    // Update a pins state
+    wippersnapper.pin.v1.PinEvent pin_event                             = 15;
     // Create, update or remove a sensor
     wippersnapper.sensor.v1.AttachOrUpdateSensorRequests sensor_configs = 8;
     // Updates a sensor's state
@@ -30,8 +29,8 @@ message CreateSignalRequest {
     wippersnapper.pixel.v1.ConfigurePixels pixel_config                 = 13;
     // Transmit pixel data
     wippersnapper.pixel.v1.PixelEvent pixel_event                       = 14;
-    // Update a pins state
-    wippersnapper.pin.v1.PinEvent pin_event                             = 15;
+    // Update a pin's state
+    wippersnapper.pin.v1.PinEvents pin_events                           = 7 [deprecated=true];
   }
 }
 

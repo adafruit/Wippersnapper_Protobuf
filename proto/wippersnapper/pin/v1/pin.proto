@@ -15,15 +15,24 @@ enum Mode {
 }
 
 /**
+* Represents a list of ConfigurePinRequest messages.
+*/
+message ConfigurePinRequests {
+  repeated ConfigurePinRequest list = 1;
+}
+
+/**
  * Represents a request from the broker to create, update, or delete a GPIO pin.
  */
 message ConfigurePinRequest {
-  string pin_name          = 1 [(nanopb).max_size = 5]; /** The name of pin we are accessing. */
-  Mode mode                = 2; /** Specifies the pin's type, analog or input. */
-  Direction direction      = 3; /** Specifies the pin's behavior. */
-  Pull pull                = 4; /** Specifies an optional pullup resistor value. */
-  float period             = 5; /** Specifies the time between measurements, in seconds. */
-  RequestType request_type = 6; /** Specifies the type of ConfigurePinRequest. */
+  string pin_name                  = 1 [(nanopb).max_size = 5]; /** The name of pin we are accessing. */
+  Mode mode                        = 2; /** Specifies the pin's type, analog or input. */
+  Direction direction              = 3; /** Specifies the pin's behavior. */
+  Pull pull                        = 4; /** Specifies an optional pullup resistor value. */
+  float period                     = 5; /** Specifies the time between measurements, in seconds. */
+  RequestType request_type         = 6; /** Specifies the type of ConfigurePinRequest. */
+  float aref                       = 7; /** ANALOG-ONLY: Specifies the reference voltage used for analog input, defaults to 3.3v. */
+  AnalogReadMode analog_read_mode  = 8; /** ANALOG-ONLY: Specifies the read mode for an analog pin. */
 
   /**
    * Direction. Specifies the pin's direction, INPUT or OUTPUT.
@@ -53,19 +62,32 @@ message ConfigurePinRequest {
     REQUEST_TYPE_DELETE      = 3; /** The request deletes a previously created pin. */
   }
 
+  /**
+   * Selects the type of value read by an analog pin.
+   * PIN_VALUE: Raw ADC reading.
+   * PIN_VOLTAGE: Calculated voltage reading.
+   * NOTE: This is only applicable to analog pins.
+   */
+  enum AnalogReadMode {
+    ANALOG_READ_MODE_UNSPECIFIED = 0;
+    ANALOG_READ_MODE_PIN_VALUE   = 1;
+    ANALOG_READ_MODE_PIN_VOLTAGE = 2;
+  }
+
 }
 
-message ConfigurePinRequests {
-  repeated ConfigurePinRequest list = 1;
-}
 
 /**
 * Pin Event. Describes a pin's value.
 */
 message PinEvent {
-  string pin_name  = 1 [(nanopb).max_size = 5]; /** Specifies the pin's name. */
-  string pin_value = 2 [(nanopb).max_size = 12]; /** Specifies the value to write to the pin. */
-  Mode mode        = 3; /** Specifies the pin's type, analog or input. */
+  string pin_name    = 1 [(nanopb).max_size = 5]; /** Specifies the pin's name. */
+
+  // Pin value is specified as one of the following:
+  string pin_value        = 2 [(nanopb).max_size = 12]; /** Specifies the pin's value. */
+  float  pin_value_volts  = 4; /** Specifies an anlog pin's voltage. */ 
+
+  Mode mode          = 3; /** Specifies the pin's mode, analog or digital. */
 }
 
 /**
@@ -73,6 +95,7 @@ message PinEvent {
 * NOTE: Not working with nanopb decode repeated
 */
 message PinEvents {
+  option deprecated = true; 
   repeated PinEvent list = 1;
 }
 
