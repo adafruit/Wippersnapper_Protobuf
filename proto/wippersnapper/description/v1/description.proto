@@ -33,7 +33,7 @@ message CreateDescriptionRequest {
 */
 message CreateDescriptionResponse {
   Response response        = 1; /** Specifies if the hardware definition exists on the server. */
-  int32 total_digital_pins = 2; /** Specifies the number of digital pins on the client's physical hardware */
+  int32 total_gpio_pins = 2; /** Specifies the number of GPIO pins on the client's physical hardware */
   int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the client's physical hardware */
 
   /**
