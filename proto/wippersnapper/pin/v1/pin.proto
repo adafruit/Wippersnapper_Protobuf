@@ -91,6 +91,14 @@ message PinEvent {
 }
 
 /**
+* ConfigureReferenceVoltage - Changes the reference voltage used for analog inputs.
+* Direction: C2D
+*/
+message ConfigureReferenceVoltage {
+  float reference_voltage  = 1; /** Specifies an ADC reference voltage. */
+}
+
+/**
 * Sends a list of PinEvents
 * NOTE: Not working with nanopb decode repeated
 */
