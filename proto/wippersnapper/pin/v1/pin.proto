@@ -31,7 +31,7 @@ message ConfigurePinRequest {
   Pull pull                        = 4; /** Specifies an optional pullup resistor value. */
   float period                     = 5; /** Specifies the time between measurements, in seconds. */
   RequestType request_type         = 6; /** Specifies the type of ConfigurePinRequest. */
-  float aref                       = 7; /** ANALOG-ONLY: Specifies the reference voltage used for analog input, defaults to 3.3v. */
+  float aref                       = 7 [deprecated=true]; /** deprecated: Specifies the reference voltage used for analog input, defaults to 3.3v. */
   AnalogReadMode analog_read_mode  = 8; /** ANALOG-ONLY: Specifies the read mode for an analog pin. */
 
   /**
@@ -88,6 +88,14 @@ message PinEvent {
   float  pin_value_volts  = 4; /** Specifies an anlog pin's voltage. */ 
 
   Mode mode          = 3; /** Specifies the pin's mode, analog or digital. */
+}
+
+/**
+* ConfigureReferenceVoltage - Changes the reference voltage used for analog inputs.
+* Direction: C2D
+*/
+message ConfigureReferenceVoltage {
+  float reference_voltage  = 1; /** Specifies an ADC reference voltage. */
 }
 
 /**

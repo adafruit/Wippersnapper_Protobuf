@@ -33,8 +33,9 @@ message CreateDescriptionRequest {
 */
 message CreateDescriptionResponse {
   Response response        = 1; /** Specifies if the hardware definition exists on the server. */
-  int32 total_gpio_pins = 2; /** Specifies the number of GPIO pins on the client's physical hardware */
-  int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the client's physical hardware */
+  int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the client's physical hardware. */
+  int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the client's physical hardware. */
+  float reference_voltage  = 4; /** Specifies the hardware's default reference voltage. */
 
   /**
    * Response. Specifies if the hardware definiton is within the database.
