@@ -1,0 +1,23 @@
+// SPDX-FileCopyrightText: 2021 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+
+package wippersnapper.i2c.v1;
+
+/**
+* I2CScanRequest represents an `Adafruit_I2CDevice::begin` call
+* which attempts to detect the address with an I2C scan.
+*/
+message I2CScanRequest {
+  uint32 address = 1; /** The 7-bit I2C address for the device. */
+}
+
+/**
+* I2CScanResponse represents the response of a call to
+* `Adafruit_I2CDevice::begin`.
+*/
+message I2CScanResponse {
+  bool is_address_found = 1; /** True if an I2C address was found on the bus, False otherwise.. */
+}
+
+// init AHT20?
