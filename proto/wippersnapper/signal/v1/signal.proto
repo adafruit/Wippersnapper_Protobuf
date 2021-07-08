@@ -38,8 +38,10 @@ message CreateSignalRequest {
     // Initiates an RPC to scan an I2C bus for a specific I2C bus address
     wippersnapper.i2c.v1.I2CScanRequest request_i2c_scan                = 16;
     // Sensor-specific APIs
-    // Initiates an RPC to initialize an ATX0 sensor
+    // Initialize an AHTX0 sensor
     wippersnapper.i2c.v1.AHTInitRequest request_aht_init                = 17;
+    // De-Initialize an AHTX0 sensor
+    wippersnapper.i2c.v1.AHTDeinitRequest request_aht_deinit            = 18;
   }
 }
 

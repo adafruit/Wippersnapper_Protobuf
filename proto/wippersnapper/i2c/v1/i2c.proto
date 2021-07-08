@@ -38,6 +38,15 @@ message AHTInitResponse {
   repeated SensorDetails details = 2; /** Provides basic information about each sensor initialized. */
 }
 
+/**
+* AHTDeinitRequest represents the request to de-initialize
+* an AHTX0 temperature/humidity sensor.
+*/
+message AHTDeinitRequest {
+  bool disable_temperature = 1; /** True if AHTX0 expects to de-init. the temperature data object, False otherwise. */
+  bool disable_humidity    = 2; /** True if AHTX0 expects to de-init. the humidity data object, False otherwise. */
+}
+
 /** Adafruit Unified Sensor Library Messages. */
 
 /**
