@@ -47,7 +47,7 @@ message SensorDetails {
   string name      = 1; /** The sensor name or ID, up to a maximum of twelve characters (ex. "MPL115A2"). */
   int32 version    = 2; /** The version of the sensor HW and the driver to allow us to differentiate versions of the board or driver. */
   int32 id         = 3; /** A unique sensor identifier that is used to differentiate this specific sensor instance from any others that are present on the system or in the sensor network */
-  int32 type       = 4; /** The sensor type, based on sensors_type_t in sensors.h */
+  SensorType type  = 4; /** The sensor type, based on SensorType */
   float max_value  = 5; /** The maximum value that this sensor can return (in the appropriate SI unit) */
   float min_value  = 6; /** The minimum value that this sensor can return (in the appropriate SI unit) */
   float resolution = 7; /** The smallest difference between two values that this sensor can report (in the appropriate SI unit) */
@@ -61,7 +61,7 @@ message SensorDetails {
 message SensorEvent {
   int32 version   = 1; /** Contain 'sizeof(sensors_event_t)' to identify which version of the API we're using in case this changes in the future */
   int32 sensor_id = 2; /** A unique sensor identifier that is used to differentiate this specific sensor instance from any others that are present on the system or in the sensor network */
-  int32 type      = 3; /** The sensor type, based on sensors_type_t in sensors.h */
+  SensorType type = 3; /** The sensor type, based on SensorType */
   int32 timestamp = 4; /** Time in milliseconds when the sensor value was read */
   oneof event_data {
     float temperature       = 5;
@@ -74,4 +74,24 @@ message SensorEvent {
   }
 }
 
-// TODO: break out sensors_type_t enum
+/**
+* SensorType allows us determine what types of units the sensor uses, etc.
+*/
+enum SensorType {
+  SENSOR_TYPE_UNSPECIFIED         = 0;
+  SENSOR_TYPE_ACCELEROMETER       = 1;
+  SENSOR_TYPE_MAGNETIC_FIELD      = 2;
+  SENSOR_TYPE_ORIENTATION         = 3;
+  SENSOR_TYPE_GYROSCOPE           = 4;
+  SENSOR_TYPE_LIGHT               = 5;
+  SENSOR_TYPE_PRESSURE            = 6;
+  SENSOR_TYPE_PROXIMITY           = 8;
+  SENSOR_TYPE_GRAVITY             = 9;
+  SENSOR_TYPE_LINEAR_ACCELERATION = 10;
+  SENSOR_TYPE_ROTATION_VECTOR     = 11;
+  SENSOR_TYPE_RELATIVE_HUMIDITY   = 12;
+  SENSOR_TYPE_AMBIENT_TEMPERATURE = 13;
+  SENSOR_TYPE_VOLTAGE             = 15;
+  SENSOR_TYPE_CURRENT             = 16;
+  SENSOR_TYPE_COLOR               = 17;
+}
