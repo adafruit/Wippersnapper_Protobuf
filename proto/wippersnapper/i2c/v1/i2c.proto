@@ -20,4 +20,36 @@ message I2CScanResponse {
   bool is_address_found = 1; /** True if an I2C address was found on the bus, False otherwise.. */
 }
 
-// init AHT20?
+/**
+* AHTInitRequest represents the request to initialize
+* an AHTX0 temperature/humidity sensor.
+*/
+message AHTInitRequest {
+  bool enable_temperature = 1; /** True if AHTX0 expects to init. the temperature data object, False otherwise. */
+  bool enable_humidity    = 2; /** True if AHTX0 expects to init. the humidity data object, False otherwise. */
+}
+
+/**
+* AHTInitResponse represents the response from the AHTX0 temperature/data
+* sensor's initialization.
+*/
+message AHTInitResponse {
+  bool is_init_success = 1;
+  repeated SensorDetails details = 2;
+}
+
+/** Adafruit Unified Sensor Library Messages. */
+
+/**
+* SensorDetails is used to describe basic information about a specific sensor.
+*/
+message SensorDetails {
+  string name = 1; /** The sensor name or ID, up to a maximum of twelve characters (ex. "MPL115A2"). */
+  int32 version = 2; /** The version of the sensor HW and the driver to allow us to differentiate versions of the board or driver. */
+  int32 id = 3; /** A unique sensor identifier that is used to differentiate this specific sensor instance from any others that are present on the system or in the sensor network */
+  int32 type = 4; /** The sensor type, based on sensors_type_t in sensors.h */
+  float max_value = 5; /** The maximum value that this sensor can return (in the appropriate SI unit) */
+  float min_value = 6; /** The minimum value that this sensor can return (in the appropriate SI unit) */
+  float resolution = 7; /** The smallest difference between two values that this sensor can report (in the appropriate SI unit) */
+  int32 min_delay = 8; /** The minimum delay in microseconds between two sensor events, or '0' if there is no constant sensor rate */
+}
