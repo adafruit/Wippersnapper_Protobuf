@@ -47,6 +47,36 @@ message AHTDeinitRequest {
   bool disable_humidity    = 2; /** True if AHTX0 expects to de-init. the humidity data object, False otherwise. */
 }
 
+/**
+* SCD30InitRequest represents the request to initialize
+* a SCD30 CO2 Temperature and Humidity Sensor.
+*/
+message SCD30InitRequest {
+  bool enable_temperature    = 1; /** True if SCD30 expects to init. the temperature data object, False otherwise. */
+  bool enable_rel_humidity   = 2; /** True if SCD30 expects to init. the relative humidity data object, False otherwise. */
+  bool enable_c02            = 3; /** True if SCD30 expects to init. the CO2 data object, False otherwise. */
+  float measurement_interval = 4; /** Set the amount of time between measurements, in seconds. Must be from 2-1800 seconds. Defaults to 2 seconds. */
+}
+
+/**
+* SCD30InitResponse represents the response from
+* a SCD30 CO2 Temperature and Humidity Sensor.
+* NOTE: SCD30 does not implement unified SensorEvent API.
+*/
+message SCD30InitResponse {
+  bool is_init_success           = 1; /** True if SCD30 initialization was successful. */
+}
+
+/**
+* SCD30InitResponse represents the response from each
+* property of a SCD30 object after a read() event.
+*/
+message SCD30ReadEvent {
+    float c_o2              = 1; /** The most recent CO2 reading */
+    float temperature       = 2; /** The most recent temperature reading */
+    float relative_humidity = 3; /** The most recent relative humidity reading */
+}
+
 /** Adafruit Unified Sensor Library Messages. */
 
 /**
