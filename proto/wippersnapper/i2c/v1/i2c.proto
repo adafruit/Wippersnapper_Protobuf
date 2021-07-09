@@ -77,6 +77,31 @@ message SCD30ReadEvent {
     float relative_humidity = 3; /** The most recent relative humidity reading */
 }
 
+/**
+* BH1750InitRequest represents the request to initialize
+* a BH1750 Ambient Light Sensor.
+*/
+message BH1750InitRequest {
+  bool enable_lux = 1; /** True if BH1750 expects to init. the lux data object, False otherwise. Defaults to True. */
+}
+
+/**
+* BH1750InitResponse represents the response from
+* a BH1750 Ambient Light Sensor.
+* NOTE: BH1750 does not implement unified SensorEvent API.
+*/
+message BH1750InitResponse {
+  bool is_init_success = 1; /** True if BH1750 initialization was successful. */
+}
+
+/**
+* BH1750ReadEvent represents the response from each
+* property of a BH1750 object after a `getLux()` event.
+*/
+message BH1750ReadEvent {
+    float lux              = 1; /** The most recent lux value. */
+}
+
 /** Adafruit Unified Sensor Library Messages. */
 
 /**
