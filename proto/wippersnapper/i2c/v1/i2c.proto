@@ -9,7 +9,8 @@ package wippersnapper.i2c.v1;
 * which attempts to detect the address with an I2C scan.
 */
 message I2CScanRequest {
-  uint32 address = 1; /** The 7-bit I2C address for the device. */
+  uint32 address   = 1; /** The 7-bit I2C address for the device. */
+  uint32 address_2 = 2; /** An alternative 7-bit I2C address for the device. */
 }
 
 /**
