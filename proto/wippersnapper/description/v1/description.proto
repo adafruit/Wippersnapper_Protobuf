@@ -17,15 +17,15 @@ message CreateDescriptionRequest {
   Version version     = 5; /** Client's library version. */
 
   message Version {
-    uint64 major        = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
-    uint64 minor        = 2 [deprecated = true, (nanopb).type = FT_IGNORE];
-    uint64 micro        = 3 [deprecated = true, (nanopb).type = FT_IGNORE];
-    string label        = 4 [deprecated = true, (nanopb).type = FT_IGNORE];
-    int32 ver_major     = 5;
-    int32 ver_minor     = 6;
-    int32 ver_patch     = 7;
-    string ver_build_id = 8;
-    int32 ver_build     = 9;
+  uint64 major           = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
+  uint64 minor           = 2 [deprecated = true, (nanopb).type = FT_IGNORE];
+  uint64 micro           = 3 [deprecated = true, (nanopb).type = FT_IGNORE];
+  string label           = 4 [deprecated = true, (nanopb).type = FT_IGNORE];
+  int32 ver_major        = 5;
+  int32 ver_minor        = 6;
+  int32 ver_patch        = 7;
+  string ver_pre_release = 8;
+  int32 ver_build        = 9;
   }
 }
 
