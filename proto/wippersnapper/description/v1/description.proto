@@ -14,18 +14,25 @@ message CreateDescriptionRequest {
   int32 mac_addr      = 2; /** Client's UID, last 3 bytes of MAC address */
   int32 usb_vid       = 3; /** Optional, USB Vendor ID */
   int32 usb_pid       = 4; /** Optional, USB Product ID */
-  Version version     = 5; /** Client's library version. */
+  // SemVer
+  int32 ver_major        = 10;
+  int32 ver_minor        = 11;
+  int32 ver_patch        = 12;
+  string ver_pre_release = 13 [(nanopb).max_size = 6];
+  int32 ver_build        = 14;
+
+  Version version     = 5 [deprecated = true, (nanopb).type = FT_IGNORE]; /** Client's library version. */
 
   message Version {
     uint64 major           = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
     uint64 minor           = 2 [deprecated = true, (nanopb).type = FT_IGNORE];
     uint64 micro           = 3 [deprecated = true, (nanopb).type = FT_IGNORE];
     string label           = 4 [deprecated = true, (nanopb).type = FT_IGNORE];
-    int32 ver_major        = 5;
-    int32 ver_minor        = 6;
-    int32 ver_patch        = 7;
-    string ver_pre_release = 8 [(nanopb).max_size = 6];
-    int32 ver_build        = 9;
+    int32 ver_major        = 5 [deprecated = true, (nanopb).type = FT_IGNORE];
+    int32 ver_minor        = 6 [deprecated = true, (nanopb).type = FT_IGNORE];
+    int32 ver_patch        = 7 [deprecated = true, (nanopb).type = FT_IGNORE];
+    string ver_pre_release = 8 [deprecated = true, (nanopb).type = FT_IGNORE];
+    int32 ver_build        = 9 [deprecated = true, (nanopb).type = FT_IGNORE];
   }
 }
 
