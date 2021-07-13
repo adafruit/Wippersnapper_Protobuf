@@ -24,7 +24,7 @@ message CreateDescriptionRequest {
     int32 ver_major        = 5;
     int32 ver_minor        = 6;
     int32 ver_patch        = 7;
-    string ver_pre_release = 8;
+    string ver_pre_release = 8 [(nanopb).max_size = 6];
     int32 ver_build        = 9;
   }
 }
