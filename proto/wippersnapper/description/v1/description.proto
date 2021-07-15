@@ -20,7 +20,7 @@ message CreateDescriptionRequest {
   int32 ver_patch        = 12 [deprecated = true, (nanopb).type = FT_IGNORE];
   string ver_pre_release = 13 [deprecated = true, (nanopb).type = FT_IGNORE, (nanopb).max_size = 6];
   int32 ver_build        = 14 [deprecated = true, (nanopb).type = FT_IGNORE];
-  string str_version     = 15; /** Library version, as a string */
+  string str_version     = 15 [(nanopb).max_size = 20]; /** Library version, as a string */
 
 
   message Version {
