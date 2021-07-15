@@ -10,18 +10,18 @@ import "nanopb/nanopb.proto";
 * CreateDescriptionRequest identifies a device with Adafruit.io WipperSnapper.
 */
 message CreateDescriptionRequest {
-  string machine_name = 1 [(nanopb).max_size = 64]; /** Identifies client's physical hardware */
-  int32 mac_addr      = 2; /** Client's UID, last 3 bytes of MAC address */
-  int32 usb_vid       = 3; /** Optional, USB Vendor ID */
-  int32 usb_pid       = 4; /** Optional, USB Product ID */
-  // SemVer
-  int32 ver_major        = 10;
-  int32 ver_minor        = 11;
-  int32 ver_patch        = 12;
-  string ver_pre_release = 13 [(nanopb).max_size = 6];
-  int32 ver_build        = 14;
+  string machine_name    = 1 [(nanopb).max_size = 64]; /** Identifies client's physical hardware */
+  int32 mac_addr         = 2; /** Client's UID, last 3 bytes of MAC address */
+  int32 usb_vid          = 3; /** Optional, USB Vendor ID */
+  int32 usb_pid          = 4; /** Optional, USB Product ID */
+  Version version        = 5 [deprecated = true, (nanopb).type = FT_IGNORE]; /** Client's library version. */
+  int32 ver_major        = 10 [deprecated = true, (nanopb).type = FT_IGNORE];
+  int32 ver_minor        = 11 [deprecated = true, (nanopb).type = FT_IGNORE];
+  int32 ver_patch        = 12 [deprecated = true, (nanopb).type = FT_IGNORE];
+  string ver_pre_release = 13 [deprecated = true, (nanopb).type = FT_IGNORE, (nanopb).max_size = 6];
+  int32 ver_build        = 14 [deprecated = true, (nanopb).type = FT_IGNORE];
+  string str_version     = 15 [(nanopb).max_size = 20]; /** Library version, as a string */
 
-  Version version     = 5 [deprecated = true, (nanopb).type = FT_IGNORE]; /** Client's library version. */
 
   message Version {
     uint64 major           = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
