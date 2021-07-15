@@ -1,0 +1,233 @@
+// SPDX-FileCopyrightText: 2021 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+
+package wippersnapper.i2c.v1;
+
+/**
+* I2CScanRequest represents an `Adafruit_I2CDevice::begin` call
+* which attempts to detect the address with an I2C scan.
+*/
+message I2CScanRequest {
+  uint32 address   = 1; /** The 7-bit I2C address for the device. */
+  uint32 address_2 = 2; /** An alternative 7-bit I2C address for the device. */
+}
+
+/**
+* I2CScanResponse represents the response of a call to
+* `Adafruit_I2CDevice::begin`.
+*/
+message I2CScanResponse {
+  bool is_address_found = 1; /** True if an I2C address was found on the bus, False otherwise.. */
+}
+
+// I2C Sensors, Unified API //
+
+/**
+* AHTInitRequest represents the request to initialize
+* an AHTX0 temperature/humidity sensor.
+*/
+message AHTInitRequest {
+  bool enable_temperature = 1; /** True if AHTX0 expects to init. the temperature data object, False otherwise. */
+  bool enable_humidity    = 2; /** True if AHTX0 expects to init. the humidity data object, False otherwise. */
+  float period            = 3; /** Specifies the time between measurements, in seconds. */
+}
+
+/**
+* AHTInitResponse represents the response from the AHTX0 temperature/data
+* sensor's initialization.
+*/
+message AHTInitResponse {
+  bool is_init_success           = 1; /** True if AHTX0 initialization was successful. */
+  repeated SensorDetails details = 2; /** Provides basic information about each sensor initialized. */
+}
+
+/**
+* AHTDeinitRequest represents the request to de-initialize
+* an AHTX0 temperature/humidity sensor.
+*/
+message AHTDeinitRequest {
+  bool disable_temperature = 1; /** True if AHTX0 expects to de-init. the temperature data object, False otherwise. */
+  bool disable_humidity    = 2; /** True if AHTX0 expects to de-init. the humidity data object, False otherwise. */
+}
+
+/**
+* DPS310 represents the request to initialize
+* a DPS310 Precision Barometric Pressure and Altitude Sensor
+* NOTE: This RPC also implements the following calls, in addition to begin():
+* dps.configurePressure(DPS310_64HZ, DPS310_64SAMPLES);
+* dps.configureTemperature(DPS310_64HZ, DPS310_64SAMPLES);
+*/
+message DPS310InitRequest {
+  bool enable_temperature = 1; /** True if DPS310 expects to init. the temperature data object, False otherwise. */
+  bool enable_pressure    = 2; /** True if DPS310 expects to init. the pressure data object, False otherwise. */
+  float period            = 3; /** Specifies the time between measurements, in seconds. */
+}
+
+/**
+* DPS310InitResponse represents the response from 
+* the DPS310 Precision Barometric Pressure and Altitude Sensor's initialization.
+*/
+message DPS310InitResponse {
+  bool is_init_success           = 1; /** True if DPS310 initialization was successful. */
+  repeated SensorDetails details = 2; /** Provides basic information about each sensor initialized. */
+}
+
+/**
+* SHT4X represents the request to initialize
+* a Sensirion SHT40 Temperature & Humidity Sensor
+*/
+message SHT4XInitRequest {
+  bool enable_temperature      = 1; /** True if SHT4X expects to init. the temperature data object, False otherwise. */
+  bool enable_humidity         = 2; /** True if SHT4X expects to init. the humidity data object, False otherwise. */
+  float period                 = 4; /** Specifies the time between measurements, in seconds. */
+  SHT4XHEATERMODE heater_mode  = 5; /** Heater mode. */
+  SHT4XPRECISION precision     = 6; /** SHT4X reading precision. */
+
+  /** SHT4X Precision Mode */
+  enum SHT4XPRECISION {
+    SHT4XPRECISION_UNSPECIFIED = 0;
+    SHT4XPRECISION_HIGH        = 1;
+    SHT4XPRECISION_MED         = 2;
+    SHT4XPRECISION_LOW         = 3;
+  }
+
+  /** SHT4X Heater Mode */
+  enum SHT4XHEATERMODE {
+    SHT4XHEATERMODE_UNSPECIFIED       = 0;
+    SHT4XHEATERMODE_NO_HEATER         = 1;
+    SHT4XHEATERMODE_HIGH_HEATER_1S    = 2;
+    SHT4XHEATERMODE_HIGH_HEATER_100MS = 3;
+    SHT4XHEATERMODE_MED_HEATER_1S     = 4;
+    SHT4XHEATERMODE_MED_HEATER_100MS  = 5;
+    SHT4XHEATERMODE_LOW_HEATER_1S     = 6;
+    SHT4XHEATERMODE_LOW_HEATER_100MS  = 7;
+  }
+}
+
+/**
+* SHT4XInitResponse represents the response from a
+* Sensirion SHT40 Temperature & Humidity Sensor.
+*/
+message SHT4XInitResponse {
+  bool is_init_success           = 1; /** True if SHT40 initialization was successful. */
+  repeated SensorDetails details = 2; /** Provides basic information about each sensor initialized. */
+}
+
+
+// Non-Unified API Sensors //
+
+/**
+* SCD30InitRequest represents the request to initialize
+* a SCD30 CO2 Temperature and Humidity Sensor.
+*/
+message SCD30InitRequest {
+  bool enable_temperature    = 1; /** True if SCD30 expects to init. the temperature data object, False otherwise. */
+  bool enable_rel_humidity   = 2; /** True if SCD30 expects to init. the relative humidity data object, False otherwise. */
+  bool enable_c02            = 3; /** True if SCD30 expects to init. the CO2 data object, False otherwise. */
+  float period               = 4; /** Specifies the time between measurements, in seconds. */
+  float measurement_interval = 5; /** Set the amount of time between measurements, in seconds. Must be from 2-1800 seconds. Defaults to 2 seconds. */
+}
+
+/**
+* SCD30InitResponse represents the response from
+* a SCD30 CO2 Temperature and Humidity Sensor.
+* NOTE: SCD30 does not implement unified SensorEvent API.
+*/
+message SCD30InitResponse {
+  bool is_init_success           = 1; /** True if SCD30 initialization was successful. */
+}
+
+/**
+* SCD30InitResponse represents the response from each
+* property of a SCD30 object after a read() event.
+*/
+message SCD30ReadEvent {
+    float c_o2              = 1; /** The most recent CO2 reading */
+    float temperature       = 2; /** The most recent temperature reading */
+    float relative_humidity = 3; /** The most recent relative humidity reading */
+}
+
+/**
+* BH1750InitRequest represents the request to initialize
+* a BH1750 Ambient Light Sensor.
+*/
+message BH1750InitRequest {
+  bool enable_lux = 1; /** True if BH1750 expects to init. the lux data object, False otherwise. Defaults to True. */
+  float period    = 2; /** Specifies the time between measurements, in seconds. */
+}
+
+/**
+* BH1750InitResponse represents the response from
+* a BH1750 Ambient Light Sensor.
+* NOTE: BH1750 does not implement unified SensorEvent API.
+*/
+message BH1750InitResponse {
+  bool is_init_success = 1; /** True if BH1750 initialization was successful. */
+}
+
+/**
+* BH1750ReadEvent represents the response from each
+* property of a BH1750 object after a `getLux()` event.
+*/
+message BH1750ReadEvent {
+    float lux              = 1; /** The most recent lux value. */
+}
+
+/** Adafruit Unified Sensor Library Messages. */
+
+/**
+* SensorType allows us determine what types of units the sensor uses, etc.
+*/
+enum SensorType {
+  SENSOR_TYPE_UNSPECIFIED         = 0;
+  SENSOR_TYPE_ACCELEROMETER       = 1;
+  SENSOR_TYPE_MAGNETIC_FIELD      = 2;
+  SENSOR_TYPE_ORIENTATION         = 3;
+  SENSOR_TYPE_GYROSCOPE           = 4;
+  SENSOR_TYPE_LIGHT               = 5;
+  SENSOR_TYPE_PRESSURE            = 6;
+  SENSOR_TYPE_PROXIMITY           = 8;
+  SENSOR_TYPE_GRAVITY             = 9;
+  SENSOR_TYPE_LINEAR_ACCELERATION = 10;
+  SENSOR_TYPE_ROTATION_VECTOR     = 11;
+  SENSOR_TYPE_RELATIVE_HUMIDITY   = 12;
+  SENSOR_TYPE_AMBIENT_TEMPERATURE = 13;
+  SENSOR_TYPE_VOLTAGE             = 15;
+  SENSOR_TYPE_CURRENT             = 16;
+  SENSOR_TYPE_COLOR               = 17;
+}
+
+/**
+* SensorDetails is used to describe basic information about a specific sensor.
+*/
+message SensorDetails {
+  string name      = 1; /** The sensor name or ID, up to a maximum of twelve characters (ex. "MPL115A2"). */
+  int32 version    = 2; /** The version of the sensor HW and the driver to allow us to differentiate versions of the board or driver. */
+  int32 id         = 3; /** A unique sensor identifier that is used to differentiate this specific sensor instance from any others that are present on the system or in the sensor network */
+  SensorType type  = 4; /** The sensor type, based on SensorType */
+  float max_value  = 5; /** The maximum value that this sensor can return (in the appropriate SI unit) */
+  float min_value  = 6; /** The minimum value that this sensor can return (in the appropriate SI unit) */
+  float resolution = 7; /** The smallest difference between two values that this sensor can report (in the appropriate SI unit) */
+  int32 min_delay  = 8; /** The minimum delay in microseconds between two sensor events, or '0' if there is no constant sensor rate */
+}
+
+/**
+* SensorEvent  is used to return sensor data from any sensor supported by the abstraction layer,
+* using standard SI units and scales.
+*/
+message SensorEvent {
+  int32 version   = 1; /** Contain 'sizeof(sensors_event_t)' to identify which version of the API we're using in case this changes in the future */
+  int32 sensor_id = 2; /** A unique sensor identifier that is used to differentiate this specific sensor instance from any others that are present on the system or in the sensor network */
+  SensorType type = 3; /** The sensor type, based on SensorType */
+  int32 timestamp = 4; /** Time in milliseconds when the sensor value was read */
+  oneof event_data {
+    float temperature       = 5;
+    float distance          = 6;
+    float light             = 7;
+    float pressure          = 8;
+    float relative_humidity = 9;
+    float current           = 10;
+    float voltage           = 11;
+  }
+}

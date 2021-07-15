@@ -1,13 +1,16 @@
-// SPDX-FileCopyrightText: 2020 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2020-2021 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 
 package wippersnapper.signal.v1;
 
+// WipperSnapper-specific proto files 
 import "wippersnapper/pin/v1/pin.proto";
+import "wippersnapper/i2c/v1/i2c.proto";
 import "wippersnapper/sensor/v1/sensor.proto";
 import "wippersnapper/pixel/v1/pixel.proto";
 
+// Non-WipperSnapper specific proto files
 import "nanopb/nanopb.proto";
 
 message CreateSignalRequest {
@@ -31,9 +34,29 @@ message CreateSignalRequest {
     wippersnapper.pixel.v1.PixelEvent pixel_event                       = 14;
     // Update a pin's state
     wippersnapper.pin.v1.PinEvents pin_events                           = 7 [deprecated=true];
+    // I2C Sensor API //
+    // Initiates an RPC to scan an I2C bus for a specific I2C bus address
+    wippersnapper.i2c.v1.I2CScanRequest request_i2c_scan                = 16;
+    // Sensor-specific APIs
+    // Initialize an AHTX0 sensor
+    wippersnapper.i2c.v1.AHTInitRequest request_aht_init                = 17;
+    // De-Initialize an AHTX0 sensor
+    wippersnapper.i2c.v1.AHTDeinitRequest request_aht_deinit            = 18;
   }
 }
 
+message SignalResponse {
+    oneof response_payload {
+        // I2C Sensor API //
+        wippersnapper.i2c.v1.I2CScanResponse response_i2c_scan       = 1;
+        wippersnapper.i2c.v1.SensorDetails   response_sensor_details = 2;
+        wippersnapper.i2c.v1.SensorEvent     response_sensor_event   = 3;
+        // Sensor-specific APIs
+        wippersnapper.i2c.v1.AHTInitResponse response_aht_init       = 4;
+    }
+}
+
+// Deprecated
 message CreateSignalResponse {
-  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 8;
+  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 8 [deprecated=true];
 }
