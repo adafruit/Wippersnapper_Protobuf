@@ -5,12 +5,12 @@ syntax = "proto3";
 package wippersnapper.i2c.v1;
 
 /**
-* I2CScanRequest represents an `Adafruit_I2CDevice::begin` call
-* which attempts to detect the address with an I2C scan.
+* I2CScanRequest represents the parameters of the I2C scan
+* performed by a device.
 */
 message I2CScanRequest {
-  uint32 address   = 1; /** The 7-bit I2C address for the device. */
-  uint32 address_2 = 2; /** An alternative 7-bit I2C address for the device. */
+  repeated uint32 address = 1 [packed=true]; /** The 7-bit I2C address for the device stored by IO. */
+  int32 frequency = 2; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
 }
 
 /**
