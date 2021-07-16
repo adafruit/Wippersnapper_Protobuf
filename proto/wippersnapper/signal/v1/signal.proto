@@ -13,6 +13,32 @@ import "wippersnapper/pixel/v1/pixel.proto";
 // Non-WipperSnapper specific proto files
 import "nanopb/nanopb.proto";
 
+/**
+* I2CRequest represents a request
+* for a device to perform an I2C command.
+*/
+message I2CRequest {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.i2c.v1.I2CScanRequest req_i2c_scan     = 1;
+    wippersnapper.i2c.v1.AHTInitRequest req_aht_init     = 2;
+    wippersnapper.i2c.v1.AHTDeinitRequest req_aht_deinit = 3;
+  }
+}
+
+/**
+* I2CResponse represents a device's response to
+* Adafruit.io containing information about an I2C
+* command.
+*/
+message I2CResponse {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan = 1;
+    wippersnapper.i2c.v1.AHTInitResponse resp_aht_init = 2;
+  }
+}
+
 message CreateSignalRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
