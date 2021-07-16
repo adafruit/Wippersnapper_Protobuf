@@ -14,6 +14,14 @@ message I2CScanRequest {
 }
 
 /**
+* I2CSetFrequency represents a request to change the
+* I2C clock speed to a desired frequency, in Hz.
+*/
+message I2CSetFrequency {
+  int32 frequency = 1; /** The desired I2C SCL frequency, in Hz. */
+}
+
+/**
 * I2CScanResponse represents the response of a call to
 * `Adafruit_I2CDevice::begin`.
 */
