@@ -5,15 +5,21 @@ syntax = "proto3";
 package wippersnapper.i2c.v1;
 
 /**
-* I2CScanRequest represents the parameters of the I2C scan
-* performed by a device.
+* I2CInitRequest represents a request to
+* initialize an I2C Component.
 */
-message I2CScanRequest {
-  repeated uint32 address = 1 [packed=true]; /** The 7-bit I2C address for the device stored by IO. */
-  uint32 frequency = 2; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
-  int32 pin_scl  = 3; /** The desired I2C SCL pin. */
-  int32 pin_sda  = 4; /** The desired I2C SDA pin. */
-  int32 bus_id   = 5; /** An optional I2C bus identifier, if multiple exist. */
+message I2CInitRequest {
+  int32  i2c_pin_scl     = 1; /** The desired I2C SCL pin. */
+  int32  i2c_pin_sda     = 2; /** The desired I2C SDA pin. */
+  uint32 i2c_frequency   = 3; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
+  int32  i2c_port_number = 4; /** The I2C port number. */
+}
+
+/**
+* I2CInitResponse represents a response to I2CInitRequest
+*/
+message I2CInitResponse {
+  bool is_initialized = 1; /** True if the I2C port has been initialized successfully, False otherwise. */
 }
 
 /**
@@ -26,8 +32,15 @@ message I2CSetFrequency {
 }
 
 /**
-* I2CScanResponse represents the response of a call to
-* `Adafruit_I2CDevice::begin`.
+* I2CScanRequest represents the parameters required to perform
+* an I2C component's scan function.
+*/
+message I2CScanRequest {
+  repeated uint32 address = 1 [packed=true]; /** The 7-bit I2C address for the device stored by IO. */
+}
+
+/**
+* I2CScanResponse represents the response of an I2C component which finished executing an I2CScanRequest.
 */
 message I2CScanResponse {
   bool is_address_found = 1; /** True if an I2C address was found on the bus, False otherwise.. */
