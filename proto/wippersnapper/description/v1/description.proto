@@ -44,7 +44,7 @@ message CreateDescriptionResponse {
   int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the client's physical hardware. */
   int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the client's physical hardware. */
   float reference_voltage  = 4; /** Specifies the hardware's default reference voltage. */
-  int32 total_i2c_buses    = 5; /** Specifies the number of hardware's I2C peripherals (i2cBus[]). */
+  int32 total_i2c_ports    = 5; /** Specifies the number of hardware's I2C ports (i2cPorts[]). */
 
   /**
    * Response. Specifies if the hardware definiton is within the database.
