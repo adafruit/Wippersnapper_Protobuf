@@ -11,8 +11,8 @@ package wippersnapper.i2c.v1;
 message I2CScanRequest {
   repeated uint32 address = 1 [packed=true]; /** The 7-bit I2C address for the device stored by IO. */
   int32 frequency = 2; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
-  string pin_scl  = 3; /** The desired I2C SCL pin. */
-  string pin_sda  = 4; /** The desired I2C SDA pin. */
+  int32 pin_scl  = 3; /** The desired I2C SCL pin. */
+  int32 pin_sda  = 4; /** The desired I2C SDA pin. */
   string bus_id   = 5; /** An optional I2C bus identifier, if multiple exist. */
 }
 
