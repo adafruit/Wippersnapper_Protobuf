@@ -43,7 +43,8 @@ message I2CScanRequest {
 * I2CScanResponse represents the response of an I2C component which finished executing an I2CScanRequest.
 */
 message I2CScanResponse {
-  bool is_address_found = 1; /** True if an I2C address was found on the bus, False otherwise.. */
+  bool is_address_found       = 1; /** True if an I2C address was found on the bus, False otherwise.. */
+  uint32 which_address_found  = 2 [packed=true]; /** The 7-bit I2C address of the device on the bus. */
 }
 
 // I2C Sensors, Unified API //
