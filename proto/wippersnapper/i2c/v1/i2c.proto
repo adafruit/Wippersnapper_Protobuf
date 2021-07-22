@@ -37,6 +37,7 @@ message I2CSetFrequency {
 */
 message I2CScanRequest {
   repeated uint32 address = 1 [packed=true]; /** The 7-bit I2C address for the device stored by IO. */
+  int32  i2c_port_number  = 2; /** The desired I2C port to scan. */
 }
 
 /**
