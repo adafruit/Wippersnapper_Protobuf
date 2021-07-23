@@ -48,8 +48,16 @@ message I2CScanResponse {
   uint32 address_found = 1; /** The 7-bit I2C address of the device on the bus, -1 if not found. */
 }
 
-// I2C Sensors, Unified API //
+/**
+* I2CDeviceInitRequest is a wrapper message containing
+* an i2c-device-specific initialization request.
+*/
+message I2CDeviceInitRequest {
+    AHTInitRequest aht_init       = 1;
+    DPS310InitRequest dps310_init = 2;
+}
 
+// Device-specific
 /**
 * AHTInitRequest represents the request to initialize
 * an AHTX0 temperature/humidity sensor.
