@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 package wippersnapper.i2c.v1;
+import "nanopb/nanopb.proto";
 
 /**
 * I2CInitRequest represents a request to
@@ -36,14 +37,15 @@ message I2CSetFrequency {
 * an I2C component's scan function.
 */
 message I2CScanRequest {
-  repeated uint32 address = 1 [packed=true]; /** The 7-bit I2C address for the device stored by IO. */
+  repeated uint32 address = 1 [packed=true, (nanopb).max_count = 6]; /** The 7-bit I2C address for the device stored by IO. */
+  int32  i2c_port_number  = 2; /** The desired I2C port to scan. */
 }
 
 /**
 * I2CScanResponse represents the response of an I2C component which finished executing an I2CScanRequest.
 */
 message I2CScanResponse {
-  bool is_address_found = 1; /** True if an I2C address was found on the bus, False otherwise.. */
+  uint32 address_found = 1; /** The 7-bit I2C address of the device on the bus, -1 if not found. */
 }
 
 // I2C Sensors, Unified API //
