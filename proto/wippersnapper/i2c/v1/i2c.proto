@@ -57,6 +57,14 @@ message I2CDeviceInitRequest {
     DPS310InitRequest dps310_init = 2;
 }
 
+/**
+* I2CDeviceInitResponse represents if an i2c device
+* is successfully initialized by the client.
+*/
+message I2CDeviceInitResponse {
+    bool is_success = 1; /** True if i2c device initialized successfully, false otherwise. */
+}
+
 // Device-specific
 /**
 * AHTInitRequest represents the request to initialize
@@ -67,15 +75,6 @@ message AHTInitRequest {
   bool enable_humidity    = 2; /** True if AHTX0 expects to init. the humidity data object, False otherwise. */
   float period            = 3; /** Specifies the time between measurements, in seconds. */
   uint32 address          = 4; /** The 7-bit I2C address of the device on the bus. */
-}
-
-/**
-* AHTInitResponse represents the response from the AHTX0 temperature/data
-* sensor's initialization.
-*/
-message AHTInitResponse {
-  bool is_init_success           = 1; /** True if AHTX0 initialization was successful. */
-  repeated SensorDetails details = 2; /** Provides basic information about each sensor initialized. */
 }
 
 /**
@@ -99,15 +98,6 @@ message DPS310InitRequest {
   bool enable_pressure    = 2; /** True if DPS310 expects to init. the pressure data object, False otherwise. */
   float period            = 3; /** Specifies the time between measurements, in seconds. */
   uint32 address          = 4; /** The 7-bit I2C address of the device on the bus. */
-}
-
-/**
-* DPS310InitResponse represents the response from 
-* the DPS310 Precision Barometric Pressure and Altitude Sensor's initialization.
-*/
-message DPS310InitResponse {
-  bool is_init_success           = 1; /** True if DPS310 initialization was successful. */
-  repeated SensorDetails details = 2; /** Provides basic information about each sensor initialized. */
 }
 
 /**
@@ -143,15 +133,6 @@ message SHT4XInitRequest {
   }
 }
 
-/**
-* SHT4XInitResponse represents the response from a
-* Sensirion SHT40 Temperature & Humidity Sensor.
-*/
-message SHT4XInitResponse {
-  bool is_init_success           = 1; /** True if SHT40 initialization was successful. */
-  repeated SensorDetails details = 2; /** Provides basic information about each sensor initialized. */
-}
-
 
 // Non-Unified API Sensors //
 
@@ -168,14 +149,6 @@ message SCD30InitRequest {
   uint32 address             = 6; /** The 7-bit I2C address of the device on the bus. */
 }
 
-/**
-* SCD30InitResponse represents the response from
-* a SCD30 CO2 Temperature and Humidity Sensor.
-* NOTE: SCD30 does not implement unified SensorEvent API.
-*/
-message SCD30InitResponse {
-  bool is_init_success           = 1; /** True if SCD30 initialization was successful. */
-}
 
 /**
 * SCD30InitResponse represents the response from each
@@ -195,15 +168,6 @@ message BH1750InitRequest {
   bool enable_lux = 1; /** True if BH1750 expects to init. the lux data object, False otherwise. Defaults to True. */
   float period    = 2; /** Specifies the time between measurements, in seconds. */
   uint32 address  = 3; /** The 7-bit I2C address of the device on the bus. */
-}
-
-/**
-* BH1750InitResponse represents the response from
-* a BH1750 Ambient Light Sensor.
-* NOTE: BH1750 does not implement unified SensorEvent API.
-*/
-message BH1750InitResponse {
-  bool is_init_success = 1; /** True if BH1750 initialization was successful. */
 }
 
 /**

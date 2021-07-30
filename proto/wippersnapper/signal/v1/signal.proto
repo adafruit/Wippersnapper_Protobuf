@@ -34,7 +34,7 @@ message I2CResponse {
   oneof payload {
     wippersnapper.i2c.v1.I2CInitResponse resp_i2c_init = 1;
     wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan = 2;
-    wippersnapper.i2c.v1.AHTInitResponse resp_aht_init = 3;
+    wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init = 3;
   }
 }
 
@@ -76,8 +76,6 @@ message SignalResponse {
         wippersnapper.i2c.v1.I2CScanResponse response_i2c_scan       = 1;
         wippersnapper.i2c.v1.SensorDetails   response_sensor_details = 2;
         wippersnapper.i2c.v1.SensorEvent     response_sensor_event   = 3;
-        // Sensor-specific APIs
-        wippersnapper.i2c.v1.AHTInitResponse response_aht_init       = 4;
     }
 }
 
