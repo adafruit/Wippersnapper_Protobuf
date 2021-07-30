@@ -53,8 +53,9 @@ message I2CScanResponse {
 * an i2c-device-specific initialization request.
 */
 message I2CDeviceInitRequest {
-    AHTInitRequest aht_init       = 1;
-    DPS310InitRequest dps310_init = 2;
+    int32  i2c_port_number        = 1; /** The desired I2C port to initialize an I2C device on. */
+    AHTInitRequest aht_init       = 2; /** A request to initialize an AHTX0 i2c sensor device. */
+    DPS310InitRequest dps310_init = 3; /** A request to initialize an DPS310 i2c sensor device. */
 }
 
 /**
