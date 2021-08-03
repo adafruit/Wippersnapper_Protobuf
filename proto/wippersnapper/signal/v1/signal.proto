@@ -19,10 +19,11 @@ import "nanopb/nanopb.proto";
 message I2CRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.i2c.v1.I2CInitRequest req_i2c_init              = 1;
-    wippersnapper.i2c.v1.I2CScanRequest req_i2c_scan              = 2;
-    wippersnapper.i2c.v1.I2CSetFrequency req_i2c_set_freq         = 3;
-    wippersnapper.i2c.v1.I2CDeviceInitRequest req_i2c_device_init = 4;
+    wippersnapper.i2c.v1.I2CInitRequest req_i2c_init                  = 1;
+    wippersnapper.i2c.v1.I2CScanRequest req_i2c_scan                  = 2;
+    wippersnapper.i2c.v1.I2CSetFrequency req_i2c_set_freq             = 3;
+    wippersnapper.i2c.v1.I2CDeviceInitRequest req_i2c_device_init     = 4;
+    wippersnapper.i2c.v1.I2CDeviceDeinitRequest req_i2c_device_deinit = 5;
   }
 }
 
@@ -32,9 +33,10 @@ message I2CRequest {
 message I2CResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.i2c.v1.I2CInitResponse resp_i2c_init = 1;
-    wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan = 2;
-    wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init = 3;
+    wippersnapper.i2c.v1.I2CInitResponse resp_i2c_init                  = 1;
+    wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan                  = 2;
+    wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init     = 3;
+    wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit = 4;
   }
 }
 
