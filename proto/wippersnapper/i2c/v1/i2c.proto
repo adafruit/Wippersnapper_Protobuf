@@ -218,14 +218,14 @@ message SensorDetails {
 }
 
 /**
-* SensorEvent is used to return sensor data from any sensor supported by the abstraction layer,
+* SensorEvent  is used to return sensor data from any sensor supported by the abstraction layer,
 * using standard SI units and scales.
 */
 message SensorEvent {
-  optional int32 version   = 1; /** Contain 'sizeof(sensors_event_t)' to identify which version of the API we're using in case this changes in the future */
-  optional int32 sensor_id = 2; /** A unique sensor identifier that is used to differentiate this specific sensor instance from any others that are present on the system or in the sensor network */
-  optional SensorType type = 3; /** The sensor type, based on SensorType */
-  optional int32 timestamp = 4; /** Time in milliseconds when the sensor value was read */
+  int32 version   = 1; /** Contain 'sizeof(sensors_event_t)' to identify which version of the API we're using in case this changes in the future */
+  int32 sensor_id = 2; /** A unique sensor identifier that is used to differentiate this specific sensor instance from any others that are present on the system or in the sensor network */
+  SensorType type = 3; /** The sensor type, based on SensorType */
+  int32 timestamp = 4; /** Time in milliseconds when the sensor value was read */
   oneof event_data {
     float temperature       = 5;
     float distance          = 6;
@@ -235,13 +235,4 @@ message SensorEvent {
     float current           = 10;
     float voltage           = 11;
   }
-}
-
-/**
-* I2CSensorEvent represents data from an I2C Sensor, including its address.
-* NOTE: In the future, we may want to pack repeated SensorEvents.
-*/
-message I2CSensorEvent {
-  uint32 sensor_address  = 1; /** The 7-bit I2C address of the device on the bus. */
-  SensorEvent event      = 2; /** A SensorEvent from the device. */
 }
