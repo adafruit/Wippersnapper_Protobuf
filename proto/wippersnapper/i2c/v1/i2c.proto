@@ -67,19 +67,19 @@ message I2CDeviceInitResponse {
 }
 
 /**
-* I2CDeviceDeInitRequest is a wrapper message containing
+* I2CDeviceDeinitRequest is a wrapper message containing
 * a deinitialization request for a specific i2c device.
 */
-message I2CDeviceDeInitRequest {
+message I2CDeviceDeinitRequest {
     int32  i2c_port_number  = 1; /** The desired I2C port to de-initialize an I2C device on. */
     AHTDeinitRequest aht    = 2; /** A request to de-initialize an AHTX0 i2c sensor. */
 }
 
 /**
-* I2CDeviceInitResponse represents if an I2C device's
+* I2CDeviceDeinitResponse represents if an I2C device's
 * sensor(s) is/are successfully de-initialized.
 */
-message I2CDeviceDeInitResponse {
+message I2CDeviceDeinitResponse {
     bool is_success = 1; /** True if the deinitialization request succeeded, False otherwise. */
 }
 

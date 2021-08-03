@@ -23,7 +23,7 @@ message I2CRequest {
     wippersnapper.i2c.v1.I2CScanRequest req_i2c_scan                  = 2;
     wippersnapper.i2c.v1.I2CSetFrequency req_i2c_set_freq             = 3;
     wippersnapper.i2c.v1.I2CDeviceInitRequest req_i2c_device_init     = 4;
-    wippersnapper.i2c.v1.I2CDeviceDeInitRequest req_i2c_device_deinit = 5;
+    wippersnapper.i2c.v1.I2CDeviceDeinitRequest req_i2c_device_deinit = 5;
   }
 }
 
@@ -36,7 +36,7 @@ message I2CResponse {
     wippersnapper.i2c.v1.I2CInitResponse resp_i2c_init                  = 1;
     wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan                  = 2;
     wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init     = 3;
-    wippersnapper.i2c.v1.I2CDeviceDeInitResponse resp_i2c_device_deinit = 4;
+    wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit = 4;
   }
 }
 
