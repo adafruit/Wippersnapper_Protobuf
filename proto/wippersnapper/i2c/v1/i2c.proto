@@ -71,9 +71,10 @@ message I2CDeviceInitResponse {
 * a deinitialization request for a specific i2c device.
 */
 message I2CDeviceDeinitRequest {
-    int32  i2c_port_number  = 1; /** The desired I2C port to de-initialize an I2C device on. */
-    uint32 address          = 2; /** The 7-bit I2C address of the device on the bus. */
-    AHTDeinitRequest aht    = 3; /** A request to de-initialize an AHTX0 i2c sensor. */
+    int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
+    uint32 address                = 2; /** The 7-bit I2C address of the device on the bus. */
+    bool   detach_device          = 3; /** If true, stop polling the i2c device and free its driver. */
+    AHTDeinitRequest aht          = 4; /** A request to de-initialize an AHTX0 i2c sensor. */
 }
 
 /**
