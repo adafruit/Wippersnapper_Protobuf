@@ -66,6 +66,23 @@ message I2CDeviceInitResponse {
     bool is_success = 1; /** True if i2c device initialized successfully, false otherwise. */
 }
 
+/**
+* I2CDeviceDeInitRequest is a wrapper message containing
+* a deinitialization request for a specific i2c device.
+*/
+message I2CDeviceDeInitRequest {
+    int32  i2c_port_number  = 1; /** The desired I2C port to de-initialize an I2C device on. */
+    AHTDeinitRequest aht    = 2; /** A request to de-initialize an AHTX0 i2c sensor. */
+}
+
+/**
+* I2CDeviceInitResponse represents if an I2C device's
+* sensor(s) is/are successfully de-initialized.
+*/
+message I2CDeviceDeInitResponse {
+    bool is_success = 1; /** True if the deinitialization request succeeded, False otherwise. */
+}
+
 // Device-specific
 /**
 * AHTInitRequest represents the request to initialize
@@ -83,8 +100,8 @@ message AHTInitRequest {
 * an AHTX0 temperature/humidity sensor.
 */
 message AHTDeinitRequest {
-  bool disable_temperature = 1; /** True if AHTX0 expects to de-init. the temperature data object, False otherwise. */
-  bool disable_humidity    = 2; /** True if AHTX0 expects to de-init. the humidity data object, False otherwise. */
+  bool disable_temperature = 1; /** True to disable the AHTX0's temperature sensor. */
+  bool disable_humidity    = 2; /** True to disable the AHTX0's humidity sensor. */
 }
 
 /**
