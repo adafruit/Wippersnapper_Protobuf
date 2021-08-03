@@ -236,3 +236,12 @@ message SensorEvent {
     float voltage           = 11;
   }
 }
+
+/**
+* I2CSensorEvent represents data from an I2C Sensor, including its address.
+* NOTE: In the future, we may want to pack repeated SensorEvents.
+*/
+message I2CSensorEvent {
+  uint32 sensor_address  = 1; /** The 7-bit I2C address of the device on the bus. */
+  SensorEvent event      = 2; /** A SensorEvent from the device. */
+} 

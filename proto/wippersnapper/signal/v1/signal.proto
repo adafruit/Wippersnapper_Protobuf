@@ -14,7 +14,7 @@ import "wippersnapper/pixel/v1/pixel.proto";
 import "nanopb/nanopb.proto";
 
 /**
-* I2CRequest represents a request to an I2C component.
+* I2CRequest represents the broker's request for a specific i2c command to a device.
 */
 message I2CRequest {
   option (nanopb_msgopt).submsg_callback = true;
@@ -27,7 +27,7 @@ message I2CRequest {
 }
 
 /**
-* I2CResponse represents the response from an I2C component.
+* I2CResponse represents the device's response to an I2C-specific message from IO.
 */
 message I2CResponse {
   option (nanopb_msgopt).submsg_callback = true;
@@ -35,6 +35,16 @@ message I2CResponse {
     wippersnapper.i2c.v1.I2CInitResponse resp_i2c_init = 1;
     wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan = 2;
     wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init = 3;
+  }
+}
+
+/**
+* SensorEvent is used to return sensor data from any
+* sensor type supported by the Adafruit Sensor abstraction layer.
+*/
+message SensorEvent {
+  oneof event {
+    wippersnapper.i2c.v1.I2CSensorEvent i2c = 1; /** An I2C Sensor's SensorEvent */
   }
 }
 
