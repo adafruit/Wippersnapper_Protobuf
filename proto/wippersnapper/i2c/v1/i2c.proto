@@ -53,9 +53,9 @@ message I2CScanResponse {
 * an i2c-device-specific initialization request.
 */
 message I2CDeviceInitRequest {
-    int32  i2c_port_number        = 1; /** The desired I2C port to initialize an I2C device on. */
-    AHTInitRequest aht_init       = 2; /** A request to initialize an AHTX0 i2c sensor device. */
-    DPS310InitRequest dps310_init = 3; /** A request to initialize an DPS310 i2c sensor device. */
+  int32  i2c_port_number                 = 1; /** The desired I2C port to initialize an I2C device on. */
+  AHTInitRequest aht_init                = 2; /** A request to initialize an AHTX0 i2c sensor device. */
+  DPS310InitRequest dps310_init          = 3; /** A request to initialize an DPS310 i2c sensor device. */
 }
 
 /**
@@ -74,7 +74,8 @@ message I2CDeviceDeinitRequest {
     int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
     uint32 address                = 2; /** The 7-bit I2C address of the device on the bus. */
     bool   detach_device          = 3; /** If true, stop polling the i2c device and free its driver. */
-    AHTDeinitRequest aht          = 4; /** A request to de-initialize an AHTX0 i2c sensor. */
+    AHTDeinitRequest aht          = 4; /** A request to de-initialize an AHTX0 sensor. */
+    DPS310DeinitRequest dps       = 5; /** A request to de-initialize a DPS310 sensor. */
 }
 
 /**
@@ -85,7 +86,7 @@ message I2CDeviceDeinitResponse {
     bool is_success = 1; /** True if the deinitialization request succeeded, False otherwise. */
 }
 
-// Device-specific
+// Device-specific //
 /**
 * AHTInitRequest represents the request to initialize
 * an AHTX0 temperature/humidity sensor.
@@ -120,6 +121,14 @@ message DPS310InitRequest {
   uint32 address          = 4; /** The 7-bit I2C address of the device on the bus. */
 }
 
+/**
+* DPS310DeinitRequest represents the request to de-initialize
+* a DPS310 barometric pressure and altitude sensor.
+*/
+message DPS310DeinitRequest {
+  bool disable_pressure     = 1; /** True to disable the DPS310's temperature sensor. */
+  bool disable_temperature  = 2; /** True to disable the DPS310's humidity sensor. */
+}
 /**
 * SHT4X represents the request to initialize
 * a Sensirion SHT40 Temperature & Humidity Sensor
@@ -253,6 +262,7 @@ message SensorEvent {
     float relative_humidity = 9;
     float current           = 10;
     float voltage           = 11;
+    uint32 raw_captouch     = 12; /** Raw capactive touch measurement. */
   }
 }
 
