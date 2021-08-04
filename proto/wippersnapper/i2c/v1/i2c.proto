@@ -254,6 +254,7 @@ enum SensorType {
   SENSOR_TYPE_VOLTAGE             = 15;
   SENSOR_TYPE_CURRENT             = 16;
   SENSOR_TYPE_COLOR               = 17;
+  SENSOR_TYPE_CAPTOUCH_RAW        = 18;
 }
 
 /**
