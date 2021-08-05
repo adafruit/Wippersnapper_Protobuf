@@ -254,7 +254,7 @@ enum SensorType {
   SENSOR_TYPE_VOLTAGE             = 15;
   SENSOR_TYPE_CURRENT             = 16;
   SENSOR_TYPE_COLOR               = 17;
-  SENSOR_TYPE_CAPTOUCH_RAW        = 18;
+  SENSOR_TYPE_RAW                 = 18;
 }
 
 /**
@@ -288,7 +288,7 @@ message SensorEvent {
     float relative_humidity = 9;
     float current           = 10;
     float voltage           = 11;
-    uint32 raw_captouch     = 12; /** Raw capactive touch measurement. */
+    uint32 raw_value        = 12;
   }
 }
 
