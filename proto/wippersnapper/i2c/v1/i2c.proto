@@ -55,7 +55,8 @@ message I2CScanResponse {
 message I2CDeviceInitRequest {
   int32  i2c_port_number                 = 1; /** The desired I2C port to initialize an I2C device on. */
   AHTInitRequest aht_init                = 2; /** A request to initialize an AHTX0 i2c sensor device. */
-  DPS310InitRequest dps310_init          = 3; /** A request to initialize an DPS310 i2c sensor device. */
+  DPS310InitRequest dps310_init          = 3; /** A request to initialize a DPS310 i2c sensor device. */
+  SeesawInitRequest seesaw_init          = 4; /** A request to initialize a SeeSaw device. */
 }
 
 /**
@@ -76,6 +77,7 @@ message I2CDeviceDeinitRequest {
     bool   detach_device          = 3; /** If true, stop polling the i2c device and free its driver. */
     AHTDeinitRequest aht          = 4; /** A request to de-initialize an AHTX0 sensor. */
     DPS310DeinitRequest dps       = 5; /** A request to de-initialize a DPS310 sensor. */
+    SeesawDeinitRequest seesaw    = 6; /** A request to de-initialize a SeeSaw device's sensor. */
 }
 
 /**
@@ -129,6 +131,29 @@ message DPS310DeinitRequest {
   bool disable_pressure     = 1; /** True to disable the DPS310's temperature sensor. */
   bool disable_temperature  = 2; /** True to disable the DPS310's humidity sensor. */
 }
+
+/**
+* SeesawInitRequest represents a request to initialize
+* an Adafruit SeeSaw device.
+*/
+message SeesawInitRequest {
+  uint32 address          = 1; /** The 7-bit I2C address of the device on the bus. */
+  float period            = 2; /** Specifies the time between measurements, in seconds. */
+  bool enable_temperature = 3; /** True to enable the SeeSaw's temperature sensor (if applicable on firmware) */
+  bool enable_touch_read  = 4; /** True to enable reading (polling) a SeeSaw's capacitive touch pin. */
+  uint32 touch_pin        = 5; /** If enable_touch_read, the number of the capactive touch pin to read. */
+}
+
+/**
+* SeesawDeinitRequest represents a request to de-initialize
+* an Adafruit SeeSaw device.
+*/
+message SeesawDeinitRequest {
+  bool disable_temperature = 1; /** True to disable the SeeSaw's temperature sensor. */
+  bool disable_touch_read  = 2; /** True to disable the SeeSaw's capacitive touch sensor. */
+  uint32 touch_pin         = 3; /** If disable_touch_read, the number of the capactive touch pin to disable. */
+}
+
 /**
 * SHT4X represents the request to initialize
 * a Sensirion SHT40 Temperature & Humidity Sensor
@@ -229,6 +254,7 @@ enum SensorType {
   SENSOR_TYPE_VOLTAGE             = 15;
   SENSOR_TYPE_CURRENT             = 16;
   SENSOR_TYPE_COLOR               = 17;
+  SENSOR_TYPE_RAW                 = 18;
 }
 
 /**
@@ -262,7 +288,7 @@ message SensorEvent {
     float relative_humidity = 9;
     float current           = 10;
     float voltage           = 11;
-    uint32 raw_captouch     = 12; /** Raw capactive touch measurement. */
+    uint32 raw_value        = 12;
   }
 }
 
