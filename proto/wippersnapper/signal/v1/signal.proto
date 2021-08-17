@@ -48,7 +48,7 @@ message CreateSignalRequest {
     // Write duty cycle to a PWM output pin
     wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12;
     // Update a pin's state
-    wippersnapper.pin.v1.PinEvents pin_events                           = 7 [deprecated = true, (nanopb).type = FT_IGNORE];
+    wippersnapper.pin.v1.PinEvents pin_events                           = 7;
     // I2C Sensor API, !DEPRECATED! //
     // Initiates an RPC to scan an I2C bus for a specific I2C bus address
     wippersnapper.i2c.v1.I2CScanRequest request_i2c_scan                = 16 [deprecated = true, (nanopb).type = FT_IGNORE];
