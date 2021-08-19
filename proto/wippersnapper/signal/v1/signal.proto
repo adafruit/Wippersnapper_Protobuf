@@ -4,14 +4,12 @@ syntax = "proto3";
 
 package wippersnapper.signal.v1;
 
-// WipperSnapper-specific proto files 
+// Non-WipperSnapper
+import "nanopb/nanopb.proto";
+
+// WipperSnapper
 import "wippersnapper/pin/v1/pin.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
-import "wippersnapper/sensor/v1/sensor.proto";
-import "wippersnapper/pixel/v1/pixel.proto";
-
-// Non-WipperSnapper specific proto files
-import "nanopb/nanopb.proto";
 
 /**
 * I2CRequest represents the broker's request for a specific i2c command to a device.
@@ -57,41 +55,19 @@ message CreateSignalRequest {
     wippersnapper.pin.v1.ConfigurePinRequests pin_configs               = 6;
     // Update a pins state
     wippersnapper.pin.v1.PinEvent pin_event                             = 15;
-    // Create, update or remove a sensor
-    wippersnapper.sensor.v1.AttachOrUpdateSensorRequests sensor_configs = 8;
-    // Updates a sensor's state
-    wippersnapper.sensor.v1.SensorEventRequests sensor_events           = 9;
     // Create, update or remove a PWM output pin
     wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10;
     // Write duty cycle to a PWM output pin
     wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12;
-    // Configure addressible pixel hardware
-    wippersnapper.pixel.v1.ConfigurePixels pixel_config                 = 13;
-    // Transmit pixel data
-    wippersnapper.pixel.v1.PixelEvent pixel_event                       = 14;
     // Update a pin's state
-    wippersnapper.pin.v1.PinEvents pin_events                           = 7 [deprecated=true];
-    // I2C Sensor API //
+    wippersnapper.pin.v1.PinEvents pin_events                           = 7;
+    // I2C Sensor API, !DEPRECATED! //
     // Initiates an RPC to scan an I2C bus for a specific I2C bus address
-    wippersnapper.i2c.v1.I2CScanRequest request_i2c_scan                = 16;
+    wippersnapper.i2c.v1.I2CScanRequest request_i2c_scan                = 16 [deprecated = true, (nanopb).type = FT_IGNORE];
     // Sensor-specific APIs
     // Initialize an AHTX0 sensor
-    wippersnapper.i2c.v1.AHTInitRequest request_aht_init                = 17;
+    wippersnapper.i2c.v1.AHTInitRequest request_aht_init                = 17 [deprecated = true, (nanopb).type = FT_IGNORE];
     // De-Initialize an AHTX0 sensor
-    wippersnapper.i2c.v1.AHTDeinitRequest request_aht_deinit            = 18;
+    wippersnapper.i2c.v1.AHTDeinitRequest request_aht_deinit            = 18 [deprecated = true, (nanopb).type = FT_IGNORE];
   }
-}
-
-message SignalResponse {
-    oneof response_payload {
-        // I2C Sensor API //
-        wippersnapper.i2c.v1.I2CScanResponse response_i2c_scan       = 1;
-        wippersnapper.i2c.v1.SensorDetails   response_sensor_details = 2;
-        wippersnapper.i2c.v1.SensorEvent     response_sensor_event   = 3;
-    }
-}
-
-// Deprecated
-message CreateSignalResponse {
-  repeated wippersnapper.sensor.v1.AttachOrUpdateSensorResponse sensor_attach_resps = 8 [deprecated=true];
 }
