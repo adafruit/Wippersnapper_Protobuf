@@ -56,6 +56,14 @@ message CreateDescriptionResponse {
   }
 }
 
+/**
+* RegistrationComplete Specifies if the device finished configuring
+* its components and is ready for configuration messages.
+*/
+message RegistrationComplete {
+  bool is_complete = 1; /** True if device successfully configured its components, False otherwise. */
+}
+
 // Request the board definition JSON from a device
 // MQTT Topic: `device/ID/description/get`
 message GetDefinitionRequest {
