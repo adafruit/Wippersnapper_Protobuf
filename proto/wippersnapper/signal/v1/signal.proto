@@ -71,3 +71,12 @@ message CreateSignalRequest {
     wippersnapper.i2c.v1.AHTDeinitRequest request_aht_deinit            = 18 [deprecated = true, (nanopb).type = FT_IGNORE];
   }
 }
+
+/**
+* Response from a signal message payload (device->broker)
+*/
+message SignalResponse {
+  oneof payload {
+    bool configuration_complete = 1; /** True if a device successfully completed a ConfigurePinRequests message, False otherwise. */
+  }
+}
