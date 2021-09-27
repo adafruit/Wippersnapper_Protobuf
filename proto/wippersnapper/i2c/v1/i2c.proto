@@ -33,19 +33,19 @@ message I2CSetFrequency {
 }
 
 /**
-* I2CScanRequest represents the parameters required to perform
-* an I2C component's scan function.
+* I2CScanRequest represents the parameters required to execute
+* a device's I2C scan.
 */
 message I2CScanRequest {
-  repeated uint32 address = 1 [packed=true, (nanopb).max_count = 6]; /** The 7-bit I2C address for the device stored by IO. */
   int32  i2c_port_number  = 2; /** The desired I2C port to scan. */
 }
 
 /**
-* I2CScanResponse represents the response of an I2C component which finished executing an I2CScanRequest.
+* I2CScanResponse represents a list of I2C addresses
+* found on the bus after I2CScanRequest has executed.
 */
 message I2CScanResponse {
-  int32 address_found = 1; /** The 7-bit I2C address of the device on the bus, -1 if not found. */
+  repeated int32 addresses_found = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
 }
 
 /**
