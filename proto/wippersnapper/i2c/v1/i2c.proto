@@ -37,7 +37,7 @@ message I2CSetFrequency {
 * a device's I2C scan.
 */
 message I2CScanRequest {
-  int32  i2c_port_number  = 2; /** The desired I2C port to scan. */
+  int32  i2c_port_number  = 1; /** The desired I2C port to scan. */
 }
 
 /**
@@ -45,7 +45,7 @@ message I2CScanRequest {
 * found on the bus after I2CScanRequest has executed.
 */
 message I2CScanResponse {
-  repeated int32 addresses_found = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  repeated uint32 addresses_found = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
 }
 
 /**
