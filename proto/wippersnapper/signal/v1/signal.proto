@@ -35,16 +35,7 @@ message I2CResponse {
     wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan                  = 2;
     wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init     = 3;
     wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit = 4;
-  }
-}
-
-/**
-* SensorEvent is used to return sensor data from any
-* sensor type supported by the Adafruit Sensor abstraction layer.
-*/
-message SensorEvent {
-  oneof event {
-    wippersnapper.i2c.v1.I2CSensorEvent i2c = 1; /** An I2C Sensor's SensorEvent */
+    wippersnapper.i2c.v1.I2CDeviceEvent resp_i2c_device_event           = 5;
   }
 }
 
