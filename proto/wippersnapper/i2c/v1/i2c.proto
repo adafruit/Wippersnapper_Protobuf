@@ -6,10 +6,10 @@ package wippersnapper.i2c.v1;
 import "nanopb/nanopb.proto";
 
 /**
-* I2CInitRequest represents a request to
+* I2CBusInitRequest represents a request to
 * initialize an I2C Component.
 */
-message I2CInitRequest {
+message I2CBusInitRequest {
   int32  i2c_pin_scl     = 1; /** The desired I2C SCL pin. */
   int32  i2c_pin_sda     = 2; /** The desired I2C SDA pin. */
   uint32 i2c_frequency   = 3; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
@@ -17,34 +17,34 @@ message I2CInitRequest {
 }
 
 /**
-* I2CInitResponse represents a response to I2CInitRequest
+* I2CBusInitResponse represents a response to I2CBusInitRequest
 */
-message I2CInitResponse {
+message I2CBusInitResponse {
   bool is_initialized = 1; /** True if the I2C port has been initialized successfully, False otherwise. */
 }
 
 /**
-* I2CSetFrequency represents a request to change the
+* I2CBusSetFrequency represents a request to change the
 * I2C clock speed to a desired frequency, in Hz.
 */
-message I2CSetFrequency {
+message I2CBusSetFrequency {
   uint32 frequency = 1; /** The desired I2C SCL frequency, in Hz. */
   int32 bus_id     = 2; /** An optional I2C bus identifier, if multiple exist. */
 }
 
 /**
-* I2CScanRequest represents the parameters required to execute
+* I2CBusScanRequest represents the parameters required to execute
 * a device's I2C scan.
 */
-message I2CScanRequest {
+message I2CBusScanRequest {
   int32  i2c_port_number  = 1; /** The desired I2C port to scan. */
 }
 
 /**
-* I2CScanResponse represents a list of I2C addresses
-* found on the bus after I2CScanRequest has executed.
+* I2CBusScanResponse represents a list of I2C addresses
+* found on the bus after I2CBusScanRequest has executed.
 */
-message I2CScanResponse {
+message I2CBusScanResponse {
   repeated uint32 addresses_found = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
 }
 

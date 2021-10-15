@@ -17,9 +17,9 @@ import "wippersnapper/i2c/v1/i2c.proto";
 message I2CRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.i2c.v1.I2CInitRequest req_i2c_init                  = 1;
-    wippersnapper.i2c.v1.I2CScanRequest req_i2c_scan                  = 2;
-    wippersnapper.i2c.v1.I2CSetFrequency req_i2c_set_freq             = 3;
+    wippersnapper.i2c.v1.I2CBusInitRequest req_i2c_init                  = 1;
+    wippersnapper.i2c.v1.I2CBusScanRequest req_i2c_scan                  = 2;
+    wippersnapper.i2c.v1.I2CBusSetFrequency req_i2c_set_freq             = 3;
     wippersnapper.i2c.v1.I2CDeviceInitRequest req_i2c_device_init     = 4;
     wippersnapper.i2c.v1.I2CDeviceDeinitRequest req_i2c_device_deinit = 5;
   }
@@ -31,8 +31,8 @@ message I2CRequest {
 message I2CResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.i2c.v1.I2CInitResponse resp_i2c_init                  = 1;
-    wippersnapper.i2c.v1.I2CScanResponse resp_i2c_scan                  = 2;
+    wippersnapper.i2c.v1.I2CBusInitResponse resp_i2c_init                  = 1;
+    wippersnapper.i2c.v1.I2CBusScanResponse resp_i2c_scan                  = 2;
     wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init     = 3;
     wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit = 4;
   }
@@ -63,7 +63,7 @@ message CreateSignalRequest {
     wippersnapper.pin.v1.PinEvents pin_events                           = 7;
     // I2C Sensor API, !DEPRECATED! //
     // Initiates an RPC to scan an I2C bus for a specific I2C bus address
-    wippersnapper.i2c.v1.I2CScanRequest request_i2c_scan                = 16 [deprecated = true, (nanopb).type = FT_IGNORE];
+    wippersnapper.i2c.v1.I2CBusScanRequest request_i2c_scan                = 16 [deprecated = true, (nanopb).type = FT_IGNORE];
     // Sensor-specific APIs
     // Initialize an AHTX0 sensor
     wippersnapper.i2c.v1.AHTInitRequest request_aht_init                = 17 [deprecated = true, (nanopb).type = FT_IGNORE];
