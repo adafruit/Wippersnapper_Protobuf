@@ -134,6 +134,8 @@ message AHTInitRequest {
 message AHTUpdateRequest {
   bool disable_temperature = 1; /** True to disable the AHTX0's temperature sensor. */
   bool disable_humidity    = 2; /** True to disable the AHTX0's humidity sensor. */
+  float period_temperature = 3; /** Specifies the time between temperature sensor measurements, in seconds. */
+  float period_humidity    = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
 }
 
 /**
@@ -154,6 +156,8 @@ message DPS310InitRequest {
 message DPS310UpdateRequest {
   bool disable_pressure     = 1; /** True to disable the DPS310's temperature sensor. */
   bool disable_temperature  = 2; /** True to disable the DPS310's humidity sensor. */
+  float period_pressure     = 4; /** Specifies the time between pressure sensor measurements, in seconds. */
+  float period_temperature  = 5; /** Specifies the time between temperature sensor measurements, in seconds. */
 }
 
 
