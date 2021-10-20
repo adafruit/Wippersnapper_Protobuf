@@ -20,8 +20,9 @@ message I2CRequest {
     wippersnapper.i2c.v1.I2CBusInitRequest req_i2c_init                  = 1;
     wippersnapper.i2c.v1.I2CBusScanRequest req_i2c_scan                  = 2;
     wippersnapper.i2c.v1.I2CBusSetFrequency req_i2c_set_freq             = 3;
-    wippersnapper.i2c.v1.I2CDeviceInitRequest req_i2c_device_init     = 4;
-    wippersnapper.i2c.v1.I2CDeviceDeinitRequest req_i2c_device_deinit = 5;
+    wippersnapper.i2c.v1.I2CDeviceInitRequest req_i2c_device_init        = 4;
+    wippersnapper.i2c.v1.I2CDeviceDeinitRequest req_i2c_device_deinit    = 5;
+    wippersnapper.i2c.v1.I2CDeviceUpdateRequest req_i2c_device_update    = 6;
   }
 }
 
@@ -33,8 +34,9 @@ message I2CResponse {
   oneof payload {
     wippersnapper.i2c.v1.I2CBusInitResponse resp_i2c_init                  = 1;
     wippersnapper.i2c.v1.I2CBusScanResponse resp_i2c_scan                  = 2;
-    wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init     = 3;
-    wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit = 4;
+    wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init        = 3;
+    wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit    = 4;
+    wippersnapper.i2c.v1.I2CDeviceUpdateResponse resp_i2c_device_update    = 6;
   }
 }
 
@@ -68,7 +70,7 @@ message CreateSignalRequest {
     // Initialize an AHTX0 sensor
     wippersnapper.i2c.v1.AHTInitRequest request_aht_init                = 17 [deprecated = true, (nanopb).type = FT_IGNORE];
     // De-Initialize an AHTX0 sensor
-    wippersnapper.i2c.v1.AHTDeinitRequest request_aht_deinit            = 18 [deprecated = true, (nanopb).type = FT_IGNORE];
+    wippersnapper.i2c.v1.AHTUpdateRequest request_aht_deinit            = 18 [deprecated = true, (nanopb).type = FT_IGNORE];
   }
 }
 

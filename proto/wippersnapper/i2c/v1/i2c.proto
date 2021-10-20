@@ -68,15 +68,42 @@ message I2CDeviceInitResponse {
 }
 
 /**
+* I2CDeviceUpdateRequest is a wrapper message containing
+* a update request for a specific i2c device.
+*/
+message I2CDeviceUpdateRequest {
+    int32  i2c_port_number        = 1; /** The desired I2C port. */
+    uint32 i2c_address            = 2; /** The 7-bit I2C address of the device on the bus. */
+    AHTUpdateRequest aht          = 3; /** A request to update the sensors of an AHTX0 sensor. */
+    DPS310UpdateRequest dps       = 4; /** A request to update the sensors of a DPS310 sensor. */
+}
+
+/**
+* I2CDeviceUpdateResponse represents if an I2C device's
+* sensor(s) is/are successfully updated.
+*/
+message I2CDeviceUpdateResponse {
+    uint32 i2c_address  = 1; /** The 7-bit I2C address of the device which was updated. */
+    bool is_success     = 2; /** True if the update request succeeded, False otherwise. */
+}
+
+/**
 * I2CDeviceDeinitRequest is a wrapper message containing
 * a deinitialization request for a specific i2c device.
 */
 message I2CDeviceDeinitRequest {
     int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
     uint32 i2c_address            = 2; /** The 7-bit I2C address of the device on the bus. */
-    bool   detach_device          = 3; /** If true, stop polling the i2c device and free its driver. */
-    AHTDeinitRequest aht          = 4; /** A request to de-initialize an AHTX0 sensor. */
-    DPS310DeinitRequest dps       = 5; /** A request to de-initialize a DPS310 sensor. */
+    I2CDeviceType i2c_device_type = 3; /** The type of I2C device we are de-initializing. */
+
+  /**
+   * I2CDeviceType contains the type of I2C device we are de-initializing.
+   */
+  enum I2CDeviceType {
+    I2C_DEVICE_TYPE_UNSPECIFIED = 0; /** Unspecified device type from Broker. */
+    I2C_DEVICE_TYPE_AHTX0       = 1; /** AHTX0 I2C Device. */
+    I2C_DEVICE_TYPE_DPS310      = 2; /** DPS310 I2C Device. */
+  }
 }
 
 /**
@@ -101,10 +128,10 @@ message AHTInitRequest {
 }
 
 /**
-* AHTDeinitRequest represents the request to de-initialize
+* AHTUpdateRequest represents the request to update
 * an AHTX0 temperature/humidity sensor.
 */
-message AHTDeinitRequest {
+message AHTUpdateRequest {
   bool disable_temperature = 1; /** True to disable the AHTX0's temperature sensor. */
   bool disable_humidity    = 2; /** True to disable the AHTX0's humidity sensor. */
 }
@@ -121,10 +148,10 @@ message DPS310InitRequest {
 }
 
 /**
-* DPS310DeinitRequest represents the request to de-initialize
+* DPS310UpdateRequest represents the request to update
 * a DPS310 barometric pressure and altitude sensor.
 */
-message DPS310DeinitRequest {
+message DPS310UpdateRequest {
   bool disable_pressure     = 1; /** True to disable the DPS310's temperature sensor. */
   bool disable_temperature  = 2; /** True to disable the DPS310's humidity sensor. */
 }
