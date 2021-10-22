@@ -258,21 +258,11 @@ enum SensorType {
 }
 
 /**
-* SensorEvent  is used to return sensor event data from any sensor and includes
-* the SI units of the event data.
+* SensorEvent  is used to return the sensor's value and type.
 */
 message SensorEvent {
-  SensorType event_data_unit = 1; /** The event_data's SI unit */
-  oneof event_data {
-    float temperature                 = 2;
-    float distance                    = 3;
-    float light                       = 4;
-    float pressure                    = 5;
-    float relative_humidity           = 6;
-    float current                     = 7;
-    float voltage                     = 8;
-    float raw_value                   = 9;
-  }
+  SensorType type = 1; /** The sensor's type and corresponding SI unit */
+  float value     = 2; /** The sensor's value */
 }
 
 /**
