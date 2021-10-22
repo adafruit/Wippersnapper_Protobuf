@@ -63,14 +63,6 @@ message CreateSignalRequest {
     wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12;
     // Update a pin's state
     wippersnapper.pin.v1.PinEvents pin_events                           = 7;
-    // I2C Sensor API, !DEPRECATED! //
-    // Initiates an RPC to scan an I2C bus for a specific I2C bus address
-    wippersnapper.i2c.v1.I2CBusScanRequest request_i2c_scan                = 16 [deprecated = true, (nanopb).type = FT_IGNORE];
-    // Sensor-specific APIs
-    // Initialize an AHTX0 sensor
-    wippersnapper.i2c.v1.AHTInitRequest request_aht_init                = 17 [deprecated = true, (nanopb).type = FT_IGNORE];
-    // De-Initialize an AHTX0 sensor
-    wippersnapper.i2c.v1.AHTUpdateRequest request_aht_deinit            = 18 [deprecated = true, (nanopb).type = FT_IGNORE];
   }
 }
 
