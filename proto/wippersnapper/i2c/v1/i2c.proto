@@ -64,7 +64,8 @@ message I2CDeviceInitRequest {
 * is successfully initialized by the client.
 */
 message I2CDeviceInitResponse {
-    bool is_success = 1; /** True if i2c device initialized successfully, false otherwise. */
+    bool is_success     = 1; /** True if i2c device initialized successfully, false otherwise. */
+    uint32 i2c_address  = 2; /** The 7-bit I2C address of the device on the bus. */
 }
 
 /**
