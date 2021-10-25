@@ -36,7 +36,8 @@ message I2CResponse {
     wippersnapper.i2c.v1.I2CBusScanResponse resp_i2c_scan                  = 2;
     wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init        = 3;
     wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit    = 4;
-    wippersnapper.i2c.v1.I2CDeviceEvent resp_i2c_device_event              = 5;
+    wippersnapper.i2c.v1.I2CDeviceUpdateResponse resp_i2c_device_update    = 5;
+    wippersnapper.i2c.v1.I2CDeviceEvent resp_i2c_device_event              = 6;
   }
 }
 
