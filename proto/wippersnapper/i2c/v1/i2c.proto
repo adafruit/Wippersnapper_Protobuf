@@ -123,9 +123,9 @@ message AHTUpdateRequest {
 * a DPS310 barometric pressure and altitude sensor.
 */
 message DPS310UpdateRequest {
-  bool enable_pressure      = 1; /** True to enable the DPS310's temperature sensor, False to disable. */
+  bool enable_pressure      = 1; /** True to enable the DPS310's pressure sensor, False to disable. */
   float period_pressure     = 2; /** Specifies the time between pressure sensor measurements, in seconds. */
-  bool enable_temperature   = 3; /** True to enable the DPS310's humidity sensor, False to disable. */
+  bool enable_temperature   = 3; /** True to enable the DPS310's temperature sensor, False to disable. */
   float period_temperature  = 4; /** Specifies the time between temperature sensor measurements, in seconds. */
 }
 
