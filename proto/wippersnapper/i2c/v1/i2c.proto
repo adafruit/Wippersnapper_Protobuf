@@ -171,5 +171,5 @@ message SensorEvent {
 */
 message I2CDeviceEvent {
   uint32 sensor_address              = 1; /** The 7-bit I2C address of the I2C device. */
-  repeated SensorEvent sensor_event  = 2; /** A, optionally repeated, SensorEvent from a sensor. */
-} 
+  repeated SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
+}
