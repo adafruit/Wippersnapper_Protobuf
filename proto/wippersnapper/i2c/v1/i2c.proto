@@ -7,7 +7,7 @@ import "nanopb/nanopb.proto";
 
 /**
 * I2CBusInitRequest represents a request to
-* initialize an I2C Component.
+* initialize the I2C bus.
 */
 message I2CBusInitRequest {
   int32  i2c_pin_scl     = 1; /** The desired I2C SCL pin. */
@@ -37,7 +37,8 @@ message I2CBusSetFrequency {
 * a device's I2C scan.
 */
 message I2CBusScanRequest {
-  int32  i2c_port_number  = 1; /** The desired I2C port to scan. */
+  int32 i2c_port_number              = 1; /** The desired I2C port to scan. */
+  I2CBusInitRequest bus_init_request = 2; /** The I2C bus initialization request. */
 }
 
 /**
@@ -45,7 +46,8 @@ message I2CBusScanRequest {
 * found on the bus after I2CBusScanRequest has executed.
 */
 message I2CBusScanResponse {
-  repeated uint32 addresses_found = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  repeated uint32 addresses_found       = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  I2CBusInitResponse bus_init_response  = 2; /** Whether the I2C bus has been initialized successfully. */
 }
 
 /**
@@ -53,10 +55,11 @@ message I2CBusScanResponse {
 * an i2c-device-specific initialization request.
 */
 message I2CDeviceInitRequest {
-  int32  i2c_port_number    = 1; /** The desired I2C port to initialize an I2C device on. */
-  uint32 i2c_address        = 2; /** The 7-bit I2C address of the device on the bus. */
-  AHTUpdateRequest aht      = 3; /** A request to configure an AHTX0 sensor. */
-  DPS310UpdateRequest dps310  = 4; /** A request to configure a DPS310 sensor. */
+  int32  i2c_port_number             = 1; /** The desired I2C port to initialize an I2C device on. */
+  uint32 i2c_address                 = 2; /** The 7-bit I2C address of the device on the bus. */
+  I2CBusInitRequest bus_init_request = 3; /** An I2C bus initialization request. */
+  AHTUpdateRequest aht               = 4; /** A request to configure an AHTX0 sensor. */
+  DPS310UpdateRequest dps            = 5; /** A request to configure a DPS310 sensor. */
 }
 
 /**
@@ -64,8 +67,9 @@ message I2CDeviceInitRequest {
 * is successfully initialized by the client.
 */
 message I2CDeviceInitResponse {
-    bool is_success     = 1; /** True if i2c device initialized successfully, false otherwise. */
-    uint32 i2c_address  = 2; /** The 7-bit I2C address of the device on the bus. */
+    bool is_success                       = 1; /** True if i2c device initialized successfully, false otherwise. */
+    uint32 i2c_address                    = 2; /** The 7-bit I2C address of the device on the bus. */
+    I2CBusInitResponse bus_init_response  = 3; /** Whether the I2C bus has been initialized successfully. */
 }
 
 /**
