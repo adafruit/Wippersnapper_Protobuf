@@ -20,7 +20,14 @@ message I2CBusInitRequest {
 * I2CBusInitResponse represents a response to I2CBusInitRequest
 */
 message I2CBusInitResponse {
-  bool is_initialized = 1; /** True if the I2C port has been initialized successfully, False otherwise. */
+  enum BusResponse {
+    BUS_RESPONSE_UNSPECIFIED   = 0; /** Unspecified error occurred. **/
+    BUS_RESPONSE_SUCCESS       = 1; /** I2C bus successfully initialized. **/
+    BUS_RESPONSE_ERROR_HANG    = 2; /** I2C bus failed to initialize - I2C Bus hang, user should reset their board if this persists. **/
+    BUS_RESPONSE_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
+  }
+  bool is_initialized  = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the I2C port has been initialized successfully, False otherwise. */
+  BusResponse response = 2; /** Whether the I2C bus initialized properly or failed. **/
 }
 
 /**
