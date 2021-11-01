@@ -60,6 +60,7 @@ message I2CDeviceInitRequest {
   I2CBusInitRequest bus_init_request = 3; /** An I2C bus initialization request. */
   AHTUpdateRequest aht               = 4; /** A request to configure an AHTX0 sensor. */
   DPS310UpdateRequest dps            = 5; /** A request to configure a DPS310 sensor. */
+  SCD30UpdateRequest scd30           = 6; /** A request to initialize a SCD-30 sensor. */
 }
 
 /**
