@@ -53,8 +53,8 @@ message I2CBusScanRequest {
 * found on the bus after I2CBusScanRequest has executed.
 */
 message I2CBusScanResponse {
-  repeated uint32 addresses_found       = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
-  I2CBusInitResponse bus_init_response  = 2; /** Whether the I2C bus has been initialized successfully. */
+  repeated uint32 addresses_found  = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  I2CBusInitResponse bus_response  = 2; /** Whether the I2C bus has been initialized successfully. */
 }
 
 /**
