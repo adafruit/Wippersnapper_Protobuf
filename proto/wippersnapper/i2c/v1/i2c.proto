@@ -55,8 +55,9 @@ message I2CBusScanResponse {
 message I2CDeviceInitRequest {
   int32  i2c_port_number    = 1; /** The desired I2C port to initialize an I2C device on. */
   uint32 i2c_address        = 2; /** The 7-bit I2C address of the device on the bus. */
-  AHTUpdateRequest aht      = 3; /** A request to configure an AHTX0 sensor. */
-  DPS310UpdateRequest dps310  = 4; /** A request to configure a DPS310 sensor. */
+  AHTUpdateRequest aht      = 3; /** A request to initialize an AHTX0 sensor. */
+  DPS310UpdateRequest dps   = 4; /** A request to initialize a DPS310 sensor. */
+  SCD30UpdateRequest scd30  = 5; /** A request to initialize a SCD-30 sensor. */
 }
 
 /**
@@ -73,10 +74,11 @@ message I2CDeviceInitResponse {
 * a update request for a specific i2c device.
 */
 message I2CDeviceUpdateRequest {
-    int32  i2c_port_number        = 1; /** The desired I2C port. */
-    uint32 i2c_address            = 2; /** The 7-bit I2C address of the device on the bus. */
-    AHTUpdateRequest aht          = 3; /** A request to update the sensors of an AHTX0 sensor. */
-    DPS310UpdateRequest dps       = 4; /** A request to update the sensors of a DPS310 sensor. */
+    int32  i2c_port_number    = 1; /** The desired I2C port. */
+    uint32 i2c_address        = 2; /** The 7-bit I2C address of the device on the bus. */
+    AHTUpdateRequest aht      = 3; /** A request to update the sensors of an AHTX0 sensor. */
+    DPS310UpdateRequest dps   = 4; /** A request to update the sensors of a DPS310 sensor. */
+    SCD30UpdateRequest scd30  = 5; /** A request to update the sensors of a SCD-30 sensor. */
 }
 
 /**
@@ -130,6 +132,18 @@ message DPS310UpdateRequest {
   float period_temperature  = 4; /** Specifies the time between temperature sensor measurements, in seconds. */
 }
 
+/**
+* SCD30UpdateRequest represents the request to update or configure
+* a SCD-30 NDIR CO2 Temperature and Humidity Sensor.
+*/
+message SCD30UpdateRequest {
+  bool enable_temperature   = 1; /** True to enable the SCD30's temperature sensor, False to disable. */
+  float period_temperature  = 2; /** Specifies the time between temperature sensor measurements, in seconds. */
+  bool enable_humidity      = 3; /** True to enable the SCD30's humidity sensor, False to disable. */
+  float period_humidity     = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
+  bool enable_co2           = 5; /** True to enable the SCD30's CO2 sensor, False to disable. */
+  float period_co2          = 6; /** Specifies the time between CO2 sensor measurements, in seconds. */
+}
 
 /** Adafruit Unified Sensor Library Messages. */
 
