@@ -53,11 +53,11 @@ message I2CBusScanResponse {
 * an i2c-device-specific initialization request.
 */
 message I2CDeviceInitRequest {
-  int32  i2c_port_number    = 1; /** The desired I2C port to initialize an I2C device on. */
-  uint32 i2c_address        = 2; /** The 7-bit I2C address of the device on the bus. */
-  AHTUpdateRequest aht      = 3; /** A request to initialize an AHTX0 sensor. */
-  DPS310UpdateRequest dps   = 4; /** A request to initialize a DPS310 sensor. */
-  SCD30UpdateRequest scd30  = 5; /** A request to initialize a SCD-30 sensor. */
+  int32  i2c_port_number      = 1; /** The desired I2C port to initialize an I2C device on. */
+  uint32 i2c_address          = 2; /** The 7-bit I2C address of the device on the bus. */
+  AHTUpdateRequest aht        = 3; /** A request to initialize an AHTX0 sensor. */
+  DPS310UpdateRequest dps310  = 4; /** A request to initialize a DPS310 sensor. */
+  SCD30UpdateRequest scd30    = 5; /** A request to initialize a SCD-30 sensor. */
 }
 
 /**
