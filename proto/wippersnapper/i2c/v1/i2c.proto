@@ -6,6 +6,16 @@ package wippersnapper.i2c.v1;
 import "nanopb/nanopb.proto";
 
 /**
+* BusResponse represents the I2C bus status.
+*/
+enum BusResponse {
+  BUS_RESPONSE_UNSPECIFIED   = 0; /** Unspecified error occurred. **/
+  BUS_RESPONSE_SUCCESS       = 1; /** I2C bus successfully initialized. **/
+  BUS_RESPONSE_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
+  BUS_RESPONSE_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
+}
+
+/**
 * I2CBusInitRequest represents a request to
 * initialize the I2C bus.
 */
@@ -20,7 +30,8 @@ message I2CBusInitRequest {
 * I2CBusInitResponse represents a response to I2CBusInitRequest
 */
 message I2CBusInitResponse {
-  bool is_initialized = 1; /** True if the I2C port has been initialized successfully, False otherwise. */
+  bool is_initialized  = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the I2C port has been initialized successfully, False otherwise. */
+  BusResponse response = 2; /** Whether the I2C bus initialized properly or failed. **/
 }
 
 /**
@@ -46,8 +57,8 @@ message I2CBusScanRequest {
 * found on the bus after I2CBusScanRequest has executed.
 */
 message I2CBusScanResponse {
-  repeated uint32 addresses_found       = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
-  I2CBusInitResponse bus_init_response  = 2; /** Whether the I2C bus has been initialized successfully. */
+  repeated uint32 addresses_found  = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  BusResponse     bus_response     = 2; /** Whether the I2C initialization and transaction succeeded or failed. **/
 }
 
 /**
