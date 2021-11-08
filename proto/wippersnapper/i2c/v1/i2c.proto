@@ -13,6 +13,7 @@ enum BusResponse {
   BUS_RESPONSE_SUCCESS       = 1; /** I2C bus successfully initialized. **/
   BUS_RESPONSE_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
   BUS_RESPONSE_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
+  BUS_RESPONSE_ERROR_WIRING  = 4; /** I2C bus failed to communicate - Please check your wiring. **/
 }
 
 /**
@@ -31,7 +32,7 @@ message I2CBusInitRequest {
 */
 message I2CBusInitResponse {
   bool is_initialized  = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the I2C port has been initialized successfully, False otherwise. */
-  BusResponse response = 2; /** Whether the I2C bus initialized properly or failed. **/
+  BusResponse bus_response = 2; /** Whether the I2C bus initialized properly or failed. **/
 }
 
 /**
@@ -58,7 +59,7 @@ message I2CBusScanRequest {
 */
 message I2CBusScanResponse {
   repeated uint32 addresses_found  = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
-  BusResponse     bus_response     = 2; /** Whether the I2C initialization and transaction succeeded or failed. **/
+    BusResponse bus_response       = 2; /** The I2C bus' status. **/
 }
 
 /**
@@ -79,9 +80,9 @@ message I2CDeviceInitRequest {
 * is successfully initialized by the client.
 */
 message I2CDeviceInitResponse {
-    bool is_success                       = 1; /** True if i2c device initialized successfully, false otherwise. */
-    uint32 i2c_address                    = 2; /** The 7-bit I2C address of the device on the bus. */
-    I2CBusInitResponse bus_init_response  = 3; /** Whether the I2C bus has been initialized successfully. */
+    bool is_success             = 1; /** True if i2c device initialized successfully, false otherwise. */
+    uint32 i2c_address          = 2; /** The 7-bit I2C address of the device on the bus. */
+    BusResponse bus_response    = 3; /** The I2C bus' status. **/
 }
 
 /**
@@ -101,8 +102,9 @@ message I2CDeviceUpdateRequest {
 * sensor(s) is/are successfully updated.
 */
 message I2CDeviceUpdateResponse {
-    uint32 i2c_address  = 1; /** The 7-bit I2C address of the device which was updated. */
-    bool is_success     = 2; /** True if the update request succeeded, False otherwise. */
+    uint32 i2c_address          = 1; /** The 7-bit I2C address of the device which was updated. */
+    bool is_success             = 2; /** True if the update request succeeded, False otherwise. */
+    BusResponse bus_response    = 3; /** The I2C bus' status. **/
 }
 
 /**
