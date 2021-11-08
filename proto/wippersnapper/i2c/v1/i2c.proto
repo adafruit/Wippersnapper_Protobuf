@@ -32,7 +32,7 @@ message I2CBusInitRequest {
 */
 message I2CBusInitResponse {
   bool is_initialized  = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the I2C port has been initialized successfully, False otherwise. */
-  BusResponse response = 2; /** Whether the I2C bus initialized properly or failed. **/
+  BusResponse bus_response = 2; /** Whether the I2C bus initialized properly or failed. **/
 }
 
 /**
