@@ -21,9 +21,15 @@ enum BusResponse {
 * initialize the I2C bus.
 */
 message I2CBusInitRequest {
-  int32  i2c_pin_scl     = 1; /** The desired I2C SCL pin. */
-  int32  i2c_pin_sda     = 2; /** The desired I2C SDA pin. */
-  uint32 i2c_frequency   = 3; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
+  oneof i2c_pin_scl {
+    int32  i2c_pin_scl   = 1; /** The desired I2C SCL pin. */
+    string s_i2c_pin_scl = 5; /** The desired I2C SCL pin, as a string (for CPython/Blinka)*/
+  }
+  oneof i2c_pin_sda {
+    int32   i2c_pin_sda   = 2; /** The desired I2C SDA pin. */
+    string  s_i2c_pin_sda = 6; /** The desired I2C SDA pin, as a string (for CPython/Blinka)*/
+  } 
+  uint32 i2c_frequency   = 3; /** The desired I2C bus frequency, in Hz. Default is 100000Hz. */
   int32  i2c_port_number = 4; /** The I2C port number. */
 }
 
