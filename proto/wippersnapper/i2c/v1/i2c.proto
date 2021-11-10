@@ -73,6 +73,7 @@ message I2CDeviceInitRequest {
   AHTUpdateRequest aht               = 4; /** A request to configure an AHTX0 sensor. */
   DPS310UpdateRequest dps            = 5; /** A request to configure a DPS310 sensor. */
   SCD30UpdateRequest scd30           = 6; /** A request to initialize a SCD-30 sensor. */
+  SCD4XUpdateRequest scd4x           = 7; /** A request to initialize a SCD4x sensor. */
 }
 
 /**
@@ -92,9 +93,10 @@ message I2CDeviceInitResponse {
 message I2CDeviceUpdateRequest {
     int32  i2c_port_number    = 1; /** The desired I2C port. */
     uint32 i2c_address        = 2; /** The 7-bit I2C address of the device on the bus. */
-    AHTUpdateRequest aht      = 3; /** A request to update the sensors of an AHTX0 sensor. */
-    DPS310UpdateRequest dps   = 4; /** A request to update the sensors of a DPS310 sensor. */
-    SCD30UpdateRequest scd30  = 5; /** A request to update the sensors of a SCD-30 sensor. */
+    AHTUpdateRequest aht      = 3; /** A request to update the properties of an AHTX0. */
+    DPS310UpdateRequest dps   = 4; /** A request to update the properties of a DPS310. */
+    SCD30UpdateRequest scd30  = 5; /** A request to update the properties of a SCD-30. */
+    SCD4XUpdateRequest scd4x  = 6; /** A request to update the properties of a SCD4x. */
 }
 
 /**
@@ -159,6 +161,18 @@ message SCD30UpdateRequest {
   bool enable_humidity      = 3; /** True to enable the SCD30's humidity sensor, False to disable. */
   float period_humidity     = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
   bool enable_co2           = 5; /** True to enable the SCD30's CO2 sensor, False to disable. */
+  float period_co2          = 6; /** Specifies the time between CO2 sensor measurements, in seconds. */
+}
+
+/**
+* SCD4XUpdateRequest represents the request to update or configure a SCD4X sensor.
+*/
+message SCD4XUpdateRequest {
+  bool enable_temperature   = 1; /** True to enable the SCD4X's temperature sensor, False to disable. */
+  float period_temperature  = 2; /** Specifies the time between temperature sensor measurements, in seconds. */
+  bool enable_humidity      = 3; /** True to enable the SCD4X's humidity sensor, False to disable. */
+  float period_humidity     = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
+  bool enable_co2           = 5; /** True to enable the SCD4X's CO2 sensor, False to disable. */
   float period_co2          = 6; /** Specifies the time between CO2 sensor measurements, in seconds. */
 }
 
