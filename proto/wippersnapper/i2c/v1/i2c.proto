@@ -169,7 +169,7 @@ message SCD30UpdateRequest {
 */
 enum SensorType {
   SENSOR_TYPE_UNSPECIFIED         = 0;
-  SENSOR_TYPE_ACCELEROMETER       = 1;
+  SENSOR_TYPE_ACCELEROMETER       = 1; /** Gravity + linear acceleration */
   SENSOR_TYPE_MAGNETIC_FIELD      = 2;
   SENSOR_TYPE_ORIENTATION         = 3;
   SENSOR_TYPE_GYROSCOPE           = 4;
@@ -177,14 +177,21 @@ enum SensorType {
   SENSOR_TYPE_PRESSURE            = 6;
   SENSOR_TYPE_PROXIMITY           = 8;
   SENSOR_TYPE_GRAVITY             = 9;
-  SENSOR_TYPE_LINEAR_ACCELERATION = 10;
+  SENSOR_TYPE_LINEAR_ACCELERATION = 10; /** Acceleration not including gravity */
   SENSOR_TYPE_ROTATION_VECTOR     = 11;
   SENSOR_TYPE_RELATIVE_HUMIDITY   = 12;
   SENSOR_TYPE_AMBIENT_TEMPERATURE = 13;
+  SENSOR_TYPE_OBJECT_TEMPERATURE  = 14;
   SENSOR_TYPE_VOLTAGE             = 15;
   SENSOR_TYPE_CURRENT             = 16;
   SENSOR_TYPE_COLOR               = 17;
   SENSOR_TYPE_RAW                 = 18;
+  SENSOR_TYPE_PM10_STD            = 19; /** Standard Particulate Matter 1.0 */
+  SENSOR_TYPE_PM25_STD            = 20; /** Standard Particulate Matter 2.5 */
+  SENSOR_TYPE_PM100_STD           = 21; /** Standard Particulate Matter 100 */
+  SENSOR_TYPE_PM10_ENV            = 22; /** Environmental Particulate Matter 1.0 */
+  SENSOR_TYPE_PM25_ENV            = 23; /** Environmental Particulate Matter 2.5 */
+  SENSOR_TYPE_PM100_ENV           = 24; /** Environmental Particulate Matter 100 */
 }
 
 /**
