@@ -206,6 +206,7 @@ enum SensorType {
   SENSOR_TYPE_PM10_ENV            = 22; /** Environmental Particulate Matter 1.0 */
   SENSOR_TYPE_PM25_ENV            = 23; /** Environmental Particulate Matter 2.5 */
   SENSOR_TYPE_PM100_ENV           = 24; /** Environmental Particulate Matter 100 */
+  SENSOR_TYPE_CO2                 = 25; /** CO2 */
 }
 
 /**
