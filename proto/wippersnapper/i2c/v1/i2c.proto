@@ -59,7 +59,7 @@ message I2CBusScanRequest {
 */
 message I2CBusScanResponse {
   repeated uint32 addresses_found  = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
-    BusResponse bus_response       = 2; /** The I2C bus' status. **/
+  BusResponse bus_response       = 2; /** The I2C bus' status. **/
 }
 
 /**
@@ -88,9 +88,9 @@ message I2CDeviceInitRequest {
 * is successfully initialized by the client.
 */
 message I2CDeviceInitResponse {
-    bool is_success             = 1; /** True if i2c device initialized successfully, false otherwise. */
-    uint32 i2c_address          = 2; /** The 7-bit I2C address of the device on the bus. */
-    BusResponse bus_response    = 3; /** The I2C bus' status. **/
+  bool is_success             = 1; /** True if i2c device initialized successfully, false otherwise. */
+  uint32 i2c_address          = 2; /** The 7-bit I2C address of the device on the bus. */
+  BusResponse bus_response    = 3; /** The I2C bus' status. **/
 }
 
 /**
@@ -98,10 +98,10 @@ message I2CDeviceInitResponse {
 * a update request for a specific i2c device.
 */
 message I2CDeviceUpdateRequest {
-    int32  i2c_port_number                                    = 1; /** The desired I2C port. */
-    uint32 i2c_address                                        = 2; /** The 7-bit I2C address of the device on the bus. */
-    string i2c_device_name                                    = 3; /** The I2C device's name, MUST MATCH the name on the JSON file. */
-    repeated I2CDeviceSensorProperties i2c_device_properties  = 4[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
+  int32  i2c_port_number                                    = 1; /** The desired I2C port. */
+  uint32 i2c_address                                        = 2; /** The 7-bit I2C address of the device on the bus. */
+  string i2c_device_name                                    = 3; /** The I2C device's name, MUST MATCH the name on the JSON file. */
+  repeated I2CDeviceSensorProperties i2c_device_properties  = 4[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
 }
 
 /**
@@ -109,9 +109,9 @@ message I2CDeviceUpdateRequest {
 * sensor(s) is/are successfully updated.
 */
 message I2CDeviceUpdateResponse {
-    uint32 i2c_address          = 1; /** The 7-bit I2C address of the device which was updated. */
-    bool is_success             = 2; /** True if the update request succeeded, False otherwise. */
-    BusResponse bus_response    = 3; /** The I2C bus' status. **/
+  uint32 i2c_address          = 1; /** The 7-bit I2C address of the device which was updated. */
+  bool is_success             = 2; /** True if the update request succeeded, False otherwise. */
+  BusResponse bus_response    = 3; /** The I2C bus' status. **/
 }
 
 /**
@@ -119,8 +119,8 @@ message I2CDeviceUpdateResponse {
 * a deinitialization request for a specific i2c device.
 */
 message I2CDeviceDeinitRequest {
-    int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
-    uint32 i2c_address            = 2; /** The 7-bit I2C address of the device on the bus. */
+  int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
+  uint32 i2c_address            = 2; /** The 7-bit I2C address of the device on the bus. */
 }
 
 /**
@@ -128,8 +128,8 @@ message I2CDeviceDeinitRequest {
 * sensor(s) is/are successfully de-initialized.
 */
 message I2CDeviceDeinitResponse {
-    bool is_success     = 1; /** True if the deinitialization request succeeded, False otherwise. */
-    uint32 i2c_address  = 2; /** The 7-bit I2C address of the device which was initialized. */
+  bool is_success     = 1; /** True if the deinitialization request succeeded, False otherwise. */
+  uint32 i2c_address  = 2; /** The 7-bit I2C address of the device which was initialized. */
 }
 
 /** Adafruit Unified Sensor Library Messages. */
