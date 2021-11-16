@@ -63,17 +63,24 @@ message I2CBusScanResponse {
 }
 
 /**
+* I2CDeviceSensorProperties contains the type and period
+* of an I2C device's sensor.
+*/
+message I2CDeviceSensorProperties {
+  SensorType sensor_type = 1;
+  float sensor_period    = 2;
+}
+
+/**
 * I2CDeviceInitRequest is a wrapper message containing
 * an i2c-device-specific initialization request.
 */
 message I2CDeviceInitRequest {
-  int32  i2c_port_number             = 1; /** The desired I2C port to initialize an I2C device on. */
-  uint32 i2c_address                 = 2; /** The 7-bit I2C address of the device on the bus. */
-  I2CBusInitRequest bus_init_request = 3; /** An I2C bus initialization request. */
-  AHTUpdateRequest aht               = 4; /** A request to configure an AHTX0 sensor. */
-  DPS310UpdateRequest dps            = 5; /** A request to configure a DPS310 sensor. */
-  SCD30UpdateRequest scd30           = 6; /** A request to initialize a SCD-30 sensor. */
-  SCD4XUpdateRequest scd4x           = 7; /** A request to initialize a SCD4x sensor. */
+  int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
+  I2CBusInitRequest i2c_bus_init_req                        = 2; /** An I2C bus initialization request. */
+  uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
+  string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON file. */
+  repeated I2CDeviceSensorProperties i2c_device_properties  = 5[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
 }
 
 /**
@@ -91,12 +98,10 @@ message I2CDeviceInitResponse {
 * a update request for a specific i2c device.
 */
 message I2CDeviceUpdateRequest {
-    int32  i2c_port_number    = 1; /** The desired I2C port. */
-    uint32 i2c_address        = 2; /** The 7-bit I2C address of the device on the bus. */
-    AHTUpdateRequest aht      = 3; /** A request to update the properties of an AHTX0. */
-    DPS310UpdateRequest dps   = 4; /** A request to update the properties of a DPS310. */
-    SCD30UpdateRequest scd30  = 5; /** A request to update the properties of a SCD-30. */
-    SCD4XUpdateRequest scd4x  = 6; /** A request to update the properties of a SCD4x. */
+    int32  i2c_port_number                                    = 1; /** The desired I2C port. */
+    uint32 i2c_address                                        = 2; /** The 7-bit I2C address of the device on the bus. */
+    string i2c_device_name                                    = 3; /** The I2C device's name, MUST MATCH the name on the JSON file. */
+    repeated I2CDeviceSensorProperties i2c_device_properties  = 4[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
 }
 
 /**
@@ -125,55 +130,6 @@ message I2CDeviceDeinitRequest {
 message I2CDeviceDeinitResponse {
     bool is_success     = 1; /** True if the deinitialization request succeeded, False otherwise. */
     uint32 i2c_address  = 2; /** The 7-bit I2C address of the device which was initialized. */
-}
-
-// Device-specific //
-
-/**
-* AHTUpdateRequest represents the request to update or configure
-* an AHTX0 temperature/humidity sensor.
-*/
-message AHTUpdateRequest {
-  bool enable_temperature  = 1; /** True to enable the temperature sensor, False to disable. */
-  float period_temperature = 2; /** Specifies the time between temperature sensor measurements, in seconds. */
-  bool enable_humidity     = 3; /** True to enable the humidity sensor, False to disable. */
-  float period_humidity    = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
-}
-
-/**
-* DPS310UpdateRequest represents the request to update or configure
-* a DPS310 barometric pressure and altitude sensor.
-*/
-message DPS310UpdateRequest {
-  bool enable_pressure      = 1; /** True to enable the DPS310's pressure sensor, False to disable. */
-  float period_pressure     = 2; /** Specifies the time between pressure sensor measurements, in seconds. */
-  bool enable_temperature   = 3; /** True to enable the DPS310's temperature sensor, False to disable. */
-  float period_temperature  = 4; /** Specifies the time between temperature sensor measurements, in seconds. */
-}
-
-/**
-* SCD30UpdateRequest represents the request to update or configure
-* a SCD-30 NDIR CO2 Temperature and Humidity Sensor.
-*/
-message SCD30UpdateRequest {
-  bool enable_temperature   = 1; /** True to enable the SCD30's temperature sensor, False to disable. */
-  float period_temperature  = 2; /** Specifies the time between temperature sensor measurements, in seconds. */
-  bool enable_humidity      = 3; /** True to enable the SCD30's humidity sensor, False to disable. */
-  float period_humidity     = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
-  bool enable_co2           = 5; /** True to enable the SCD30's CO2 sensor, False to disable. */
-  float period_co2          = 6; /** Specifies the time between CO2 sensor measurements, in seconds. */
-}
-
-/**
-* SCD4XUpdateRequest represents the request to update or configure a SCD4X sensor.
-*/
-message SCD4XUpdateRequest {
-  bool enable_temperature   = 1; /** True to enable the SCD4X's temperature sensor, False to disable. */
-  float period_temperature  = 2; /** Specifies the time between temperature sensor measurements, in seconds. */
-  bool enable_humidity      = 3; /** True to enable the SCD4X's humidity sensor, False to disable. */
-  float period_humidity     = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
-  bool enable_co2           = 5; /** True to enable the SCD4X's CO2 sensor, False to disable. */
-  float period_co2          = 6; /** Specifies the time between CO2 sensor measurements, in seconds. */
 }
 
 /** Adafruit Unified Sensor Library Messages. */
