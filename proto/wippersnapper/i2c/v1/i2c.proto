@@ -6,19 +6,20 @@ package wippersnapper.i2c.v1;
 import "nanopb/nanopb.proto";
 
 /**
-* BusResponse represents the I2C bus status.
+* BusResponse represents the state of the I2C bus, from a device.
 */
 enum BusResponse {
-  BUS_RESPONSE_UNSPECIFIED   = 0; /** Unspecified error occurred. **/
-  BUS_RESPONSE_SUCCESS       = 1; /** I2C bus successfully initialized. **/
-  BUS_RESPONSE_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
-  BUS_RESPONSE_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
-  BUS_RESPONSE_ERROR_WIRING  = 4; /** I2C bus failed to communicate - Please check your wiring. **/
+  BUS_RESPONSE_UNSPECIFIED         = 0; /** Unspecified error occurred. **/
+  BUS_RESPONSE_SUCCESS             = 1; /** I2C bus successfully initialized. **/
+  BUS_RESPONSE_ERROR_HANG          = 2; /** I2C Bus hang, user should reset their board if this persists. **/
+  BUS_RESPONSE_ERROR_PULLUPS       = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
+  BUS_RESPONSE_ERROR_WIRING        = 4; /** I2C bus failed to communicate - Please check your wiring. **/
+  BUS_RESPONSE_UNSUPPORTED_SENSOR  = 5; /** WipperSnapper firmware is outdated and does not include the sensor type - Please update your WipperSnapper firmware. **/
 }
 
 /**
 * I2CBusInitRequest represents a request to
-* initialize the I2C bus.
+* initialize the I2C bus from the broker.
 */
 message I2CBusInitRequest {
   int32  i2c_pin_scl     = 1; /** The desired I2C SCL pin. */
@@ -63,8 +64,9 @@ message I2CBusScanResponse {
 }
 
 /**
-* I2CDeviceSensorProperties contains the type and period
-* of an I2C device's sensor.
+* I2CDeviceSensorProperties contains
+* the properties of an I2C device's sensor such as
+* its type and period.
 */
 message I2CDeviceSensorProperties {
   SensorType sensor_type = 1;
@@ -72,20 +74,20 @@ message I2CDeviceSensorProperties {
 }
 
 /**
-* I2CDeviceInitRequest is a wrapper message containing
-* an i2c-device-specific initialization request.
+* I2CDeviceInitRequest is a wrapper message for
+* an I2C device initialization request.
 */
 message I2CDeviceInitRequest {
   int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
   I2CBusInitRequest i2c_bus_init_req                        = 2; /** An I2C bus initialization request. */
   uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON file. */
-  repeated I2CDeviceSensorProperties i2c_device_properties  = 5[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
+  string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
+  repeated I2CDeviceSensorProperties i2c_device_properties  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
 }
 
 /**
-* I2CDeviceInitResponse represents if an i2c device
-* is successfully initialized by the client.
+* I2CDeviceInitResponse contains the response from a
+* device after processing a I2CDeviceInitRequest message.
 */
 message I2CDeviceInitResponse {
   bool is_success             = 1; /** True if i2c device initialized successfully, false otherwise. */
@@ -94,8 +96,8 @@ message I2CDeviceInitResponse {
 }
 
 /**
-* I2CDeviceUpdateRequest is a wrapper message containing
-* a update request for a specific i2c device.
+* I2CDeviceUpdateRequest is a wrapper message which
+* contains a message to update a specific device's properties.
 */
 message I2CDeviceUpdateRequest {
   int32  i2c_port_number                                    = 1; /** The desired I2C port. */
@@ -128,39 +130,9 @@ message I2CDeviceDeinitRequest {
 * sensor(s) is/are successfully de-initialized.
 */
 message I2CDeviceDeinitResponse {
-  bool is_success     = 1; /** True if the deinitialization request succeeded, False otherwise. */
-  uint32 i2c_address  = 2; /** The 7-bit I2C address of the device which was initialized. */
-}
-
-/**
-* PM25UpdateRequest represents the request to update or configure a PM25 AQ sensor.
-*/
-message PM25UpdateRequest {
-  bool enable_pm10_std   = 1; /** True to enable reading Standard PM1.0, False otherwise. */
-  float period_pm10_std  = 2;
-  bool enable_pm25_std   = 3; /** True to enable reading Standard PM2.5, False otherwise. */
-  float period_pm25_std  = 4;
-  bool enable_pm100_std  = 5; /** True to enable reading Standard PM10.0, False otherwise. */
-  float period_pm100_std = 6;
-  bool enable_pm10_env   = 7; /** True to enable reading Environmental PM1.0, False otherwise. */
-  float period_pm10_env  = 8;
-  bool enable_pm25_env   = 9; /** True to enable reading Environmental PM2.5, False otherwise. */
-  float period_pm25_env  = 10;
-  bool enable_pm100_env  = 11; /** True to enable reading Environmental PM10.0, False otherwise. */
-  float period_pm100_env = 12;
-}
-
-/**
-* BME280UpdateRequest represents the request to update or configure
-* a BME280 sensor.
-*/
-message BME280UpdateRequest {
-  bool enable_temperature   = 1; /** True to enable the BME280's temperature sensor, False to disable. */
-  float period_temperature  = 2; /** Specifies the time between temperature sensor measurements, in seconds. */
-  bool enable_humidity      = 3; /** True to enable the BME280's humidity sensor, False to disable. */
-  float period_humidity     = 4; /** Specifies the time between humidity sensor measurements, in seconds. */
-  bool enable_pressure      = 5; /** True to enable the BME280's pressure sensor, False to disable. */
-  float period_pressure     = 6; /** Specifies the time between pressure sensor measurements, in seconds. */
+  bool is_success           = 1; /** True if the deinitialization request succeeded, False otherwise. */
+  uint32 i2c_address        = 2; /** The 7-bit I2C address of the device which was initialized. */
+  BusResponse bus_response  = 3; /** The I2C bus' status. **/
 }
 
 /** Adafruit Unified Sensor Library Messages. */
