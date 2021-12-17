@@ -81,7 +81,7 @@ message I2CDeviceInitRequest {
   int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
   I2CBusInitRequest i2c_bus_init_req                        = 2; /** An I2C bus initialization request. */
   uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
+  string i2c_device_name                                    = 4[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   repeated I2CDeviceSensorProperties i2c_device_properties  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
 }
 
@@ -102,7 +102,7 @@ message I2CDeviceInitResponse {
 message I2CDeviceUpdateRequest {
   int32  i2c_port_number                                    = 1; /** The desired I2C port. */
   uint32 i2c_address                                        = 2; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                                    = 3; /** The I2C device's name, MUST MATCH the name on the JSON file. */
+  string i2c_device_name                                    = 3[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON file. */
   repeated I2CDeviceSensorProperties i2c_device_properties  = 4[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
 }
 
