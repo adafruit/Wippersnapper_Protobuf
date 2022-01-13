@@ -242,6 +242,8 @@ enum SensorType {
   SENSOR_TYPE_PM25_ENV            = 23; /** Environmental Particulate Matter 2.5 */
   SENSOR_TYPE_PM100_ENV           = 24; /** Environmental Particulate Matter 100 */
   SENSOR_TYPE_CO2                 = 25; /** CO2 */
+  SENSOR_TYPE_GAS_RESISTANCE      = 26; /** The resistance (in Ohms) of the gas sensor.  This is proportional to the amount of VOC particles in the air. */
+  SENSOR_TYPE_ALTITUDE            = 27; /** The altitude in meters. */
 }
 
 /**
