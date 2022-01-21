@@ -91,7 +91,7 @@ message I2CDeviceInitRequest {
 */
 message I2CDeviceInitResponse {
   bool is_success             = 1; /** True if i2c device initialized successfully, false otherwise. */
-  uint32 i2c_address          = 2; /** The 7-bit I2C address of the device on the bus. */
+  uint32 i2c_device_address   = 2; /** The 7-bit I2C address of the device on the bus. */
   BusResponse bus_response    = 3; /** The I2C bus' status. **/
 }
 
@@ -101,7 +101,7 @@ message I2CDeviceInitResponse {
 */
 message I2CDeviceUpdateRequest {
   int32  i2c_port_number                                    = 1; /** The desired I2C port. */
-  uint32 i2c_address                                        = 2; /** The 7-bit I2C address of the device on the bus. */
+  uint32 i2c_device_address                                 = 2; /** The 7-bit I2C address of the device on the bus. */
   string i2c_device_name                                    = 3[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON file. */
   repeated I2CDeviceSensorProperties i2c_device_properties  = 4[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
 }
@@ -111,7 +111,7 @@ message I2CDeviceUpdateRequest {
 * sensor(s) is/are successfully updated.
 */
 message I2CDeviceUpdateResponse {
-  uint32 i2c_address          = 1; /** The 7-bit I2C address of the device which was updated. */
+  uint32 i2c_device_address   = 1; /** The 7-bit I2C address of the device which was updated. */
   bool is_success             = 2; /** True if the update request succeeded, False otherwise. */
   BusResponse bus_response    = 3; /** The I2C bus' status. **/
 }
@@ -122,7 +122,7 @@ message I2CDeviceUpdateResponse {
 */
 message I2CDeviceDeinitRequest {
   int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
-  uint32 i2c_address            = 2; /** The 7-bit I2C address of the device on the bus. */
+  uint32 i2c_device_address     = 2; /** The 7-bit I2C address of the device on the bus. */
 }
 
 /**
@@ -131,7 +131,7 @@ message I2CDeviceDeinitRequest {
 */
 message I2CDeviceDeinitResponse {
   bool is_success           = 1; /** True if the deinitialization request succeeded, False otherwise. */
-  uint32 i2c_address        = 2; /** The 7-bit I2C address of the device which was initialized. */
+  uint32 i2c_device_address = 2; /** The 7-bit I2C address of the device which was initialized. */
   BusResponse bus_response  = 3; /** The I2C bus' status. **/
 }
 
