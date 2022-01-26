@@ -73,6 +73,14 @@ message I2CDeviceSensorProperties {
   uint32 sensor_period    = 2;
 }
 
+
+/**
+* Represents a list of I2CDeviceInitRequest messages.
+*/
+message I2CDeviceInitRequests {
+  repeated I2CDeviceInitRequest list = 1;
+}
+
 /**
 * I2CDeviceInitRequest is a wrapper message for
 * an I2C device initialization request.
