@@ -17,7 +17,7 @@ import "wippersnapper/i2c/v1/i2c.proto";
 message I2CRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.i2c.v1.I2CBusInitRequest req_i2c_init                     = 1;
+    wippersnapper.i2c.v1.I2CBusInitRequest req_i2c_init                     = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
     wippersnapper.i2c.v1.I2CBusScanRequest req_i2c_scan                     = 2;
     wippersnapper.i2c.v1.I2CBusSetFrequency req_i2c_set_freq                = 3;
     wippersnapper.i2c.v1.I2CDeviceInitRequest req_i2c_device_init           = 4;
@@ -33,7 +33,7 @@ message I2CRequest {
 message I2CResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.i2c.v1.I2CBusInitResponse resp_i2c_init                  = 1;
+    wippersnapper.i2c.v1.I2CBusInitResponse resp_i2c_init                  = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
     wippersnapper.i2c.v1.I2CBusScanResponse resp_i2c_scan                  = 2;
     wippersnapper.i2c.v1.I2CDeviceInitResponse resp_i2c_device_init        = 3;
     wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit    = 4;
