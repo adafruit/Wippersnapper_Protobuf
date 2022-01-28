@@ -140,7 +140,7 @@ message I2CDeviceDeinitRequest {
 * sensor(s) is/are successfully de-initialized.
 */
 message I2CDeviceDeinitResponse {
-  bool is_success           = 1; /** True if the deinitialization request succeeded, False otherwise. */
+  bool is_success           = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the deinitialization request succeeded, False otherwise. */
   uint32 i2c_device_address = 2; /** The 7-bit I2C address of the device which was initialized. */
   BusResponse bus_response  = 3; /** The I2C bus' status. **/
 }
