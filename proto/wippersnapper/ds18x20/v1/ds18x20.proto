@@ -5,7 +5,6 @@
 syntax = "proto3";
 
 package wippersnapper.ds18x20.v1;
-import "nanopb/nanopb.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
 
 /**
