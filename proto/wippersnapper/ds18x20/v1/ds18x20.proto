@@ -23,7 +23,23 @@ message Ds18x20InitRequest {
 * to a ds18x20InitRequest message.
 */
 message Ds18x20InitResponse {
-  bool is_initialized  = 1; /** True if the I2C port has been initialized successfully, False otherwise. */
+  bool is_initialized  = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
+}
+
+/**
+* ds18x20DeInitRequest represents a request to de-initialize a DS18X20
+* Maxim temperature sensor, from the broker.
+*/
+message Ds18x20DeInitRequest {
+  int32  onewire_pin        = 1; /** The desired pin to use as a OneWire bus. */
+}
+
+/**
+* ds18x20InitResponse represents a device's response
+* to a Ds18x20DeInitRequest message.
+*/
+message Ds18x20DeInitResponse {
+  bool is_de_init  = 1; /** True if the 1-wire bus has been de-initialized successfully, False otherwise. */
 }
 
 /**
