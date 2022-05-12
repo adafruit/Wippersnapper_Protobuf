@@ -46,9 +46,9 @@ message PixelsDelete {
 }
 
 /**
-* PixelsFill fills all of a strip with one color.
+* PixelsFillAll fills all of a strip with one color.
 */
-message PixelsFill {
+message PixelsFillAll {
   uint32 color = 1; /** 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. If all arguments are unspecified, this will be 0 (off). */
 }
 

@@ -49,10 +49,10 @@ message I2CResponse {
 message PixelRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.pixels.v1.PixelsCreate req_pixels_create = 1;
-    wippersnapper.pixels.v1.PixelsUpdate req_pixels_update = 2;
-    wippersnapper.pixels.v1.PixelsDelete req_pixels_delete = 3;
-    wippersnapper.pixels.v1.PixelsFill req_pixels_fill     = 4;
+    wippersnapper.pixels.v1.PixelsCreate req_pixels_create    = 1;
+    wippersnapper.pixels.v1.PixelsUpdate req_pixels_update    = 2;
+    wippersnapper.pixels.v1.PixelsDelete req_pixels_delete    = 3;
+    wippersnapper.pixels.v1.PixelsFillAll req_pixels_fill_all = 4;
   }
 }
 
