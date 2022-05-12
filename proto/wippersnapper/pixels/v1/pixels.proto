@@ -1,0 +1,51 @@
+// SPDX-FileCopyrightText: 2022 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+// Addressable Pixel API for WipperSnapper
+// based off Adafruit BLE's Addressable Pixel Service (https://github.com/adafruit/bluetooth-low-energy#addressable-pixel-service---0x0900)
+syntax = "proto3";
+
+package wippersnapper.pixels.v1;
+import "nanopb/nanopb.proto";
+
+
+enum PixelType {
+  PIXEL_TYPE_UNSPECIFIED = 0; /** Unspecified pixel type. **/
+  PIXEL_TYPE_NEOPIXEL    = 1; /** WS2812 (NeoPixel). **/
+  PIXEL_TYPE_DOTSTAR     = 2; /** APA201 (DotStar). **/
+}
+
+// High-level, generalized pixel init?
+message PixelsInit {
+  uint32 num_pixels           = 1; /** The number of pixels in strand. */
+  PixelType pixel_type        = 2; /** The type of pin to send data out on. **/
+  NeoPixelInit neo_pixel_init = 3; /** Data used by the NeoPixel constructor. **/
+  DotStarInit dot_star_init   = 4; /** Data used by the DotStar constructor. **/
+}
+
+/* NeoPixel */
+
+enum NeoPixelType {
+  NEO_PIXEL_TYPE_UNSPECIFIED = 0; /** Pixel type is unspecified. */
+  NEO_PIXEL_TYPE_RGB         = 1; /** Pixels are wired for RGB bitstream. (v1 FLORA pixels). */
+  NEO_PIXEL_TYPE_GRB         = 2; /** Pixels are wired for GRB bitstream (most NeoPixel products). */
+  NEO_PIXEL_TYPE_RGBW        = 3; /** Pixel sare wired for RGBW bitstream (NeoPixel RGBW products). */
+}
+
+enum NeoPixelSpeed {
+  NEO_PIXEL_SPEED_UNSPECIFIED = 0; /** Pixel speed is unspecified. */
+  NEO_PIXEL_SPEED_KHZ800      = 1; /** 800KHz bitstream (most NeoPixel products w/WS2812 LEDs). */
+  NEO_PIXEL_SPEED_KHZ400      = 2; /** 400KHz bitstream (classic "v1" FLORA pixels, WS2811 drivers). */
+}
+
+message NeoPixelInit {
+  uint32 neo_pixel_pin          = 1; /** The pin to send NeoPixel data out on. **/
+  NeoPixelType  neo_pixel_type  = 2; /** NeoPixel wiring order. **/
+  NeoPixelSpeed neo_pixel_speed = 3; /** NeoPixel speed. **/
+}
+
+/* DotStar */
+message DotStarInit {
+  bool   use_hardware_spi = 1; /** Execute DotStar constructor for hardware SPI, must be connected to MOSI, SCK pins. */
+  uint32 pin_data         = 2; /** Arduino pin for data out, DotStar Software SPI. **/
+  uint32 pin_clock        = 3; /** Arduino pin for clock out, DotStar Software SPI. **/
+}
