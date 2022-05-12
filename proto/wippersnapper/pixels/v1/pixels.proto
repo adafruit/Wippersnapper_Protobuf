@@ -7,23 +7,54 @@ syntax = "proto3";
 package wippersnapper.pixels.v1;
 import "nanopb/nanopb.proto";
 
-
+/**
+* Types of addressable pixels.
+*/
 enum PixelType {
   PIXEL_TYPE_UNSPECIFIED = 0; /** Unspecified pixel type. **/
   PIXEL_TYPE_NEOPIXEL    = 1; /** WS2812 (NeoPixel). **/
   PIXEL_TYPE_DOTSTAR     = 2; /** APA201 (DotStar). **/
 }
 
-// High-level, generalized pixel init?
-message PixelsInit {
-  uint32 num_pixels           = 1; /** The number of pixels in strand. */
-  PixelType pixel_type        = 2; /** The type of pin to send data out on. **/
-  NeoPixelInit neo_pixel_init = 3; /** Data used by the NeoPixel constructor. **/
-  DotStarInit dot_star_init   = 4; /** Data used by the DotStar constructor. **/
+/**
+* PixelsCreate creates a pixel object.
+*/
+message PixelsCreate {
+  uint32 pixel_num            = 1; /** The number of pixels in strand. */
+  uint32 pixel_brightness     = 2; /** Pixel's Brightness setting. 0=minimum (off), 255=brightest. */
+  PixelType pixel_type        = 3; /** The type of pixel used. **/
+  NeoPixelInit neo_pixel_init = 4; /** Data used by the NeoPixel constructor. **/
+  DotStarInit dot_star_init   = 5; /** Data used by the DotStar constructor. **/
 }
 
-/* NeoPixel */
+/**
+* PixelsDelete deletes and de-allocates a pixel object.
+*/
+message PixelsDelete {
+  PixelType pixel_type          = 3; /** The type of pixel to de-initialize. **/
+  NeoPixelInit neo_pixel_config = 4; /** Data used by the NeoPixel constructor. **/
+  DotStarInit dot_star_config   = 5; /** Data used by the DotStar constructor. **/
+}
 
+/**
+* PixelsFill fills all of a strip with one color.
+*/
+message PixelsFill {
+  uint32 color = 1; /** 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. If all arguments are unspecified, this will be 0 (off). */
+}
+
+/**
+* DotStar constructor.
+*/
+message DotStarInit {
+  bool   use_hardware_spi = 1; /** Execute DotStar constructor for hardware SPI, must be connected to MOSI, SCK pins. */
+  uint32 pin_data         = 2; /** Arduino pin for data out, DotStar Software SPI. **/
+  uint32 pin_clock        = 3; /** Arduino pin for clock out, DotStar Software SPI. **/
+}
+
+/**
+* NeoPixel wiring types, used by NeoPixel constructor.
+*/
 enum NeoPixelType {
   NEO_PIXEL_TYPE_UNSPECIFIED = 0; /** Pixel type is unspecified. */
   NEO_PIXEL_TYPE_RGB         = 1; /** Pixels are wired for RGB bitstream. (v1 FLORA pixels). */
@@ -31,21 +62,20 @@ enum NeoPixelType {
   NEO_PIXEL_TYPE_RGBW        = 3; /** Pixel sare wired for RGBW bitstream (NeoPixel RGBW products). */
 }
 
+/**
+* NeoPixel bitstream speed, used by NeoPixel constructor.
+*/
 enum NeoPixelSpeed {
   NEO_PIXEL_SPEED_UNSPECIFIED = 0; /** Pixel speed is unspecified. */
   NEO_PIXEL_SPEED_KHZ800      = 1; /** 800KHz bitstream (most NeoPixel products w/WS2812 LEDs). */
   NEO_PIXEL_SPEED_KHZ400      = 2; /** 400KHz bitstream (classic "v1" FLORA pixels, WS2811 drivers). */
 }
 
+/**
+* NeoPixel constructor.
+*/
 message NeoPixelInit {
   uint32 neo_pixel_pin          = 1; /** The pin to send NeoPixel data out on. **/
   NeoPixelType  neo_pixel_type  = 2; /** NeoPixel wiring order. **/
   NeoPixelSpeed neo_pixel_speed = 3; /** NeoPixel speed. **/
-}
-
-/* DotStar */
-message DotStarInit {
-  bool   use_hardware_spi = 1; /** Execute DotStar constructor for hardware SPI, must be connected to MOSI, SCK pins. */
-  uint32 pin_data         = 2; /** Arduino pin for data out, DotStar Software SPI. **/
-  uint32 pin_clock        = 3; /** Arduino pin for clock out, DotStar Software SPI. **/
 }
