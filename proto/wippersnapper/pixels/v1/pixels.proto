@@ -5,7 +5,6 @@
 syntax = "proto3";
 
 package wippersnapper.pixels.v1;
-import "nanopb/nanopb.proto";
 
 /**
 * Types of addressable pixels.
@@ -25,6 +24,16 @@ message PixelsCreate {
   PixelType pixel_type        = 3; /** The type of pixel used. **/
   NeoPixelInit neo_pixel_init = 4; /** Data used by the NeoPixel constructor. **/
   DotStarInit dot_star_init   = 5; /** Data used by the DotStar constructor. **/
+}
+
+/**
+* PixelsUpdate updates the configuration of a pixel object.
+*/
+message PixelsUpdate {
+  PixelType pixel_type          = 1; /** The type of pixel to de-initialize. **/
+  uint32 pixel_brightness       = 2; /** Pixel's Brightness setting. 0=minimum (off), 255=brightest. */
+  NeoPixelInit neo_pixel_config = 3; /** Data used by the NeoPixel constructor. **/
+  DotStarInit dot_star_config   = 4; /** Data used by the DotStar constructor. **/
 }
 
 /**

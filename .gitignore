@@ -138,3 +138,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+.DS_STORE
+
+# Protoc run output folder
+# (i.e: protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t)
+arduino_out/
