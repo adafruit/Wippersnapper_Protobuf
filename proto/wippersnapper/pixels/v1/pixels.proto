@@ -10,45 +10,46 @@ package wippersnapper.pixels.v1;
 * PixelsCreate creates a pixel object.
 */
 message PixelsCreate {
-  uint32 pixel_num            = 1; /** The number of pixels in strand. */
-  uint32 pixel_brightness     = 2; /** Pixel's Brightness setting. 0=minimum (off), 255=brightest. */
-  NeoPixelInit neo_pixel_init = 3; /** Data used by the NeoPixel constructor. **/
-  DotStarInit dot_star_init   = 4; /** Data used by the DotStar constructor. **/
+  uint32 pixel_num              = 1; /** The number of pixels in strand. */
+  uint32 pixel_brightness       = 2; /** Pixel's Brightness setting. 0=minimum (off), 255=brightest. */
+  NeoPixelConfig neo_pixel_init = 3; /** Data used by the NeoPixel constructor. **/
+  DotStarConfig dot_star_init   = 4; /** Data used by the DotStar constructor. **/
 }
 
 /**
 * PixelsUpdate updates the configuration of a pixel object.
 */
 message PixelsUpdate {
-  uint32 pixel_brightness       = 1; /** Pixel's Brightness setting. 0=minimum (off), 255=brightest. */
-  NeoPixelInit neo_pixel_config = 2; /** Data used by the NeoPixel object. **/
-  DotStarInit dot_star_config   = 3; /** Data used by the DotStar object. **/
+  uint32 pixel_brightness         = 1; /** Pixel's Brightness setting. 0=minimum (off), 255=brightest. */
+  NeoPixelConfig neo_pixel_config = 2; /** Data used by the NeoPixel object. **/
+  DotStarConfig dot_star_config   = 3; /** Data used by the DotStar object. **/
 }
 
 /**
 * PixelsDelete deletes and de-allocates a pixel object.
 */
 message PixelsDelete {
-  NeoPixelInit neo_pixel_config = 1; /** Data used by the NeoPixel object. **/
-  DotStarInit dot_star_config   = 2; /** Data used by the DotStar object. **/
+  NeoPixelConfig neo_pixel_config = 1; /** Data used by the NeoPixel object. **/
+  DotStarConfig dot_star_config   = 2; /** Data used by the DotStar object. **/
 }
 
 /**
 * PixelsFillAll fills all of a strip with one color.
 */
 message PixelsFillAll {
-  uint32 color = 1;                  /** 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. If all arguments are unspecified, this will be 0 (off). */
-  NeoPixelInit neo_pixel_config = 2; /** Data used by the NeoPixel object. **/
-  DotStarInit dot_star_config = 3;   /** Data used by the DotStar object. **/
+  uint32 color                    = 1;                  /** 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. If all arguments are unspecified, this will be 0 (off). */
+  NeoPixelConfig neo_pixel_config = 2; /** Data used by the NeoPixel object. **/
+  DotStarConfig dot_star_config   = 3;   /** Data used by the DotStar object. **/
 }
 
 /**
 * DotStar constructor.
 */
-message DotStarInit {
-  bool   use_hardware_spi = 1; /** Execute DotStar constructor for hardware SPI, must be connected to MOSI, SCK pins. */
-  uint32 pin_data         = 2; /** Arduino pin for data out, DotStar Software SPI. **/
-  uint32 pin_clock        = 3; /** Arduino pin for clock out, DotStar Software SPI. **/
+message DotStarConfig {
+  uint32 pixel_num        = 1; /** REQUIRED, the number of pixels in the strand, used for addressing a DotStar strand. */
+  bool   use_hardware_spi = 2; /** Hardware SPI Only, execute DotStar constructor for hardware SPI, must be connected to MOSI, SCK pins. */
+  uint32 pin_data         = 3; /** Software SPI Only, Arduino pin for data out. **/
+  uint32 pin_clock        = 4; /** Software SPI Only, Arduino pin for clock out. **/
 }
 
 /**
@@ -73,7 +74,7 @@ enum NeoPixelSpeed {
 /**
 * NeoPixel constructor.
 */
-message NeoPixelInit {
+message NeoPixelConfig {
   uint32 neo_pixel_pin          = 1; /** The pin to send NeoPixel data out on. **/
   NeoPixelType  neo_pixel_type  = 2; /** NeoPixel wiring order. **/
   NeoPixelSpeed neo_pixel_speed = 3; /** NeoPixel speed. **/
