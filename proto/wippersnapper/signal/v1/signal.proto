@@ -10,6 +10,7 @@ import "nanopb/nanopb.proto";
 // WipperSnapper
 import "wippersnapper/pin/v1/pin.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
+import "wippersnapper/servo/v1/servo.proto";
 
 /**
 * I2CRequest represents the broker's request for a specific i2c command to a device.
@@ -39,6 +40,14 @@ message I2CResponse {
     wippersnapper.i2c.v1.I2CDeviceDeinitResponse resp_i2c_device_deinit    = 4;
     wippersnapper.i2c.v1.I2CDeviceUpdateResponse resp_i2c_device_update    = 5;
     wippersnapper.i2c.v1.I2CDeviceEvent resp_i2c_device_event              = 6;
+  }
+}
+
+message ServoRequest {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.servo.v1.ServoInitReq  servo_init = 1;
+    wippersnapper.servo.v1.ServoWriteReq servo_write = 2;
   }
 }
 

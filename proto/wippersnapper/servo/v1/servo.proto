@@ -1,0 +1,28 @@
+// SPDX-FileCopyrightText: 2022 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+
+package wippersnapper.servo.v1;
+import "nanopb/nanopb.proto";
+
+/**
+* ServoInitReq represents a message to configure/use a pin as a servo object.
+*
+* NOTE: Frequency is fixed at 50Hz in this implementation and some MCUs have a
+* default freqency. This will need to be handled by the client.
+*/
+message ServoInitReq {
+  string pin_name = 1 [(nanopb).max_size = 5]; /** The name of pin to use as a servo pin. */
+}
+
+
+/**
+* ServoWriteReq represents a message to write the servo's position.
+*
+* NOTE: Position is sent from Adafruit IO as a pulse width in uS between 500uS
+* and 2500uS. The client application must convert pulse width to duty cycle w/fixed
+* freq of 50Hz prior to writing to the servo pin.
+*/
+message ServoWriteReq {
+  int32  pulse_width = 1; /** The pulse width to write to the servo, in uS **/
+}
