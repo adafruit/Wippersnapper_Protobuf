@@ -24,5 +24,6 @@ message ServoInitReq {
 * freq of 50Hz prior to writing to the servo pin.
 */
 message ServoWriteReq {
-  int32  pulse_width = 1; /** The pulse width to write to the servo, in uS **/
+  string servo_pin   = 1 [(nanopb).max_size = 5]; /** The name of pin we're addressing. */
+  int32  pulse_width = 2; /** The pulse width to write to the servo, in uS **/
 }
