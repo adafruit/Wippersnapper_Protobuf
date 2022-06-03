@@ -10,7 +10,7 @@ import "nanopb/nanopb.proto";
 */
 message ServoInitReq {
   string servo_pin = 1 [(nanopb).max_size = 5]; /** The name of pin to use as a servo pin. */
-  int32 servo_freq = 2; /** The overall PWM frequency, defefault is 50Hz. **/
+  int32 servo_freq = 2; /** The overall PWM frequency, default is 50Hz. **/
 }
 
 
