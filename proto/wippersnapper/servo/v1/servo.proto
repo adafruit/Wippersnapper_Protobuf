@@ -16,6 +16,13 @@ message ServoInitReq {
 }
 
 /**
+* ServoInitResp represents a message to configure/use a pin as a servo object.
+*/
+message ServoInitResp {
+  bool init_success = 1; /** True if a servo was initialized successfully. **/
+}
+
+/**
 * ServoDeinitReq represents a message to de-initialize a pin as a servo object.
 */
 message ServoDeinitReq {
