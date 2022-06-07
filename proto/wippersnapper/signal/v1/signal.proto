@@ -43,11 +43,15 @@ message I2CResponse {
   }
 }
 
+/**
+* ServoRequest represents the broker's request across the servo sub-topic.
+*/
 message ServoRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.servo.v1.ServoInitReq  servo_init = 1;
-    wippersnapper.servo.v1.ServoWriteReq servo_write = 2;
+    wippersnapper.servo.v1.ServoInitReq  servo_init    = 1;
+    wippersnapper.servo.v1.ServoDeinitReq servo_deinit = 2;
+    wippersnapper.servo.v1.ServoWriteReq servo_write   = 3;
   }
 }
 

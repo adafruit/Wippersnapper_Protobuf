@@ -10,9 +10,15 @@ import "nanopb/nanopb.proto";
 */
 message ServoInitReq {
   string servo_pin = 1 [(nanopb).max_size = 5]; /** The name of pin to use as a servo pin. */
-  int32 servo_freq = 2; /** The overall PWM frequency, default is 50Hz. **/
+  int32 servo_freq = 2; /** The overall PWM frequency, default sent by Adafruit IO is 50Hz. **/
 }
 
+/**
+* ServoDeinitReq represents a message to de-initialize a pin as a servo object.
+*/
+message ServoDeinitReq {
+  string servo_pin = 1 [(nanopb).max_size = 5]; /** The name of pin to use as a servo pin. */
+}
 
 /**
 * ServoWriteReq represents a message to write the servo's position.
