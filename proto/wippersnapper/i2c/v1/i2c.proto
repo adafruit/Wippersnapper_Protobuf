@@ -178,6 +178,7 @@ enum SensorType {
   SENSOR_TYPE_CO2                 = 25; /** CO2 */
   SENSOR_TYPE_GAS_RESISTANCE      = 26; /** The resistance (in Ohms) of the gas sensor.  This is proportional to the amount of VOC particles in the air. */
   SENSOR_TYPE_ALTITUDE            = 27; /** The altitude in meters. */
+  SENSOR_TYPE_UNITLESS_PERCENT    = 28; /** Percentage, unit-less, "{value}%". */
 }
 
 /**
