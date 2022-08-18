@@ -180,6 +180,7 @@ enum SensorType {
   SENSOR_TYPE_ALTITUDE            = 27; /** Altitude, in meters,"{value}m". */
   SENSOR_TYPE_LUX                 = 28; /** Light level, in lux, "Lux: {value}". */
   SENSOR_TYPE_ECO2                = 29; /** equivalent/estimated CO2 in ppm (estimated from some other measurement), "{value}ppm". */
+  SENSOR_TYPE_UNITLESS_PERCENT    = 30; /** Percentage, unit-less, "{value}%". */
 }
 
 /**
