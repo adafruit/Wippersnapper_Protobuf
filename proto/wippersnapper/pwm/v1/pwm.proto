@@ -1,0 +1,35 @@
+// SPDX-FileCopyrightText: 2022 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+
+package wippersnapper.pwm.v1;
+import "nanopb/nanopb.proto";
+
+/**
+* WriteDutyCycle represents a request to write a duty cycle to a pin with a frequency (fixed).
+* This is used for controlling LEDs.
+*/
+message WriteDutyCycle {
+  string pin       = 1 [(nanopb).max_size = 6]; /** The pin to write to. */
+  int32 frequency  = 2; /** The PWM frequency, in Hz. This value will not be changed by the slider on Adafruit IO. **/
+  int32 duty_cycle = 3; /** The duty cycle to write. This value will be changed by the slider on Adafruit IO. **/
+  int32 resolution = 4; /** Optional field, sets the resolution fo the analog pin **/
+}
+
+/**
+* WriteFrequency represents a request to write a Frequency, in Hz, to a pin with a duty cycle of 50%.
+* This is used for playing tones using a piezo buzzer or speaker.
+*/
+message WriteFrequency {
+  string pin       = 1 [(nanopb).max_size = 6]; /** The pin to write to. */
+  int32 frequency  = 2; /** The PWM frequency, in Hz. This value will not be changed by the slider on Adafruit IO. **/
+}
+
+/**
+* Deinit represents a request to stop PWM'ing and release the pin for re-use.
+* On ESP32, this will "detach" a pin from a LEDC channel/timer group.
+* On non-ESP32 Arduino, this calls digitalWrite(LOW) on the pin
+*/
+message Deinit {
+  string pin       = 1 [(nanopb).max_size = 6]; /** The PWM pin to de-initialized. */
+}
