@@ -74,9 +74,9 @@ message CreateSignalRequest {
     // Update a pins state
     wippersnapper.pin.v1.PinEvent pin_event                             = 15;
     // Create, update or remove a PWM output pin
-    wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10 [deprecated = true];
+    wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10 [deprecated = true, (nanopb).type = FT_IGNORE];
     // Write duty cycle to a PWM output pin
-    wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12 [deprecated = true];
+    wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12 [deprecated = true, (nanopb).type = FT_IGNORE];
     // Update a pin's state
     wippersnapper.pin.v1.PinEvents pin_events                           = 7;
   }
