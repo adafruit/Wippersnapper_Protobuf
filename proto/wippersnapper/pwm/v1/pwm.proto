@@ -17,6 +17,14 @@ message WriteDutyCycle {
 }
 
 /**
+* WriteDutyCycle represents a wrapper request to write duty cycles to multiple pins.
+* This is used for controlling RGB/RGBW LEDs.
+*/
+message WriteDutyCycleMulti {
+  repeated WriteDutyCycle write_duty_cycle = 1 [(nanopb).max_count = 4];
+}
+
+/**
 * WriteFrequency represents a request to write a Frequency, in Hz, to a pin with a duty cycle of 50%.
 * This is used for playing tones using a piezo buzzer or speaker.
 */
