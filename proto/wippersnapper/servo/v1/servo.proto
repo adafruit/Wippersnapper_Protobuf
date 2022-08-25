@@ -20,6 +20,7 @@ message ServoAttachReq {
 */
 message ServoAttachResp {
   bool attach_success = 1; /** True if a servo was attached successfully, False otherwise. **/
+  string servo_pin    = 2 [(nanopb).max_size = 6]; /** The name of pin we're responding about. */
 }
 
 /**
