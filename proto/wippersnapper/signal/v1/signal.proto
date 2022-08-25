@@ -97,8 +97,9 @@ message SignalResponse {
 message PWMRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.pwm.v1.WriteDutyCycle write_duty_cycle = 1;
-    wippersnapper.pwm.v1.WriteFrequency write_frequency  = 2;
-    wippersnapper.pwm.v1.Deinit deinit                   = 3;
+    wippersnapper.pwm.v1.WriteDutyCycle write_duty_cycle            = 1;
+    wippersnapper.pwm.v1.WriteDutyCycleMulti write_duty_cycle_multi = 2;
+    wippersnapper.pwm.v1.WriteFrequency write_frequency             = 3;
+    wippersnapper.pwm.v1.Deinit deinit                              = 4;
   }
 }
