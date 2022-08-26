@@ -102,39 +102,43 @@ message ConfigureReferenceVoltage {
 */
 message PinEvents {
   option deprecated = true; 
-  repeated PinEvent list = 1;
+  repeated PinEvent list = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
 }
 
-/* PWM Pin API */
+/* DEPRECATED - PWM Pin API */
 
 // Configures a PWM output pin
 message ConfigurePWMPinRequest {
+  option deprecated = true;
   // Pin to write to
-  string pin_name         = 1 [(nanopb).max_size = 5];
+  string pin_name         = 1 [(nanopb).max_size = 5, deprecated = true, (nanopb).type = FT_IGNORE];
 
   // Duty cycle between always off (0)
   // and always on (255)
-  int32 duty_cycle        = 2;
+  int32 duty_cycle        = 2 [deprecated = true, (nanopb).type = FT_IGNORE];
 
   // Target frequency, in Hz
-  int32 frequency         = 3;
+  int32 frequency         = 3 [deprecated = true, (nanopb).type = FT_IGNORE];
 
   // If the frequency changes over time
   // NOTE: CIRCUITPYTHON-API ONLY
-  bool variable_frequency = 4;
+  bool variable_frequency = 4 [deprecated = true, (nanopb).type = FT_IGNORE];
 }
 
 message ConfigurePWMPinRequests {
-  repeated ConfigurePWMPinRequest list = 1;
+  option deprecated = true;
+  repeated ConfigurePWMPinRequest list = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
 }
 
 // Write duty cycle to a pin PWM output pin
 message PWMPinEvent {
+  option deprecated = true;
   // Duty cycle between always off (0)
   // and always on (255)
-  int32 duty_cycle        = 2;
+  int32 duty_cycle        = 2 [deprecated = true, (nanopb).type = FT_IGNORE];
 }
 
 message PWMPinEvents {
-  repeated PWMPinEvent list = 1;
+  option deprecated = true;
+  repeated PWMPinEvent list = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
 }

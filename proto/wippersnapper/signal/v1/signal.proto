@@ -11,6 +11,7 @@ import "nanopb/nanopb.proto";
 import "wippersnapper/pin/v1/pin.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
 import "wippersnapper/servo/v1/servo.proto";
+import "wippersnapper/pwm/v1/pwm.proto";
 
 /**
 * I2CRequest represents the broker's request for a specific i2c command to a device.
@@ -73,9 +74,9 @@ message CreateSignalRequest {
     // Update a pins state
     wippersnapper.pin.v1.PinEvent pin_event                             = 15;
     // Create, update or remove a PWM output pin
-    wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10;
+    wippersnapper.pin.v1.ConfigurePWMPinRequests pwm_pin_config         = 10 [deprecated = true, (nanopb).type = FT_IGNORE];
     // Write duty cycle to a PWM output pin
-    wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12;
+    wippersnapper.pin.v1.PWMPinEvents pwm_pin_event                     = 12 [deprecated = true, (nanopb).type = FT_IGNORE];
     // Update a pin's state
     wippersnapper.pin.v1.PinEvents pin_events                           = 7;
   }
@@ -87,5 +88,18 @@ message CreateSignalRequest {
 message SignalResponse {
   oneof payload {
     bool configuration_complete = 1; /** True if a device successfully completed a ConfigurePinRequests message, False otherwise. */
+  }
+}
+
+/**
+* PWMRequest represents a broker's request across the PWM sub-topic.
+*/
+message PWMRequest {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.pwm.v1.WriteDutyCycle write_duty_cycle            = 1;
+    wippersnapper.pwm.v1.WriteDutyCycleMulti write_duty_cycle_multi = 2;
+    wippersnapper.pwm.v1.WriteFrequency write_frequency             = 3;
+    wippersnapper.pwm.v1.Deinit deinit                              = 4;
   }
 }
