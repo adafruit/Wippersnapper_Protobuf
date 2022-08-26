@@ -101,7 +101,8 @@ message ConfigureReferenceVoltage {
 * NOTE: Not working with nanopb decode repeated
 */
 message PinEvents {
-  repeated PinEvent list = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
+  option deprecated = true; 
+  repeated PinEvent list = 1;
 }
 
 /* DEPRECATED - PWM Pin API */
