@@ -50,9 +50,9 @@ message I2CResponse {
 message ServoRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.servo.v1.ServoAttachReq servo_attach = 1;
-    wippersnapper.servo.v1.ServoDetachReq servo_detach = 2;
-    wippersnapper.servo.v1.ServoWriteReq servo_write   = 3;
+    wippersnapper.servo.v1.ServoAttachRequest servo_attach = 1;
+    wippersnapper.servo.v1.ServoDetachRequest servo_detach = 2;
+    wippersnapper.servo.v1.ServoWriteRequest servo_write   = 3;
   }
 }
 
@@ -62,7 +62,7 @@ message ServoRequest {
 message ServoResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.servo.v1.ServoAttachResp servo_attach_resp = 1;
+    wippersnapper.servo.v1.ServoAttachResponse servo_attach_resp = 1;
   }
 }
 
