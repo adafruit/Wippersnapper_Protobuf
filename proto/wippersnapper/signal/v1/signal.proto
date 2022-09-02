@@ -97,11 +97,11 @@ message SignalResponse {
 message PWMRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.pwm.v1.AttachRequest attach_request                        = 1;
-    wippersnapper.pwm.v1.DetachRequest detach_request                        = 2;
-    wippersnapper.pwm.v1.WriteDutyCycleRequest write_duty_request            = 3;
-    wippersnapper.pwm.v1.WriteDutyCycleMultiRequest write_duty_multi_request = 4;
-    wippersnapper.pwm.v1.WriteFrequencyRequest write_freq_request            = 5;
+    wippersnapper.pwm.v1.PWMAttachRequest attach_request                        = 1;
+    wippersnapper.pwm.v1.PWMDetachRequest detach_request                        = 2;
+    wippersnapper.pwm.v1.PWMWriteDutyCycleRequest write_duty_request            = 3;
+    wippersnapper.pwm.v1.PWMWriteDutyCycleMultiRequest write_duty_multi_request = 4;
+    wippersnapper.pwm.v1.PWMWriteFrequencyRequest write_freq_request            = 5;
   }
 }
 
@@ -111,6 +111,6 @@ message PWMRequest {
 message PWMResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.pwm.v1.AttachResponse attach_response = 1;
+    wippersnapper.pwm.v1.PWMAttachResponse attach_response = 1;
   }
 }
