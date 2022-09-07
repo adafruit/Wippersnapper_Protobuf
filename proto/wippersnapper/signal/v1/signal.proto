@@ -32,8 +32,7 @@ message Ds18x20Response {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
     wippersnapper.ds18x20.v1.Ds18x20InitResponse resp_ds18x20_init      = 1;
-    wippersnapper.ds18x20.v1.Ds18x20DeInitResponse resp_ds18x20_deinit  = 2;
-    wippersnapper.ds18x20.v1.Ds18x20DeviceEvent  resp_ds18x20_event     = 3;
+    wippersnapper.ds18x20.v1.Ds18x20DeviceEvent  resp_ds18x20_event     = 2;
   }
 }
 
