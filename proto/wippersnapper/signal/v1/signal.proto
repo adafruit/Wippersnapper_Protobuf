@@ -12,6 +12,29 @@ import "wippersnapper/pin/v1/pin.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
 import "wippersnapper/servo/v1/servo.proto";
 import "wippersnapper/pwm/v1/pwm.proto";
+import "wippersnapper/ds18x20/v1/ds18x20.proto";
+
+/**
+* Ds18x20Request represents a Ds18x20 command sent to a device.
+*/
+message Ds18x20Request {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.ds18x20.v1.Ds18x20InitRequest req_ds18x20_init     = 1;
+    wippersnapper.ds18x20.v1.Ds18x20DeInitRequest req_ds18x20_deinit = 2;
+  }
+}
+
+/**
+* Ds18x20Response represents a Ds18x20 message from the device.
+*/
+message Ds18x20Response {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.ds18x20.v1.Ds18x20InitResponse resp_ds18x20_init      = 1;
+    wippersnapper.ds18x20.v1.Ds18x20DeviceEvent  resp_ds18x20_event     = 2;
+  }
+}
 
 /**
 * I2CRequest represents the broker's request for a specific i2c command to a device.
