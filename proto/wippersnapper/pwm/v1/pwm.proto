@@ -40,9 +40,7 @@ message PWMDetachRequest {
 */
 message PWMWriteDutyCycleRequest {
   string pin       = 1 [(nanopb).max_size = 6]; /** The pin to write to. */
-  int32 frequency  = 2; /** The PWM frequency, in Hz. This value will not be changed by the slider on Adafruit IO. **/
-  int32 duty_cycle = 3; /** The duty cycle to write. This value will be changed by the slider on Adafruit IO. **/
-  int32 resolution = 4; /** Optional field, sets the resolution fo the analog pin **/
+  int32 duty_cycle = 2; /** The desired duty cycle to write. This value will be changed by the slider on Adafruit IO. **/
 }
 
 /**
@@ -59,5 +57,5 @@ message PWMWriteDutyCycleMultiRequest {
 */
 message PWMWriteFrequencyRequest {
   string pin       = 1 [(nanopb).max_size = 6]; /** The pin to write to. */
-  int32 frequency  = 2; /** The PWM frequency, in Hz. This value will not be changed by the slider on Adafruit IO. **/
+  int32 frequency  = 2; /** The desired PWM frequency, in Hz. This value will be changed by the slider on Adafruit IO. **/
 }
