@@ -1,0 +1,46 @@
+// SPDX-FileCopyrightText: 2022 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+// Addressable Pixels API for Adafruit WipperSnapper
+
+syntax = "proto3";
+
+package wippersnapper.pixels.v1;
+import "nanopb/nanopb.proto";
+
+/**
+* PixelsType defines the strand's pixel color ordering.
+*/
+enum PixelsType {
+  PIXELS_TYPE_UNSPECIFIED  = 0; /** Unspecified color ordering, error. */
+  PIXELS_TYPE_GRB          = 1; /** DEFAULT - Green, Red, Blue */
+  PIXELS_TYPE_GRBW         = 2; /** Green, Red, Blue, White */
+  PIXELS_TYPE_RGB          = 3; /** Red, Green, Blue */
+  PIXELS_TYPE_RGBW         = 4; /** Red, Green, Blue, White */
+}
+
+/**
+* PixelsCreateRequest represents a call from IO to a device.
+* Creates a strand of addressable pixels.
+*/
+message PixelsCreateRequest {
+  string pixels_pin        = 1 [(nanopb).max_size = 6]; /** Pin the strand of pixels is connected to. */
+  uint32 pixels_num        = 2; /** Number of pixels attached to strand. */
+  uint32 pixels_brightness = 3; /** Sets the initial strand brightness. */
+}
+
+/**
+* PixelCreateRequest represents a call from IO to a device
+* Deletes a strand of addressable pixels and release the resources and pin.
+*/
+message PixelsDeleteRequest {
+  string pixels_pin = 1 [(nanopb).max_size = 6]; /** Pin the strand of pixels is connected to. */
+}
+
+/**
+* PixelsWriteRequest represents a call from IO to a device.
+* Writes to a strand of pixels.
+*/
+message PixelsWriteRequest { 
+  string pixels_pin   = 1 [(nanopb).max_size = 6]; /** Pin the strand of pixels is connected to, used for addressing the strand. */
+  uint32 pixels_color = 2; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. */
+}
