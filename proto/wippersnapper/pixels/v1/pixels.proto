@@ -8,14 +8,24 @@ package wippersnapper.pixels.v1;
 import "nanopb/nanopb.proto";
 
 /**
-* PixelsType defines the strand's pixel color ordering.
+* PixelsType defines the type/model of pixel strand.
 */
 enum PixelsType {
-  PIXELS_TYPE_UNSPECIFIED  = 0; /** Unspecified color ordering, error. */
-  PIXELS_TYPE_GRB          = 1; /** DEFAULT - Green, Red, Blue */
-  PIXELS_TYPE_GRBW         = 2; /** Green, Red, Blue, White */
-  PIXELS_TYPE_RGB          = 3; /** Red, Green, Blue */
-  PIXELS_TYPE_RGBW         = 4; /** Red, Green, Blue, White */
+  PIXELS_TYPE_UNSPECIFIED = 0;
+  PIXELS_TYPE_NEOPIXEL    = 1;
+  PIXELS_TYPE_DOTSTAR     = 2;
+}
+
+/**
+* PixelsOrder defines the color ordering.
+*/
+enum PixelsOrder {
+  PIXELS_ORDER_UNSPECIFIED  = 0; /** Unspecified color ordering, error. */
+  PIXELS_ORDER_GRB          = 1; /** DEFAULT for NeoPixels - Green, Red, Blue */
+  PIXELS_ORDER_GRBW         = 2; /** Green, Red, Blue, White */
+  PIXELS_ORDER_RGB          = 3; /** Red, Green, Blue */
+  PIXELS_ORDER_RGBW         = 4; /** Red, Green, Blue, White */
+  PIXELS_ORDER_BRG          = 5; /** DEFAULT for DotStars - Blue, Red, Green */
 }
 
 /**
@@ -23,9 +33,13 @@ enum PixelsType {
 * Creates a strand of addressable pixels.
 */
 message PixelsCreateRequest {
-  string pixels_pin        = 1 [(nanopb).max_size = 6]; /** Pin the strand of pixels is connected to. */
-  uint32 pixels_num        = 2; /** Number of pixels attached to strand. */
-  uint32 pixels_brightness = 3; /** Sets the initial strand brightness. */
+  PixelsType pixels_type          = 1; /** Defines the model/type of pixel strand */
+  uint32 pixels_num               = 2; /** Number of pixels attached to strand. */
+  uint32 pixels_brightness        = 3; /** Sets the initial strand brightness. */
+  PixelsOrder pixels_ordering     = 4; /** Defines the pixel strand's color ordering. */
+  string pixels_pin_neopixel      = 5 [(nanopb).max_size = 6]; /** Generic pin a NeoPixel strand is connected to. */
+  string pixels_pin_dotstar_data  = 6 [(nanopb).max_size = 6]; /** Data pin a DotStar strand is connected to. */
+  string pixels_pin_dotstar_clock = 7 [(nanopb).max_size = 6]; /** Clock pin a DotStar strand is connected to. */
 }
 
 /**
