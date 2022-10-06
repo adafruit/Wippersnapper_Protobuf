@@ -31,15 +31,15 @@ enum PixelsOrder {
 /**
 * PixelsCreateRequest represents a call from IO to a device.
 * Creates a strand of addressable pixels.
+* Initial brightness is always 128.
 */
 message PixelsCreateRequest {
   PixelsType pixels_type          = 1; /** Defines the model/type of pixel strand */
   uint32 pixels_num               = 2; /** Number of pixels attached to strand. */
-  uint32 pixels_brightness        = 3; /** Sets the initial strand brightness. */
-  PixelsOrder pixels_ordering     = 4; /** Defines the pixel strand's color ordering. */
-  string pixels_pin_neopixel      = 5 [(nanopb).max_size = 6]; /** Generic pin a NeoPixel strand is connected to. */
-  string pixels_pin_dotstar_data  = 6 [(nanopb).max_size = 6]; /** Data pin a DotStar strand is connected to. */
-  string pixels_pin_dotstar_clock = 7 [(nanopb).max_size = 6]; /** Clock pin a DotStar strand is connected to. */
+  PixelsOrder pixels_ordering     = 3; /** Defines the pixel strand's color ordering. */
+  string pixels_pin_neopixel      = 4 [(nanopb).max_size = 6]; /** Generic pin a NeoPixel strand is connected to. */
+  string pixels_pin_dotstar_data  = 5 [(nanopb).max_size = 6]; /** Data pin a DotStar strand is connected to. */
+  string pixels_pin_dotstar_clock = 6 [(nanopb).max_size = 6]; /** Clock pin a DotStar strand is connected to. */
 }
 
 /**
