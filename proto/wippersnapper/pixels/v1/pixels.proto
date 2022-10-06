@@ -55,6 +55,7 @@ message PixelsDeleteRequest {
 * Writes to a strand of pixels.
 */
 message PixelsWriteRequest { 
-  string pixels_pin   = 1 [(nanopb).max_size = 6]; /** Pin the strand of pixels is connected to, used for addressing the strand. */
-  uint32 pixels_color = 2; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. */
+  string pixels_pin        = 1 [(nanopb).max_size = 6]; /** Pin the strand of pixels is connected to, used for addressing the strand. */
+  uint32 pixels_color      = 2; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. */
+  uint32 pixels_brightness = 3; /* The pixel strand's brightness, from 0 to 255. */
 }
