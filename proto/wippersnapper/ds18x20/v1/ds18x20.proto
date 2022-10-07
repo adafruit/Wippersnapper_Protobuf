@@ -5,6 +5,7 @@
 syntax = "proto3";
 
 package wippersnapper.ds18x20.v1;
+import "nanopb/nanopb.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
 
 /**
@@ -13,9 +14,10 @@ import "wippersnapper/i2c/v1/i2c.proto";
 * NOTE: This API only supports ONE DS18X20 device PER OneWire bus.
 */
 message Ds18x20InitRequest {
-  int32  onewire_pin        = 1; /** The desired pin to use as a OneWire bus. */
-  uint32 sensor_period      = 2; /** The desired amount of time between sensor reads. */
-  int32  sensor_resolution  = 3; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
+  int32  onewire_pin                                        = 1; /** The desired pin to use as a OneWire bus. */
+  uint32 sensor_period                                      = 2; /** The desired amount of time between sensor reads. */
+  int32  sensor_resolution                                  = 3; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
+  repeated wippersnapper.i2c.v1.I2CDeviceSensorProperties i2c_device_properties  = 4[(nanopb).max_count = 2]; /** Properties for the DS18x20 sensor. */
 }
 
 /**
