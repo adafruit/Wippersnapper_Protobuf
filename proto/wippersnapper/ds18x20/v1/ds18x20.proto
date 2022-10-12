@@ -40,6 +40,6 @@ message Ds18x20DeInitRequest {
 * Ds18x20DeviceEvent event represents data from **one** DS18X20 sensor.
 */
 message Ds18x20DeviceEvent {
-  string onewire_pin                             = 1 [(nanopb).max_size = 5]; /** The desired pin to use as a OneWire bus. */
-  wippersnapper.i2c.v1.SensorEvent sensor_event  = 2; /** The DS18X20's SensorEvent. */
+  string onewire_pin                                      = 1 [(nanopb).max_size = 5]; /** The desired pin to use as a OneWire bus. */
+  repeated wippersnapper.i2c.v1.SensorEvent sensor_event  = 2 [(nanopb).max_count = 2]; /** The DS18X20's SensorEvent. */
 }
