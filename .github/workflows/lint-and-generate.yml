@@ -14,11 +14,11 @@ on:
 
 jobs:
   lint:
-    uses: adafruit/Wippersnapper_Protobuf/.github/workflows/buf-checks.yml@master
+    uses: brentru/Wippersnapper_Protobuf/.github/workflows/buf-checks.yml@master
     secrets:
       GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
   generate:
     needs: lint
-    uses: adafruit/Wippersnapper_Protobuf/.github/workflows/protoc-wrapper-generation.yml@master
+    uses: brentru/Wippersnapper_Protobuf/.github/workflows/protoc-wrapper-generation.yml@master
     secrets:
       GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
