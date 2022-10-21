@@ -1,7 +1,8 @@
 name: Generate .proto Wrapper Files
-# on:
+#on:
 #  push:
 #    branches: master
+on:
   workflow_call:
     secrets:
       GH_REPO_TOKEN:
