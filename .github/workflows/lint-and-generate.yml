@@ -2,10 +2,12 @@
 #
 # SPDX-License-Identifier: MIT
 
-name: WipperSnapper Protocol Buffer CI
+name: WipperSnapper Protocol Buffer CI (caller workflow)
 
 on:
+  push:
   pull_request:
+    branches: master
     secrets:
       GH_REPO_TOKEN:
         required: true
