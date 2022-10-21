@@ -10,6 +10,9 @@ on:
       GH_REPO_TOKEN:
         required: true
   push:
+    secrets:
+      GH_REPO_TOKEN:
+        required: true
 
 jobs:
   lint:
