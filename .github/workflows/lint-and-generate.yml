@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: Brent Rubell for Adafruit Industries, 2022
+#
+# SPDX-License-Identifier: MIT
+
+name: WipperSnapper Protocol Buffer CI
+
+on:
+  pull_request:
+    secrets:
+      GH_REPO_TOKEN:
+        required: true
+  push:
+    branches: master
+      secrets:
+        GH_REPO_TOKEN:
+          required: true
+
+jobs:
+  lint:
+    uses: adafruit/Wippersnapper_Protobuf/.github/workflows/buf-checks.yml@master
+    secrets:
+      GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+  generate:
+    needs: lint
+    uses: adafruit/Wippersnapper_Protobuf/.github/workflows/protoc-wrapper-generation.yml@master
+    secrets:
+      GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
