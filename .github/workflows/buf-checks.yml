@@ -6,7 +6,7 @@ on:
       GH_REPO_TOKEN:
         required: true
 jobs:
-  build:
+  lint-compatibility-check:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
