@@ -13,11 +13,11 @@ on:
 
 jobs:
   lint:
-    uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/buf-checks.yml@reusable-workflow
+    uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/buf-checks.yml@reuseable-workflow
     secrets:
       GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
   generate:
     needs: lint
-    uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/protoc-wrapper-generation.yml@reusable-workflow
+    uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/protoc-wrapper-generation.yml@reuseable-workflow
     secrets:
       GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
