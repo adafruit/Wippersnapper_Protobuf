@@ -20,4 +20,5 @@ jobs:
     needs: lint
     uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/protoc-wrapper-generation.yml@reuseable-workflow
     secrets:
-      GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+      GH_REPO_TOKEN: ${{ secrets.IO_BOT_PAT }}
+      
