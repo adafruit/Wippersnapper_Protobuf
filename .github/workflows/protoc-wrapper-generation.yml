@@ -1,7 +1,11 @@
 name: Generate .proto Wrapper Files
-on:
-  push:
-    branches: master
+# on:
+#  push:
+#    branches: master
+  workflow_call:
+    secrets:
+      GH_REPO_TOKEN:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest

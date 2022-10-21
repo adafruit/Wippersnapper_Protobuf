@@ -1,5 +1,9 @@
 name: Linting and Backwards-Compatibility Checks
 # on: [ push ]
+  workflow_call:
+    secrets:
+      GH_REPO_TOKEN:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
