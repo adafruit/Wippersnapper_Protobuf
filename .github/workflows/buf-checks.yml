@@ -1,5 +1,4 @@
 name: Linting and Backwards-Compatibility Checks
-# on: [ push ]
 on:
   workflow_call:
     secrets:

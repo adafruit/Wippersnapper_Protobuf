@@ -1,7 +1,4 @@
 name: Generate .proto Wrapper Files
-#on:
-#  push:
-#    branches: master
 on:
   workflow_call:
     secrets:

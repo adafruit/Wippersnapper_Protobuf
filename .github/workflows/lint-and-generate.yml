@@ -4,24 +4,19 @@
 name: WipperSnapper Protocol Buffer CI (caller workflow)
 
 on:
-  pull_request:
-    branches: master
-    secrets:
-      GH_REPO_TOKEN:
-        required: true
   push:
+    branches: master
     secrets:
       GH_REPO_TOKEN:
         required: true
 
 jobs:
   lint:
-    uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/buf-checks.yml@reuseable-workflow
+    uses: adafruit/Wippersnapper_Protobuf/.github/workflows/buf-checks.yml@master
     secrets:
       GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
   generate:
     needs: lint
-    uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/protoc-wrapper-generation.yml@reuseable-workflow
+    uses: adafruit/Wippersnapper_Protobuf/.github/workflows/protoc-wrapper-generation.yml@master
     secrets:
-      token: ${{ secrets.GH_REPO_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
