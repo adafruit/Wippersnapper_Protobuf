@@ -24,3 +24,4 @@ jobs:
     uses: brentru/Wippersnapper_Protobuf-1/.github/workflows/protoc-wrapper-generation.yml@reuseable-workflow
     secrets:
       token: ${{ secrets.GH_REPO_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
