@@ -96,9 +96,16 @@ message ServoResponse {
 message PixelsRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.pixels.v1.PixelsCreateRequest pixels_create = 1;
-    wippersnapper.pixels.v1.PixelsDeleteRequest pixels_delete = 2;
-    wippersnapper.pixels.v1.PixelsWriteRequest pixels_write   = 3;
+    wippersnapper.pixels.v1.PixelsCreateRequest req_pixels_create = 1;
+    wippersnapper.pixels.v1.PixelsDeleteRequest req_pixels_delete = 2;
+    wippersnapper.pixels.v1.PixelsWriteRequest req_pixels_write   = 3;
+  }
+}
+
+message PixelsResponse {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.pixels.v1.PixelsCreateResponse resp_pixels_create = 1;
   }
 }
 
