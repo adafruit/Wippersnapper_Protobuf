@@ -56,7 +56,10 @@ message PixelsCreateResponse {
 * Deletes a strand of addressable pixels and release the resources and pin.
 */
 message PixelsDeleteRequest {
-  string pixels_pin = 1 [(nanopb).max_size = 6]; /** Pin the strand of pixels is connected to. */
+  PixelsType pixels_type          = 1; /** Defines the model/type of pixel strand */
+  string pixels_pin_neopixel      = 2 [(nanopb).max_size = 6]; /** Generic pin a NeoPixel strand is connected to. */
+  string pixels_pin_dotstar_data  = 3 [(nanopb).max_size = 6]; /** Data pin a DotStar strand is connected to. */
+  string pixels_pin_dotstar_clock = 4 [(nanopb).max_size = 6]; /** Clock pin a DotStar strand is connected to. */
 }
 
 /**
