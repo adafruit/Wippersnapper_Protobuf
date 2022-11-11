@@ -47,8 +47,7 @@ message PixelsCreateRequest {
 * device to IO after a PixelsCreateRequest call
 */
 message PixelsCreateResponse {
-  PixelsType pixels_type          = 1; /** Defines the model/type of pixel strand */
-  uint32 pixels_num               = 2; /** Response from `strand.numPixels()`, 0 if unset/error. */
+  bool is_success = 1; /** True if the strand initialized successfully, False otherwise. */
 }
 
 /**
