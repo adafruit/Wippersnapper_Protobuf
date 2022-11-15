@@ -68,5 +68,4 @@ message PixelsWriteRequest {
   PixelsType pixels_type   = 1; /** Defines the model/type of pixel strand */
   string pixels_pin_data   = 2 [(nanopb).max_size = 6]; /** Data pin a strand is connected to. */
   uint32 pixels_color      = 3; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. */
-  uint32 pixels_brightness = 4; /* The pixel strand's brightness, from 0 to 255. */
 }
