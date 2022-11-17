@@ -82,7 +82,7 @@ sequenceDiagram
 autonumber
 
 IO-->>Device: PWMAttachRequest
-Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 0Hz<br> `resolution` of 12 bits
+Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 1000Hz<br> `resolution` of 12 bits
 
 Device->>IO: PWMAttachResponse
 Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
@@ -105,7 +105,7 @@ IO->>Device: PWMDetachRequest
 Note over IO, Device: Detaches GPIO pin from a timer
 
 IO-->>Device: PWMAttachRequest
-Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 0Hz<br> `resolution` of 12 bits
+Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 1000Hz<br> `resolution` of 12 bits
 
 Device->>IO: PWMAttachResponse
 Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
@@ -125,7 +125,7 @@ sequenceDiagram
 autonumber
 
 IO-->>Device: PWMAttachRequest
-Note over IO, Device: Contains:<br> `pin` according to DB<br>`frequency` of 0Hz<br> `resolution` of 12 bits
+Note over IO, Device: Contains:<br> `pin` according to DB<br>`frequency` of 1000Hz<br> `resolution` of 12 bits
 
 Device->>IO: PWMAttachResponse
 Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
