@@ -1,5 +1,5 @@
 
-# pixels.proto
+# pwm.proto
 
 This file details the WipperSnapper messaging API for interfacing with PWM output components.
 
