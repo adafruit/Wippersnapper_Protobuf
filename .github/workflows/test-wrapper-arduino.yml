@@ -45,6 +45,8 @@ jobs:
          path: ci
     - name: Install CI-Arduino
       run: bash ci/actions_install.sh
+    - name: list ci
+      run: ls ci
     - name: Install Dependencies
       run: |
         pip3 install esptool
@@ -52,7 +54,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: adafruit/Adafruit_Wippersnapper_Arduino
-#        path: arduino-checkout
 #    - name: Copy Generated Arduino Files to Arduino Repo
 #      run: |
 #        rm -rf ./arduino-checkout/src/wippersnapper/
