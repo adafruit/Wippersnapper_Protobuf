@@ -1,5 +1,5 @@
 name: Generate wrapper files and test Arduino build
-on: [pull]
+on: [ push ]
 jobs:
   build:
     runs-on: ubuntu-latest
