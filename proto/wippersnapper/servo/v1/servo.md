@@ -7,7 +7,7 @@
 
   
 
-The following WipperSnapper components utilize `pwm.proto`:
+The following WipperSnapper components utilize `servo.proto`:
 * [Generic Servo](https://github.com/adafruit/Wippersnapper_Components/tree/main/components/servo/servo)
   
 
@@ -61,6 +61,7 @@ Note over IO, Device: Contains: Success code and servo's pin
 sequenceDiagram
 autonumber
 IO->>Device: ServoDetachRequest
+Note over IO, Device: Contains:<br> `servo_pin` from DB.
 ```
 
   
