@@ -33,16 +33,14 @@ jobs:
         # Local (non-CI) build command:
         # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
         pwd
-    - name: Checkout Arduino Repo
-      uses: actions/checkout@v2
-      with:
-        repository: adafruit/Adafruit_Wippersnapper_Arduino
-    - uses: actions/checkout@v2
-      with:
-         repository: adafruit/ci-arduino
-         path: ci
     - name: Install CI-Arduino
-      run: bash ci/actions_install.sh
+      run: |
+        mkdir ./ci/
+        git clone --quiet git@github.com:adafruit/ci-arduino.git ./ci/
+        bash ci/actions_install.sh
+    - name: Clone Arduino Repo
+      run: |
+        git clone --quiet git@github.com:adafruit/Adafruit_Wippersnapper_Arduino.git
     - name: Install Dependencies
       run: |
         pip3 install esptool
