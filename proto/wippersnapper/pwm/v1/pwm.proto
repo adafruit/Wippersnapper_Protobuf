@@ -11,7 +11,7 @@ import "nanopb/nanopb.proto";
 * On non-ESP32 Arduino, this does nothing.
 */
 message PWMAttachRequest {
-  string fakepin       = 1 [(nanopb).max_size = 6]; /** The pin to be attached. */
+  string pin       = 1 [(nanopb).max_size = 6]; /** The pin to be attached. */
   int32 frequency  = 2; /** PWM frequency of an analog pin, in Hz. **/
   int32 resolution = 3; /** The resolution of an analog pin, in bits. **/
 }
