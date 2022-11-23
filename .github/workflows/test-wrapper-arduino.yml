@@ -47,7 +47,9 @@ jobs:
     - name: pwd
       run: pwd
     - name: list all dirs
-      run: ls -d */
+      run: |
+        ls -d */
+        ls -d ./arduino_out/
     - name: Copy Generated Arduino Files to Arduino Repo
       run: |
         cp -a ./Adafruit_Wippersnapper_Arduino/. .
