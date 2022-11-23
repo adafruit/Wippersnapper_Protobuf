@@ -56,7 +56,7 @@ jobs:
         rm -rf ./src/wippersnapper/
         mkdir ./src/wippersnapper/
         cp -a ./arduino_out/. ./src/wippersnapper
-        ls -R ./src/arduino_out/
+        ls -R ./arduino_out/
         ls -R ./src/wippersnapper/
     - name: Install extra Arduino libraries
       run: |
