@@ -50,7 +50,7 @@ jobs:
       run: ls -d */
     - name: Copy Generated Arduino Files to Arduino Repo
       run: |
-        cp -a /Adafruit_Wippersnapper_Arduino/. .
+        cp -a ./Adafruit_Wippersnapper_Arduino/ .
         rm -rf ./src/wippersnapper/
         mkdir ./src/wippersnapper/
         cp -a ./arduino_out/. ./src/wippersnapper
