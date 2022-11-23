@@ -40,7 +40,7 @@ jobs:
         bash ci/actions_install.sh
     - name: Clone Arduino Repo
       run: |
-        git clone --quiet https://github.com/adafruit/Adafruit_Wippersnapper_Arduino.git .
+        git clone --quiet https://github.com/adafruit/Adafruit_Wippersnapper_Arduino.git
     - name: Install Dependencies
       run: |
         pip3 install esptool
@@ -50,6 +50,7 @@ jobs:
       run: ls -d */
     - name: Copy Generated Arduino Files to Arduino Repo
       run: |
+        cp -a /Adafruit_Wippersnapper_Arduino/. .
         rm -rf ./src/wippersnapper/
         mkdir ./src/wippersnapper/
         cp -a ./arduino_out/. ./src/wippersnapper
