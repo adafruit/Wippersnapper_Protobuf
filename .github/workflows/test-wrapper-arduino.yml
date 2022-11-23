@@ -36,11 +36,11 @@ jobs:
     - name: Install CI-Arduino
       run: |
         mkdir ./ci/
-        git clone --quiet git@github.com:adafruit/ci-arduino.git ./ci/
+        git clone --quiet https://github.com/adafruit/ci-arduino.git ./ci/
         bash ci/actions_install.sh
     - name: Clone Arduino Repo
       run: |
-        git clone --quiet git@github.com:adafruit/Adafruit_Wippersnapper_Arduino.git
+        git clone --quiet https://github.com/adafruit/Adafruit_Wippersnapper_Arduino.git
     - name: Install Dependencies
       run: |
         pip3 install esptool
