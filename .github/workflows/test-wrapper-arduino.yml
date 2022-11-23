@@ -45,7 +45,7 @@ jobs:
         repository: adafruit/Adafruit_Wippersnapper_Arduino
     - uses: actions/checkout@v2
       with:
-         repository: brentru/ci-arduino
+         repository: adafruit/ci-arduino
          path: ci
     - name: Install CI-Arduino
       run: bash ci/actions_install.sh
