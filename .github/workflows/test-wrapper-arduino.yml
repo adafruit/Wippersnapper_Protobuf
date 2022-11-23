@@ -1,0 +1,56 @@
+name: Generate new proto wrapper files and test WipperSnapper build
+on: [ pull_request ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install Protoc
+      uses: arduino/setup-protoc@v1
+      with:
+        version: '3.13.0'
+    - name: Install Python dependencies
+      run : |
+        python -m pip install --upgrade pip
+        pip install protobuf
+    - name: Self Checkout
+      uses: actions/checkout@v2
+      with:
+        path: protobuf-checkout
+        submodules: true
+    - name: Configure Git
+      run: |
+        git config --global user.name adafruitio
+        git config --global user.email adafruitio@adafruit.com
+    - name: Generate Arduino files from .proto Files
+      env:
+        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+      run: |
+        mkdir ./arduino_out
+        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
+        # Local (non-CI) build command:
+        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+    - name: Install CI-Arduino
+      run: |
+        mkdir ./ci/
+        git clone --quiet https://github.com/adafruit/ci-arduino.git ./ci/
+        bash ci/actions_install.sh
+    - name: Install ESPTool
+      run: |
+        pip3 install esptool
+    - name: Clone WipperSnapper Arduino Repo + Libraries
+      run: |
+        git clone --quiet https://github.com/adafruit/Adafruit_Wippersnapper_Arduino.git
+        git clone --quiet https://github.com/brentru/Adafruit_MQTT_Library.git /home/runner/Arduino/libraries/Adafruit_MQTT_Library
+        git clone --quiet https://github.com/milesburton/Arduino-Temperature-Control-Library.git /home/runner/Arduino/libraries/Arduino-Temperature-Control-Library
+        git clone --quiet https://github.com/PaulStoffregen/OneWire.git /home/runner/Arduino/libraries/OneWire
+    - name: Copy Generated Proto Files to Arduino Repo
+      run: |
+        cp -a ./Adafruit_Wippersnapper_Arduino/. .
+        rm -rf ./src/wippersnapper/
+        mkdir ./src/wippersnapper/
+        cp -a ./arduino_out/. ./src/.
+    - name: Test building WipperSnapper on ESP32 with new proto files
+      run: python3 ci/build_platform.py feather_esp32_v2
