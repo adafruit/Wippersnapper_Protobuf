@@ -24,21 +24,6 @@ jobs:
       run: |
         git config --global user.name adafruitio
         git config --global user.email adafruitio@adafruit.com
-    - name: Generate Python & JS Wrapper Files from .proto Files
-      run: |
-        mkdir ./python_out
-        mkdir ./python_nanopb_out
-        mkdir ./js_out
-        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
-        protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_nanopb_out
-    - name: Generate Arduino files from .proto Files
-      env:
-        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
-      run: |
-        mkdir ./arduino_out
-        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
-        # Local (non-CI) build command:
-        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
     - name: Checkout Arduino Repo
       uses: actions/checkout@v2
       with:
@@ -52,9 +37,22 @@ jobs:
     - name: Install Dependencies
       run: |
         pip3 install esptool
+    - name: Generate Arduino files from .proto Files
+      env:
+        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+      run: |
+        mkdir ./arduino_out
+        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
+        # Local (non-CI) build command:
+        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
     - name: pwd
       run: pwd
     - name: list all dirs
       run: ls -d */
+    - name: Copy Generated Arduino Files to Arduino Repo
+      run: |
+        rm -rf ./src/wippersnapper/
+        mkdir ./src/wippersnapper/
+        cp -a ./arduino_out/. ./src/wippersnapper
     - name: Test Feather ESP32 Build w/new .proto files
       run: python3 ci/build_platform.py feather_esp32_v2
