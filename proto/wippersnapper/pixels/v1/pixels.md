@@ -27,7 +27,7 @@ Note over Device,IO: `is_success`, true if init'd OK
 sequenceDiagram
 autonumber
 IO->>Device: PixelsWriteRequest
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>pixels_pin_data according to DB<br>`pixels_pin_data` according to DB<br>`pixels_color` according to picker<br>
+Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB<br>`pixels_color` according to picker<br>
 ```
 
 ### Update: NeoPixel
