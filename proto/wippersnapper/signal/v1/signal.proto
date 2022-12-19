@@ -13,6 +13,7 @@ import "wippersnapper/i2c/v1/i2c.proto";
 import "wippersnapper/servo/v1/servo.proto";
 import "wippersnapper/pwm/v1/pwm.proto";
 import "wippersnapper/ds18x20/v1/ds18x20.proto";
+import "wippersnapper/pixels/v1/pixels.proto";
 
 /**
 * Ds18x20Request represents a Ds18x20 command sent to a device.
@@ -86,6 +87,25 @@ message ServoResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
     wippersnapper.servo.v1.ServoAttachResponse servo_attach_resp = 1;
+  }
+}
+
+/**
+* PixelsRequest represents the broker's request across the pixels sub-topic.
+*/
+message PixelsRequest {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.pixels.v1.PixelsCreateRequest req_pixels_create = 1;
+    wippersnapper.pixels.v1.PixelsDeleteRequest req_pixels_delete = 2;
+    wippersnapper.pixels.v1.PixelsWriteRequest req_pixels_write   = 3;
+  }
+}
+
+message PixelsResponse {
+  option (nanopb_msgopt).submsg_callback = true;
+  oneof payload {
+    wippersnapper.pixels.v1.PixelsCreateResponse resp_pixels_create = 1;
   }
 }
 
