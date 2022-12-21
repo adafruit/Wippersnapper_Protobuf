@@ -49,6 +49,7 @@ message PixelsCreateRequest {
 */
 message PixelsCreateResponse {
   bool is_success = 1; /** True if the strand initialized successfully, False otherwise. */
+  string pixels_pin_data = 2 [(nanopb).max_size = 6]; /** Data pin the responding strand is connected to. */
 }
 
 /**
@@ -64,7 +65,7 @@ message PixelsDeleteRequest {
 * PixelsWriteRequest represents a call from IO to a device.
 * Writes to a strand of pixels.
 */
-message PixelsWriteRequest { 
+message PixelsWriteRequest {
   PixelsType pixels_type   = 1; /** Defines the model/type of pixel strand */
   string pixels_pin_data   = 2 [(nanopb).max_size = 6]; /** Data pin a strand is connected to. */
   uint32 pixels_color      = 3; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. */
