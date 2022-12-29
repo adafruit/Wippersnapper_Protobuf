@@ -183,6 +183,8 @@ enum SensorType {
   SENSOR_TYPE_UNITLESS_PERCENT               = 30; /** Percentage, unit-less, "{value}%". */
   SENSOR_TYPE_AMBIENT_TEMPERATURE_FAHRENHEIT = 31; /** Temperature of the air around a sensor, in degrees Fahrenheit, "{value}°F". */
   SENSOR_TYPE_OBJECT_TEMPERATURE_FAHRENHEIT  = 32; /** Temperature of the object a sensor is touching/pointed at, in degrees Fahrenheit, "{value}°F".*/
+  SENSOR_TYPE_VOC_INDEX                      = 33; /** Values are an index from 1-500 with 100 being normal, "${$v} VOC".*/
+  SENSOR_TYPE_NOC_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
 }
 
 /**
