@@ -185,6 +185,7 @@ enum SensorType {
   SENSOR_TYPE_OBJECT_TEMPERATURE_FAHRENHEIT  = 32; /** Temperature of the object a sensor is touching/pointed at, in degrees Fahrenheit, "{value}°F".*/
   SENSOR_TYPE_VOC_INDEX                      = 33; /** Values are an index from 1-500 with 100 being normal, "${$v} VOC".*/
   SENSOR_TYPE_NOX_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
+  SENSOR_TYPE_TVOC                           = 35; /** Values are in parts per billion (ppb), "${$v} ppb". */
 }
 
 /**
