@@ -10,10 +10,11 @@ import "nanopb/nanopb.proto";
 * and begin UART communication.
 */
 message UARTInitRequest {
-  int32 baudrate = 1; /** The baudrate to use for UART communication (may be a common baud rate such as: 1200bps, 2400bps, 4800bps, 19200bps, 38400bps, 57600bps, or 115200bps). */
-  string pin_rx  = 2; /** The pin on which to receive UART stream data. */
-  string pin_tx  = 3; /** The pin on which to transmit UART stream data. */
-  bool is_invert = 4; /** Inverts the UART signal on RX and TX pins. Defaults to False. */
+  int32 baudrate        = 1; /** The baudrate to use for UART communication (may be a common baud rate such as: 1200bps, 2400bps, 4800bps, 19200bps, 38400bps, 57600bps, or 115200bps). */
+  string pin_rx         = 2; /** The pin on which to receive UART stream data. */
+  string pin_tx         = 3; /** The pin on which to transmit UART stream data. */
+  bool is_invert        = 4; /** Inverts the UART signal on RX and TX pins. Defaults to False. */
+  bool is_software_uart = 5; /** Enables software UART. Defaults to False. */
 }
 
 /**
