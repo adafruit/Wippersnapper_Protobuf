@@ -22,7 +22,7 @@ message UARTInitRequest {
 * that UART communication has been initialized.
 */
 message UARTInitResponse {
-  bool success = 1; /** True if the UARTInitRequest was successful, False otherwise. */
+  bool success = 1; /** True if the UARTInitRequest was successful, False if UART bus is already initialized. */
 }
 
 /**
