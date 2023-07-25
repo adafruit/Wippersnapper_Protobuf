@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v4
       with:
         python-version: '3.x'
     - name: Install Protoc
@@ -16,7 +16,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install protobuf
     - name: Self Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: protobuf-checkout
         submodules: true
@@ -56,5 +56,5 @@ jobs:
       run: python3 ci/build_platform.py feather_esp32_v2
     - uses: actions/upload-artifact@v3
       with:
-        name: my-artifact
+        name: build-artifact-arduino
         path: ./arduino_out 
