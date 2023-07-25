@@ -20,9 +20,15 @@ sequenceDiagram
 autonumber
 
 IO-->>WS Device: UARTDeviceAttachRequest
-WS Device-->>WS Device Decoder: Decode UARTDeviceAttachRequest
-WS Device Decoder-->>WS Device UART: Configure UART bus with UARTBusData and attach device per device_id and polling_interval
-WS Device UART-->>WS Device: Create UARTDeviceAttachResponse
+WS Device-->>WS Device Decoder: UARTDeviceAttachRequest
+Note over WS Device, WS Device Decoder: Decodes UARTDeviceAttachRequest and finds UARTBusData, polling_interval and and device_id
+
+WS Device Decoder-->>WS Device UART: UARTBusData
+Note over WS Device Decoder, WS Device UART: Initializes UART bus using configuration within UARTBusData.
+
+WS Device Decoder-->>WS Device UART: device_id and polling_interval
+Note over WS Device Decoder, WS Device UART: Initializes UART device on bus and associates it with a driver and a polling period.
+WS Device UART-->>WS Device: UARTDeviceAttachResponse
 WS Device-->>IO: UARTDeviceAttachResponse
 Note over WS Device, IO: Returns true if successful, False if not.
 ```
