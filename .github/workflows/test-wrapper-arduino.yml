@@ -1,4 +1,4 @@
-name: Generate new proto wrapper files and test WipperSnapper build
+name: Test WS Firmware Compatability with New Proto Files
 on: [ pull_request ]
 jobs:
   build:
@@ -54,3 +54,5 @@ jobs:
         cp -a ./arduino_out/. ./src/.
     - name: Test building WipperSnapper on ESP32 with new proto files
       run: python3 ci/build_platform.py feather_esp32_v2
+    - name: Check arduino and upload
+      run: ls ./arduino_out 
