@@ -22,8 +22,7 @@ import "wippersnapper/uart/v1/uart.proto";
 message UARTRequest {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.uart.v1.UARTInitRequest req_uart_init                  = 1;
-    wippersnapper.uart.v1.UARTDeviceAttachRequest req_uart_device_attach = 2;
+    wippersnapper.uart.v1.UARTDeviceAttachRequest req_uart_device_attach = 1;
   }
 }
 
@@ -33,8 +32,7 @@ message UARTRequest {
 message UARTResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    wippersnapper.uart.v1.UARTInitResponse resp_uart_init                  = 1;
-    wippersnapper.uart.v1.UARTDeviceAttachResponse resp_uart_device_attach = 2;
+    wippersnapper.uart.v1.UARTDeviceAttachResponse resp_uart_device_attach = 1;
   }
 }
 
