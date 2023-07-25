@@ -24,10 +24,10 @@ IO-->>WS Device: UARTDeviceAttachRequest
 WS Device-->>WS Device Decoder: UARTDeviceAttachRequest
 
 WS Device Decoder-->>WS Device UART: UARTBusData
-Note over WS Device Decoder, WS Device UART: Initializes UART bus using configuration within UARTBusData.
+Note over WS Device Decoder, WS Device UART: Initialize UART bus using configuration (UARTBusData).
 
 WS Device Decoder-->>WS Device UART: device_id, polling_interval
-Note over WS Device Decoder, WS Device UART: Initializes a UART device on the UART bus and associates it with a driver and a polling period.
+Note over WS Device Decoder, WS Device UART: Initialize UART device on the UART bus and associate it with a driver and a polling period.
 
 WS Device UART-->>WS Device: UARTDeviceAttachResponse
 
