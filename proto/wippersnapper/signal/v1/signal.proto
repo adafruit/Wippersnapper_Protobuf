@@ -33,6 +33,7 @@ message UARTResponse {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
     wippersnapper.uart.v1.UARTDeviceAttachResponse resp_uart_device_attach = 1;
+    wippersnapper.uart.v1.UARTDeviceEvent resp_uart_device_event           = 2;
   }
 }
 
