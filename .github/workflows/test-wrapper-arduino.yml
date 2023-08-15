@@ -53,4 +53,4 @@ jobs:
         mkdir ./src/wippersnapper/
         cp -a ./arduino_out/. ./src/.
     - name: Test building WipperSnapper on ESP32 with new proto files
-      run: python3 ci/build_platform.py feather_esp32_v2
+      run: python3 ci/build_platform.py funhouse
