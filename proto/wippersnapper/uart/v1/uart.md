@@ -5,7 +5,7 @@ This file details the WipperSnapper messaging API for interfacing with a UART bu
 
 ## WipperSnapper Components
 
-The following WipperSnapper components utilize `pwm.proto`:
+The following WipperSnapper components utilize `uart.proto`:
 
 * PMS* Air Quality Sensors
 * Adafruit Universal GPS module using the MTK33x9 chipset
