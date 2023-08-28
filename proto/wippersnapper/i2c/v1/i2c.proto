@@ -177,7 +177,7 @@ enum SensorType {
   SENSOR_TYPE_PM100_ENV                      = 24; /** Environmental Particulate Matter 100, in ppm, "{value}ppm".*/
   SENSOR_TYPE_CO2                            = 25; /** Measured CO2, in ppm, "{value}ppm". */
   SENSOR_TYPE_GAS_RESISTANCE                 = 26; /** Proportional to the amount of VOC particles in the air, in Ohms, "{value}Ω". */
-  SENSOR_TYPE_ALTITUDE                       = 27; /** Altitude, in meters,"{value}m". */
+  SENSOR_TYPE_ALTITUDE                       = 27; /** Values are in meters (m), "${$v} m". */
   SENSOR_TYPE_LUX                            = 28; /** Light level, in lux, "Lux: {value}". */
   SENSOR_TYPE_ECO2                           = 29; /** equivalent/estimated CO2 in ppm (estimated from some other measurement), "{value}ppm". */
   SENSOR_TYPE_UNITLESS_PERCENT               = 30; /** Percentage, unit-less, "{value}%". */
