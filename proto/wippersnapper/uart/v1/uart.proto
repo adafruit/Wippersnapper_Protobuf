@@ -38,7 +38,7 @@ message UARTDeviceAttachResponse {
 
 /**
 * UARTDeviceEvent represents incoming data from a UART sensor.
-*
+*/
 message UARTDeviceEvent {
   string device_id = 1[(nanopb).max_size = 15];                    /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
   repeated wippersnapper.i2c.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
