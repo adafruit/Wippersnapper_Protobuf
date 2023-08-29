@@ -35,6 +35,17 @@ WS Device-->>IO: UARTDeviceAttachResponse
 Note over WS Device, IO: Returns true if successful, False if not.
 ```
 
+### Attaching a UART Component to a device running WipperSnapper 
+
+```mermaid
+sequenceDiagram
+autonumber
+
+Device-->>IO Broker: UARTDeviceEvent
+IO Broker -->>IO Backend: Parse out repeated sensor_event into apropriate feeds for device_id
+
+```
+
 
 
 
