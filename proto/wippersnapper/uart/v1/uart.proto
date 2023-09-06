@@ -44,15 +44,6 @@ message UARTDeviceDetachRequest {
     string device_id = 1[(nanopb).max_size = 15]; /** The unique identifier of the device to detach from the UART bus. */
 }
 
-/*
-* UARTDeviceDetachResponse represents a message sent from a device to IO to
-* confirm that a device has been detached from the UART bus.
-*/
-message UARTDeviceDetachResponse { 
-    string device_id = 1[(nanopb).max_size = 15]; /** The unique identifier of the device to detach from the UART bus. */
-    bool is_success  = 2; /** True if the UARTDeviceDetachRequest was successful, False otherwise. */
-}
-
 /**
 * UARTDeviceEvent represents incoming data from a UART sensor.
 */

@@ -53,8 +53,6 @@ autonumber
 
 IO Broker --> Device: UARTDeviceDetachRequest
 Device --> UART Class: Detach UART device from UART bus according to device_id.
-UART Class --> Device: UARTDeviceDetachResponse
-Device --> IO Broker: UARTDeviceDetachResponse
 ```
 
 

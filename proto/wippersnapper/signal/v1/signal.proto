@@ -35,7 +35,6 @@ message UARTResponse {
   oneof payload {
     wippersnapper.uart.v1.UARTDeviceAttachResponse resp_uart_device_attach = 1;
     wippersnapper.uart.v1.UARTDeviceEvent resp_uart_device_event           = 2;
-    wippersnapper.uart.v1.UARTDeviceDetachResponse resp_uart_device_detach = 3;
   }
 }
 
