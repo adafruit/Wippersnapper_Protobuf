@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2021 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2020-2023 Brent Rubell, Loren Norman for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 

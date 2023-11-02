@@ -6,7 +6,7 @@ syntax = "proto3";
 
 package wippersnapper.ds18x20.v1;
 import "nanopb/nanopb.proto";
-import "wippersnapper/i2c/v1/i2c.proto";
+import "wippersnapper/sensor/sensor.proto";
 
 /**
 * Ds18x20Init represents a  to initialize
@@ -16,7 +16,7 @@ import "wippersnapper/i2c/v1/i2c.proto";
 message Ds18x20Init {
   string onewire_pin                                                             = 1 [(nanopb).max_size = 5]; /** The desired pin to use as a OneWire bus. */
   int32  sensor_resolution                                                       = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
-  repeated wippersnapper.i2c.v1.I2CDeviceSensorProperties i2c_device_properties  = 3[(nanopb).max_count = 2]; /** Properties for the DS18x20 sensor. */
+  repeated wippersnapper.sensor.v1.SensorType sensor_type  = 3[(nanopb).max_count = 2]; /** Properties for the DS18x20 sensor. */
 }
 
 /**
@@ -41,5 +41,5 @@ message Ds18x20DeInit {
 */
 message Ds18x20DeviceEvent {
   string onewire_pin                                      = 1 [(nanopb).max_size = 5]; /** The desired pin to use as a OneWire bus. */
-  repeated wippersnapper.i2c.v1.SensorEvent sensor_event  = 2 [(nanopb).max_count = 2]; /** The DS18X20's SensorEvent. */
+  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2 [(nanopb).max_count = 2]; /** The DS18X20's SensorEvent. */
 }

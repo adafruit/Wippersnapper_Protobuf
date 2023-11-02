@@ -4,7 +4,7 @@ syntax = "proto3";
 
 package wippersnapper.uart.v1;
 import "nanopb/nanopb.proto";
-import "wippersnapper/i2c/v1/i2c.proto";
+import "wippersnapper/sensor/sensor.proto";
 
 /**
 * UARTBusData represents a message to configure a UART bus for communication with a device.
@@ -41,5 +41,5 @@ message UARTDeviceAttachResponse {
 */
 message UARTDeviceEvent {
   string device_id = 1[(nanopb).max_size = 15];                    /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
-  repeated wippersnapper.i2c.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
+  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
 }
