@@ -12,34 +12,15 @@ import "nanopb/nanopb.proto";
 message CreateDescriptionRequest {
   string machine_name    = 1 [(nanopb).max_size = 64]; /** Identifies client's physical hardware */
   int32 mac_addr         = 2; /** Client's UID, last 3 bytes of MAC address */
-  int32 usb_vid          = 3; /** Optional, USB Vendor ID */
-  int32 usb_pid          = 4; /** Optional, USB Product ID */
-  Version version        = 5 [deprecated = true, (nanopb).type = FT_IGNORE]; /** Client's library version. */
-  int32 ver_major        = 10 [deprecated = true, (nanopb).type = FT_IGNORE];
-  int32 ver_minor        = 11 [deprecated = true, (nanopb).type = FT_IGNORE];
-  int32 ver_patch        = 12 [deprecated = true, (nanopb).type = FT_IGNORE];
-  string ver_pre_release = 13 [deprecated = true, (nanopb).type = FT_IGNORE, (nanopb).max_size = 6];
-  int32 ver_build        = 14 [deprecated = true, (nanopb).type = FT_IGNORE];
   string str_version     = 15 [(nanopb).max_size = 20]; /** Library version, as a string */
-
-
-  message Version {
-    uint64 major           = 1 [deprecated = true, (nanopb).type = FT_IGNORE];
-    uint64 minor           = 2 [deprecated = true, (nanopb).type = FT_IGNORE];
-    uint64 micro           = 3 [deprecated = true, (nanopb).type = FT_IGNORE];
-    string label           = 4 [deprecated = true, (nanopb).type = FT_IGNORE];
-    int32 ver_major        = 5 [deprecated = true, (nanopb).type = FT_IGNORE];
-    int32 ver_minor        = 6 [deprecated = true, (nanopb).type = FT_IGNORE];
-    int32 ver_patch        = 7 [deprecated = true, (nanopb).type = FT_IGNORE];
-    string ver_pre_release = 8 [deprecated = true, (nanopb).type = FT_IGNORE];
-    int32 ver_build        = 9 [deprecated = true, (nanopb).type = FT_IGNORE];
-  }
 }
 
+// TODO: Consider dropping this, and compiling these as a header file (per-board) from the
+// JSON if it is possible to do so.
 /**
-* CreateDescriptionResponse represents a device's specifications.
+* CreateDescription represents a device's specifications.
 */
-message CreateDescriptionResponse {
+message CreateDescription {
   Response response        = 1; /** Specifies if the hardware definition exists on the server. */
   int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the client's physical hardware. */
   int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the client's physical hardware. */

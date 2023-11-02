@@ -8,7 +8,7 @@ import "wippersnapper/i2c/v1/i2c.proto";
 
 /**
 * UARTBusData represents a message to configure a UART bus for communication with a device.
-* NOTE: This message is never sent directly, it is packed inside UARTDeviceAttachRequest.
+* NOTE: This message is never sent directly, it is packed inside UARTDeviceAttach.
 */
 message UARTBusData {
   int32 baudrate        = 1; /** The baudrate to use for UART communication (may be a common baud rate such as: 1200bps, 2400bps, 4800bps, 19200bps, 38400bps, 57600bps, or 115200bps). */
@@ -18,10 +18,10 @@ message UARTBusData {
 }
 
 /**
-* UARTDeviceAttachRequest represents a message sent from IO to a device
+* UARTDeviceAttach represents a message sent from IO to a device
 * to configure the UART bus (if not already configured) and attach a device.
 */
-message UARTDeviceAttachRequest {
+message UARTDeviceAttach {
   UARTBusData bus_info     = 1; /** The UART bus configuration. */
   string device_id         = 2[(nanopb).max_size = 15]; /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
   int32 polling_interval   = 3; /** The polling interval, in milliseconds, to use for the device. */
@@ -33,7 +33,7 @@ message UARTDeviceAttachRequest {
 */
 message UARTDeviceAttachResponse {
   string device_id = 1[(nanopb).max_size = 15]; /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
-  bool is_success  = 2; /** True if the UARTInitRequest was successful, False otherwise. */
+  bool is_success  = 2; /** True if the UARTInit was successful, False otherwise. */
 }
 
 /**

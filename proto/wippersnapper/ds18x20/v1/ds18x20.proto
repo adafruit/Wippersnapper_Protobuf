@@ -9,11 +9,11 @@ import "nanopb/nanopb.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
 
 /**
-* Ds18x20InitRequest represents a request to initialize
+* Ds18x20Init represents a  to initialize
 * a DS18X20 Maxim temperature sensor, from the broker.
 * NOTE: This API only supports ONE DS18X20 device PER OneWire bus.
 */
-message Ds18x20InitRequest {
+message Ds18x20Init {
   string onewire_pin                                                             = 1 [(nanopb).max_size = 5]; /** The desired pin to use as a OneWire bus. */
   int32  sensor_resolution                                                       = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
   repeated wippersnapper.i2c.v1.I2CDeviceSensorProperties i2c_device_properties  = 3[(nanopb).max_count = 2]; /** Properties for the DS18x20 sensor. */
@@ -21,7 +21,7 @@ message Ds18x20InitRequest {
 
 /**
 * ds18x20InitDs18x20InitResponseResponse represents a device's response
-* to a ds18x20InitRequest message.
+* to a ds18x20Init message.
 */
 message Ds18x20InitResponse {
   bool is_initialized  = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
@@ -29,10 +29,10 @@ message Ds18x20InitResponse {
 }
 
 /**
-* Ds18x20DeInitRequest represents a request to de-initialize a DS18X20
+* Ds18x20DeInit represents a  to de-initialize a DS18X20
 * Maxim temperature sensor, from the broker.
 */
-message Ds18x20DeInitRequest {
+message Ds18x20DeInit {
   string onewire_pin  = 1 [(nanopb).max_size = 5]; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
 }
 

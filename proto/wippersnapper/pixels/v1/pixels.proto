@@ -32,11 +32,11 @@ enum PixelsOrder {
 }
 
 /**
-* PixelsCreateRequest represents a call from IO to a device.
+* PixelsCreate represents a call from IO to a device.
 * Creates a strand of addressable pixels.
 * Initial brightness is always 128.
 */
-message PixelsCreateRequest {
+message PixelsCreate {
   PixelsType pixels_type          = 1; /** Defines the model/type of pixel strand */
   uint32 pixels_num               = 2; /** Number of pixels attached to strand. */
   PixelsOrder pixels_ordering     = 3; /** Defines the pixel strand's color ordering. */
@@ -48,7 +48,7 @@ message PixelsCreateRequest {
 
 /**
 * PixelsCreateResponse represents response from a WipperSnapper
-* device to IO after a PixelsCreateRequest call
+* device to IO after a PixelsCreate call
 */
 message PixelsCreateResponse {
   bool is_success = 1; /** True if the strand initialized successfully, False otherwise. */
@@ -56,19 +56,19 @@ message PixelsCreateResponse {
 }
 
 /**
-* PixelCreateRequest represents a call from IO to a device
+* PixelCreate represents a call from IO to a device
 * Deletes a strand of addressable pixels and release the resources and pin.
 */
-message PixelsDeleteRequest {
+message PixelsDelete {
   PixelsType pixels_type = 1; /** Defines the model/type of pixel strand */
   string pixels_pin_data = 2 [(nanopb).max_size = 6]; /** Data pin a strand is connected to. */
 }
 
 /**
-* PixelsWriteRequest represents a call from IO to a device.
+* PixelsWrite represents a call from IO to a device.
 * Writes to a strand of pixels.
 */
-message PixelsWriteRequest {
+message PixelsWrite {
   PixelsType pixels_type   = 1; /** Defines the model/type of pixel strand */
   string pixels_pin_data   = 2 [(nanopb).max_size = 6]; /** Data pin a strand is connected to. */
   uint32 pixels_color      = 3; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. */
