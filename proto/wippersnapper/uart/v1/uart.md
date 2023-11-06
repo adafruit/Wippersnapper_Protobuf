@@ -43,8 +43,18 @@ autonumber
 
 Device-->>IO Broker: UARTDeviceEvent
 IO Broker -->>IO Backend: Parse out repeated sensor_event into apropriate feeds for device_id
-
 ```
+
+### Detaching a UART Component from a device running WipperSnapper 
+
+```mermaid
+sequenceDiagram
+autonumber
+
+IO Broker --> Device: UARTDeviceDetachRequest
+Device --> UART Class: Detach UART device from UART bus according to device_id.
+```
+
 
 
 

@@ -36,6 +36,14 @@ message UARTAdded {
   bool is_success  = 2; /** True if the UARTInit was successful, False otherwise. */
 }
 
+/*
+* UARTDeviceDetachRequest represents a message sent from IO to a device
+* to detach a device from the UART bus.
+*/
+message UARTDeviceDetachRequest {
+    string device_id = 1[(nanopb).max_size = 15]; /** The unique identifier of the device to detach from the UART bus. */
+}
+
 /**
 * UARTEvent represents incoming data from a UART sensor.
 */
