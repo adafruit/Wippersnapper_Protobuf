@@ -8,7 +8,7 @@ import "wippersnapper/sensor/v1/sensor.proto";
 
 /**
 * UARTBusData represents a message to configure a UART bus for communication with a device.
-* NOTE: This message is never sent directly, it is packed inside UARTDeviceAdd.
+* NOTE: This message is never sent directly, it is packed inside UARTAdd.
 */
 message UARTBusData {
   int32 baudrate        = 1; /** The baudrate to use for UART communication (may be a common baud rate such as: 1200bps, 2400bps, 4800bps, 19200bps, 38400bps, 57600bps, or 115200bps). */
@@ -18,10 +18,10 @@ message UARTBusData {
 }
 
 /**
-* UARTDeviceAdd represents a message sent from IO to a device
+* UARTAdd represents a message sent from IO to a device
 * to configure the UART bus (if not already configured) and attach a device.
 */
-message UARTDeviceAdd {
+message UARTAdd {
   UARTBusData bus_info     = 1; /** The UART bus configuration. */
   string device_id         = 2[(nanopb).max_size = 15]; /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
   int32 polling_interval   = 3; /** The polling interval, in milliseconds, to use for the device. */
@@ -37,10 +37,10 @@ message UARTAdded {
 }
 
 /*
-* UARTDeviceDetachRequest represents a message sent from IO to a device
+* UARTRemove represents a message sent from IO to a device
 * to detach a device from the UART bus.
 */
-message UARTDeviceDetachRequest {
+message UARTRemove {
     string device_id = 1[(nanopb).max_size = 15]; /** The unique identifier of the device to detach from the UART bus. */
 }
 

@@ -40,12 +40,12 @@ message BrokerToDevice {
     wippersnapper.ds18x20.v1.Ds18x20Add ds18x20_init     = 13;
     wippersnapper.ds18x20.v1.Ds18x20Remove ds18x20_deinit = 14;
     // uart.proto
-    wippersnapper.uart.v1.UARTDeviceAdd uart_device_add = 15;
-    // TODO: add uart detach once merged into master
+    wippersnapper.uart.v1.UARTAdd uart_add = 15;
+    wippersnapper.uart.v1.UARTRemove uart_remove = 16;
     // i2c.proto
-    wippersnapper.i2c.v1.I2CScan i2c_scan = 16;
-    wippersnapper.i2c.v1.I2CInits i2c_add = 17;
-    wippersnapper.i2c.v1.I2CRemove i2c_remove = 18;
+    wippersnapper.i2c.v1.I2CScan i2c_scan = 17;
+    wippersnapper.i2c.v1.I2CInits i2c_add = 18;
+    wippersnapper.i2c.v1.I2CRemove i2c_remove = 19;
   }
 }
 

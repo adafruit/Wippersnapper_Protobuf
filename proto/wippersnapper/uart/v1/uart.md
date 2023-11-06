@@ -51,7 +51,7 @@ IO Broker -->>IO Backend: Parse out repeated sensor_event into apropriate feeds 
 sequenceDiagram
 autonumber
 
-IO Broker --> Device: UARTDeviceDetachRequest
+IO Broker --> Device: UARTRemove
 Device --> UART Class: Detach UART device from UART bus according to device_id.
 ```
 
