@@ -4,11 +4,11 @@ syntax = "proto3";
 
 package wippersnapper.uart.v1;
 import "nanopb/nanopb.proto";
-import "wippersnapper/sensor/sensor.proto";
+import "wippersnapper/sensor/v1/sensor.proto";
 
 /**
 * UARTBusData represents a message to configure a UART bus for communication with a device.
-* NOTE: This message is never sent directly, it is packed inside UARTDeviceAttach.
+* NOTE: This message is never sent directly, it is packed inside UARTDeviceAdd.
 */
 message UARTBusData {
   int32 baudrate        = 1; /** The baudrate to use for UART communication (may be a common baud rate such as: 1200bps, 2400bps, 4800bps, 19200bps, 38400bps, 57600bps, or 115200bps). */
@@ -18,28 +18,28 @@ message UARTBusData {
 }
 
 /**
-* UARTDeviceAttach represents a message sent from IO to a device
+* UARTDeviceAdd represents a message sent from IO to a device
 * to configure the UART bus (if not already configured) and attach a device.
 */
-message UARTDeviceAttach {
+message UARTDeviceAdd {
   UARTBusData bus_info     = 1; /** The UART bus configuration. */
   string device_id         = 2[(nanopb).max_size = 15]; /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
   int32 polling_interval   = 3; /** The polling interval, in milliseconds, to use for the device. */
 }
 
 /**
-* UARTDeviceAttachResponse represents a message sent from a device to IO to
+* UARTAdded represents a message sent from a device to IO to
 * confirm that a device has been attached to the UART bus.
 */
-message UARTDeviceAttachResponse {
+message UARTAdded {
   string device_id = 1[(nanopb).max_size = 15]; /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
   bool is_success  = 2; /** True if the UARTInit was successful, False otherwise. */
 }
 
 /**
-* UARTDeviceEvent represents incoming data from a UART sensor.
+* UARTEvent represents incoming data from a UART sensor.
 */
-message UARTDeviceEvent {
+message UARTEvent {
   string device_id = 1[(nanopb).max_size = 15];                    /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
   repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
 }

@@ -6,31 +6,31 @@ package wippersnapper.pwm.v1;
 import "nanopb/nanopb.proto";
 
 /**
-* PWMAttach represents a  to a device to attach/allocate a PWM pin.
+* PWMAdd represents a  to a device to attach/allocate a PWM pin.
 * On ESP32 Arduino, this will "attach" a pin to a LEDC channel/timer group.
 * On non-ESP32 Arduino, this does nothing.
 */
-message PWMAttach {
+message PWMAdd {
   string pin       = 1 [(nanopb).max_size = 6]; /** The pin to be attached. */
   int32 frequency  = 2; /** PWM frequency of an analog pin, in Hz. **/
   int32 resolution = 3; /** The resolution of an analog pin, in bits. **/
 }
 
 /**
-* PWMAttachResponse represents a response from a device's execution of an
-* Attach message.
+* PWMAdded represents a response from a device's execution of an
+* Add message.
 */
-message PWMAttachResponse {
+message PWMAdded {
   string pin       = 1 [(nanopb).max_size = 6]; /** The ed pin. */
-  bool did_attach = 2; /** True if Attach successful, False otherwise. */
+  bool did_attach = 2; /** True if Add successful, False otherwise. */
 }
 
 /**
-* PWMDetach represents a  to stop PWM'ing and release the pin for re-use.
+* PWMRemove represents a  to stop PWM'ing and release the pin for re-use.
 * On ESP32, this will "detach" a pin from a LEDC channel/timer group.
 * On non-ESP32 Arduino, this calls digitalWrite(LOW) on the pin
 */
-message PWMDetach {
+message PWMRemove {
   string pin       = 1 [(nanopb).max_size = 6]; /** The PWM pin to de-initialized. */
 }
 

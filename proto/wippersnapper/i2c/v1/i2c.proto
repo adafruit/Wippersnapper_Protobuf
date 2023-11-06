@@ -4,7 +4,7 @@ syntax = "proto3";
 
 package wippersnapper.i2c.v1;
 import "nanopb/nanopb.proto";
-import "wippersnapper/sensor/sensor.proto";
+import "wippersnapper/sensor/v1/sensor.proto";
 
 /**
 * BusResponse represents the state of the I2C bus, from a device.
@@ -46,7 +46,7 @@ message I2CBusInitResponse {
 */
 message I2CScan {
   int32 i2c_port_number              = 1; /** The desired I2C port to scan. */
-  I2CBusInit bus_init_ = 2; /** The I2C bus initialization . */
+  I2CBusInit bus_init = 2; /** The I2C bus initialization . */
 }
 
 /**
@@ -64,7 +64,7 @@ message I2CScanResponse {
 * its type and period.
 */
 message I2CSensorProperties {
-  wippersnapper.i2c.v1.SensorType sensor_type = 1;
+  wippersnapper.sensor.v1.SensorType sensor_type = 1;
 }
 
 
@@ -84,14 +84,14 @@ message I2CInit {
    I2CBusInit i2c_bus_init_req                        = 2; /** An I2C bus initialization . */
    uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
    string i2c_device_name                                    = 4[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
-   repeated wippersnapper.i2c.v1.SensorType sensor_type  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
+   repeated wippersnapper.sensor.v1.SensorType sensor_type  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
 }
 
 /**
-* I2CInitResponse contains the response from a
+* I2CAdded contains the response from a
 * device after processing a I2CInit message.
 */
-message I2CInitResponse {
+message I2CAdded {
   bool is_success             = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** !!DEPRECATED!! True if i2c device initialized successfully, false otherwise. */
   uint32 i2c_device_address   = 2; /** The 7-bit I2C address of the device on the bus. */
   BusResponse bus_response    = 3; /** The I2C bus' status. **/
@@ -109,19 +109,19 @@ message I2CUpdateResponse {
 }
 
 /**
-* I2CDeinit is a wrapper message containing
+* I2CRemove is a wrapper message containing
 * a deinitialization  for a specific i2c device.
 */
-message I2CDeinit {
+message I2CRemove {
   int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
   uint32 i2c_device_address     = 2; /** The 7-bit I2C address of the device on the bus. */
 }
 
 /**
-* I2CDeinitResponse represents if an I2C device's
+* I2CRemoved represents if an I2C device's
 * sensor(s) is/are successfully de-initialized.
 */
-message I2CDeinitResponse {
+message I2CRemoved {
   bool is_success           = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the deinitialization  succeeded, False otherwise. */
   uint32 i2c_device_address = 2; /** The 7-bit I2C address of the device which was initialized. */
   BusResponse bus_response  = 3; /** The I2C bus' status. **/

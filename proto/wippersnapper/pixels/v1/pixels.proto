@@ -32,11 +32,11 @@ enum PixelsOrder {
 }
 
 /**
-* PixelsCreate represents a call from IO to a device.
-* Creates a strand of addressable pixels.
+* PixelsAdd represents a call from IO to a device.
+* Adds a strand of addressable pixels.
 * Initial brightness is always 128.
 */
-message PixelsCreate {
+message PixelsAdd {
   PixelsType pixels_type          = 1; /** Defines the model/type of pixel strand */
   uint32 pixels_num               = 2; /** Number of pixels attached to strand. */
   PixelsOrder pixels_ordering     = 3; /** Defines the pixel strand's color ordering. */
@@ -47,19 +47,19 @@ message PixelsCreate {
 }
 
 /**
-* PixelsCreateResponse represents response from a WipperSnapper
-* device to IO after a PixelsCreate call
+* PixelsAdded represents response from a WipperSnapper
+* device to IO after a PixelsAdd call
 */
-message PixelsCreateResponse {
+message PixelsAdded {
   bool is_success = 1; /** True if the strand initialized successfully, False otherwise. */
   string pixels_pin_data = 2 [(nanopb).max_size = 6]; /** Data pin the responding strand is connected to. */
 }
 
 /**
-* PixelCreate represents a call from IO to a device
-* Deletes a strand of addressable pixels and release the resources and pin.
+* PixelAdd represents a call from IO to a device
+* Removes a strand of addressable pixels and release the resources and pin.
 */
-message PixelsDelete {
+message PixelsRemove {
   PixelsType pixels_type = 1; /** Defines the model/type of pixel strand */
   string pixels_pin_data = 2 [(nanopb).max_size = 6]; /** Data pin a strand is connected to. */
 }
