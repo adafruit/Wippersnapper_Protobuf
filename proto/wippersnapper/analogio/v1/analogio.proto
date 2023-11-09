@@ -1,0 +1,34 @@
+// SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+
+package wippersnapper.analogio.v1;
+import "nanopb/nanopb.proto";
+import "wippersnapper/sensor/v1/sensor.proto";
+
+message AnalogIOAdd {
+    int32 gpio_num = 1; // correlates with `name` in the JSON
+    float period = 2;
+    AnalogReadMode read_mode = 3;
+
+  /**
+   * Selects the type of value read by an analog pin.
+   * PIN_VALUE: Raw ADC reading.
+   * PIN_VOLTAGE: Calculated voltage reading.
+   */
+  enum AnalogReadMode {
+    ANALOG_READ_MODE_UNSPECIFIED = 0;
+    ANALOG_READ_MODE_PIN_VALUE   = 1;
+    ANALOG_READ_MODE_PIN_VOLTAGE = 2;
+  }
+}
+
+message AnalogIORemove {
+  int32 gpio_num = 1; // correlates with `name` in the JSON
+}
+
+
+message AnalogIOEvent {
+  int32 gpio_num = 1; // correlates with `name` in the JSON
+  wippersnapper.sensor.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
+}

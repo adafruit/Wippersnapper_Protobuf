@@ -5,7 +5,10 @@ syntax = "proto3";
 package wippersnapper.signal.v1;
 
 // Non-WipperSnapper
-import "nanopb/nanopb.proto";// WipperSnapper
+import "nanopb/nanopb.proto";
+
+// TODO: Shorten all of these files to:
+// wippersnapper/*.proto
 import "wippersnapper/description/v1/description.proto";
 import "wippersnapper/pin/v1/pin.proto";
 import "wippersnapper/i2c/v1/i2c.proto";
@@ -14,12 +17,21 @@ import "wippersnapper/pwm/v1/pwm.proto";
 import "wippersnapper/ds18x20/v1/ds18x20.proto";
 import "wippersnapper/pixels/v1/pixels.proto";
 import "wippersnapper/uart/v1/uart.proto";
+import "wippersnapper/error/v1/error.proto";
+import "wippersnapper/digitalio/v1/digitalio.proto";
+import "wippersnapper/analogio/v1/analogio.proto";
 
 
 message BrokerToDevice {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    // TODO: Leaving pin.proto out as it'll be refactored
+    // digitalio.proto
+    wippersnapper.digitalio.v1.DigitalIOAdd digitalio_add = 1;
+    wippersnapper.digitalio.v1.DigitalIOAdd digitalio_remove = 2;
+    wippersnapper.digitalio.v1.DigitalIOEvent digitalio_event = 3;
+    // analogio.proto
+    wippersnapper.analogio.v1.AnalogIOAdd analogio_add = 4;
+    wippersnapper.analogio.v1.AnalogIOAdd analogio_remove = 5;
     // description.proto
     wippersnapper.description.v1.CreateDescription create_description = 1;
     // servo.proto
@@ -37,8 +49,8 @@ message BrokerToDevice {
     wippersnapper.pixels.v1.PixelsRemove pixels_remove = 11;
     wippersnapper.pixels.v1.PixelsWrite pixels_write   = 12;
     // ds18x20.proto
-    wippersnapper.ds18x20.v1.Ds18x20Add ds18x20_init     = 13;
-    wippersnapper.ds18x20.v1.Ds18x20Remove ds18x20_deinit = 14;
+    wippersnapper.ds18x20.v1.Ds18x20Add ds18x20_add     = 13;
+    wippersnapper.ds18x20.v1.Ds18x20Remove ds18x20_remove = 14;
     // uart.proto
     wippersnapper.uart.v1.UARTAdd uart_add = 15;
     wippersnapper.uart.v1.UARTRemove uart_remove = 16;
@@ -46,13 +58,18 @@ message BrokerToDevice {
     wippersnapper.i2c.v1.I2CScan i2c_scan = 17;
     wippersnapper.i2c.v1.I2CInits i2c_add = 18;
     wippersnapper.i2c.v1.I2CRemove i2c_remove = 19;
+    // error.proto
+    wippersnapper.error.v1.Error error = 20;
   }
 }
 
 message DeviceToBroker {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    // TODO: move to pins.proto?: This is sent from the device2IO
+    //digitalio.proto
+    wippersnapper.digitalio.v1.DigitalIOEvent digitalio_event = 3;
+    // analogio.proto
+    wippersnapper.analogio.v1.AnalogIOEvent analogio_event = 5;
     // we may be able to get rid of it after removing `CreateDescription`
     bool configuration_complete = 1;
     // servo.proto

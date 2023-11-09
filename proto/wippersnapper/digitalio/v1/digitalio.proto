@@ -1,0 +1,35 @@
+// SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+
+package wippersnapper.digitalio.v1;
+import "nanopb/nanopb.proto";
+import "wippersnapper/sensor/v1/sensor.proto";
+
+// DigitalInput is a digital input pin.
+message DigitalIOAdd {
+    int32 gpio_num = 1; // correlates with `name` in the JSON
+    DigitalIODirection gpio_direction = 2;
+    float period = 3; /** Optionally specifies the time between measurements, in seconds. */
+    bool value = 4; /** For sync only - optionally send the pin's value. */
+
+    /**
+    * Direction. Specifies the pin's direction, INPUT or OUTPUT.
+    */
+    enum DigitalIODirection {
+        DIRECTION_UNSPECIFIED = 0; /** Invalid Direction from Broker. */
+        DIRECTION_INPUT       = 1; /** Set the pin to behave as an input. */
+        DIRECTION_INPUT_PULL_UP = 2; /** Set the pin to behave as an input. */
+        DIRECTION_OUTPUT      = 3; /** Set the pin to behave as an output. */
+    }
+}
+
+message DigitalIORemove {
+    int32 gpio_num = 1; // correlates with `name` in the JSON
+}
+
+message DigitalIOEvent {
+    int32 gpio_num = 1;
+    bool value = 2;
+}
+
