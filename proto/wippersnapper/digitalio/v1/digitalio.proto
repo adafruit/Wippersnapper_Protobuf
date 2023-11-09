@@ -4,7 +4,6 @@ syntax = "proto3";
 
 package wippersnapper.digitalio.v1;
 import "nanopb/nanopb.proto";
-import "wippersnapper/sensor/v1/sensor.proto";
 
 // DigitalInput is a digital input pin.
 message DigitalIOAdd {
