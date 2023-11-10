@@ -74,11 +74,11 @@ jobs:
     - name: Commit and push generated HTML Docs file
       run: |
         cd protobuf-checkout
-        git checkout -b gh-pages
+        git checkout --track origin/gh-pages
         cp -r ../doc ./doc
         git add doc/
         git commit -m "Add generated HTML documentation for $GITHUB_SHA"
-        git push --set-upstream origin gh-pages
+        git push
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
