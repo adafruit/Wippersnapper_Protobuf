@@ -62,9 +62,14 @@ jobs:
         PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
       run: |
         mkdir ./arduino_out
-        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
+        mkdir ./doc
+        echo "Installing protobuf-gen-doc"
+        go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+        cp ~/go/bin/protoc-gen-doc .
+        echo "Generating docs..."
+        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t --plugin=protoc-gen-doc=./protoc-gen-doc --doc_out=./doc --doc_opt=html,index.html
         # Local (non-CI) build command:
-        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t --plugin=protoc-gen-doc=./protoc-gen-doc --doc_out=./doc --doc_opt=html,index.html
     - name: Checkout Arduino Repo
       uses: actions/checkout@v2
       with:
