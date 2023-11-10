@@ -84,11 +84,11 @@ jobs:
         git add doc/
         git commit -m "Add generated HTML documentation for $GITHUB_SHA"
         git push
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.5
-      with:
-        branch: gh-pages
-        folder: doc
+    # - name: Deploy to GitHub Pages
+    #   uses: JamesIves/github-pages-deploy-action@4.1.5
+    #   with:
+    #     branch: gh-pages
+    #     folder: doc
     # - name: Checkout Arduino Repo
     #   uses: actions/checkout@v2
     #   with:
