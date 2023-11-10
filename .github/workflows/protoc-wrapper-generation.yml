@@ -75,7 +75,7 @@ jobs:
       run: |
         cd protobuf-checkout
         git checkout -b gh-pages
-        cp ../doc ./doc
+        cp -r ../doc ./doc
         git add doc/
         git commit -m "Add generated HTML documentation for $GITHUB_SHA"
         git push
