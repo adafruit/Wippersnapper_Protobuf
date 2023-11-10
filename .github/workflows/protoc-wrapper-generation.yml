@@ -86,6 +86,7 @@ jobs:
         path: protobuf-docs-checkout
     - name: Commit and push generated HTML Docs file
       run: |
+        ls doc
         cd protobuf-docs-checkout
         cp -r ../doc ./doc
         git add doc/
