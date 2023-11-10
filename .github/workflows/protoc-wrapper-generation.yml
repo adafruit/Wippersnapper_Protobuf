@@ -17,7 +17,7 @@ jobs:
     - name: Install Python dependencies
       run : |
         python -m pip install --upgrade pip
-        pip install protobuf
+        pip install protobuf setuptools
     - name: Self Checkout
       uses: actions/checkout@v2
       with:
