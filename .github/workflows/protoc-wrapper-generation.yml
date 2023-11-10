@@ -32,8 +32,8 @@ jobs:
         mkdir ./python_out
         mkdir ./python_nanopb_out
         mkdir ./js_out
-        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
-        protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_nanopb_out
+        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out
+        protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --js_out=import_style=commonjs,binary:js_out
     # - name: Checkout Python Repo
     #   uses: actions/checkout@v2
     #   with:
@@ -73,8 +73,9 @@ jobs:
         # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t --plugin=protoc-gen-doc=./protoc-gen-doc --doc_out=./doc --doc_opt=html,index.html
     - name: Commit and push generated HTML Docs file
       run: |
-        git add ./doc/index.html
-        git commit -m "Add generated HTML documentation for $GITHUB_SHA" -a
+        cd protobuf-checkout
+        git add doc/
+        git commit -m "Add generated HTML documentation for $GITHUB_SHA"
         git push
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
