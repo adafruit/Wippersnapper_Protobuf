@@ -118,13 +118,11 @@ jobs:
         path: protobuf-docs-checkout
     - name: Commit and push generated HTML Docs file
       run: |
-        ls doc
         cd protobuf-docs-checkout
         cp -r ../doc ./doc
         git add doc/
-        git commit -m "Add generated HTML documentation for $GITHUB_SHA"
+        git commit -m "Add generated HTML documentation for $GITHUB_SHA" || exit 0 # quit cleanly if nothing to commit
         git push
-        cd ..
     - name: Setup Pages
       uses: actions/configure-pages@v3
     - name: Upload artifact
