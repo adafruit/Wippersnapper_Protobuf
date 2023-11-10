@@ -78,8 +78,7 @@ jobs:
         cp -r ../doc ./doc
         git add doc/
         git commit -m "Add generated HTML documentation for $GITHUB_SHA"
-        git push
-        git push --set-upstream origin "gh-pages"
+        git push --set-upstream origin gh-pages
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
