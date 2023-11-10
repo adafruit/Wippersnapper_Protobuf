@@ -11,9 +11,9 @@ jobs:
       with:
         python-version: '3.x'
     - name: Install Protoc
-      uses: arduino/setup-protoc@v2
+      uses: arduino/setup-protoc@v1
       with:
-        version: '3.x'
+        version: '3.13.0'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Python dependencies
       run : |
