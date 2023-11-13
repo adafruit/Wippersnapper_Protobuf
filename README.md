@@ -2,6 +2,8 @@
 
 Protocol buffer messages for use with [Adafruit.io WipperSnapper](http://io.adafruit.com/wippersnapper).
 
+[Documentation](https://adafruit.github.io/Wippersnapper_Protobuf/)
+
 # This code is for research and educational purposes only
 
 We use this repository internally for [Adafruit.io WipperSnapper](http://io.adafruit.com/wippersnapper) and published it here. It is not supported, documented, or guaranteed to work outside of WipperSnapper whatsoever! 
