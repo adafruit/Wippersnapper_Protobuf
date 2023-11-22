@@ -35,7 +35,7 @@ message PWMRemove {
 }
 
 /**
-* WriteDutyCycle represents a  to write a duty cycle to a pin with a frequency (fixed).
+* PWMWriteDutyCycle represents a  to write a duty cycle to a pin with a frequency (fixed).
 * This is used for controlling LEDs.
 */
 message PWMWriteDutyCycle {
@@ -44,7 +44,7 @@ message PWMWriteDutyCycle {
 }
 
 /**
-* WriteDutyCycle represents a wrapper  to write duty cycles to multiple pins.
+* PWMWriteDutyCycleMulti represents a wrapper  to write duty cycles to multiple pins.
 * This is used for controlling RGB/RGBW LEDs.
 */
 message PWMWriteDutyCycleMulti {
@@ -52,7 +52,7 @@ message PWMWriteDutyCycleMulti {
 }
 
 /**
-* WriteFrequency represents a  to write a Frequency, in Hz, to a pin with a duty cycle of 50%.
+* PWMWriteFrequency represents a  to write a Frequency, in Hz, to a pin with a duty cycle of 50%.
 * This is used for playing tones using a piezo buzzer or speaker.
 */
 message PWMWriteFrequency {

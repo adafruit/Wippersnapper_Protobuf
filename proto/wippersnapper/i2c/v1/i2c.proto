@@ -67,14 +67,6 @@ message I2CSensorProperties {
   wippersnapper.sensor.v1.SensorType sensor_type = 1;
 }
 
-
-/**
-* Represents a list of I2CInit messages.
-*/
-message I2CInits {
-  repeated I2CInit list = 1;
-}
-
 /**
 * I2CInit is a wrapper message for
 * an I2C device initialization .

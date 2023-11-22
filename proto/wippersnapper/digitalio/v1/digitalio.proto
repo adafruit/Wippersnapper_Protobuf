@@ -17,10 +17,10 @@ message DigitalIOAdd {
     * Direction. Specifies the pin's direction, INPUT or OUTPUT.
     */
     enum DigitalIODirection {
-        DIRECTION_UNSPECIFIED = 0; /** Invalid Direction from Broker. */
-        DIRECTION_INPUT       = 1; /** Set the pin to behave as an input. */
-        DIRECTION_INPUT_PULL_UP = 2; /** Set the pin to behave as an input. */
-        DIRECTION_OUTPUT      = 3; /** Set the pin to behave as an output. */
+        DIGITAL_IO_DIRECTION_UNSPECIFIED = 0; /** Invalid Direction from Broker. */
+        DIGITAL_IO_DIRECTION_INPUT       = 1; /** Set the pin to behave as an input. */
+        DIGITAL_IO_DIRECTION_INPUT_PULL_UP = 2; /** Set the pin to behave as an input. */
+        DIGITAL_IO_DIRECTION_OUTPUT      = 3; /** Set the pin to behave as an output. */
     }
 }
 
