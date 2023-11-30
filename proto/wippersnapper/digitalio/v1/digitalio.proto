@@ -5,7 +5,9 @@ syntax = "proto3";
 package wippersnapper.digitalio.v1;
 import "nanopb/nanopb.proto";
 
-// DigitalInput is a digital input pin.
+/**
+* DigitalIOAdd adds a digital pin to the device.
+*/
 message DigitalIOAdd {
     int32 gpio_num = 1; // correlates with `name` in the JSON
     DigitalIODirection gpio_direction = 2;
@@ -23,10 +25,16 @@ message DigitalIOAdd {
     }
 }
 
+/**
+* DigitalIORemove removes a digital pin from the device.
+*/
 message DigitalIORemove {
     int32 gpio_num = 1; // correlates with `name` in the JSON
 }
 
+/**
+* DigitalIOEvent is sent from the device to the broker when a digital pin's value changes.
+*/
 message DigitalIOEvent {
     int32 gpio_num = 1;
     bool value = 2;

@@ -40,7 +40,7 @@ message PWMRemove {
 */
 message PWMWriteDutyCycle {
   string pin       = 1 [(nanopb).max_size = 6]; /** The pin to write to. */
-  int32 duty_cycle = 2; /** The desired duty cycle to write. This value will be changed by the slider on Adafruit IO. **/
+  int32 duty_cycle = 2; /** The desired duty cycle to write (range is from 0 to (2 ** duty_resolution)). This value will be changed by the slider on Adafruit IO. **/
 }
 
 /**

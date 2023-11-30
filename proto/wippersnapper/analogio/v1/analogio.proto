@@ -6,10 +6,13 @@ package wippersnapper.analogio.v1;
 import "nanopb/nanopb.proto";
 import "wippersnapper/sensor/v1/sensor.proto";
 
+/**
+* AnalogIOAdd adds an analog pin to the device.
+*/
 message AnalogIOAdd {
-    int32 gpio_num = 1; // correlates with `name` in the JSON
-    float period = 2;
-    AnalogReadMode read_mode = 3;
+    int32 gpio_num = 1; // Correlates with `name` in the JSON definition
+    float period = 2; // Period is in seconds
+    AnalogReadMode read_mode = 3; // Type of value read by an analog pin.
 
   /**
    * Selects the type of value read by an analog pin.
@@ -23,11 +26,17 @@ message AnalogIOAdd {
   }
 }
 
+/**
+* AnalogIORemove removes an analog pin from the device.
+*/
 message AnalogIORemove {
   int32 gpio_num = 1; // correlates with `name` in the JSON
 }
 
 
+/**
+* AnalogIOEvent is contains a value, sent when an analog pin is read.
+*/
 message AnalogIOEvent {
   int32 gpio_num = 1; // correlates with `name` in the JSON
   wippersnapper.sensor.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */

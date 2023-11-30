@@ -33,7 +33,7 @@ message ServoRemove {
 /**
 * ServoWrite represents a message to write the servo's position.
 *
-* NOTE: Position is sent from Adafruit IO as a pulse width in uS between 500uS
+* NOTE: Position is sent from Adafruit IO as a pulse width in uS between 0uS
 * and 2500uS. The client application must convert pulse width to duty cycle w/fixed
 * freq of 50Hz prior to writing to the servo pin.
 */
