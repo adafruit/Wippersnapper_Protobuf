@@ -44,14 +44,47 @@ enum SensorType {
   SENSOR_TYPE_VOC_INDEX                      = 33; /** Values are an index from 1-500 with 100 being normal, "${$v} VOC".*/
   SENSOR_TYPE_NOX_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
   SENSOR_TYPE_TVOC                           = 35; /** Values are in parts per billion (ppb), "${$v} ppb". */
+  SENSOR_TYPE_BYTES                          = 36; /** Values are in bytes, "${$v} bytes". */
 }
 
 /**
 * SensorEvent  is used to return the sensor's value and type.
 */
 message SensorEvent {
-  SensorType type = 1; /** The sensor's type and corresponding SI unit */
+  SensorType type                            = 1; /** The sensor's type and corresponding SI unit */
   oneof value {
-    float float_value = 2; /** The sensor's value as a float. */
+    float float_value                        = 2; /** The sensor's value as a float. */
+    bytes bytes_value                        = 3; /** The sensor's value as a byte array. */
+    SensorEvent3DVector vector_value         = 4; /** The sensor's 3D vector values, as floats. */
+    SensorEventOrientation orientation_value = 5; /** The sensor's orientation values, as floats. */
+    SensorEventColor color_value             = 6; /** The sensor's color values, as floats. */
+  }
+
+  /**
+  * SensorEventColor is used to return a sensor's color values in RGB colorspace.
+  */
+  message SensorEventColor {
+  float r = 1; /** The sensor's red channel value as a float. */
+  float g = 2; /** The sensor's green channel value as a float. */
+  float b = 3; /** The sensor's blue channel value as a float. */
+  float a = 4; /** The sensor's (optional) alpha channel value as a float. */
+  }
+
+  /**
+  * SensorEvent3DVector is used to return a sensor's 3D vector values.
+  */
+  message SensorEvent3DVector {
+    float x = 1; /** The sensor's x-axis value as a float. */
+    float y = 2; /** The sensor's y-axis value as a float. */
+    float z = 3; /** The sensor's z-axis value as a float. */
+  }
+
+  /**
+  * SensorEventOrientation is used to return an orientation sensor's values.
+  */
+  message SensorEventOrientation {
+    float roll    = 1; /** The sensor's roll value as a float. */
+    float pitch   = 2; /** The sensor's pitch value as a float. */
+    float heading = 3; /** The sensor's heading value as a float. */
   }
 }

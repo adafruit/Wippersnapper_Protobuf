@@ -39,5 +39,5 @@ message AnalogIORemove {
 */
 message AnalogIOEvent {
   int32 gpio_num = 1; // correlates with `name` in the JSON
-  wippersnapper.sensor.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
+  wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** A, optionally repeated, SensorEvent from a sensor. */
 }
