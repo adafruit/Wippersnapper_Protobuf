@@ -5,7 +5,6 @@
 syntax = "proto3";
 
 package wippersnapper.ds18x20.v1;
-import "nanopb/nanopb.proto";
 import "wippersnapper/sensor/v1/sensor.proto";
 
 /**
@@ -14,9 +13,9 @@ import "wippersnapper/sensor/v1/sensor.proto";
 * NOTE: This API currently only supports ONE device per OneWire bus.
 */
 message Ds18x20Add {
-  string onewire_pin                                                             = 1 [(nanopb).max_size = 5]; /** The desired pin to use as a OneWire bus. */
-  int32  sensor_resolution                                                       = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
-  repeated wippersnapper.sensor.v1.SensorType sensor_type  = 3[(nanopb).max_count = 2]; /** Properties for the DS18x20 sensor. */
+  string onewire_pin                                       = 1; /** The desired pin to use as a OneWire bus. */
+  int32  sensor_resolution                                 = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
+  repeated wippersnapper.sensor.v1.SensorType sensor_type  = 3; /** Properties for the DS18x20 sensor. */
 }
 
 /**
@@ -25,7 +24,7 @@ message Ds18x20Add {
 */
 message Ds18x20Added {
   bool is_initialized  = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
-  string onewire_pin   = 2 [(nanopb).max_size = 5]; /** The pin being used as a OneWire bus. */
+  string onewire_pin   = 2; /** The pin being used as a OneWire bus. */
 }
 
 /**
@@ -33,13 +32,13 @@ message Ds18x20Added {
 * Maxim temperature sensor, from the broker.
 */
 message Ds18x20Remove {
-  string onewire_pin  = 1 [(nanopb).max_size = 5]; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
+  string onewire_pin  = 1; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
 }
 
 /**
 * Ds18x20Event event represents data from **one** DS18X20 sensor.
 */
 message Ds18x20Event {
-  string onewire_pin                                      = 1 [(nanopb).max_size = 5]; /** The desired pin to use as a OneWire bus. */
-  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2 [(nanopb).max_count = 2]; /** The DS18X20's SensorEvent. */
+  string onewire_pin                                         = 1; /** The desired pin to use as a OneWire bus. */
+  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** The DS18X20's SensorEvent. */
 }

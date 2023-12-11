@@ -1,0 +1,4 @@
+# ds18x20.options
+*.ds18x20*.onewire_pin        max_size:5
+*.Ds18x20Add.sensor_type      max_count:2
+*.Ds18x20Event.sensor_event   max_count:2

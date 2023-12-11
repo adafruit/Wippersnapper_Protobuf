@@ -1,16 +1,15 @@
-// SPDX-FileCopyrightText: 2020-2021 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2020-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 // Messages for describing hardware over the description topic
 syntax = "proto3";
 
 package wippersnapper.description.v1;
-import "nanopb/nanopb.proto";
 
 /**
 * CreateDescriptionRequest identifies a device with Adafruit.io WipperSnapper.
 */
 message CreateDescriptionRequest {
-  string str_version     = 1 [(nanopb).max_size = 20]; /** Library version, as a string */
+  string str_version     = 1; /** Library version, as a string */
 }
 
 // TODO: Consider dropping this, and compiling these as a header file (per-board) from the

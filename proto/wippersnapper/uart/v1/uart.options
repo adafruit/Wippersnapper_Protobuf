@@ -1,0 +1,5 @@
+# uart.options
+*.UART*.device_id       max_size:15
+*.UARTBusData.pin_rx      max_size:6
+*.UARTBusData.pin_tx      max_size:6
+*.UARTEvent.sensor_event  max_size:2

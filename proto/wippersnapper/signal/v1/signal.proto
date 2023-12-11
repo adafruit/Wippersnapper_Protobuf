@@ -22,7 +22,6 @@ import "wippersnapper/analogio/v1/analogio.proto";
 
 
 message BrokerToDevice {
-  option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
     // digitalio.proto
     wippersnapper.digitalio.v1.DigitalIOAdd digitalio_add = 10;

@@ -3,7 +3,6 @@
 syntax = "proto3";
 
 package wippersnapper.digitalio.v1;
-import "nanopb/nanopb.proto";
 
 /**
 * DigitalIOAdd adds a digital pin to the device.
