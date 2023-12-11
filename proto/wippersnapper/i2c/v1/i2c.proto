@@ -1,9 +1,8 @@
-// SPDX-FileCopyrightText: 2021 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2021-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 
 package wippersnapper.i2c.v1;
-import "nanopb/nanopb.proto";
 import "wippersnapper/sensor/v1/sensor.proto";
 
 /**
@@ -35,8 +34,7 @@ message I2CBusInit {
 * I2CBusInitResponse represents a response to I2CBusInit
 */
 message I2CBusInitResponse {
-  bool is_initialized  = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the I2C port has been initialized successfully, False otherwise. */
-  BusResponse bus_response = 2; /** Whether the I2C bus initialized properly or failed. **/
+  BusResponse bus_response = 1; /** Whether the I2C bus initialized properly or failed. **/
 }
 
 
@@ -45,8 +43,8 @@ message I2CBusInitResponse {
 * a device's I2C scan.
 */
 message I2CScan {
-  int32 i2c_port_number              = 1; /** The desired I2C port to scan. */
-  I2CBusInit bus_init = 2; /** The I2C bus initialization . */
+  int32 i2c_port_number  = 1; /** The desired I2C port to scan. */
+  I2CBusInit bus_init    = 2; /** The I2C bus initialization . */
 }
 
 /**
@@ -54,7 +52,7 @@ message I2CScan {
 * found on the bus after I2CScan has executed.
 */
 message I2CScanResponse {
-  repeated uint32 addresses_found  = 1 [packed=true, (nanopb).max_count = 120]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  repeated uint32 addresses_found  = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
   BusResponse bus_response         = 2; /** The I2C bus' status. **/
 }
 
@@ -73,10 +71,10 @@ message I2CSensorProperties {
 */
 message I2CInit {
    int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
-   I2CBusInit i2c_bus_init_req                        = 2; /** An I2C bus initialization . */
+   I2CBusInit i2c_bus_init_req                               = 2; /** An I2C bus initialization . */
    uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
-   string i2c_device_name                                    = 4[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
-   repeated wippersnapper.sensor.v1.SensorType sensor_type  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
+   string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
+   repeated wippersnapper.sensor.v1.SensorType sensor_type   = 5; /** Properties of each sensor on the I2C device. */
 }
 
 /**
@@ -84,9 +82,8 @@ message I2CInit {
 * device after processing a I2CInit message.
 */
 message I2CAdded {
-  bool is_success             = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** !!DEPRECATED!! True if i2c device initialized successfully, false otherwise. */
-  uint32 i2c_device_address   = 2; /** The 7-bit I2C address of the device on the bus. */
-  BusResponse bus_response    = 3; /** The I2C bus' status. **/
+  uint32 i2c_device_address   = 1; /** The 7-bit I2C address of the device on the bus. */
+  BusResponse bus_response    = 2; /** The I2C bus' status. **/
 }
 
 
@@ -96,8 +93,7 @@ message I2CAdded {
 */
 message I2CUpdateResponse {
   uint32 i2c_device_address   = 1; /** The 7-bit I2C address of the device which was updated. */
-  bool is_success             = 2 [deprecated = true, (nanopb).type = FT_IGNORE]; /** !!DEPRECATED!! True if the update  succeeded, False otherwise. */
-  BusResponse bus_response    = 3; /** The I2C bus' status. **/
+  BusResponse bus_response    = 2; /** The I2C bus' status. **/
 }
 
 /**
@@ -114,9 +110,8 @@ message I2CRemove {
 * sensor(s) is/are successfully de-initialized.
 */
 message I2CRemoved {
-  bool is_success           = 1 [deprecated = true, (nanopb).type = FT_IGNORE]; /** True if the deinitialization  succeeded, False otherwise. */
-  uint32 i2c_device_address = 2; /** The 7-bit I2C address of the device which was initialized. */
-  BusResponse bus_response  = 3; /** The I2C bus' status. **/
+  uint32 i2c_device_address = 1; /** The 7-bit I2C address of the device which was initialized. */
+  BusResponse bus_response  = 2; /** The I2C bus' status. **/
 }
 
 
@@ -126,6 +121,6 @@ message I2CRemoved {
 * the I2C device contains > 1 sensor.
 */
 message I2CEvent {
-  uint32 sensor_address              = 1; /** The 7-bit I2C address of the I2C device. */
-  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
+  uint32 sensor_address                                      = 1; /** The 7-bit I2C address of the I2C device. */
+  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** A, optionally repeated, SensorEvent from a sensor. */
 }
