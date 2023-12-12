@@ -11,7 +11,7 @@ lint:
   ignores:
     - id: FIELDS_HAVE_COMMENT
       files:
-        - proto/wippersnapper/signal/v1/signal.proto
+        - proto/wippersnapper/signal.proto
     - id: MESSAGE_NAMES_EXCLUDE_PREPOSITIONS
       files:
-        - proto/wippersnapper/signal/v1/signal.proto
+        - proto/wippersnapper/signal.proto
