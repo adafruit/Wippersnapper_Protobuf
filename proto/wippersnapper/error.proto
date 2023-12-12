@@ -1,8 +1,7 @@
 // SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-
-package wippersnapper.error.v1;
+package wippersnapper.error;
 import "nanopb/nanopb.proto";
 
 // TODO: Add error handling on the device-side to parse error

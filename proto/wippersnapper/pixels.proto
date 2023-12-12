@@ -1,10 +1,8 @@
 // SPDX-FileCopyrightText: 2022-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 // Addressable Pixels API for Adafruit WipperSnapper
-
 syntax = "proto3";
-
-package wippersnapper.pixels.v1;
+package wippersnapper.pixels;
 
 /**
 * PixelsType defines the type/model of pixel strand.

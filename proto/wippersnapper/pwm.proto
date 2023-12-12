@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2022-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.pwm.v1;
+package wippersnapper.pwm;
 
 /**
 * PWMAdd represents a  to a device to attach/allocate a PWM pin.

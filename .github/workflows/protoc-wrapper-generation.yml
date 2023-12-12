@@ -31,7 +31,7 @@ jobs:
         mkdir ./python_out
         mkdir ./python_nanopb_out
         mkdir ./js_out
-        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
+        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_out
         protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --js_out=import_style=commonjs,binary:js_out --python_out=./python_nanopb_out
     - name: Checkout Python Repo
       uses: actions/checkout@v2
@@ -62,9 +62,9 @@ jobs:
         PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
       run: |
         mkdir ./arduino_out
-        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
+        protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
         # Local (non-CI) build command:
-        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
     - name: Checkout Arduino Repo
       uses: actions/checkout@v2
       with:

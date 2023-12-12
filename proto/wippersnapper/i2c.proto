@@ -1,9 +1,8 @@
 // SPDX-FileCopyrightText: 2021-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-
-package wippersnapper.i2c.v1;
-import "wippersnapper/sensor/v1/sensor.proto";
+package wippersnapper.i2c;
+import "wippersnapper/sensor.proto";
 
 /**
 * BusResponse represents the state of the I2C bus, from a device.
@@ -63,7 +62,7 @@ message I2CScanResponse {
 * its type and period.
 */
 message I2CSensorProperties {
-  wippersnapper.sensor.v1.SensorType sensor_type = 1; /** The type of I2C sensor. **/
+  wippersnapper.sensor.SensorType sensor_type = 1; /** The type of I2C sensor. **/
 }
 
 /**
@@ -76,7 +75,7 @@ message I2CInit {
   uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
   string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on
                                                                      https://github.com/adafruit/Wippersnapper_Components. */
-  repeated wippersnapper.sensor.v1.SensorType sensor_types   = 5; /** Properties of each sensor on the I2C device. */
+  repeated wippersnapper.sensor.SensorType sensor_types     = 5; /** Properties of each sensor on the I2C device. */
 }
 
 /**
@@ -124,5 +123,5 @@ message I2CRemoved {
 */
 message I2CEvent {
   uint32 sensor_address                                       = 1; /** The 7-bit I2C address of the I2C device. */
-  repeated wippersnapper.sensor.v1.SensorEvent sensor_events  = 2; /** A, optionally repeated, SensorEvent from a sensor. */
+  repeated wippersnapper.sensor.SensorEvent sensor_events     = 2; /** A, optionally repeated, SensorEvent from a sensor. */
 }

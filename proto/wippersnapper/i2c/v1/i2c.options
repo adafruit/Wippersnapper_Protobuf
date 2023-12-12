@@ -1,4 +1,0 @@
-# i2c.options
-*.I2CScanResponse.addresses_found  max_count:120
-*.I2CInit.i2c_device_name          max_size:15
-*.I2CEvent.sensor_event            max_count:15

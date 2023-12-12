@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 // Messages for describing hardware over the description topic
 syntax = "proto3";
-package wippersnapper.description.v1;
+package wippersnapper.description;
 
 /**
 * CreateDescriptionRequest identifies a device with Adafruit.io WipperSnapper.
