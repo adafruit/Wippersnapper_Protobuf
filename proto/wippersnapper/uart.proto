@@ -1,9 +1,8 @@
 // SPDX-FileCopyrightText: 2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-
-package wippersnapper.uart.v1;
-import "wippersnapper/sensor/v1/sensor.proto";
+package wippersnapper.uart;
+import "wippersnapper/sensor.proto";
 
 /**
 * UARTBusData represents a message to configure a UART bus for communication with a device.
@@ -49,5 +48,5 @@ message UARTRemove {
 */
 message UARTEvent {
   string device_id = 1;                    /** Unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
-  repeated wippersnapper.sensor.v1.SensorEvent sensor_events  = 2; /** An optionally repeated event from a sensor. */
+  repeated wippersnapper.sensor.SensorEvent sensor_events  = 2; /** An optionally repeated event from a sensor. */
 }

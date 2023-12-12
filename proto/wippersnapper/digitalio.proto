@@ -1,8 +1,7 @@
 // SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-
-package wippersnapper.digitalio.v1;
+package wippersnapper.digitalio;
 
 /**
 * DigitalIOAdd adds a digital pin to the device.

@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2022-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.servo.v1;
+package wippersnapper.servo;
 
 /**
 * ServoAdd represents a request to attach a servo to a pin.

@@ -1,9 +1,8 @@
 // SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-
-package wippersnapper.analogio.v1;
-import "wippersnapper/sensor/v1/sensor.proto";
+package wippersnapper.analogio;
+import "wippersnapper/sensor.proto";
 
 /**
 * AnalogIOAdd adds an analog pin to the device.
@@ -38,5 +37,5 @@ message AnalogIORemove {
 */
 message AnalogIOEvent {
   int32 gpio_num = 1; // correlates with `name` in the JSON
-  wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** Reading(s) from an analog pin. */
+  wippersnapper.sensor.SensorEvent sensor_event  = 2; /** Reading(s) from an analog pin. */
 }
