@@ -1,9 +1,7 @@
 // SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-
 package wippersnapper.sensor.v1;
-import "nanopb/nanopb.proto";
 
 /**
 * SensorType allows us determine what types of units the sensor uses, etc.

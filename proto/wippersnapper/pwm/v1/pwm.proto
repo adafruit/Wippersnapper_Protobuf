@@ -1,9 +1,7 @@
-// SPDX-FileCopyrightText: 2022 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2022-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-
 package wippersnapper.pwm.v1;
-import "nanopb/nanopb.proto";
 
 /**
 * PWMAdd represents a  to a device to attach/allocate a PWM pin.
@@ -11,7 +9,7 @@ import "nanopb/nanopb.proto";
 * On non-ESP32 Arduino, this does nothing.
 */
 message PWMAdd {
-  string pin       = 1 [(nanopb).max_size = 6]; /** The pin to be attached. */
+  string pin       = 1; /** The pin to be attached. */
   int32 frequency  = 2; /** PWM frequency of an analog pin, in Hz. **/
   int32 resolution = 3; /** The resolution of an analog pin, in bits. **/
 }
@@ -21,7 +19,7 @@ message PWMAdd {
 * Add message.
 */
 message PWMAdded {
-  string pin       = 1 [(nanopb).max_size = 6]; /** The ed pin. */
+  string pin      = 1; /** The ed pin. */
   bool did_attach = 2; /** True if Add successful, False otherwise. */
 }
 
@@ -31,7 +29,7 @@ message PWMAdded {
 * On non-ESP32 Arduino, this calls digitalWrite(LOW) on the pin
 */
 message PWMRemove {
-  string pin       = 1 [(nanopb).max_size = 6]; /** The PWM pin to de-initialized. */
+  string pin       = 1; /** The PWM pin to de-initialized. */
 }
 
 /**
@@ -39,7 +37,7 @@ message PWMRemove {
 * This is used for controlling LEDs.
 */
 message PWMWriteDutyCycle {
-  string pin       = 1 [(nanopb).max_size = 6]; /** The pin to write to. */
+  string pin       = 1; /** The pin to write to. */
   int32 duty_cycle = 2; /** The desired duty cycle to write (range is from 0 to (2 ** duty_resolution)). This value will be changed by the slider on Adafruit IO. **/
 }
 
@@ -48,7 +46,7 @@ message PWMWriteDutyCycle {
 * This is used for controlling RGB/RGBW LEDs.
 */
 message PWMWriteDutyCycleMulti {
-  repeated PWMWriteDutyCycle write_duty_cycle_req = 1 [(nanopb).max_count = 4];
+  repeated PWMWriteDutyCycle write_duty_cycle_req = 1;
 }
 
 /**
@@ -56,6 +54,6 @@ message PWMWriteDutyCycleMulti {
 * This is used for playing tones using a piezo buzzer or speaker.
 */
 message PWMWriteFrequency {
-  string pin       = 1 [(nanopb).max_size = 6]; /** The pin to write to. */
+  string pin       = 1; /** The pin to write to. */
   int32 frequency  = 2; /** The desired PWM frequency, in Hz. This value will be changed by the slider on Adafruit IO. **/
 }

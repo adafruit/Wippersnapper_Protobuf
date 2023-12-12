@@ -1,0 +1,3 @@
+# pwm.options
+*.PWM*.pin                                     max_size:6
+*.PWMWriteDutyCycleMulti.write_duty_cycle_req  max_count:4
