@@ -14,7 +14,8 @@ enum BusResponse {
   BUS_RESPONSE_ERROR_HANG          = 2; /** I2C Bus hang, user should reset their board if this persists. **/
   BUS_RESPONSE_ERROR_PULLUPS       = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
   BUS_RESPONSE_ERROR_WIRING        = 4; /** I2C bus failed to communicate - Please check your wiring. **/
-  BUS_RESPONSE_UNSUPPORTED_SENSOR  = 5; /** WipperSnapper firmware is outdated and does not include the sensor type - Please update your WipperSnapper firmware. **/
+  BUS_RESPONSE_UNSUPPORTED_SENSOR  = 5; /** WipperSnapper firmware is outdated and does not include
+                                            the sensor type - Please update your WipperSnapper firmware. **/
   BUS_RESPONSE_DEVICE_INIT_FAIL    = 6; /** I2C device failed to initialize. **/
   BUS_RESPONSE_DEVICE_DEINIT_FAIL  = 7; /** I2C device failed to de-initialize. **/
 }
@@ -52,7 +53,7 @@ message I2CScan {
 * found on the bus after I2CScan has executed.
 */
 message I2CScanResponse {
-  repeated uint32 addresses_found  = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  repeated uint32 found_addresses  = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
   BusResponse bus_response         = 2; /** The I2C bus' status. **/
 }
 
@@ -62,7 +63,7 @@ message I2CScanResponse {
 * its type and period.
 */
 message I2CSensorProperties {
-  wippersnapper.sensor.v1.SensorType sensor_type = 1;
+  wippersnapper.sensor.v1.SensorType sensor_type = 1; /** The type of I2C sensor. **/
 }
 
 /**
@@ -70,11 +71,12 @@ message I2CSensorProperties {
 * an I2C device initialization .
 */
 message I2CInit {
-   int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
-   I2CBusInit i2c_bus_init_req                               = 2; /** An I2C bus initialization . */
-   uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
-   string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
-   repeated wippersnapper.sensor.v1.SensorType sensor_type   = 5; /** Properties of each sensor on the I2C device. */
+  int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
+  I2CBusInit i2c_bus_init_req                               = 2; /** An I2C bus initialization . */
+  uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
+  string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on
+                                                                     https://github.com/adafruit/Wippersnapper_Components. */
+  repeated wippersnapper.sensor.v1.SensorType sensor_types   = 5; /** Properties of each sensor on the I2C device. */
 }
 
 /**
@@ -121,6 +123,6 @@ message I2CRemoved {
 * the I2C device contains > 1 sensor.
 */
 message I2CEvent {
-  uint32 sensor_address                                      = 1; /** The 7-bit I2C address of the I2C device. */
-  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** A, optionally repeated, SensorEvent from a sensor. */
+  uint32 sensor_address                                       = 1; /** The 7-bit I2C address of the I2C device. */
+  repeated wippersnapper.sensor.v1.SensorEvent sensor_events  = 2; /** A, optionally repeated, SensorEvent from a sensor. */
 }

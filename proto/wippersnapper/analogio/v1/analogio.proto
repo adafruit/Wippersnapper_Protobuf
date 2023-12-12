@@ -9,9 +9,9 @@ import "wippersnapper/sensor/v1/sensor.proto";
 * AnalogIOAdd adds an analog pin to the device.
 */
 message AnalogIOAdd {
-    int32 gpio_num = 1; // Correlates with `name` in the JSON definition
-    float period = 2; // Period is in seconds
-    AnalogReadMode read_mode = 3; // Type of value read by an analog pin.
+  int32 gpio_num = 1; // Correlates with `name` in the JSON definition
+  float period = 2; // Period is in seconds
+  AnalogReadMode read_mode = 3; // Type of value read by an analog pin.
 
   /**
    * Selects the type of value read by an analog pin.
@@ -19,9 +19,9 @@ message AnalogIOAdd {
    * PIN_VOLTAGE: Calculated voltage reading.
    */
   enum AnalogReadMode {
-    ANALOG_READ_MODE_UNSPECIFIED = 0;
-    ANALOG_READ_MODE_PIN_VALUE   = 1;
-    ANALOG_READ_MODE_PIN_VOLTAGE = 2;
+    ANALOG_READ_MODE_UNSPECIFIED = 0; // Default value.
+    ANALOG_READ_MODE_PIN_VALUE   = 1; // Raw ADC reading.
+    ANALOG_READ_MODE_PIN_VOLTAGE = 2; // Calculated voltage reading.
   }
 }
 
@@ -38,5 +38,5 @@ message AnalogIORemove {
 */
 message AnalogIOEvent {
   int32 gpio_num = 1; // correlates with `name` in the JSON
-  wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** A, optionally repeated, SensorEvent from a sensor. */
+  wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** Reading(s) from an analog pin. */
 }

@@ -12,9 +12,9 @@ import "nanopb/nanopb.proto";
 // Jitter should be unique to each device, possibly derived from its clientID
 
 message Error {
-option (nanopb_msgopt).submsg_callback = true; // TODO: Do we need this option field?
-    oneof payload {
-        int32 ban_time = 1;
-        int32 throttle_time = 2;
-    }
+  option (nanopb_msgopt).submsg_callback = true; // TODO: Do we need this option field?
+  oneof payload {
+    int32 ban_time = 1;      // Account ban time, in seconds
+    int32 throttle_time = 2; // Account time, in seconds
+  }
 }

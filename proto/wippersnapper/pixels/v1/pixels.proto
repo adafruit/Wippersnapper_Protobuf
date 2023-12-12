@@ -10,9 +10,9 @@ package wippersnapper.pixels.v1;
 * PixelsType defines the type/model of pixel strand.
 */
 enum PixelsType {
-  PIXELS_TYPE_UNSPECIFIED = 0;
-  PIXELS_TYPE_NEOPIXEL    = 1;
-  PIXELS_TYPE_DOTSTAR     = 2;
+  PIXELS_TYPE_UNSPECIFIED = 0; /** Unspecified pixel type, error. */
+  PIXELS_TYPE_NEOPIXEL    = 1; /** NeoPixel pixel strand. */
+  PIXELS_TYPE_DOTSTAR     = 2; /** DotStar pixel strand. */
 }
 
 /**
@@ -70,5 +70,6 @@ message PixelsRemove {
 message PixelsWrite {
   PixelsType pixels_type   = 1; /** Defines the model/type of pixel strand */
   string pixels_pin_data   = 2; /** Data pin a strand is connected to. */
-  uint32 pixels_color      = 3; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels), next is red, then green, and least significant byte is blue. */
+  uint32 pixels_color      = 3; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels),
+                                   next is red, then green, and least significant byte is blue. */
 }

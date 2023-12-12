@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 // Messages for describing hardware over the description topic
 syntax = "proto3";
-
 package wippersnapper.description.v1;
 
 /**
@@ -24,8 +23,8 @@ message CreateDescriptionRequest {
 */
 message CreateDescription {
   Response response        = 1; /** Specifies if the hardware definition exists on the server. */
-  int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the client's physical hardware. */
-  int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the client's physical hardware. */
+  int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the device. */
+  int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the device. */
   float reference_voltage  = 4; /** Specifies the hardware's default reference voltage. */
   int32 total_i2c_ports    = 5; /** Specifies the number of hardware's I2C ports (i2cPorts[]). */
 
@@ -44,5 +43,5 @@ message CreateDescription {
 * its components and is ready for configuration messages.
 */
 message RegistrationComplete {
-  bool is_complete = 1; /** True if device successfully configured its components, False otherwise. */
+  bool is_complete = 1; /** Did the device successfully configure its components? */
 }

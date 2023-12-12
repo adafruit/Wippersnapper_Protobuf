@@ -38,7 +38,8 @@ message PWMRemove {
 */
 message PWMWriteDutyCycle {
   string pin       = 1; /** The pin to write to. */
-  int32 duty_cycle = 2; /** The desired duty cycle to write (range is from 0 to (2 ** duty_resolution)). This value will be changed by the slider on Adafruit IO. **/
+  int32 duty_cycle = 2; /** The desired duty cycle to write (range is from 0 to (2 ** duty_resolution)).
+                            This value will be changed by the slider on Adafruit IO. **/
 }
 
 /**
@@ -46,7 +47,7 @@ message PWMWriteDutyCycle {
 * This is used for controlling RGB/RGBW LEDs.
 */
 message PWMWriteDutyCycleMulti {
-  repeated PWMWriteDutyCycle write_duty_cycle_req = 1;
+  repeated PWMWriteDutyCycle write_duty_cycle_reqs = 1; /** Multiple duty cycles to write, one per pin of a RGB LED. **/
 }
 
 /**

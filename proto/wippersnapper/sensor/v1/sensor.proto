@@ -12,7 +12,8 @@ enum SensorType {
   SENSOR_TYPE_MAGNETIC_FIELD                 = 2;  /** Magnetic field strength, in micro-Tesla, "{value}µT". */
   SENSOR_TYPE_ORIENTATION                    = 3;  /** Orientation angle, in degrees, "{value}°". */
   SENSOR_TYPE_GYROSCOPE                      = 4;  /** Angular rate, in radians per second, "{value}rad/s". */
-  SENSOR_TYPE_LIGHT                          = 5;  /** Light-level, non-unit-specific (For a unit-specific measurement, see: Lux), , "Raw Value: {value}". */
+  SENSOR_TYPE_LIGHT                          = 5;  /** Light-level, non-unit-specific (For a unit-specific measurement, see: Lux),
+                                                       "Raw Value: {value}". */
   SENSOR_TYPE_PRESSURE                       = 6;  /** Pressure, in hectopascal, , "{value}hPa". */
   SENSOR_TYPE_PROXIMITY                      = 8;  /** Distance from an object to a sensor, non-unit-specific, "Raw Value: {value}". */
   SENSOR_TYPE_GRAVITY                        = 9;  /** Metres per second squared, "{value}m/s^2". */
@@ -38,7 +39,7 @@ enum SensorType {
   SENSOR_TYPE_ECO2                           = 29; /** equivalent/estimated CO2 in ppm (estimated from some other measurement), "{value}ppm". */
   SENSOR_TYPE_UNITLESS_PERCENT               = 30; /** Percentage, unit-less, "{value}%". */
   SENSOR_TYPE_AMBIENT_TEMPERATURE_FAHRENHEIT = 31; /** Temperature of the air around a sensor, in degrees Fahrenheit, "{value}°F". */
-  SENSOR_TYPE_OBJECT_TEMPERATURE_FAHRENHEIT  = 32; /** Temperature of the object a sensor is touching/pointed at, in degrees Fahrenheit, "{value}°F".*/
+  SENSOR_TYPE_OBJECT_TEMPERATURE_FAHRENHEIT  = 32; /** Temperature of the object a sensor is touching/pointed at, in Fahrenheit, "{value}°F".*/
   SENSOR_TYPE_VOC_INDEX                      = 33; /** Values are an index from 1-500 with 100 being normal, "${$v} VOC".*/
   SENSOR_TYPE_NOX_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
   SENSOR_TYPE_TVOC                           = 35; /** Values are in parts per billion (ppb), "${$v} ppb". */
@@ -62,10 +63,10 @@ message SensorEvent {
   * SensorEventColor is used to return a sensor's color values in RGB colorspace.
   */
   message SensorEventColor {
-  float r = 1; /** The sensor's red channel value as a float. */
-  float g = 2; /** The sensor's green channel value as a float. */
-  float b = 3; /** The sensor's blue channel value as a float. */
-  float a = 4; /** The sensor's (optional) alpha channel value as a float. */
+    float r = 1; /** The sensor's red channel value as a float. */
+    float g = 2; /** The sensor's green channel value as a float. */
+    float b = 3; /** The sensor's blue channel value as a float. */
+    float a = 4; /** The sensor's (optional) alpha channel value as a float. */
   }
 
   /**

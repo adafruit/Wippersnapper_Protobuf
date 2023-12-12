@@ -15,7 +15,7 @@ import "wippersnapper/sensor/v1/sensor.proto";
 message Ds18x20Add {
   string onewire_pin                                       = 1; /** The desired pin to use as a OneWire bus. */
   int32  sensor_resolution                                 = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
-  repeated wippersnapper.sensor.v1.SensorType sensor_type  = 3; /** Properties for the DS18x20 sensor. */
+  repeated wippersnapper.sensor.v1.SensorType sensor_types = 3; /** Properties for the DS18x20 sensor. */
 }
 
 /**
@@ -40,5 +40,5 @@ message Ds18x20Remove {
 */
 message Ds18x20Event {
   string onewire_pin                                         = 1; /** The desired pin to use as a OneWire bus. */
-  repeated wippersnapper.sensor.v1.SensorEvent sensor_event  = 2; /** The DS18X20's SensorEvent. */
+  repeated wippersnapper.sensor.v1.SensorEvent sensor_events = 2; /** The DS18X20's SensorEvent. */
 }
