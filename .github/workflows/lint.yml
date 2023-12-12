@@ -16,4 +16,5 @@ jobs:
       uses: yoheimuta/action-protolint@v1
       with:
         workdir: 'protobuf-checkout'
+        fail_on_error: true
         protolint_flags: 'lint -config_dir_path . proto/wippersnapper'
