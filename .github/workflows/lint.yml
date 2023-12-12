@@ -5,12 +5,15 @@ jobs:
   pr-check:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout source
-        uses: actions/checkout@v3
-      - name: list file directory structure
-        run: ls -R
-      - name: run protolint
-        uses: plexsystems/protolint-action@v0.7.0
-        with:
-            srcDirectory: ./proto/wippersnapper
-            configDirectory: .
+    - name: Self Checkout
+      uses: actions/checkout@v3
+      with:
+          path: protobuf-checkout
+          submodules: false
+    - name: list file directory structure
+      run: ls -R
+    - name: run protolint
+      uses: plexsystems/protolint-action@v0.7.0
+      with:
+        srcDirectory: ./protobuf-checkout/proto/wippersnapper/*
+        configDirectory: ./protobuf-checkout/.
