@@ -1,3 +1,5 @@
+# Protolint configuration file for WipperSnapper
+# configuration file reference: https://github.com/yoheimuta/protolint/blob/master/_example/config/.protolint.yaml
 ---
 lint:
   rules:
@@ -6,3 +8,10 @@ lint:
     max_line_length:
       max_chars: 150
       tab_chars: 2
+  ignores:
+    - id: FIELDS_HAVE_COMMENT
+      files:
+        - proto/wippersnapper/signal/v1/signal.proto
+    - id: MESSAGE_NAMES_EXCLUDE_PREPOSITIONS
+      files:
+        - proto/wippersnapper/signal/v1/signal.proto
