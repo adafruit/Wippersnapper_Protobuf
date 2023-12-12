@@ -15,5 +15,5 @@ jobs:
     - name: run protolint
       uses: plexsystems/protolint-action@v0.7.0
       with:
-        configDirectory: ./protobuf-checkout/protolint.yml
+        configDirectory: ./protobuf-checkout/.
         srcDirectory: ./protobuf-checkout/proto/wippersnapper/
