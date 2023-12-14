@@ -1,4 +1,4 @@
 # ds18x20.options
-# ds18x20*.onewire_pin                            max_size:5
-wippersnapper.ds18x20.Ds18x20Add.sensor_types     max_count:2
-wippersnapper.ds18x20.Ds18x20Event.sensor_events  max_count:2
+*.ds18x20*.onewire_pin                              max_size:5
+wippersnapper.ds18x20.Ds18x20Add.sensor_properties  max_count:2
+wippersnapper.ds18x20.Ds18x20Event.sensor_events    max_count:2
