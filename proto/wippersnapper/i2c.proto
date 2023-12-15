@@ -70,12 +70,12 @@ message I2CSensorProperties {
 * an I2C device initialization .
 */
 message I2CInit {
-  int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
-  I2CBusInit i2c_bus_init_req                               = 2; /** An I2C bus initialization . */
-  uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                                    = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on
+  int32  i2c_port_number                                            = 1; /** The desired I2C port to initialize an I2C device on. */
+  I2CBusInit i2c_bus_init_req                                       = 2; /** An I2C bus initialization . */
+  uint32 i2c_device_address                                         = 3; /** The 7-bit I2C address of the device on the bus. */
+  string i2c_device_name                                            = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on
                                                                      https://github.com/adafruit/Wippersnapper_Components. */
-  repeated wippersnapper.sensor.SensorType sensor_types     = 5; /** Properties of each sensor on the I2C device. */
+  repeated wippersnapper.sensor.SensorProperties sensor_properties  = 5; /** Properties of each sensor on the I2C device. */
 }
 
 /**
