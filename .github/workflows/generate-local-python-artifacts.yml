@@ -1,0 +1,41 @@
+name: Generate new CPython Protocol Buffer wrapper files and upload them as artifacts
+on: [ pull_request ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Install Protoc
+      uses: arduino/setup-protoc@v1
+      with:
+        version: '3.13.0'
+    - name: Install Python dependencies
+      run : |
+        python -m pip install --upgrade pip
+        pip3 install scons protobuf grpcio-tools
+    - name: Self Checkout
+      uses: actions/checkout@v3
+      with:
+        path: protobuf-checkout
+        submodules: true
+    - name: Configure Git
+      run: |
+        git config --global user.name adafruitio
+        git config --global user.email adafruitio@adafruit.com
+    - name: Generate python wrapper files from pull request's .proto files
+      env:
+        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+      run: |
+        mkdir ./python_out
+        mkdir ./python_nanopb_out
+        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*.proto --python_out=./python_out
+        protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --python_out=./python_nanopb_out
+        # protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
+        # Local (non-CI) build command:
+        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+    - uses: actions/upload-artifact@v3
+      with:
+          name: build-artifact-python-wrapper
+          path: ./python_out 
