@@ -32,10 +32,11 @@ jobs:
         mkdir ./python_nanopb_out
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*.proto --python_out=./python_out
         protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --python_out=./python_nanopb_out
-        # protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
-        # Local (non-CI) build command:
-        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
     - uses: actions/upload-artifact@v3
       with:
-          name: build-artifact-python-wrapper
+          name: build-python-wrappers
           path: ./python_out 
+    - uses: actions/upload-artifact@v3
+      with:
+          name: build-python-nanopb-out
+          path: ./python_nanopb_out 
