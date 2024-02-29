@@ -4,10 +4,8 @@ syntax = "proto3";
 package wippersnapper.signal;
 import "nanopb/nanopb.proto";
 
-// TODO: Shorten all of these files to:
-// wippersnapper/*.proto
 import "wippersnapper/analogio.proto";
-import "wippersnapper/description.proto";
+import "wippersnapper/checkin.proto";
 import "wippersnapper/digitalio.proto";
 import "wippersnapper/ds18x20.proto";
 import "wippersnapper/error.proto";
@@ -32,8 +30,9 @@ message BrokerToDevice {
     // analogio.proto
     wippersnapper.analogio.AnalogIOAdd analogio_add = 20;
     wippersnapper.analogio.AnalogIOAdd analogio_remove = 21;
-    // description.proto
-    wippersnapper.description.CreateDescription create_description = 30;
+    // checkin.proto
+    wippersnapper.checkin.CheckinRequest checkin_request = 30;
+    wippersnapper.checkin.CheckinRequest checkin_completed = 31;
     // servo.proto
     wippersnapper.servo.ServoAdd servo_add = 40;
     wippersnapper.servo.ServoRemove servo_remove = 41;
@@ -76,9 +75,8 @@ message DeviceToBroker {
     wippersnapper.digitalio.DigitalIOEvent digitalio_event = 10;
     // analogio.proto
     wippersnapper.analogio.AnalogIOEvent analogio_event = 20;
-    // description.proto
-    // NOTE: we may be able to eventually remove this
-    wippersnapper.description.RegistrationComplete registration_complete = 30;
+    // checkin.proto
+    wippersnapper.checkin.CheckinResponse checkin_response = 30;
     // servo.proto
     wippersnapper.servo.ServoAdded servo_added = 40;
     // pwm.proto

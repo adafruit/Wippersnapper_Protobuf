@@ -1,0 +1,31 @@
+// SPDX-FileCopyrightText: 2020-2024 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+// Messages for registering new and existing hardware with the Adafruit.io MQTT Broker
+syntax = "proto3";
+package wippersnapper.checkin;
+
+message CheckinRequest {
+  string hardware_uid = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
+}
+
+message CheckinResponse {
+  Response response        = 1; /** Specifies if the hardware definition exists on the server. */
+  int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the device. */
+  int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the device. */
+  float reference_voltage  = 4; /** Specifies the hardware's default reference voltage. */
+  int32 total_i2c_ports    = 5; /** Specifies the number of hardware's I2C ports (i2cPorts[]). */
+
+  /**
+   * Response. Specifies if the hardware definiton is within the database.
+   */
+  enum Response {
+    RESPONSE_UNSPECIFIED     = 0; /** Invalid response from server */
+    RESPONSE_OK              = 1; /** Board found within definition index */
+    RESPONSE_BOARD_NOT_FOUND = 2; /** Board not found in definition index */
+  }
+}
+
+message CheckinCompleted {
+  bool is_complete = 1; /** Specifies if the device has completed the checkin process. */
+}
+
