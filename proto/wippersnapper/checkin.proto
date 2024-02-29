@@ -4,10 +4,16 @@
 syntax = "proto3";
 package wippersnapper.checkin;
 
+/**
+* CheckinRequest notifies the MQTT broker that a new/existing device is requesting to connect.
+*/
 message CheckinRequest {
   string hardware_uid = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
 }
 
+/**
+* CheckinResponse sends a broker response to the client's CheckinRequest.
+*/
 message CheckinResponse {
   Response response        = 1; /** Specifies if the hardware definition exists on the server. */
   int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the device. */
@@ -25,6 +31,9 @@ message CheckinResponse {
   }
 }
 
+/**
+* CheckinResponse sends the broker a message signaling the device's sync process has fully completed.
+*/
 message CheckinCompleted {
   bool is_complete = 1; /** Specifies if the device has completed the checkin process. */
 }
