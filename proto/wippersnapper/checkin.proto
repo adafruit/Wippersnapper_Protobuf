@@ -32,10 +32,3 @@ message CheckinResponse {
   }
 }
 
-/**
-* CheckinResponse sends the broker a message signaling the device's sync process has fully completed.
-*/
-message CheckinCompleted {
-  bool is_complete = 1; /** Specifies if the device has completed the checkin process. */
-}
-

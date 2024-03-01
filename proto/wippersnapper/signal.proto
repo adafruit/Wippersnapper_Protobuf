@@ -32,7 +32,6 @@ message BrokerToDevice {
     wippersnapper.analogio.AnalogIOAdd analogio_remove = 21;
     // checkin.proto
     wippersnapper.checkin.CheckinRequest checkin_request = 30;
-    wippersnapper.checkin.CheckinRequest checkin_completed = 31;
     // servo.proto
     wippersnapper.servo.ServoAdd servo_add = 40;
     wippersnapper.servo.ServoRemove servo_remove = 41;
