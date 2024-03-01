@@ -9,6 +9,7 @@ package wippersnapper.checkin;
 */
 message CheckinRequest {
   string hardware_uid = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
+  string firmware_version = 2; /** Identifies the client's firmware version. */
 }
 
 /**
