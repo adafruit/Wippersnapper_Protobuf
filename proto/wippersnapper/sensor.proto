@@ -44,6 +44,7 @@ enum SensorType {
   SENSOR_TYPE_NOX_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
   SENSOR_TYPE_TVOC                           = 35; /** Values are in parts per billion (ppb), "${$v} ppb". */
   SENSOR_TYPE_BYTES                          = 36; /** Values are in bytes, "${$v} bytes". */
+  SENSOR_TYPE_BOOLEAN                        = 37; /** Values are boolean, "Boolean Value: ${$v}". */
 }
 
 /**
@@ -65,6 +66,7 @@ message SensorEvent {
     SensorEvent3DVector vector_value         = 4; /** The sensor's 3D vector values, as floats. */
     SensorEventOrientation orientation_value = 5; /** The sensor's orientation values, as floats. */
     SensorEventColor color_value             = 6; /** The sensor's color values, as floats. */
+    bool bool_value                          = 7; /** The sensor's value, as a boolean. */
   }
 
   /**
