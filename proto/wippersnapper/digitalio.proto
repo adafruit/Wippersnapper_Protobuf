@@ -1,7 +1,8 @@
-// SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
+// SPDX-FileCopyrightText: 2024 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.digitalio;
+import "wippersnapper/sensor.proto";
 
 /**
 * DigitalIOSampleMode specifies the pin's sample mode.
@@ -16,10 +17,10 @@ enum DigitalIOSampleMode {
 * DigitalIODirection specifies the pin's direction, INPUT/INPUT_PULL_UP/OUTPUT.
 */
 enum DigitalIODirection {
-  DIGITAL_IO_DIRECTION_UNSPECIFIED = 0; /** Invalid Direction from Broker. */
-  DIGITAL_IO_DIRECTION_INPUT       = 1; /** Set the pin to behave as an input. */
+  DIGITAL_IO_DIRECTION_UNSPECIFIED   = 0; /** Invalid Direction from Broker. */
+  DIGITAL_IO_DIRECTION_INPUT         = 1; /** Set the pin to behave as an input. */
   DIGITAL_IO_DIRECTION_INPUT_PULL_UP = 2; /** Set the pin to behave as an input. */
-  DIGITAL_IO_DIRECTION_OUTPUT      = 3; /** Set the pin to behave as an output. */
+  DIGITAL_IO_DIRECTION_OUTPUT        = 3; /** Set the pin to behave as an output. */
 }
 
 /**
@@ -37,14 +38,14 @@ message DigitalIOAdd {
 * DigitalIORemove removes a digital pin from the device.
 */
 message DigitalIORemove {
-  int32 gpio_num = 1; // correlates with `name` in the JSON
+  int32 gpio_num = 1; /** The pin's GPIO number. */
 }
 
 /**
 * DigitalIOEvent is sent from the device to the broker when a digital pin's value changes.
 */
 message DigitalIOEvent {
-  int32 gpio_num = 1; // correlates with `name` in the JSON
-  bool value = 2;     // correlates with `value` in the JSON
+  int32 gpio_num                         = 1; /** The pin's GPIO number. */
+  wippersnapper.sensor.SensorEvent value = 2; /** The pin's value. */
 }
 
