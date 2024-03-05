@@ -13,8 +13,14 @@ Within `signal.proto`, each `.proto` API contains both a `request` and `response
 sequenceDiagram
 autonumber
 
-IO->>Device: msgRequest
-Note over IO,Device: Device unpacks`payload` message.
-Device->>IO: msgResponse
-Note over Device,IO: Broker unpacks `payload` message
+IO Broker->>Device Client: ServoRequest
+Note over IO Broker,Device Client: /:username/wprsnpr/:clientId/signals/device/servo
+Device Client->>App: ServoRequest
+App->>App Decoder: ServoRequest
+App Decoder->>Component Class: ServoAttachRequest 
+Component Class->>App Encoder: Result of ServoAttachRequest
+App Encoder->>App: ServoResponse
+App->>Device Client: ServoResponse
+Device Client->>IO Broker: ServoResponse
+Note over Device Client,IO Broker: /:username/wprsnpr/:clientId/signals/broker/servo
 ```
