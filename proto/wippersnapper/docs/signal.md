@@ -1,20 +1,43 @@
-
 # signal.proto
 
-This file details the `signal.proto` message used to communicate between WipperSnapper clients. The signal file contains high-level `oneof` messages that "wrap" the following protocol buffer APIs: `pin.proto`, `i2c.proto`, `servo.proto`, `pwm.proto`, `ds18x20.proto`, `pixels .proto`, `uart.proto`.
+This file details the `signal.proto` message used to communicate between WipperSnapper clients. 
+
+## Message Format
+The signal file contains two messages. Both messages contain `oneof` "payload" message, which is a union of all the possible messages that can be sent from a device to the broker (and visa-versa)
+
+### Payload Message Naming Conventions
+
+Message fields within `signal.proto` generally follow the naming convention:
+* `_add`: Message contains a command payload for configuring and adding a component to a device.
+  * `_added`: Message contains a response payload from an `_add` message 
+* `_remove`: Message contains a payload for releasing a component's resources and "removing" it from the device.
+  * `_removed`: Message contains a response payload from an `_remove` message
+* `_write`: Message contains a payload for transmitting or "writing" data to a component connected to a device.
+  * Within `pwm.proto`, there are multiple types of `_write` such as `_write_duty`, `_write_freq`, etc...
+*  `_event`: Message is a payload containing sensor data and metadata. Data may be "packed", containing multiple sensor events.
+
+Some message fields do not follow this naming convention because their API is more involved than the general fields above:
+* `_scan`: Message contains a command payload for performing a scan of I2C components connected to a device
+* `_response`: Message contains a response payload for an action not compatible with any of the above field names.
+
 
 ## Sequence Diagrams
 
-### Generalized `msgRequest` and `msgResponse`
+### High-Level Operation
 
-Within `signal.proto`, each `.proto` API contains both a `request` and `response` message. The `request` message is a command sent from the broker to a device. The `response` message is a command sent from the device to the broker.
+When a message is sent from a broker to a device, the `BrokerToDevice` message is utilized. When a message is sent from a device to a broker, the `DeviceToBroker` message is sent.
 
 ```mermaid
 sequenceDiagram
 autonumber
 
-IO->>Device: msgRequest
-Note over IO,Device: Device unpacks`payload` message.
-Device->>IO: msgResponse
-Note over Device,IO: Broker unpacks `payload` message
+IO Broker->>Device Client: BrokerToDevice
+Device Client->>App: BrokerToDevice
+App->>Dispatcher Class: BrokerToDevice
+Dispatcher Class->>Component Class: Payload, in serialized form
+Component Class->>Dispatcher Class: DeviceToBroker payload
+Dispatcher Class->>App: Serialized DeviceToBroker msg
+App->>Device Client: DeviceToBroker
+Device Client->>IO Broker: DeviceToBroker
+
 ```
