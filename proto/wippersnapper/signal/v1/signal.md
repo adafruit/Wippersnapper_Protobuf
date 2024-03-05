@@ -16,10 +16,10 @@ autonumber
 IO Broker->>Device Client: ServoRequest
 Note over IO Broker,Device Client: /:username/wprsnpr/:clientId/signals/device/servo
 Device Client->>App: ServoRequest
-App->>App Decoder: ServoRequest
-App Decoder->>Component Class: ServoAttachRequest 
-Component Class->>App Encoder: Result of ServoAttachRequest
-App Encoder->>App: ServoResponse
+App->>(nanopb) Encoder/Decoder: ServoRequest
+(nanopb) Encoder/Decoder->>Component Class: ServoAttachRequest 
+Component Class->>(nanopb) Encoder/Decoder: Result of ServoAttachRequest
+(nanopb) Encoder/Decoder->>App: ServoResponse
 App->>Device Client: ServoResponse
 Device Client->>IO Broker: ServoResponse
 Note over Device Client,IO Broker: /:username/wprsnpr/:clientId/signals/broker/servo
