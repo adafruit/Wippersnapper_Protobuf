@@ -32,12 +32,13 @@ sequenceDiagram
 autonumber
 
 IO Broker->>Device Client: BrokerToDevice
+Note over IO Broker,Device Client: /:username/wprsnpr/:clientId
 Device Client->>App: BrokerToDevice
-App->>Dispatcher Class: BrokerToDevice
-Dispatcher Class->>Component Class: Payload, in serialized form
-Component Class->>Dispatcher Class: DeviceToBroker payload
-Dispatcher Class->>App: Serialized DeviceToBroker msg
+App->>(nanopb) Encoder/Decoder: BrokerToDevice
+(nanopb) Encoder/Decoder->>Component Class: ServoAdd 
+Component Class->>(nanopb) Encoder/Decoder: Result of ServoAdd, servo_added
+(nanopb) Encoder/Decoder->>App: DeviceToBroker
 App->>Device Client: DeviceToBroker
 Device Client->>IO Broker: DeviceToBroker
-
+Note over IO Broker,Device Client: /:username/wprsnpr/:clientId
 ```
