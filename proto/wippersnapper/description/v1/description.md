@@ -35,7 +35,7 @@ Where it can, the WipperSnapper firmware avoids dynamic allocation. If the `Crea
 ```mermaid
 sequenceDiagram
 autonumber
-App->>Application: Parse CreateDescriptionResponse
+Device->>App: Parse CreateDescriptionResponse
 App->>Digital IO Class: Configure total_gpio_pins 
 App->>Analog IO Class: Configure total_analog_pins and reference_voltage 
 App->>I2C Class: Configure total_i2c_ports
