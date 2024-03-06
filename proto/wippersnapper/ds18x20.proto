@@ -11,9 +11,10 @@ import "wippersnapper/sensor.proto";
 * NOTE: This API currently only supports ONE device per OneWire bus.
 */
 message Ds18x20Add {
-  string onewire_pin                                               = 1; /** The desired pin to use as a OneWire bus. */
-  int32  sensor_resolution                                         = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
-  repeated wippersnapper.sensor.SensorProperties sensor_properties = 3; /** Properties for the DS18x20 sensor. */
+  string onewire_pin                                      = 1; /** The desired pin to use as a OneWire bus. */
+  int32  sensor_resolution                                = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
+  float period                                            = 3; /** The desired period to read the sensor, in seconds. */
+  repeated wippersnapper.sensor.SensorType  sensor_types  = 4; /** SI types used by the DS18x20 sensor. */
 }
 
 /**

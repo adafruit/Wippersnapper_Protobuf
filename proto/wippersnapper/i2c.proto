@@ -57,15 +57,6 @@ message I2CScanResponse {
 }
 
 /**
-* I2CSensorProperties contains
-* the properties of an I2C device's sensor such as
-* its type and period.
-*/
-message I2CSensorProperties {
-  wippersnapper.sensor.SensorType sensor_type = 1; /** The type of I2C sensor. **/
-}
-
-/**
 * I2CInit is a wrapper message for
 * an I2C device initialization .
 */
@@ -75,7 +66,8 @@ message I2CInit {
   uint32 i2c_device_address                                         = 3; /** The 7-bit I2C address of the device on the bus. */
   string i2c_device_name                                            = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on
                                                                      https://github.com/adafruit/Wippersnapper_Components. */
-  repeated wippersnapper.sensor.SensorProperties sensor_properties  = 5; /** Properties of each sensor on the I2C device. */
+  float i2c_device_period                                           = 5; /** The desired period to update the I2C device's sensor(s), in seconds. */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 6; /** SI Types for each sensor on the I2C device. */
 }
 
 /**

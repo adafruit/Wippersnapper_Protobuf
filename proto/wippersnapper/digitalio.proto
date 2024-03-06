@@ -27,7 +27,7 @@ enum DigitalIODirection {
 * DigitalIOAdd adds a digital pin to the device.
 */
 message DigitalIOAdd {
-  int32 gpio_num                    = 1; /** The pin's GPIO number. */
+  string pin_name                   = 1; /** The pin's name. */
   DigitalIODirection gpio_direction = 2; /** The pin's direction. */
   DigitalIOSampleMode sample_mode   = 3; /** Specifies the pin's sample mode. */
   float period                      = 4; /** Time between measurements in seconds, if MODE_TIMER. */
@@ -38,14 +38,14 @@ message DigitalIOAdd {
 * DigitalIORemove removes a digital pin from the device.
 */
 message DigitalIORemove {
-  int32 gpio_num = 1; /** The pin's GPIO number. */
+  string pin_name = 1; /** The pin's name. */
 }
 
 /**
 * DigitalIOEvent is sent from the device to the broker when a digital pin's value changes.
 */
 message DigitalIOEvent {
-  int32 gpio_num                         = 1; /** The pin's GPIO number. */
+  string pin_name                        = 1; /** The pin's name. */
   wippersnapper.sensor.SensorEvent value = 2; /** The pin's value. */
 }
 

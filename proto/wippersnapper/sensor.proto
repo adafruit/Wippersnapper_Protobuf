@@ -48,14 +48,6 @@ enum SensorType {
 }
 
 /**
-* SensorProperties is used to define the sensor's type and period.
-*/
-message SensorProperties {
-  SensorType sensor_type = 1; /** The sensor's type. */
-  uint32 sensor_period   = 2; /** The sensor's period, in milliseconds. */
-}
-
-/**
 * SensorEvent  is used to return the sensor's value and type.
 */
 message SensorEvent {
