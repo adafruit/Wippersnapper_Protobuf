@@ -15,9 +15,9 @@ The following component definitions reference `pixels.proto`:
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsCreateRequest
+IO-->>Device: PixelsAdd
 Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` according to form<br> `pixels_pin_dotstar_data` is unused<br>`pixels_pin_dotstar_clock` is unused
-Device->>IO: PixelsCreateResponse
+Device->>IO: PixelsAdded
 Note over Device,IO: `is_success`, true if init'd OK
 ```
 
@@ -26,7 +26,7 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsWriteRequest
+IO->>Device: PixelsWrite
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB<br>`pixels_color` according to picker<br>
 ```
 
@@ -35,11 +35,11 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pix
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsDeleteRequest
+IO->>Device: PixelsRemove
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>pixels_pin_data according to DB
-IO-->>Device: PixelsCreateRequest
+IO-->>Device: PixelsAdd
 Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` of 0<br>`pixels_pin_neopixel` according to form<br> `pixels_pin_dotstar_data` is unused<br>`pixels_pin_dotstar_clock` is unused
-Device->>IO: PixelsCreateResponse
+Device->>IO: PixelsAdded
 Note over Device,IO: `is_success`, true if init'd OK
 ```
 
@@ -48,7 +48,7 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsDeleteRequest
+IO->>Device: PixelsRemove
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB
 ```
 
@@ -56,11 +56,11 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pix
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsCreateRequest
+IO-->>Device: PixelsAdd
 Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` according to form<br> `pixels_pin_dotstar_data` is unused<br>`pixels_pin_dotstar_clock` is unused
-Device->>IO: PixelsCreateResponse
+Device->>IO: PixelsAdded
 Note over Device,IO: `is_success`, true if init'd OK
-IO->>Device: PixelsWriteRequest
+IO->>Device: PixelsWrite
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB<br>`pixels_color` according to feed's last_value<br>
 ```
 
@@ -70,9 +70,9 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pix
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsCreateRequest
+IO-->>Device: PixelsAdd
 Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` unused<br> `pixels_pin_dotstar_data` according to form<br>`pixels_pin_dotstar_clock` according to form
-Device->>IO: PixelsCreateResponse
+Device->>IO: PixelsAdded
 Note over Device,IO: `is_success`, true if init'd OK
 ```
 
@@ -81,7 +81,7 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsWriteRequest
+IO->>Device: PixelsWrite
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_pin_data` according to DB<br>`pixels_color` according to picker<br>
 ```
 
@@ -90,11 +90,11 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixe
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsDeleteRequest
+IO->>Device: PixelsRemove
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>pixels_pin_data according to DB
-IO-->>Device: PixelsCreateRequest
+IO-->>Device: PixelsAdd
 Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` of 0<br>`pixels_pin_neopixel` is unused<br> `pixels_pin_dotstar_data` according to form<br>`pixels_pin_dotstar_clock` according to form
-Device->>IO: PixelsCreateResponse
+Device->>IO: PixelsAdded
 Note over Device,IO: `is_success`, true if init'd OK
 ```
 
@@ -103,7 +103,7 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsDeleteRequest
+IO->>Device: PixelsRemove
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_pin_data` according to DB
 ```
 
@@ -111,10 +111,10 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixe
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsCreateRequest
+IO-->>Device: PixelsAdd
 Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` is unused<br> `pixels_pin_dotstar_data` according to form<br>`pixels_pin_dotstar_clock` according to form
-Device->>IO: PixelsCreateResponse
+Device->>IO: PixelsAdded
 Note over Device,IO: `is_success`, true if init'd OK
-IO->>Device: PixelsWriteRequest
+IO->>Device: PixelsWrite
 Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB<br>`pixels_color` according to feed's last_value<br>
 ```

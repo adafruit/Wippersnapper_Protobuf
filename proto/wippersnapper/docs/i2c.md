@@ -40,15 +40,15 @@ Device->>IO: I2CBusScanResponse
 sequenceDiagram
 autonumber
 
-IO->>Device: I2CDeviceInitRequest<br>(contains I2CBusInitRequest)
+IO->>Device: I2CInit<br>(contains I2CBusInitRequest)
 Device->>App: I2CBusInitRequest
-App->>Device: BusResponse
-Device->>App: I2CDeviceInitRequest
-App->>I2C Class: i2c_device_address, i2c_device_name,<br>i2c_device_properties
-Note over App,I2C Class: At this point, the I2C sensor is configured <br>and ready to send data to Adafruit IO.
-I2C Class->>App: I2CDeviceInitResponse
-App->>Device: I2CDeviceInitResponse
-Device->>IO: I2CDeviceInitResponse
+App->>I2C Class: I2CBusInitRequest
+Device->>App: I2CInit
+App->>I2C Class: i2c_device_address, i2c_device_name,<br>i2c_device_period, i2c_device_sensor_types
+Note over App,I2C Class: At this point, the I2C sensor is configured <br>and ready to send data back to Adafruit IO.
+I2C Class->>App: I2CAdded
+App->>Device: I2CAdded
+Device->>IO: I2CAdded
 ```
 
 ### Update an existing I2C device
@@ -57,13 +57,12 @@ Device->>IO: I2CDeviceInitResponse
 sequenceDiagram
 autonumber
 
-IO->>Device: I2CDeviceUpdateRequest
-Device->>App: I2CDeviceUpdateRequest
-App->>I2C Class: I2CDeviceUpdateRequest
-Note over App,I2C Class: Update the properties of the "sub-sensors" <br> specified within i2c_device_properties array.
-I2C Class->>App: I2CDeviceUpdateResponse
-App->>Device: I2CDeviceUpdateResponse
-Device->>IO: I2CDeviceUpdateResponse
+IO->>Device: I2CInit
+Device->>App: I2CInit
+App->>I2C Class: I2CInit
+I2C Class->>App: I2CUpdateResponse
+App->>Device: I2CUpdateResponse
+Device->>IO: I2CUpdateResponse
 ```
 
 ### Sending data from an I2C component
@@ -76,7 +75,7 @@ While the sequence diagram for this type of message looks simple, the process in
 sequenceDiagram
 autonumber
 
-Device->>IO: I2CDeviceEvent
+Device->>IO: I2CEvent
 ```
 
 
@@ -88,8 +87,8 @@ The process of deleting an I2C device is straightforward and only requires the d
 sequenceDiagram
 autonumber
 
-IO->>Device: I2CDeviceDeinitRequest
-Device->>IO: I2CDeviceDeinitResponse
+IO->>Device: I2CRemove
+Device->>IO: I2CRemoved
 ```
 
 

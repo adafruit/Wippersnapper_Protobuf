@@ -22,11 +22,11 @@ The following WipperSnapper components utilize `pwm.proto`:
 sequenceDiagram
 autonumber
 
-IO-->>Device: PWMAttachRequest
+IO-->>Device: PWMAdd
 Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 5000Hz<br> `resolution` of 12 bits
 
-Device->>IO: PWMAttachResponse
-Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
+Device->>IO: PWMAdded
+Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAdd msg. <br>`did_attach` True if attached.
 ```
 
 
@@ -34,7 +34,7 @@ Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachReques
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PWMWriteDutyCycleRequest
+IO->>Device: PWMWriteDutyCycle
 Note over IO, Device: The duty_cycle (0->255) from the <br>IO slider widget is written to the `pin`.
 ```
 
@@ -42,21 +42,21 @@ Note over IO, Device: The duty_cycle (0->255) from the <br>IO slider widget is w
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PWMDetachRequest
+IO->>Device: PWMRemove
 Note over IO, Device: Detaches GPIO pin from a timer
 
-IO-->>Device: PWMAttachRequest
+IO-->>Device: PWMAdd
 Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 5000Hz<br> `resolution` of 12 bits
 
-Device->>IO: PWMAttachResponse
-Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
+Device->>IO: PWMAdded
+Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAdd msg. <br>`did_attach` True if attached.
 ```
 
 ### Delete: Dimmable LED
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PWMDetachRequest
+IO->>Device: PWMRemove
 Note over IO, Device: Detaches GPIO pin from a timer
 ```
 
@@ -65,13 +65,13 @@ Note over IO, Device: Detaches GPIO pin from a timer
 sequenceDiagram
 autonumber
 
-IO-->>Device: PWMAttachRequest
+IO-->>Device: PWMAdd
 Note over IO, Device: Contains:<br> `pin` according to DB<br>`frequency` of 5000Hz<br> `resolution` of 12 bits
 
-Device->>IO: PWMAttachResponse
-Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
+Device->>IO: PWMAdded
+Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAdd msg. <br>`did_attach` True if attached.
 
-IO->>Device: PWMWriteDutyCycleRequest
+IO->>Device: PWMWriteDutyCycle
 Note over IO, Device: duty_cycle (0->255) from IO feed's last_value.
 ```
 
@@ -81,11 +81,11 @@ Note over IO, Device: duty_cycle (0->255) from IO feed's last_value.
 sequenceDiagram
 autonumber
 
-IO-->>Device: PWMAttachRequest
+IO-->>Device: PWMAdd
 Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 1000Hz<br> `resolution` of 12 bits
 
-Device->>IO: PWMAttachResponse
-Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
+Device->>IO: PWMAdded
+Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAdd msg. <br>`did_attach` True if attached.
 ```
 
 
@@ -93,7 +93,7 @@ Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachReques
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PWMWriteFrequencyRequest
+IO->>Device: PWMWriteFrequency
 Note over IO, Device: Any frequency > 0Hz to play a tone, 0Hz to turn off
 ```
 
@@ -101,21 +101,21 @@ Note over IO, Device: Any frequency > 0Hz to play a tone, 0Hz to turn off
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PWMDetachRequest
+IO->>Device: PWMRemove
 Note over IO, Device: Detaches GPIO pin from a timer
 
-IO-->>Device: PWMAttachRequest
+IO-->>Device: PWMAdd
 Note over IO, Device: Contains:<br> `pin` according to form<br>`frequency` of 1000Hz<br> `resolution` of 12 bits
 
-Device->>IO: PWMAttachResponse
-Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
+Device->>IO: PWMAdded
+Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAdd msg. <br>`did_attach` True if attached.
 ```
 
 ### Delete: Piezo Buzzer
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PWMDetachRequest
+IO->>Device: PWMRemove
 Note over IO, Device: Detaches GPIO pin from a timer
 ```
 
@@ -124,12 +124,12 @@ Note over IO, Device: Detaches GPIO pin from a timer
 sequenceDiagram
 autonumber
 
-IO-->>Device: PWMAttachRequest
+IO-->>Device: PWMAdd
 Note over IO, Device: Contains:<br> `pin` according to DB<br>`frequency` of 1000Hz<br> `resolution` of 12 bits
 
-Device->>IO: PWMAttachResponse
-Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAttachRequest msg. <br>`did_attach` True if attached.
+Device->>IO: PWMAdded
+Note over IO, Device: Contains:<br> `pin` from <br>corresponding PWMAdd msg. <br>`did_attach` True if attached.
 
-IO->>Device: PWMWriteFrequencyRequest
+IO->>Device: PWMWriteFrequency
 Note over IO, Device: frequency, in Hz, from IO feed's last_value.
 ```
