@@ -19,9 +19,9 @@ The following WipperSnapper components utilize `uart.proto`:
 sequenceDiagram
 autonumber
 
-IO-->>WS Device: UARTDeviceAttachRequest
+IO-->>WS Device: UARTAdd
 
-WS Device-->>WS Device Decoder: UARTDeviceAttachRequest
+WS Device-->>WS Device Decoder: UARTAdd
 
 WS Device Decoder-->>WS Device UART: UARTBusData
 Note over WS Device Decoder, WS Device UART: Initialize UART bus using configuration (UARTBusData).
@@ -29,9 +29,9 @@ Note over WS Device Decoder, WS Device UART: Initialize UART bus using configura
 WS Device Decoder-->>WS Device UART: device_id, polling_interval
 Note over WS Device Decoder, WS Device UART: Initialize UART device on the UART bus and associate it with a driver and a polling period.
 
-WS Device UART-->>WS Device: UARTDeviceAttachResponse
+WS Device UART-->>WS Device: UARTAdded
 
-WS Device-->>IO: UARTDeviceAttachResponse
+WS Device-->>IO: UARTAdded
 Note over WS Device, IO: Returns true if successful, False if not.
 ```
 
@@ -41,7 +41,7 @@ Note over WS Device, IO: Returns true if successful, False if not.
 sequenceDiagram
 autonumber
 
-Device-->>IO Broker: UARTDeviceEvent
+Device-->>IO Broker: UARTEvent
 IO Broker -->>IO Backend: Parse out repeated sensor_event into apropriate feeds for device_id
 ```
 

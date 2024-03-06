@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2023-2024 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.uart;
