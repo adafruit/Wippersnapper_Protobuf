@@ -1,0 +1,5 @@
+# pixels.options
+*.Pixels*.pixels_pin_data            max_size: 6
+*.PixelsAdd.pixels_pin_neopixel      max_size:6
+*.PixelsAdd.pixels_pin_dotstar_data  max_size:6
+*.PixelsAdd.pixels_pin_dotstar_clock max_size:6

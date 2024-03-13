@@ -1,0 +1,3 @@
+# signal.options
+*.BrokerToDevice  submsg_callback:true
+*.DeviceToBroker  submsg_callback:true
