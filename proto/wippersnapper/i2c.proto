@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.i2c;
-import "wippersnapper/sensor.proto";
+import "sensor.proto";
 
 /**
 * BusResponse represents the state of the I2C bus, from a device.

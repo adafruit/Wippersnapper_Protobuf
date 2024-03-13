@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.digitalio;
-import "wippersnapper/sensor.proto";
+import "sensor.proto";
 
 /**
 * DigitalIOSampleMode specifies the pin's sample mode.
@@ -49,3 +49,10 @@ message DigitalIOEvent {
   wippersnapper.sensor.SensorEvent value = 2; /** The pin's value. */
 }
 
+/**
+* DigitalIOWrite writes a boolean value to a digital pin.
+*/
+message DigitalIOWrite {
+  string pin_name                        = 1; /** The pin's name. */
+  wippersnapper.sensor.SensorEvent value = 2; /** The pin's value. */
+}

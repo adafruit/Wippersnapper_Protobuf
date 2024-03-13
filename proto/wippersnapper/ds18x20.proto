@@ -3,7 +3,7 @@
 // WipperSnapper's Protobuf communication API for DS18X20 Maxim Temperature ICs
 syntax = "proto3";
 package wippersnapper.ds18x20;
-import "wippersnapper/sensor.proto";
+import "sensor.proto";
 
 /**
 * Ds18x20Add represents a  to initialize

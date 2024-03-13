@@ -1,19 +1,18 @@
-// SPDX-FileCopyrightText: 2020-2023 Brent Rubell, Loren Norman for Adafruit Industries
+// SPDX-FileCopyrightText: 2020-2024 Brent Rubell, Loren Norman for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.signal;
-import "nanopb/nanopb.proto";
-
-import "wippersnapper/analogio.proto";
-import "wippersnapper/checkin.proto";
-import "wippersnapper/digitalio.proto";
-import "wippersnapper/ds18x20.proto";
-import "wippersnapper/error.proto";
-import "wippersnapper/i2c.proto";
-import "wippersnapper/pixels.proto";
-import "wippersnapper/pwm.proto";
-import "wippersnapper/servo.proto";
-import "wippersnapper/uart.proto";
+import "nanopb.proto";
+import "analogio.proto";
+import "checkin.proto";
+import "digitalio.proto";
+import "ds18x20.proto";
+import "error.proto";
+import "i2c.proto";
+import "pixels.proto";
+import "pwm.proto";
+import "servo.proto";
+import "uart.proto";
 
 /*
  * BrokerToDevice
@@ -27,11 +26,12 @@ message BrokerToDevice {
     wippersnapper.digitalio.DigitalIOAdd digitalio_add = 10;
     wippersnapper.digitalio.DigitalIORemove digitalio_remove = 11;
     wippersnapper.digitalio.DigitalIOEvent digitalio_event = 12;
+    wippersnapper.digitalio.DigitalIOWrite digitalio_write = 13;
     // analogio.proto
     wippersnapper.analogio.AnalogIOAdd analogio_add = 20;
     wippersnapper.analogio.AnalogIOAdd analogio_remove = 21;
     // checkin.proto
-    wippersnapper.checkin.CheckinRequest checkin_request = 30;
+    wippersnapper.checkin.CheckinResponse checkin_response = 30;
     // servo.proto
     wippersnapper.servo.ServoAdd servo_add = 40;
     wippersnapper.servo.ServoRemove servo_remove = 41;
@@ -75,7 +75,7 @@ message DeviceToBroker {
     // analogio.proto
     wippersnapper.analogio.AnalogIOEvent analogio_event = 20;
     // checkin.proto
-    wippersnapper.checkin.CheckinResponse checkin_response = 30;
+    wippersnapper.checkin.CheckinRequest checkin_request = 30;
     // servo.proto
     wippersnapper.servo.ServoAdded servo_added = 40;
     // pwm.proto

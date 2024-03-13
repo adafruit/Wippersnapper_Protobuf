@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.uart;
-import "wippersnapper/sensor.proto";
+import "sensor.proto";
 
 /**
 * UARTBusData represents a message to configure a UART bus for communication with a device.
