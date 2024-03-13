@@ -30,7 +30,7 @@ jobs:
       run: |
         mkdir ./python_out
         mkdir ./python_nanopb_out
-        protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*.proto --python_out=./python_out
+        protoc --proto_path=./protobuf-checkout/proto/wippersnapper --python_out=./python_out ./protobuf-checkout/proto/wippersnapper/*.proto
         protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --python_out=./python_nanopb_out
     - uses: actions/upload-artifact@v3
       with:
