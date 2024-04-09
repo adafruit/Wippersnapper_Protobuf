@@ -24,10 +24,16 @@ enum BusResponse {
 * initialize the I2C bus from the broker.
 */
 message I2CBusInit {
-  int32  i2c_pin_scl     = 1; /** The desired I2C SCL pin. */
-  int32  i2c_pin_sda     = 2; /** The desired I2C SDA pin. */
-  uint32 i2c_frequency   = 3; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
-  int32  i2c_port_number = 4; /** The I2C port number. */
+  oneof scl {
+    int32  scl_int  = 1; /** The desired I2C SCL pin. */
+    string scl_str = 2; /** The desired I2C SCL pin. */
+  }
+  oneof sda {
+    int32 sda_int  = 3; /** The desired I2C SDA pin. */
+    string sda_str = 4;    /** The desired I2C SDA pin. */
+  }
+  uint32 i2c_frequency   = 5; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
+  int32  i2c_port_number = 6; /** The I2C port number. */
 }
 
 /**
