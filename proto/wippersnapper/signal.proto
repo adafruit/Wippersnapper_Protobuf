@@ -89,7 +89,7 @@ message DeviceToBroker {
     wippersnapper.uart.UARTAdded uart_added = 90;
     wippersnapper.uart.UARTEvent uart_event = 100;
     // i2c.proto
-    wippersnapper.i2c.I2CBusScanResponse i2c_bus_scan_resp  			 = 110;
+    wippersnapper.i2c.I2CBusScanned i2c_bus_scanned          			 = 110;
     wippersnapper.i2c.I2CDeviceAddedOrReplaced i2c_device_added_replaced = 111;
     wippersnapper.i2c.I2CDeviceRemoved i2c_device_removed     		     = 112;
     wippersnapper.i2c.I2CDeviceEvent i2c_device_event             		 = 113;

@@ -34,10 +34,10 @@ message I2CBusScan {
 }
 
 /**
-* I2CBusScanResponse represents a list of I2C addresses
+* I2CBusScanned represents a list of I2C addresses
 * found on the bus after I2CScan has executed.
 */
-message I2CBusScanResponse {
+message I2CBusScanned {
   repeated uint32 i2c_bus_found_addresses = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
   I2cBusStatus i2c_bus_status             = 2; /** The I2C bus' status. **/
 }
