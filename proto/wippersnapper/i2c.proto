@@ -24,16 +24,7 @@ enum BusResponse {
 * initialize the I2C bus from the broker.
 */
 message I2CBusInit {
-  oneof scl {
-    int32  scl_int  = 1; /** The desired I2C SCL pin. */
-    string scl_str = 2; /** The desired I2C SCL pin. */
-  }
-  oneof sda {
-    int32 sda_int  = 3; /** The desired I2C SDA pin. */
-    string sda_str = 4;    /** The desired I2C SDA pin. */
-  }
-  uint32 i2c_frequency   = 5; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
-  int32  i2c_port_number = 6; /** The I2C port number. */
+  uint32 i2c_frequency = 1; /** The desired I2C SCL frequency, in Hz. Default is 100000Hz. */
 }
 
 /**
@@ -49,8 +40,7 @@ message I2CBusInitResponse {
 * a device's I2C scan.
 */
 message I2CScan {
-  int32 i2c_port_number  = 1; /** The desired I2C port to scan. */
-  I2CBusInit bus_init    = 2; /** The I2C bus initialization . */
+  I2CBusInit bus_init = 2; /** The I2C bus initialization . */
 }
 
 /**
@@ -67,13 +57,12 @@ message I2CScanResponse {
 * an I2C device initialization .
 */
 message I2CInit {
-  int32  i2c_port_number                                            = 1; /** The desired I2C port to initialize an I2C device on. */
-  I2CBusInit i2c_bus_init_req                                       = 2; /** An I2C bus initialization . */
-  uint32 i2c_device_address                                         = 3; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                                            = 4; /** The I2C device's name, MUST MATCH the name on the JSON definition file on
+  I2CBusInit i2c_bus_init_req                                       = 1; /** An I2C bus initialization . */
+  uint32 i2c_device_address                                         = 2; /** The 7-bit I2C address of the device on the bus. */
+  string i2c_device_name                                            = 3; /** The I2C device's name, MUST MATCH the name on the JSON definition file on
                                                                      https://github.com/adafruit/Wippersnapper_Components. */
-  float i2c_device_period                                           = 5; /** The desired period to update the I2C device's sensor(s), in seconds. */
-  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 6; /** SI Types for each sensor on the I2C device. */
+  float i2c_device_period                                           = 4; /** The desired period to update the I2C device's sensor(s), in seconds. */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 5; /** SI Types for each sensor on the I2C device. */
 }
 
 /**
@@ -100,8 +89,7 @@ message I2CUpdateResponse {
 * a deinitialization  for a specific i2c device.
 */
 message I2CRemove {
-  int32  i2c_port_number        = 1; /** The desired I2C port to de-initialize an I2C device on. */
-  uint32 i2c_device_address     = 2; /** The 7-bit I2C address of the device on the bus. */
+  uint32 i2c_device_address = 1; /** The 7-bit I2C address of the device on the bus. */
 }
 
 /**
