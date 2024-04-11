@@ -53,9 +53,9 @@ message BrokerToDevice {
     wippersnapper.uart.UARTAdd uart_add       = 80;
     wippersnapper.uart.UARTRemove uart_remove = 81;
     // i2c.proto
-    wippersnapper.i2c.I2cBusScan i2c_bus_scan    				   = 90;
+    wippersnapper.i2c.I2cBusScan i2c_bus_scan                      = 90;
     wippersnapper.i2c.I2cDeviceAddOrReplace i2c_device_add_replace = 91;
-    wippersnapper.i2c.I2cDeviceRemove i2c_device_remove 	       = 92;
+    wippersnapper.i2c.I2cDeviceRemove i2c_device_remove            = 92;
     // error.proto
     wippersnapper.error.Error error = 100;
   }
@@ -89,9 +89,9 @@ message DeviceToBroker {
     wippersnapper.uart.UARTAdded uart_added = 90;
     wippersnapper.uart.UARTEvent uart_event = 100;
     // i2c.proto
-    wippersnapper.i2c.I2cBusScanned i2c_bus_scanned          			 = 110;
+    wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 110;
     wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 111;
-    wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed     		     = 112;
-    wippersnapper.i2c.I2cDeviceEvent i2c_device_event             		 = 113;
+    wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 112;
+    wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 113;
   }
 }
