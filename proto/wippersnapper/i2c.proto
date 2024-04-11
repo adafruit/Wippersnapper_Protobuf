@@ -5,26 +5,26 @@ package wippersnapper.i2c;
 import "sensor.proto";
 
 /**
-* I2cBusResponse represents the state of a board's I2C bus
+* I2cBusStatus represents the status of a board's I2C bus
 */
-enum I2cBusResponse {
-  I2C_BUS_RESPONSE_UNSPECIFIED         = 0; /** Unspecified error occurred. **/
-  I2C_BUS_RESPONSE_SUCCESS             = 1; /** I2C bus successfully initialized. **/
-  I2C_BUS_RESPONSE_ERROR_HANG          = 2; /** I2C Bus hang, user should reset their board if this persists. **/
-  I2C_BUS_RESPONSE_ERROR_PULLUPS       = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
-  I2C_BUS_RESPONSE_ERROR_WIRING        = 4; /** I2C bus failed to communicate - Please check your wiring. **/
+enum I2cBusStatus {
+  I2C_BUS_STATUS_UNSPECIFIED   = 0; /** Unspecified error occurred. **/
+  I2C_BUS_STATUS_SUCCESS       = 1; /** I2C bus successfully initialized. **/
+  I2C_BUS_STATUS_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
+  I2C_BUS_STATUS_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
+  I2C_BUS_STATUS_ERROR_WIRING  = 4; /** I2C bus failed to communicate - Please check your wiring. **/
 }
 
 /**
-* I2cDeviceResponse represents the state of an I2C device/peripheral
+* I2cDeviceStatus represents the state of an I2C device/peripheral
 */
-enum I2cDeviceResponse {
-  I2C_DEVICE_RESPONSE_UNSPECIFIED           	= 0; /** Unspecified error occurred. **/
-  I2C_DEVICE_RESPONSE_SUCCESS       			= 1; /** I2C device successfully initialized. **/
-  I2C_DEVICE_RESPONSE_FAIL_INIT      			= 2; /** I2C device failed to initialize. **/
-  I2C_DEVICE_RESPONSE_FAIL_DEINIT				= 3; /** I2C device failed to deinitialize. **/
-  I2C_DEVICE_RESPONSE_FAIL_UNSUPPORTED_SENSOR   = 4; /** WipperSnapper version is outdated and does not include this device. **/
-  I2C_DEVICE_RESPONSE_NOT_FOUND				    = 5; /** I2C device not found on the bus. **/
+enum I2cDeviceStatus {
+  I2C_DEVICE_STATUS_UNSPECIFIED           	= 0; /** Unspecified error occurred. **/
+  I2C_DEVICE_STATUS_SUCCESS       			= 1; /** I2C device successfully initialized. **/
+  I2C_DEVICE_STATUS_FAIL_INIT      			= 2; /** I2C device failed to initialize. **/
+  I2C_DEVICE_STATUS_FAIL_DEINIT				= 3; /** I2C device failed to deinitialize. **/
+  I2C_DEVICE_STATUS_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
+  I2C_DEVICE_STATUS_NOT_FOUND				= 5; /** I2C device not found on the bus. **/
 }
 
 /**
@@ -39,7 +39,7 @@ message I2CBusScan {
 */
 message I2CBusScanResponse {
   repeated uint32 i2c_bus_found_addresses = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
-  I2cBusResponse i2c_bus_response         = 2; /** The I2C bus' status. **/
+  I2cBusStatus i2c_bus_status             = 2; /** The I2C bus' status. **/
 }
 
 // DEVICE COMMANDS
@@ -59,9 +59,9 @@ message I2CDeviceAddOrReplace {
 * I2CDeviceAddedOrReplaced contains the response from a device after processing a I2CDeviceAddOrReplace message.
 */
 message I2CDeviceAddedOrReplaced {
-  uint32 i2c_device_address   	        = 1; /** The 7-bit I2C address of the device on the bus. */
-  I2cBusResponse i2c_bus_response       = 2; /** The I2C bus' status. **/
-  I2cDeviceResponse i2c_device_response = 3; /** The I2C device's status. **/
+  uint32 i2c_device_address  		= 1; /** The 7-bit I2C address of the device on the bus. */
+  I2cBusStatus i2c_bus_status       = 2; /** The I2C bus' status. **/
+  I2cDeviceStatus i2c_device_status = 3; /** The I2C device's status. **/
 }
 
 /**
@@ -75,9 +75,9 @@ message I2CDeviceRemove {
 * I2CDeviceRemoved represents a response to a I2CDeviceRemove message.
 */
 message I2CDeviceRemoved {
-  uint32 i2c_device_address		        = 1; /** The 7-bit I2C address of the device which was initialized. */
-  I2cBusResponse i2c_bus_response       = 2; /** The I2C bus' status. **/
-  I2cDeviceResponse i2c_device_response = 3; /** The I2C device's status. **/
+  uint32 i2c_device_address			= 1; /** The 7-bit I2C address of the device which was initialized. */
+  I2cBusStatus i2c_bus_status		= 2; /** The I2C bus' status. **/
+  I2cDeviceStatus i2c_device_status = 3; /** The I2C device's status. **/
 }
 
 /**
