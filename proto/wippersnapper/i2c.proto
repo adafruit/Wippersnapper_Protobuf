@@ -5,9 +5,9 @@ package wippersnapper.i2c;
 import "sensor.proto";
 
 /**
-* I2CBusResponse represents the state of a board's I2C bus
+* I2CBusResp represents the state of a board's I2C bus
 */
-enum I2CBusResponse {
+enum I2CBusResp {
   I2C_BUS_RESPONSE_UNSPECIFIED         = 0; /** Unspecified error occurred. **/
   I2C_BUS_RESPONSE_SUCCESS             = 1; /** I2C bus successfully initialized. **/
   I2C_BUS_RESPONSE_ERROR_HANG          = 2; /** I2C Bus hang, user should reset their board if this persists. **/
@@ -16,15 +16,15 @@ enum I2CBusResponse {
 }
 
 /**
-* I2CDeviceResponse represents the state of an I2C device/peripheral
+* I2CDeviceResp represents the state of an I2C device/peripheral
 */
-enum I2CDeviceResponse {
-I2C_DEVICE_RESPONSE_UNSPECIFIED           	= 0; /** Unspecified error occurred. **/
-I2C_DEVICE_RESPONSE_SUCCESS       			= 1; /** I2C device successfully initialized. **/
-I2C_DEVICE_RESPONSE_FAIL_INIT      			= 2; /** I2C device failed to initialize. **/
-I2C_DEVICE_RESPONSE_FAIL_DEINIT				= 3; /** I2C device failed to deinitialize. **/
-I2C_DEVICE_RESPONSE_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
-I2C_DEVICE_NOT_FOUND					    = 5; /** I2C device not found on the bus. **/
+enum I2CDeviceResp {
+  I2C_DEVICE_RESPONSE_UNSPECIFIED           	= 0; /** Unspecified error occurred. **/
+  I2C_DEVICE_RESPONSE_SUCCESS       			= 1; /** I2C device successfully initialized. **/
+  I2C_DEVICE_RESPONSE_FAIL_INIT      			= 2; /** I2C device failed to initialize. **/
+  I2C_DEVICE_RESPONSE_FAIL_DEINIT				= 3; /** I2C device failed to deinitialize. **/
+  I2C_DEVICE_RESPONSE_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
+  I2C_DEVICE_NOT_FOUND					    = 5; /** I2C device not found on the bus. **/
 }
 
 /**
@@ -39,7 +39,7 @@ message I2CBusScan {
 */
 message I2CBusScanResponse {
   repeated uint32 found_addresses = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
-  I2CBusResponse bus_response     = 2; /** The I2C bus' status. **/
+  I2CBusResp bus_response     = 2; /** The I2C bus' status. **/
 }
 
 // DEVICE COMMANDS
@@ -60,8 +60,8 @@ message I2CDeviceAddOrReplace {
 */
 message I2CDeviceAddedOrReplaced {
   uint32 i2c_device_address   	    = 1; /** The 7-bit I2C address of the device on the bus. */
-  I2CBusResponse bus_response       = 2; /** The I2C bus' status. **/
-  I2CDeviceResponse device_response = 3; /** The I2C device's status. **/
+  I2CBusResp bus_response       = 2; /** The I2C bus' status. **/
+  I2CDeviceResp device_response = 3; /** The I2C device's status. **/
 }
 
 /**
@@ -76,8 +76,8 @@ message I2CDeviceRemove {
 */
 message I2CDeviceRemoved {
   uint32 i2c_device_address		    = 1; /** The 7-bit I2C address of the device which was initialized. */
-  I2CBusResponse bus_response       = 2; /** The I2C bus' status. **/
-  I2CDeviceResponse device_response = 3; /** The I2C device's status. **/
+  I2CBusResp bus_response       = 2; /** The I2C bus' status. **/
+  I2CDeviceResp device_response = 3; /** The I2C device's status. **/
 }
 
 /**
