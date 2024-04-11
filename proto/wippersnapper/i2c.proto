@@ -5,7 +5,7 @@ package wippersnapper.i2c;
 import "sensor.proto";
 
 /**
-* BusResponse represents the state of a board's I2C bus
+* I2CBusResponse represents the state of a board's I2C bus
 */
 enum I2CBusResponse {
   I2C_BUS_RESPONSE_UNSPECIFIED         = 0; /** Unspecified error occurred. **/
@@ -38,8 +38,8 @@ message I2CBusScan {
 * found on the bus after I2CScan has executed.
 */
 message I2CBusScanResponse {
-  repeated uint32 found_addresses  = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
-  BusResponse bus_response         = 2; /** The I2C bus' status. **/
+  repeated uint32 found_addresses = 1 [packed=true]; /** The 7-bit addresses of the I2C devices found on the bus, empty if not found. */
+  I2CBusResponse bus_response     = 2; /** The I2C bus' status. **/
 }
 
 // DEVICE COMMANDS
