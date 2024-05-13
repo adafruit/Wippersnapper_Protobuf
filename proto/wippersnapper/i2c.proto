@@ -13,6 +13,7 @@ enum I2cBusStatus {
   I2C_BUS_STATUS_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
   I2C_BUS_STATUS_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
   I2C_BUS_STATUS_ERROR_WIRING  = 4; /** I2C bus failed to communicate - Please check your wiring. **/
+  I2C_MUX_STATUS_ERROR_INVALID_CHANNEL = 5; /** I2C MUX failed - Output channel must be within range 0-7. **/
 }
 
 /**
@@ -45,10 +46,20 @@ message I2cBusScanned {
 // DEVICE COMMANDS
 
 /**
+* I2cDeviceDescriptor represents the I2c device's address and related metadata.
+*/
+message I2cDeviceDescriptor {
+  uint32 i2c_bus_number     = 1; /** The hardware's I2C bus to address.**/
+  uint32 i2c_mux_address    = 2; /** (Optional) The address of the I2C mux, from 0x70-0x77.**/
+  uint32 i2c_mux_channel    = 3; /** (Optional) The I2C mux's output channel, from 0-7.**/
+  uint32 i2c_device_address = 4; /** The 7-bit address of the i2c device. **/
+}
+
+/**
 * I2cDeviceAddOrReplace is a message for initializing (or replacing/updating) an i2c device.
 */
 message I2cDeviceAddOrReplace {
-  uint32 i2c_device_address                                         = 1; /** The 7-bit I2c address of the device on the bus. */
+  I2cDeviceDescriptor i2c_device_description                        = 1; /** The I2c device's address and metadata. */
   string i2c_device_name                                            = 2; /** The I2c device's name, MUST MATCH the name on the JSON definition file on
                                                                      https://github.com/adafruit/Wippersnapper_Components. */
   float i2c_device_period                                           = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
@@ -59,25 +70,25 @@ message I2cDeviceAddOrReplace {
 * I2cDeviceAddedOrReplaced contains the response from a device after processing a I2cDeviceAddOrReplace message.
 */
 message I2cDeviceAddedOrReplaced {
-  uint32 i2c_device_address         = 1; /** The 7-bit I2c address of the device on the bus. */
-  I2cBusStatus i2c_bus_status       = 2; /** The I2c bus' status. **/
-  I2cDeviceStatus i2c_device_status = 3; /** The I2c device's status. **/
+  I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
+  I2cBusStatus i2c_bus_status                = 2; /** The I2c bus' status. **/
+  I2cDeviceStatus i2c_device_status          = 3; /** The I2c device's status. **/
 }
 
 /**
 * I2cDeviceRemove represents a request to de-init an i2c device.
 */
 message I2cDeviceRemove {
-  uint32 i2c_device_address = 1; /** The 7-bit I2c address of the device on the bus. */
+  I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
 }
 
 /**
 * I2cDeviceRemoved represents a response to a I2cDeviceRemove message.
 */
 message I2cDeviceRemoved {
-  uint32 i2c_device_address         = 1; /** The 7-bit I2c address of the device which was initialized. */
-  I2cBusStatus i2c_bus_status       = 2; /** The I2c bus' status. **/
-  I2cDeviceStatus i2c_device_status = 3; /** The I2c device's status. **/
+  I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
+  I2cBusStatus i2c_bus_status                = 2; /** The I2c bus' status. **/
+  I2cDeviceStatus i2c_device_status          = 3; /** The I2c device's status. **/
 }
 
 /**
@@ -86,6 +97,6 @@ message I2cDeviceRemoved {
 * the I2c device contains > 1 sensor.
 */
 message I2cDeviceEvent {
-  uint32 i2c_device_address                                   = 1; /** The 7-bit I2c address of the I2c device. */
+  I2cDeviceDescriptor i2c_device_description                  = 1; /** The I2c device's address and metadata. */
   repeated wippersnapper.sensor.SensorEvent i2c_device_events = 2; /** A, optionally repeated, SensorEvent from a sensor. */
 }
