@@ -39,7 +39,7 @@ message I2cBusScan {
 * found on the bus after I2cScan has executed.
 */
 message I2cBusScanned {
-  repeated I2cDeviceDescriptor i2c_bus_found_devices = 1 [packed=true]; /** The 7-bit addresses of the I2c devices found on the bus, empty if not found. */
+  repeated I2cDeviceDescriptor i2c_bus_found_devices = 1; /** The 7-bit addresses of the I2c devices found on the bus, empty if not found. */
   I2cBusStatus i2c_bus_status                        = 2; /** The I2c bus' status. **/
 }
 
