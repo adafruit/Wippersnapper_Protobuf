@@ -56,8 +56,7 @@ message PixelsAdded {
 * Removes a strand of addressable pixels and release the resources and pin.
 */
 message PixelsRemove {
-  PixelsType pixels_type = 1; /** Defines the model/type of pixel strand */
-  string pixels_pin_data = 2; /** Data pin a strand is connected to. */
+  string pixels_pin_data = 1; /** Data pin the pixel strand is connected to. */
 }
 
 /**
@@ -65,8 +64,7 @@ message PixelsRemove {
 * Writes to a strand of pixels.
 */
 message PixelsWrite {
-  PixelsType pixels_type   = 1; /** Defines the model/type of pixel strand */
-  string pixels_pin_data   = 2; /** Data pin a strand is connected to. */
-  uint32 pixels_color      = 3; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels),
+  string pixels_pin_data   = 1; /** Data pin a strand is connected to. */
+  uint32 pixels_color      = 2; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels),
                                    next is red, then green, and least significant byte is blue. */
 }
