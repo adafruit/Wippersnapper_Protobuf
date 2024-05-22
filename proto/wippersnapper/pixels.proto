@@ -38,7 +38,7 @@ message PixelsAdd {
   uint32 pixels_num               = 2; /** Number of pixels attached to strand. */
   PixelsOrder pixels_ordering     = 3; /** Defines the pixel strand's color ordering. */
   uint32 pixels_brightness        = 4; /** Strand brightness, 0 to 255 */
-  string pixels_pin_neopixel      = 5; /** Generic pin a NeoPixel strand is connected to. */
+  string pixels_pin_neopixel_data = 5; /** Data pin a NeoPixel strand is connected to. */
   string pixels_pin_dotstar_data  = 6; /** Data pin a DotStar strand is connected to. */
   string pixels_pin_dotstar_clock = 7; /** Clock pin a DotStar strand is connected to. */
 }
