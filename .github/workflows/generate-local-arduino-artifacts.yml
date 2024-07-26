@@ -1,5 +1,5 @@
 name: Generate new Arduino Protocol Buffer wrapper files and upload them as artifacts
-on: [ pull_request ]
+on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
