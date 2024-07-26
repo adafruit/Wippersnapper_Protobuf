@@ -6,48 +6,41 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-    - name: Install Protoc
-      uses: arduino/setup-protoc@v1
-      with:
-        version: '3.13.0'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip3 install scons protobuf grpcio-tools
-    - name: Self Checkout
-      uses: actions/checkout@v3
-      with:
-        path: protobuf-checkout
-        submodules: true
-    - name: Configure Git
-      run: |
-        git config --global user.name adafruitio
-        git config --global user.email adafruitio@adafruit.com
-    - name: Generate Arduino files from .proto Files
-      env:
-        PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
-      run: |
-        mkdir ./arduino_out
-        mkdir ./output
-        #protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb -Iprotobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout/proto/wippersnapper ./protobuf-checkout/proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./protobuf-checkout/proto --nanopb_opt=-t
-        protoc --proto_path=./protobuf-checkout/nanopb/generator/proto --proto_path=./protobuf-checkout --python_out=./output ./protobuf-checkout/proto/wippersnapper/nanopb.proto
-        # Local (non-CI) build command is commented out below:
-        # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
-    - name: Checkout Arduino Repo
-      uses: actions/checkout@v3
-      with:
-        path: arduino-repo
-    - name: Upload Arduino Wrappers Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-arduino-wrappers
-        path: ./arduino_out
-    - name: Upload Arduino Nanopb Out Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-arduino-nanopb-out
-        path: ./arduino_out
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          version: "3.13.0"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip3 install scons protobuf grpcio-tools
+      - name: Self Checkout
+        uses: actions/checkout@v3
+        with:
+          path: protobuf-checkout
+          submodules: true
+      - name: Configure Git
+        run: |
+          git config --global user.name adafruitio
+          git config --global user.email adafruitio@adafruit.com
+      - name: Generate Arduino files from .proto Files
+        env:
+          PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
+        run: |
+          mkdir ./arduino_out
+          protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto/wippersnapper --proto_path=nanopb/generator/proto ./protobuf-checkout/proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+          # Local (non-CI) build command is commented out below, use this to compile on your machine:
+          # protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+      - name: Checkout Arduino Repo
+        uses: actions/checkout@v3
+        with:
+          path: arduino-repo
+      - name: Upload Arduino Wrappers Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-arduino-wrappers
+          path: ./arduino_out
