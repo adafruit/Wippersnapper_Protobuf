@@ -1,5 +1,7 @@
 name: Generate new Arduino Protocol Buffer wrapper files and upload them as artifacts
+
 on: [pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +15,7 @@ jobs:
         version: '3.13.0'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Python dependencies
-      run : |
+      run: |
         python -m pip install --upgrade pip
         pip3 install scons protobuf grpcio-tools
     - name: Self Checkout
@@ -34,11 +36,16 @@ jobs:
         # Local (non-CI) build command is commented out below:
         # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
     - name: Checkout Arduino Repo
-    - uses: actions/upload-artifact@v3
+      uses: actions/checkout@v3
       with:
-          name: build-arduino-wrappers
-          path: ./arduino_out 
-    - uses: actions/upload-artifact@v3
+        path: arduino-repo
+    - name: Upload Arduino Wrappers Artifact
+      uses: actions/upload-artifact@v3
       with:
-          name: build-arduino-nanopb-out
-          path: ./arduino_out 
+        name: build-arduino-wrappers
+        path: ./arduino_out
+    - name: Upload Arduino Nanopb Out Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-arduino-nanopb-out
+        path: ./arduino_out
