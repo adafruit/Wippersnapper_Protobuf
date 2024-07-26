@@ -1,5 +1,7 @@
 name: Generate .proto Wrapper Files
-on: [ pull_request ]
+on:
+  push:
+    branches: master
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
