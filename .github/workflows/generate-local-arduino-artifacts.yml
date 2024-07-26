@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
       - name: Install Protoc
@@ -19,7 +19,7 @@ jobs:
           python -m pip install --upgrade pip
           pip3 install scons protobuf grpcio-tools
       - name: Self Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: protobuf-checkout
           submodules: true
@@ -36,11 +36,11 @@ jobs:
           # Local (non-CI) build command is commented out below, use this to compile on your machine:
           # protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
       - name: Checkout Arduino Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: arduino-repo
       - name: Upload Arduino Wrappers Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-arduino-wrappers
           path: ./arduino_out
