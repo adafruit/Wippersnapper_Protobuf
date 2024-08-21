@@ -74,9 +74,9 @@ jobs:
           PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
         run: |
           mkdir ./arduino_out
-          protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto/wippersnapper --proto_path=nanopb/generator/proto ./protobuf-checkout/proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+          protoc --plugin=protobuf-checkout/nanopb/generator/protoc-gen-nanopb --proto_path=./protobuf-checkout/proto/wippersnapper --proto_path=nanopb/generator/proto ./protobuf-checkout/proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-t
           # Local (non-CI) build command is commented out below, use this to compile on your machine:
-          # protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t
+          # protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto  --nanopb_out=./arduino_out --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-t
       - name: Checkout Arduino Repo
         uses: actions/checkout@v4
         with:
