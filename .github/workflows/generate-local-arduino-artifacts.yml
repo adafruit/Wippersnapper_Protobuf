@@ -31,8 +31,8 @@ jobs:
         env:
           PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION: python
         run: |
-          mkdir ./arduino_out
           cd protobuf-checkout/
+          mkdir ./arduino_out
           protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-v
           # Local (non-CI) build command is commented out below, use this to compile on your machine:
           # protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto  --nanopb_out=./arduino_out --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-t
