@@ -1,6 +1,5 @@
 # i2c.options
-wippersnapper.i2c.I2CInit.i2c_device_name                max_size:15
-wippersnapper.i2c.I2CScanResponse.i2c_bus_found_devices  max_count:120
-wippersnapper.i2c.I2CInit.i2c_device_name                max_size:15
-wippersnapper.i2c.I2CInit.sensor_properties              max_count:15
-wippersnapper.i2c.I2CEvent.sensor_events                 max_count:15
+wippersnapper.i2c.I2cBusScanned.i2c_bus_found_devices            max_count:120
+wippersnapper.i2c.I2cDeviceAddOrReplace.i2c_device_name          max_size:15
+wippersnapper.i2c.I2cDeviceAddOrReplace.i2c_device_sensor_types  max_count:15
+wippersnapper.i2c.I2cDeviceEvent.i2c_device_events               max_count:15
