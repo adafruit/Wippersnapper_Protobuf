@@ -1,5 +1,8 @@
 # uart.options
-*.UART*.device_id         max_count:15
-*.UARTBusData.pin_rx      max_size:6
-*.UARTBusData.pin_tx      max_size:6
-*.UARTEvent.sensor_events max_size:2
+wippersnapper.uart.UARTAdd.device_id       max_count:15
+wippersnapper.uart.UARTAdded.device_id     max_count:15
+wippersnapper.uart.UARTRemove.device_id    max_count:15
+wippersnapper.uart.UARTEvent.device_id     max_count:15
+wippersnapper.uart.UARTBusData.pin_rx      max_size:6
+wippersnapper.uart.UARTBusData.pin_tx      max_size:6
+wippersnapper.uart.UARTEvent.sensor_events max_size:2

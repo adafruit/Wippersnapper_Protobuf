@@ -1,3 +1,7 @@
 # pwm.options
-*.PWM*.pin                                     max_size:6
-*.PWMWriteDutyCycleMulti.write_duty_cycle_reqs max_count:4
+wippersnapper.pwm.PWMAdd.pin                                   max_size:6
+wippersnapper.pwm.PWMAdded.pin                                 max_size:6
+wippersnapper.pwm.PWMRemove.pin                                max_size:6
+wippersnapper.pwm.PWMWriteDutyCycle.pin                        max_size:6
+wippersnapper.pwm.PWMWriteFrequency.pin                        max_size:6
+wippersnapper.pwm.PWMWriteDutyCycleMulti.write_duty_cycle_reqs max_count:4
