@@ -1,4 +1,4 @@
 # analogio.options
 wippersnapper.analogio.AnalogIOAdd.pin_name     max_size: 64
-wippersnapper.digitalio.AnalogIORemove.pin_name max_size: 64
-wippersnapper.digitalio.AnalogIOEvent.pin_name  max_size: 64
+wippersnapper.analogio.AnalogIORemove.pin_name  max_size: 64
+wippersnapper.analogio.AnalogIOEvent.pin_name   max_size: 64
