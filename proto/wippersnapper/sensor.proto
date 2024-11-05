@@ -95,6 +95,5 @@ message SensorEvent {
 */
 message SensorProperty {
   string key   = 1; /** The property's key. */
-  /* Possibly switch value to oneOf float/string/bool/bytes? */
-  string value = 2; /** The property's value. */
+  string value = 2; /** The property's value. Possibly switch value to oneOf float/string/bool/bytes? */
 }
