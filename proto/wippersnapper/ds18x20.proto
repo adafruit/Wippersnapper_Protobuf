@@ -3,6 +3,7 @@
 // WipperSnapper's Protobuf communication API for DS18X20 Maxim Temperature ICs
 syntax = "proto3";
 package wippersnapper.ds18x20;
+import "i2c.proto";
 import "sensor.proto";
 
 /**
@@ -11,10 +12,11 @@ import "sensor.proto";
 * NOTE: This API currently only supports ONE device per OneWire bus.
 */
 message Ds18x20Add {
-  string onewire_pin                                      = 1; /** The desired pin to use as a OneWire bus. */
-  int32  sensor_resolution                                = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
-  float period                                            = 3; /** The desired period to read the sensor, in seconds. */
-  repeated wippersnapper.sensor.SensorType  sensor_types  = 4; /** SI types used by the DS18x20 sensor. */
+  string onewire_pin                                        = 1; /** The desired pin to use as a OneWire bus. */
+  int32  sensor_resolution                                  = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
+  float period                                              = 3; /** The desired period to read the sensor, in seconds. */
+  repeated wippersnapper.sensor.SensorType  sensor_types    = 4; /** SI types used by the DS18x20 sensor. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 5; /** The I2C device/mux's address and related metadata. */
 }
 
 /**
@@ -22,8 +24,9 @@ message Ds18x20Add {
 * to a Ds18x20Add message.
 */
 message Ds18x20Added {
-  bool is_initialized  = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
-  string onewire_pin   = 2; /** The pin being used as a OneWire bus. */
+  bool is_initialized                                       = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
+  string onewire_pin                                        = 2; /** The pin being used as a OneWire bus. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 3; /** The I2C device/mux's address and related metadata. */
 }
 
 /**
@@ -31,13 +34,15 @@ message Ds18x20Added {
 * Maxim temperature sensor, from the broker.
 */
 message Ds18x20Remove {
-  string onewire_pin  = 1; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
+  string onewire_pin                                        = 1; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 2; /** The I2C device/mux's address and related metadata. */
 }
 
 /**
 * Ds18x20Event event represents data from **one** DS18X20 sensor.
 */
 message Ds18x20Event {
-  string onewire_pin                                         = 1; /** The desired pin to use as a OneWire bus. */
-  repeated wippersnapper.sensor.SensorEvent sensor_events = 2; /** The DS18X20's SensorEvent. */
+  string onewire_pin                                        = 1; /** The desired pin to use as a OneWire bus. */
+  repeated wippersnapper.sensor.SensorEvent sensor_events   = 2; /** The DS18X20's SensorEvent. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 3; /** The I2C device/mux's address and related metadata. */
 }
