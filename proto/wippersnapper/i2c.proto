@@ -29,6 +29,16 @@ enum I2cDeviceStatus {
 }
 
 /**
+* I2cDeviceDescriptor represents the I2c device's address and related metadata.
+*/
+message I2cDeviceDescriptor {
+  uint32 i2c_bus                = 1; /** The desired I2C bus to address.**/
+  uint32 i2c_device_address     = 2; /** I2C Device's Address. **/
+  uint32 i2c_mux_address        = 3; /** Optional I2C multiplexer address. **/
+  uint32 i2c_mux_channel        = 4; /** Optional I2C multiplexer channel. **/
+}
+
+/**
 * I2cBusScan represents a command for a device to perform an i2c scan. It is an empty message.
 */
 message I2cBusScan {
@@ -44,15 +54,6 @@ message I2cBusScanned {
 }
 
 // DEVICE COMMANDS
-
-/**
-* I2cDeviceDescriptor represents the I2c device's address and related metadata.
-*/
-message I2cDeviceDescriptor {
-  uint32 i2c_bus                = 1; /** The desired i2c bus to address.**/
-  uint32 i2c_device_mux_address = 2; /** The desired address of the I2C device or (optionally) the I2C MUX address.**/
-  uint32 i2c_mux_channel        = 3; /** (Optional) The desired I2C mux's output channel, from 0-7.**/
-}
 
 /**
 * I2cDeviceAddOrReplace is a message for initializing (or replacing/updating) an i2c device.
