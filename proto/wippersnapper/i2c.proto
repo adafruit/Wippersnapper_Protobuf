@@ -32,10 +32,11 @@ enum I2cDeviceStatus {
 * I2cDeviceDescriptor represents the I2c device's address and related metadata.
 */
 message I2cDeviceDescriptor {
-  uint32 i2c_bus                = 1; /** The desired I2C bus to address.**/
-  uint32 i2c_device_address     = 2; /** I2C Device's Address. **/
-  uint32 i2c_mux_address        = 3; /** Optional I2C multiplexer address. **/
-  uint32 i2c_mux_channel        = 4; /** Optional I2C multiplexer channel. **/
+  string i2c_bus_sda        = 1; /** Optional SDA pin for an alt. i2c bus.**/
+  string i2c_bus_scl        = 2; /** Optional SCL pin for an alt. i2c bus.**/
+  uint32 i2c_device_address = 3; /** I2C Device's Address. **/
+  uint32 i2c_mux_address    = 4; /** Optional I2C multiplexer address. **/
+  uint32 i2c_mux_channel    = 5; /** Optional I2C multiplexer channel. **/
 }
 
 /**
