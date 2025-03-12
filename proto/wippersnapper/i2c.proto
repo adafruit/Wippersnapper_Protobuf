@@ -40,12 +40,31 @@ message I2cDeviceDescriptor {
 }
 
 /**
+* I2cMuxDescriptor represents the I2c multiplexer's address and related metadata.
+*/
+message I2cMuxDescriptor {
+  bool use_default_bus   = 1; /** True if the mux is on the default I2C bus, False otherwise. **/
+  uint32 i2c_mux_address = 2; /** I2C multiplexer address. **/
+  uint32 i2c_mux_channel = 3; /** I2C multiplexer channel. **/
+}
+
+/**
+* I2cBusDescriptor represents the I2c bus' SDA and SCL pins.
+*/
+message I2cBusDescriptor {
+  string i2c_bus_sda = 1; /** SDA pin for an i2c bus.**/
+  string i2c_bus_scl = 2; /** SCL pin for an i2c bus.**/
+}
+
+/**
 * I2cBusScan represents a command for a device to perform an i2c scan.
 */
 message I2cBusScan {
-  bool scan_default_bus = 1; /** If true, linearly scan across the default hardware I2C bus. If false, linear scan across alt. hardware I2C bus. **/
-  bool scan_mux         = 2; /** If true, request a scan on an I2C multiplexer connected to a bus. If false or not marked, ignore. **/
-  I2cDeviceDescriptor i2c_device_description = 3; /** Optional I2C bus metadata. **/
+  bool scan_default_bus                         = 1; /** Default - Scan for i2c devices on the hardware's default I2C bus.**/
+  bool scan_alt_bus                             = 2; /** Optional - Scan for i2c devices on an alternative I2C bus.**/
+  I2cBusDescriptor i2c_alt_bus_descriptor       = 3; /** Optional - Metadata to optionally initialize (if not already init'd) an alt. i2c bus.**/
+  bool scan_muxes                               = 4; /** Optional - Scan 1+ I2C multiplexers connected to an I2C bus. **/
+  repeated I2cMuxDescriptor i2c_mux_descriptors = 5; /** Optional - I2C multiplexer addresses and channels. **/
 }
 
 /**
