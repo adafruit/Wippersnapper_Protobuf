@@ -45,7 +45,6 @@ message I2cDeviceDescriptor {
 message I2cMuxDescriptor {
   bool use_default_bus   = 1; /** True if the mux is on the default I2C bus, False otherwise. **/
   uint32 i2c_mux_address = 2; /** I2C multiplexer address. **/
-  uint32 i2c_mux_channel = 3; /** I2C multiplexer channel. **/
 }
 
 /**
