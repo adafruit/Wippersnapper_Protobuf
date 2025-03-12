@@ -40,11 +40,12 @@ message I2cDeviceDescriptor {
 }
 
 /**
-* I2cBusScan represents a command for a device to perform an i2c scan. It is an empty message.
+* I2cBusScan represents a command for a device to perform an i2c scan.
 */
 message I2cBusScan {
-  string i2c_bus_sda        = 1; /** Optional SDA pin for an alt. i2c bus.**/
-  string i2c_bus_scl        = 2; /** Optional SCL pin for an alt. i2c bus.**/
+  bool scan_default_bus = 1; /** If true, linearly scan across the default hardware I2C bus. If false, linear scan across alt. hardware I2C bus. **/
+  bool scan_mux         = 2; /** If true, request a scan on an I2C multiplexer connected to a bus. If false or not marked, ignore. **/
+  I2cDeviceDescriptor i2c_device_description = 3; /** Optional I2C bus metadata. **/
 }
 
 /**

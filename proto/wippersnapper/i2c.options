@@ -5,5 +5,3 @@ wippersnapper.i2c.I2cDeviceAddOrReplace.i2c_device_sensor_types  max_count:15
 wippersnapper.i2c.I2cDeviceEvent.i2c_device_events               max_count:15
 wippersnapper.i2c.I2cDeviceDescriptor.i2c_bus_sda                max_size:15
 wippersnapper.i2c.I2cDeviceDescriptor.i2c_bus_scl                max_size:15
-wippersnapper.i2c.I2cBusScan.i2c_bus_sda                         max_size:15
-wippersnapper.i2c.I2cBusScan.i2c_bus_scl                         max_size:15
