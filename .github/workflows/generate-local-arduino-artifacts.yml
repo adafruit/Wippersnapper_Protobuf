@@ -33,7 +33,7 @@ jobs:
         run: |
           cd protobuf-checkout/
           mkdir ./arduino_out
-          protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-v
+          protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-v --experimental_allow_proto3_optional
           # Local (non-CI) build command is commented out below, use this to compile on your machine:
           # protoc --plugin=nanopb/generator/protoc-gen-nanopb --proto_path=./proto/wippersnapper --proto_path=nanopb/generator/proto ./proto/wippersnapper/*.proto  --nanopb_out=./arduino_out --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-t
       - name: Checkout Arduino Repo

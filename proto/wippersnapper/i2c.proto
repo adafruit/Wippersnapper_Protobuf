@@ -63,11 +63,12 @@ message I2cBusScanned {
 * I2cDeviceAddOrReplace is a message for initializing (or replacing/updating) an i2c device.
 */
 message I2cDeviceAddOrReplace {
-  I2cDeviceDescriptor i2c_device_description                        = 1; /** The I2c device's address and metadata. */
-  string i2c_device_name                                            = 2; /** The I2c device's name, MUST MATCH the name on the JSON definition file on
-                                                                     https://github.com/adafruit/Wippersnapper_Components. */
-  float i2c_device_period                                           = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
-  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 4; /** SI Types for each sensor on the I2c device. */
+  I2cDeviceDescriptor i2c_device_description                         = 1; /** The I2c device's address and metadata. */
+  string i2c_device_name                                             = 2; /** The I2c device's name, MUST MATCH the name on the JSON definition file
+                                                                     on https://github.com/adafruit/Wippersnapper_Components. */
+  float i2c_device_period                                            = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types   = 4; /** SI Types for each sensor on the I2c device. */
+  repeated wippersnapper.sensor.SensorProperty i2c_device_properties = 5; /** Custom Properties for the I2c device. */
 }
 
 /**

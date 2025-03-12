@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.digitalio;
+import "i2c.proto";
 import "sensor.proto";
 
 /**
@@ -27,32 +28,36 @@ enum DigitalIODirection {
 * DigitalIOAdd adds a digital pin to the device.
 */
 message DigitalIOAdd {
-  string pin_name                   = 1; /** The pin's name. */
-  DigitalIODirection gpio_direction = 2; /** The pin's direction. */
-  DigitalIOSampleMode sample_mode   = 3; /** Specifies the pin's sample mode. */
-  float period                      = 4; /** Time between measurements in seconds, if MODE_TIMER. */
-  bool value                        = 5; /** Re-sync only - send the pin's value. */
+  string pin_name                                           = 1; /** The pin's name. */
+  DigitalIODirection gpio_direction                         = 2; /** The pin's direction. */
+  DigitalIOSampleMode sample_mode                           = 3; /** Specifies the pin's sample mode. */
+  float period                                              = 4; /** Time between measurements in seconds, if MODE_TIMER. */
+  bool value                                                = 5; /** Re-sync only - send the pin's value. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 6; /** The I2C device/mux's address and related metadata. */
 }
 
 /**
 * DigitalIORemove removes a digital pin from the device.
 */
 message DigitalIORemove {
-  string pin_name = 1; /** The pin's name. */
+  string pin_name                                           = 1; /** The pin's name. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 2; /** The I2C device/mux's address and related metadata. */
 }
 
 /**
 * DigitalIOEvent is sent from the device to the broker when a digital pin's value changes.
 */
 message DigitalIOEvent {
-  string pin_name                        = 1; /** The pin's name. */
-  wippersnapper.sensor.SensorEvent value = 2; /** The pin's value. */
+  string pin_name                                           = 1; /** The pin's name. */
+  wippersnapper.sensor.SensorEvent value                    = 2; /** The pin's value. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 3; /** The I2C device/mux's address and related metadata. */
 }
 
 /**
 * DigitalIOWrite writes a boolean value to a digital pin.
 */
 message DigitalIOWrite {
-  string pin_name                        = 1; /** The pin's name. */
-  wippersnapper.sensor.SensorEvent value = 2; /** The pin's value. */
+  string pin_name                                           = 1; /** The pin's name. */
+  wippersnapper.sensor.SensorEvent value                    = 2; /** The pin's value. */
+  optional wippersnapper.i2c.I2cDeviceDescriptor i2c_device = 3; /** The I2C device/mux's address and related metadata. */
 }

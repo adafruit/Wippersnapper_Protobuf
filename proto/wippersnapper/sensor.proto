@@ -89,3 +89,11 @@ message SensorEvent {
     float heading = 3; /** The sensor's heading value as a float. */
   }
 }
+
+/**
+* SensorProperty is used to receive a sensor's custom properties.
+*/
+message SensorProperty {
+  string key   = 1; /** The property's key. */
+  string value = 2; /** The property's value. Possibly switch value to oneOf float/string/bool/bytes? */
+}
