@@ -43,6 +43,8 @@ message I2cDeviceDescriptor {
 * I2cBusScan represents a command for a device to perform an i2c scan. It is an empty message.
 */
 message I2cBusScan {
+  string i2c_bus_sda        = 1; /** Optional SDA pin for an alt. i2c bus.**/
+  string i2c_bus_scl        = 2; /** Optional SCL pin for an alt. i2c bus.**/
 }
 
 /**
