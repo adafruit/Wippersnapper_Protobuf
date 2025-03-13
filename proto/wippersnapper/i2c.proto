@@ -101,8 +101,7 @@ message I2cDeviceRemove {
 */
 message I2cDeviceRemoved {
   I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
-  I2cBusStatus i2c_bus_status                = 2; /** The I2c bus' status. **/
-  I2cDeviceStatus i2c_device_status          = 3; /** The I2c device's status. **/
+  bool did_remove                            = 2; /** True if the I2C device was successfully removed from the controller, False otherwise. **/
 }
 
 /**
