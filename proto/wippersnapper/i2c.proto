@@ -78,6 +78,7 @@ message I2cDeviceAddOrReplace {
                                                                      https://github.com/adafruit/Wippersnapper_Components. */
   float i2c_device_period                                           = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
   repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 4; /** SI Types for each sensor on the I2c device. */
+  bool is_persistent                                    = 5; /** Offline-Mode ONLY - True if the device exits in the config file, False otherwise. **/
 }
 
 /**
