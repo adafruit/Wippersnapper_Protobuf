@@ -3,39 +3,35 @@
 syntax = "proto3";
 package wippersnapper.uart;
 
+/**
+* SerialConfig contains the configuration (data, parity, and stop bits) for a serial bus.
+*/
 enum SerialConfig {
-  SERIAL_CONFIG_UNSPECIFIED = 0;
-  // DEFAULT (8 data bits, no parity, 1 stop bit)
-  SERIAL_CONFIG_8N1 = 1;
-  // (1 stop bit, no parity)
-  SERIAL_CONFIG_5N1 = 2;
-  SERIAL_CONFIG_6N1 = 3;
-  SERIAL_CONFIG_7N1 = 4;
-  // (2 stop bits, no parity)
-  SERIAL_CONFIG_5N2 = 5;
-  SERIAL_CONFIG_6N2 = 6;
-  SERIAL_CONFIG_7N2 = 7;
-  SERIAL_CONFIG_8N2 = 8;
-  // (1 stop bit, even parity)
-  SERIAL_CONFIG_5E1 = 9;
-  SERIAL_CONFIG_6E1 = 10;
-  SERIAL_CONFIG_7E1 = 11;
-  SERIAL_CONFIG_8E1 = 12;
-  // (2 stop bits, even parity)
-  SERIAL_CONFIG_5E2 = 13;
-  SERIAL_CONFIG_6E2 = 14;
-  SERIAL_CONFIG_7E2 = 15;
-  SERIAL_CONFIG_8E2 = 16;
-  // (1 stop bit, odd parity)
-  SERIAL_CONFIG_5O1 = 17;
-  SERIAL_CONFIG_6O1 = 18;
-  SERIAL_CONFIG_7O1 = 19;
-  SERIAL_CONFIG_8O1 = 20;
-  // (2 stop bits, odd parity)
-  SERIAL_CONFIG_5O2 = 21;
-  SERIAL_CONFIG_6O2 = 22;
-  SERIAL_CONFIG_7O2 = 23;
-  SERIAL_CONFIG_8O2 = 24;
+  SERIAL_CONFIG_UNSPECIFIED = 0; // Config was not specified by IO.
+  SERIAL_CONFIG_8N1 = 1; // 8 data bits, no parity, 1 stop bit
+  SERIAL_CONFIG_5N1 = 2; // 5 data bits, no parity, 1 stop bit
+  SERIAL_CONFIG_6N1 = 3; // 6 data bits, no parity, 1 stop bit
+  SERIAL_CONFIG_7N1 = 4; // 7 data bits, no parity, 1 stop bit
+  SERIAL_CONFIG_5N2 = 5; // 5 data bits, no parity, 2 stop bits
+  SERIAL_CONFIG_6N2 = 6; // 6 data bits, no parity, 2 stop bits
+  SERIAL_CONFIG_7N2 = 7; // 7 data bits, no parity, 2 stop bits
+  SERIAL_CONFIG_8N2 = 8; // 8 data bits, no parity, 2 stop bits
+  SERIAL_CONFIG_5E1 = 9; // 5 data bits, even parity, 1 stop bit
+  SERIAL_CONFIG_6E1 = 10; // 6 data bits, even parity, 1 stop bit
+  SERIAL_CONFIG_7E1 = 11; // 7 data bits, even parity, 1 stop bit
+  SERIAL_CONFIG_8E1 = 12; // 8 data bits, even parity, 1 stop bit
+  SERIAL_CONFIG_5E2 = 13; // 5 data bits, even parity, 2 stop bits
+  SERIAL_CONFIG_6E2 = 14; // 6 data bits, even parity, 2 stop bits
+  SERIAL_CONFIG_7E2 = 15; // 7 data bits, even parity, 2 stop bits
+  SERIAL_CONFIG_8E2 = 16; // 8 data bits, even parity, 2 stop bits
+  SERIAL_CONFIG_5O1 = 17; // 5 data bits, odd parity, 1 stop bit
+  SERIAL_CONFIG_6O1 = 18; // 6 data bits, odd parity, 1 stop bit
+  SERIAL_CONFIG_7O1 = 19; // 7 data bits, odd parity, 1 stop bit
+  SERIAL_CONFIG_8O1 = 20; // 8 data bits, odd parity, 1 stop bit
+  SERIAL_CONFIG_5O2 = 21; // 5 data bits, odd parity, 2 stop bits
+  SERIAL_CONFIG_6O2 = 22; // 6 data bits, odd parity, 2 stop bits
+  SERIAL_CONFIG_7O2 = 23; // 7 data bits, odd parity, 2 stop bits
+  SERIAL_CONFIG_8O2 = 24; // 8 data bits, odd parity, 2 stop bits
 }
 
 /**
@@ -82,6 +78,6 @@ message UARTRemove {
 * UARTEvent represents incoming data from a UART sensor.
 */
 message UARTEvent {
-  string driver                                            = 1; /** Unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
+  string driver                                            = 1; /** The unique identifier of the UART driver. */
   repeated wippersnapper.sensor.SensorEvent sensor_events  = 2; /** An optionally repeated event from a sensor. */
 }
