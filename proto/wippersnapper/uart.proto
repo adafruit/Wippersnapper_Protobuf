@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.uart;
+import "sensor.proto";
 
 /**
 * SerialConfig contains the configuration (data, parity, and stop bits) for a serial bus.
