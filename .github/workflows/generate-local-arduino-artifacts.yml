@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.13.2"
       - name: Install Protoc
         uses: arduino/setup-protoc@v1
         with:
