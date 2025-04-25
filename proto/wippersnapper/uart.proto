@@ -1,29 +1,64 @@
-// SPDX-FileCopyrightText: 2023-2024 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2023-2025 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.uart;
-import "sensor.proto";
+
+enum SerialConfig {
+  SERIAL_CONFIG_UNSPECIFIED = 0;
+  // DEFAULT (8 data bits, no parity, 1 stop bit)
+  SERIAL_CONFIG_8N1 = 1;
+  // (1 stop bit, no parity)
+  SERIAL_CONFIG_5N1 = 2;
+  SERIAL_CONFIG_6N1 = 3;
+  SERIAL_CONFIG_7N1 = 4;
+  // (2 stop bits, no parity)
+  SERIAL_CONFIG_5N2 = 5;
+  SERIAL_CONFIG_6N2 = 6;
+  SERIAL_CONFIG_7N2 = 7;
+  SERIAL_CONFIG_8N2 = 8;
+  // (1 stop bit, even parity)
+  SERIAL_CONFIG_5E1 = 9;
+  SERIAL_CONFIG_6E1 = 10;
+  SERIAL_CONFIG_7E1 = 11;
+  SERIAL_CONFIG_8E1 = 12;
+  // (2 stop bits, even parity)
+  SERIAL_CONFIG_5E2 = 13;
+  SERIAL_CONFIG_6E2 = 14;
+  SERIAL_CONFIG_7E2 = 15;
+  SERIAL_CONFIG_8E2 = 16;
+  // (1 stop bit, odd parity)
+  SERIAL_CONFIG_5O1 = 17;
+  SERIAL_CONFIG_6O1 = 18;
+  SERIAL_CONFIG_7O1 = 19;
+  SERIAL_CONFIG_8O1 = 20;
+  // (2 stop bits, odd parity)
+  SERIAL_CONFIG_5O2 = 21;
+  SERIAL_CONFIG_6O2 = 22;
+  SERIAL_CONFIG_7O2 = 23;
+  SERIAL_CONFIG_8O2 = 24;
+}
 
 /**
 * UARTBusData represents a message to configure a UART bus for communication with a device.
 * NOTE: This message is never sent directly, it is packed inside UARTAdd.
 */
 message UARTBusData {
-  int32 baudrate        = 1; /** The baudrate to use for UART communication (may be a common baud rate such as:
-                                 1200bps, 2400bps, 4800bps, 19200bps, 38400bps, 57600bps, or 115200bps). */
-  string pin_rx         = 2; /** The pin on which to receive UART stream data. */
-  string pin_tx         = 3; /** The pin on which to transmit UART stream data. */
-  bool is_invert        = 4; /** Inverts the UART signal on RX and TX pins. Defaults to False. */
+  string bus_id         = 1; /** The ID of the Serial bus (i.e: Serial, Serial1, "SoftwareSerial"). */
+  uint32 baud_rate      = 2; /** The desired baudrate, in bits per second. */
+  SerialConfig config   = 3; /** Configures the data, parity, and stop bits. */
+  string rx_pin         = 4; /** Optional: The pin on which to receive on. */
+  string tx_pin         = 5; /** Optional: The pin on which to transmit with. */
+  bool invert           = 6; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+  float timeout        = 7; /** Optional: The timeout, in milliseconds, for the UART bus. */
 }
 
 /**
 * UARTAdd represents a message sent from IO to a device
-* to configure the UART bus (if not already configured) and attach a device.
+* to configure a UART bus for communication with a driver.
 */
 message UARTAdd {
-  UARTBusData bus_info     = 1; /** The UART bus configuration. */
-  string device_id         = 2; /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
-  int32 polling_interval   = 3; /** The polling interval, in milliseconds, to use for the device. */
+  UARTBusData config = 1; /** The UART bus configuration. */
+  string driver      = 2; /** The unique identifier of the UART driver. */
 }
 
 /**
@@ -31,22 +66,22 @@ message UARTAdd {
 * confirm that a device has been attached to the UART bus.
 */
 message UARTAdded {
-  string device_id = 1; /** The unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
-  bool is_success  = 2; /** True if the UARTInit was successful, False otherwise. */
+  string driver = 1; /** The unique identifier of the UART driver. */
+  bool success  = 2; /** True if the UART bus was successfully initialized, False otherwise. */
 }
 
 /*
 * UARTRemove represents a message sent from IO to a device
-* to detach a device from the UART bus.
+* to detach a driver from the UART bus and deinitialize the bus.
 */
 message UARTRemove {
-  string device_id = 1; /** The unique identifier of the device to detach from the UART bus. */
+  string driver = 1; /** The unique identifier of the UART driver. */
 }
 
 /**
 * UARTEvent represents incoming data from a UART sensor.
 */
 message UARTEvent {
-  string device_id = 1;                    /** Unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
+  string driver                                            = 1; /** Unique identifier of the device to attach to the UART bus, from Adafruit_WipperSnapper_Components. */
   repeated wippersnapper.sensor.SensorEvent sensor_events  = 2; /** An optionally repeated event from a sensor. */
 }
