@@ -8,6 +8,7 @@ import "digitalio.proto";
 import "ds18x20.proto";
 import "error.proto";
 import "i2c.proto";
+import "i2c_output.proto";
 import "nanopb.proto";
 import "pixels.proto";
 import "pwm.proto";
@@ -56,6 +57,7 @@ message BrokerToDevice {
     wippersnapper.i2c.I2cBusScan i2c_bus_scan                      = 90;
     wippersnapper.i2c.I2cDeviceAddOrReplace i2c_device_add_replace = 91;
     wippersnapper.i2c.I2cDeviceRemove i2c_device_remove            = 92;
+    wippersnapper.i2c.I2cDeviceOutputWrite i2c_device_output_write = 93;
     // error.proto
     wippersnapper.error.Error error = 100;
   }

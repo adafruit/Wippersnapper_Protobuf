@@ -3,6 +3,7 @@
 syntax = "proto3";
 package wippersnapper.i2c;
 import "sensor.proto";
+import "i2c_output.proto";
 
 /**
 * I2cBusStatus represents the status of a board's I2C bus
@@ -78,7 +79,9 @@ message I2cDeviceAddOrReplace {
                                                                      https://github.com/adafruit/Wippersnapper_Components. */
   float i2c_device_period                                           = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
   repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 4; /** SI Types for each sensor on the I2c device. */
-  bool is_persistent                                    = 5; /** Offline-Mode ONLY - True if the device exits in the config file, False otherwise. **/
+  bool is_persistent                                   = 5; /** Offline-Mode ONLY - True if the device exits in the config file, False otherwise. **/
+  bool is_output                                       = 6; /** Required by the device to determine if the device is an output device.**/
+  wippersnapper.i2c_output.I2cOutputAdd i2c_output_add = 7; /** Optional - If the I2C device is an output device, fill this field. **/
 }
 
 /**
@@ -112,5 +115,14 @@ message I2cDeviceRemoved {
 */
 message I2cDeviceEvent {
   I2cDeviceDescriptor i2c_device_description                  = 1; /** The I2c device's address and metadata. */
-  repeated wippersnapper.sensor.SensorEvent i2c_device_events = 2; /** A, optionally repeated, SensorEvent from a sensor. */
+  repeated wippersnapper.sensor.SensorEvent i2c_device_events = 2; /** Required, but optionally repeated, SensorEvent from a sensor. */
+}
+
+/**
+* I2cDeviceOutputWrite represents a request to write to an I2C output device.
+*/
+message I2cDeviceOutputWrite {
+  I2cDeviceDescriptor i2c_device_description                   = 1; /** Required - The I2c device's address and metadata. */
+  wippersnapper.i2c_output.LedBackpackWrite led_backpack_write = 2; /** Optional - If the I2C device is a LED backpack, fill this field. **/
+  wippersnapper.i2c_output.CharLCDWrite char_lcd_write         = 3; /** Optional - If the I2C device is a character LCD, fill this field. **/
 }

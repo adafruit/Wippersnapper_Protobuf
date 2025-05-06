@@ -1,0 +1,94 @@
+// SPDX-FileCopyrightText: 2025 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package wippersnapper.i2c_output;
+
+/**
+* I2cOutputType defines the category of I2C output device.
+*/
+enum I2cOutputType {
+  I2C_OUTPUT_TYPE_UNSPECIFIED  = 0; /** Unspecified output type. **/
+  I2C_OUTPUT_TYPE_LED_BACKPACK = 1; /** LED backpack output type. **/
+  I2C_OUTPUT_TYPE_CHAR_LCD     = 2; /** Character LCD output type. **/
+}
+
+/**
+* LedBackpackBlinkRate represents supported, OPTIONAL, blink rates for LED backpack displays
+*/
+enum LedBackpackBlinkRate {
+  LED_BACKPACK_BLINK_RATE_UNSPECIFIED = 0; /** No blinking. **/
+  LED_BACKPACK_BLINK_RATE_OFF         = 1; /** No blinking. **/
+  LED_BACKPACK_BLINK_RATE_2HZ         = 2; /** 2 Hz blink rate. **/
+  LED_BACKPACK_BLINK_RATE_1HZ         = 3; /** 1 Hz blink rate. **/
+  LED_BACKPACK_BLINK_RATE_HALFHZ      = 4; /** 0.5 Hz blink rate. **/
+}
+
+/**
+* LedBackpackAlignment represents all text alignment option for LED backpack displays
+*/
+enum LedBackpackAlignment {
+  LED_BACKPACK_ALIGNMENT_UNSPECIFIED = 0; /** Unspecified alignment option. **/
+  LED_BACKPACK_ALIGNMENT_LEFT        = 1; /** (Default) Left-aligned. **/
+  LED_BACKPACK_ALIGNMENT_RIGHT       = 2; /** Right-aligned. **/
+}
+
+/**
+* LedBackpackConfig represents the configuration for a LED backpack display.
+*/
+message LedBackpackConfig {
+  int32 brightness                = 1; /** Desired brightness of the LED backpack, from 0 (off) to 15 (full brightness). **/
+  LedBackpackAlignment alignment  = 2; /** Desired text alignment for the LED backpack. **/
+}
+
+/**
+* CharLCDConfig represents the configuration for a character LCD display.
+*/
+message CharLCDConfig {
+  uint32 rows            = 1; /** Number of rows for the character LCD. **/
+  uint32 columns         = 2; /** Number of columns for the character LCD. **/
+  bool backlight_enable  = 3; /** Backlight state for the character LCD. **/
+  string backlight_color = 4; /** Backlight color for the character LCD, in Hex. **/
+}
+
+/**
+* I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
+*/
+message I2cOutputAdd {
+  I2cOutputType type = 1; /** The type of I2C output device. **/
+  oneof config {
+    LedBackpackConfig led_backpack_config = 2; /** Configuration for LED backpack. **/
+    CharLCDConfig char_lcd_config         = 3; /** Configuration for character LCD. **/
+  }
+}
+
+/**
+* LedBackpackWrite represents a request from the broker to write a message to a LED backpack.
+*/
+message LedBackpackWrite {
+  oneof message {
+    string text        = 1; /** Text to write to the LED backpack. **/
+    int32 number_int   = 2; /** Number to write to the LED backpack. **/
+    float number_float = 3; /** Float to write to the LED backpack. **/
+  }
+  int32 brightness                  = 4; /** Optionally adjusts the brightness from 0 (off) to 15 (full brightness). **/
+  LedBackpackBlinkRate blink_rate   = 5; /** Optionally sets the blink rate for the LED backpack. **/
+  bool enable_scroll_marquee        = 6; /** Optionally enables automatic text scrolling **/
+  float scroll_marquee_speed        = 7; /** Speed for the scrolling marquee. **/
+  bool enable_ampm_dot              = 8; /** Enable AM/PM dot. **/
+}
+
+/**
+* CharLCDWrite represents a request from the broker to write to a character LCD.
+*/
+message CharLCDWrite {
+  oneof message {
+    string text        = 1; /** Text to write to the character LCD. **/
+    int32 number_int   = 2; /** Number to write to the character LCD. **/
+    float number_float = 3; /** Float to write to the character LCD. **/
+  }
+  bool enable_backlight  = 4; /** Enable backlight for the character LCD. **/
+  string backlight_color = 5; /** Backlight color for the character LCD, in Hex. **/
+  bool enable_scroll     = 6; /** Enable automatic scrolling for the character LCD. **/
+}
+
+
