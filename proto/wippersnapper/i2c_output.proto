@@ -4,15 +4,6 @@ syntax = "proto3";
 package wippersnapper.i2c_output;
 
 /**
-* I2cOutputType defines the category of I2C output device.
-*/
-enum I2cOutputType {
-  I2C_OUTPUT_TYPE_UNSPECIFIED  = 0; /** Unspecified output type. **/
-  I2C_OUTPUT_TYPE_LED_BACKPACK = 1; /** LED backpack output type. **/
-  I2C_OUTPUT_TYPE_CHAR_LCD     = 2; /** Character LCD output type. **/
-}
-
-/**
 * LedBackpackBlinkRate represents supported, OPTIONAL, blink rates for LED backpack displays
 */
 enum LedBackpackBlinkRate {
@@ -54,10 +45,9 @@ message CharLCDConfig {
 * I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
 */
 message I2cOutputAdd {
-  I2cOutputType type = 1; /** The type of I2C output device. **/
   oneof config {
-    LedBackpackConfig led_backpack_config = 2; /** Configuration for LED backpack. **/
-    CharLCDConfig char_lcd_config         = 3; /** Configuration for character LCD. **/
+    LedBackpackConfig led_backpack_config = 1; /** Configuration for LED backpack. **/
+    CharLCDConfig char_lcd_config         = 2; /** Configuration for character LCD. **/
   }
 }
 
