@@ -60,11 +60,12 @@ message LedBackpackWrite {
     int32 number_int   = 2; /** Number to write to the LED backpack. **/
     float number_float = 3; /** Float to write to the LED backpack. **/
   }
-  int32 brightness                  = 4; /** Optionally adjusts the brightness from 0 (off) to 15 (full brightness). **/
-  LedBackpackBlinkRate blink_rate   = 5; /** Optionally sets the blink rate for the LED backpack. **/
-  bool enable_scroll_marquee        = 6; /** Optionally enables automatic text scrolling **/
-  float scroll_marquee_speed        = 7; /** Speed for the scrolling marquee. **/
-  bool enable_ampm_dot              = 8; /** Enable AM/PM dot. **/
+  bool adjust_brightness            = 4; /** Optionally used to enable the brightness tag. **/   
+  int32 brightness                  = 5; /** Optionally adjusts the brightness from 0 (off) to 15 (full brightness). **/
+  LedBackpackBlinkRate blink_rate   = 6; /** Optionally sets the blink rate for the LED backpack. **/
+  bool enable_scroll_marquee        = 7; /** Optionally enables automatic text scrolling **/
+  float scroll_marquee_speed        = 8; /** Speed for the scrolling marquee. **/
+  bool enable_ampm_dot              = 9; /** Enable AM/PM dot. **/
 }
 
 /**
