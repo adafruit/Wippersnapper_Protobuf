@@ -1,5 +1,5 @@
 # i2c_output.options
-wippersnapper.i2c_output.CharLCDConfig.backlight_color  max_size:15
-wippersnapper.i2c_output.LedBackpackWrite.message.text  max_size:20
-wippersnapper.i2c_output.CharLCDWrite.message.text      max_size:20
-wippersnapper.i2c_output.CharLCDWrite.backlight_color   max_size:20
+wippersnapper.i2c_output.CharLCDConfig.backlight_color max_size:15
+wippersnapper.i2c_output.LedBackpackWrite.text         max_size:20
+wippersnapper.i2c_output.CharLCDWrite.text             max_size:20
+wippersnapper.i2c_output.CharLCDWrite.backlight_color  max_size:20
