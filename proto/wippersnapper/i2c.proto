@@ -98,6 +98,7 @@ message I2cDeviceAddedOrReplaced {
 */
 message I2cDeviceRemove {
   I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
+  bool is_output_device                      = 2; /** Determines if the device is an output device.**/
 }
 
 /**
