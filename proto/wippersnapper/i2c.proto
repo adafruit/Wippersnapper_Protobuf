@@ -123,7 +123,9 @@ message I2cDeviceEvent {
 * I2cDeviceOutputWrite represents a request to write to an I2C output device.
 */
 message I2cDeviceOutputWrite {
-  I2cDeviceDescriptor i2c_device_description                   = 1; /** Required - The I2c device's address and metadata. */
-  wippersnapper.i2c_output.LedBackpackWrite led_backpack_write = 2; /** Optional - If the I2C device is a LED backpack, fill this field. **/
-  wippersnapper.i2c_output.CharLCDWrite char_lcd_write         = 3; /** Optional - If the I2C device is a character LCD, fill this field. **/
+  I2cDeviceDescriptor i2c_device_description                     = 1; /** Required - The I2c device's address and metadata. */
+  oneof output_msg {
+    wippersnapper.i2c_output.LedBackpackWrite write_led_backpack = 2; /** Optional - If the I2C device is a LED backpack, fill this field. **/
+    wippersnapper.i2c_output.CharLCDWrite write_char_lcd         = 3; /** Optional - If the I2C device is a character LCD, fill this field. **/
+  }
 }
