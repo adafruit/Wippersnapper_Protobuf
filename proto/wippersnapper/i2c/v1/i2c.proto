@@ -93,6 +93,8 @@ message I2CDeviceInitRequest {
   uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
   string i2c_device_name                                    = 4[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   repeated I2CDeviceSensorProperties i2c_device_properties  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
+  bool is_output_device                                     = 6; /** True if the I2C device is an i2c output device, False otherwise (default). */
+  I2cOutputAdd i2c_output_add                               = 7; /** The configuration for an I2C output device. */
 }
 
 /**
@@ -204,4 +206,94 @@ message SensorEvent {
 message I2CDeviceEvent {
   uint32 sensor_address              = 1; /** The 7-bit I2C address of the I2C device. */
   repeated SensorEvent sensor_event  = 2[(nanopb).max_count = 15]; /** A, optionally repeated, SensorEvent from a sensor. */
+}
+
+/**
+* I2cDeviceOutputWrite represents a request to write to an I2C output device.
+* NOTE: This message is similar to the I2CDeviceOutputWrite message on
+* the api-v2 branch but NOT identical.
+*/
+message I2CDeviceOutputWrite {
+  uint32 i2c_device_address             = 1; /** The 7-bit I2C address of the device on the bus. */
+  string i2c_device_name                = 2[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
+  oneof output_msg {
+    LedBackpackWrite write_led_backpack = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
+    CharLCDWrite write_char_lcd         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
+  }
+}
+
+///*** I2C Output Device Messages (from i2c_output.proto in api v2) ***///
+
+/**
+* LedBackpackBlinkRate represents supported, OPTIONAL,
+* blink rates for LED backpack displays
+*/
+enum LedBackpackBlinkRate {
+  LED_BACKPACK_BLINK_RATE_UNSPECIFIED = 0; /** No blinking. **/
+  LED_BACKPACK_BLINK_RATE_OFF         = 1; /** No blinking. **/
+  LED_BACKPACK_BLINK_RATE_2HZ         = 2; /** 2 Hz blink rate. **/
+  LED_BACKPACK_BLINK_RATE_1HZ         = 3; /** 1 Hz blink rate. **/
+  LED_BACKPACK_BLINK_RATE_HALFHZ      = 4; /** 0.5 Hz blink rate. **/
+}
+
+/**
+* LedBackpackAlignment represents all text alignment
+* options for LED backpack displays
+*/
+enum LedBackpackAlignment {
+  LED_BACKPACK_ALIGNMENT_UNSPECIFIED = 0; /** Unspecified alignment option. **/
+  LED_BACKPACK_ALIGNMENT_LEFT        = 1; /** (Default) Left-aligned. **/
+  LED_BACKPACK_ALIGNMENT_RIGHT       = 2; /** Right-aligned. **/
+}
+
+/**
+* LedBackpackConfig represents the configuration for a LED backpack display.
+*/
+message LedBackpackConfig {
+  int32 brightness                = 1; /** Desired brightness of the LED backpack, from 0 (off) to 15 (full brightness). **/
+  LedBackpackAlignment alignment  = 2; /** Desired text alignment for the LED backpack. **/
+}
+
+/**
+* CharLCDConfig represents the configuration for a character LCD display.
+*/
+message CharLCDConfig {
+  uint32 rows            = 1; /** Number of rows for the character LCD. **/
+  uint32 columns         = 2; /** Number of columns for the character LCD. **/
+  string backlight_color = 3 [(nanopb).max_size = 15]; /** Optional Backlight color for the character LCD, in Hex. **/
+}
+
+/**
+* I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
+*/
+message I2cOutputAdd {
+  oneof config {
+    LedBackpackConfig led_backpack_config = 1; /** Configuration for LED backpack. **/
+    CharLCDConfig char_lcd_config         = 2; /** Configuration for character LCD. **/
+  }
+}
+
+/**
+* LedBackpackWrite represents a request from the broker to write a message to a LED backpack.
+*/
+message LedBackpackWrite {
+  oneof message {
+    string text        = 1 [(nanopb).max_size = 8]; /** Text to write to the LED backpack. **/
+    int32 number_int   = 2; /** Number to write to the LED backpack. **/
+    float number_float = 3; /** Float to write to the LED backpack. **/
+  }
+  bool adjust_brightness            = 4; /** Optionally used to enable the brightness tag. **/   
+  int32 brightness                  = 5; /** Optionally adjusts the brightness from 0 (off) to 15 (full brightness). **/
+  LedBackpackBlinkRate blink_rate   = 6; /** Optionally sets the blink rate for the LED backpack. **/
+  bool enable_scroll_marquee        = 7; /** Optionally enables automatic text scrolling **/
+  float scroll_marquee_speed        = 8; /** Speed for the scrolling marquee. **/
+}
+
+/**
+* CharLCDWrite represents a request from the broker to write to a character LCD.
+*/
+message CharLCDWrite {
+  string message         = 1 [(nanopb).max_size = 128]; /** Message to write to the character LCD. **/
+  string backlight_color = 2 [(nanopb).max_size = 16]; /** Optional Backlight color for the character LCD, in Hex. **/
+  bool enable_scroll     = 3; /** Optional Enable automatic scrolling for the character LCD. **/
 }
