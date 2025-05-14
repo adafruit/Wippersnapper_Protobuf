@@ -73,6 +73,7 @@ message I2CRequest {
     wippersnapper.i2c.v1.I2CDeviceDeinitRequest req_i2c_device_deinit       = 5;
     wippersnapper.i2c.v1.I2CDeviceUpdateRequest req_i2c_device_update       = 6;
     wippersnapper.i2c.v1.I2CDeviceInitRequests req_i2c_device_init_requests = 7;
+    wippersnapper.i2c.v1.I2CDeviceOutputWrite req_i2c_device_out_write      = 8;
   }
 }
 
