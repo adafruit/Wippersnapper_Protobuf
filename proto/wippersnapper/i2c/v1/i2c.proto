@@ -251,10 +251,10 @@ enum LedBackpackAlignment {
 * Desired SSD1306 text 'magnification' size.
 */
 enum Ssd1306TextSize {
-  SSD_1_3_0_6_TEXT_SIZE_UNSPECIFIED = 0; /** Unspecified text size. **/
-  SSD_1_3_0_6_TEXT_SIZE_1           = 1; /** Default text size. 6x8. **/
-  SSD_1_3_0_6_TEXT_SIZE_2           = 2; /** Text size 2. 12x16. **/
-  SSD_1_3_0_6_TEXT_SIZE_3           = 3; /** Text size 3. 18x24. **/
+  SSD1306_TEXT_SIZE_UNSPECIFIED = 0; /** Unspecified text size. **/
+  SSD1306_TEXT_SIZE_1           = 1; /** Default text size. 6x8. **/
+  SSD1306_TEXT_SIZE_2           = 2; /** Text size 2. 12x16. **/
+  SSD1306_TEXT_SIZE_3           = 3; /** Text size 3. 18x24. **/
 }
 
 /**
