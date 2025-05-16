@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Brent Rubell for Adafruit Industries
+// SPDX-FileCopyrightText: 2021-2025 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 
@@ -219,6 +219,7 @@ message I2CDeviceOutputWrite {
   oneof output_msg {
     LedBackpackWrite write_led_backpack = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
     CharLCDWrite write_char_lcd         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
+    Ssd1306Write write_ssd1306          = 5; /** Optional - If the I2C device is a SSD1306 OLED display, fill this field. **/
   }
 }
 
@@ -247,6 +248,16 @@ enum LedBackpackAlignment {
 }
 
 /**
+* Desired SSD1306 text 'magnification' size.
+*/
+enum Ssd1306TextSize {
+  SSD_1_3_0_6_TEXT_SIZE_UNSPECIFIED = 0; /** Unspecified text size. **/
+  SSD_1_3_0_6_TEXT_SIZE_1           = 1; /** Default text size. 6x8. **/
+  SSD_1_3_0_6_TEXT_SIZE_2           = 2; /** Text size 2. 12x16. **/
+  SSD_1_3_0_6_TEXT_SIZE_3           = 3; /** Text size 3. 18x24. **/
+}
+
+/**
 * LedBackpackConfig represents the configuration for a LED backpack display.
 */
 message LedBackpackConfig {
@@ -264,12 +275,22 @@ message CharLCDConfig {
 }
 
 /**
+* Ssd1306Config represents the configuration for a SSD1306 OLED display.
+*/
+message Ssd1306Config {
+  uint32 width              = 1; /** Width of the display. **/
+  uint32 height             = 2; /** Height of the display. **/
+  Ssd1306TextSize text_size = 3; /** Desired text 'magnification' size. **/
+}
+
+/**
 * I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
 */
 message I2cOutputAdd {
   oneof config {
     LedBackpackConfig led_backpack_config = 1; /** Configuration for LED backpack. **/
     CharLCDConfig char_lcd_config         = 2; /** Configuration for character LCD. **/
+    Ssd1306Config ssd1306_config          = 3; /** Configuration for SSD1306 OLED display. **/
   }
 }
 
@@ -296,4 +317,12 @@ message CharLCDWrite {
   string message         = 1 [(nanopb).max_size = 128]; /** Message to write to the character LCD. **/
   string backlight_color = 2 [(nanopb).max_size = 16]; /** Optional Backlight color for the character LCD, in Hex. **/
   bool enable_scroll     = 3; /** Optional Enable automatic scrolling for the character LCD. **/
+}
+
+/**
+* Ssd1306Write represents a request from the broker to
+* write to a SSD1306 OLED display.
+*/
+message Ssd1306Write {
+  string message = 1 [(nanopb).max_size = 128]; /** Message to write to a SSD1306 OLED display. **/
 }
