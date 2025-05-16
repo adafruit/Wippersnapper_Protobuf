@@ -293,6 +293,7 @@ message LedBackpackWrite {
 */
 message CharLcdWrite {
   string message         = 1 [(nanopb).max_size = 128]; /** Message to write to the character LCD. **/
+  bool enable_backlight  = 2; /** Optional field to enable/disable the backlight. Should be its own feed (0 is off, 1 is on).**/
 }
 
 /**
