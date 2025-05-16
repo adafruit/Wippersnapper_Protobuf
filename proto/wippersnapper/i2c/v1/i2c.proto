@@ -218,24 +218,12 @@ message I2CDeviceOutputWrite {
   string i2c_device_name                = 2[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   oneof output_msg {
     LedBackpackWrite write_led_backpack = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
-    CharLCDWrite write_char_lcd         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
+    CharLcdWrite write_char_lcd         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
     Ssd1306Write write_ssd1306          = 5; /** Optional - If the I2C device is a SSD1306 OLED display, fill this field. **/
   }
 }
 
 ///*** I2C Output Device Messages (from i2c_output.proto in api v2) ***///
-
-/**
-* LedBackpackBlinkRate represents supported, OPTIONAL,
-* blink rates for LED backpack displays
-*/
-enum LedBackpackBlinkRate {
-  LED_BACKPACK_BLINK_RATE_UNSPECIFIED = 0; /** No blinking. **/
-  LED_BACKPACK_BLINK_RATE_OFF         = 1; /** No blinking. **/
-  LED_BACKPACK_BLINK_RATE_2HZ         = 2; /** 2 Hz blink rate. **/
-  LED_BACKPACK_BLINK_RATE_1HZ         = 3; /** 1 Hz blink rate. **/
-  LED_BACKPACK_BLINK_RATE_HALFHZ      = 4; /** 0.5 Hz blink rate. **/
-}
 
 /**
 * LedBackpackAlignment represents all text alignment
@@ -266,12 +254,11 @@ message LedBackpackConfig {
 }
 
 /**
-* CharLCDConfig represents the configuration for a character LCD display.
+* CharLcdConfig represents the configuration for a character LCD display.
 */
-message CharLCDConfig {
+message CharLcdConfig {
   uint32 rows            = 1; /** Number of rows for the character LCD. **/
   uint32 columns         = 2; /** Number of columns for the character LCD. **/
-  string backlight_color = 3 [(nanopb).max_size = 15]; /** Optional Backlight color for the character LCD, in Hex. **/
 }
 
 /**
@@ -289,7 +276,7 @@ message Ssd1306Config {
 message I2cOutputAdd {
   oneof config {
     LedBackpackConfig led_backpack_config = 1; /** Configuration for LED backpack. **/
-    CharLCDConfig char_lcd_config         = 2; /** Configuration for character LCD. **/
+    CharLcdConfig char_lcd_config         = 2; /** Configuration for character LCD. **/
     Ssd1306Config ssd1306_config          = 3; /** Configuration for SSD1306 OLED display. **/
   }
 }
@@ -298,25 +285,14 @@ message I2cOutputAdd {
 * LedBackpackWrite represents a request from the broker to write a message to a LED backpack.
 */
 message LedBackpackWrite {
-  oneof message {
-    string text        = 1 [(nanopb).max_size = 8]; /** Text to write to the LED backpack. **/
-    int32 number_int   = 2; /** Number to write to the LED backpack. **/
-    float number_float = 3; /** Float to write to the LED backpack. **/
-  }
-  bool adjust_brightness            = 4; /** Optionally used to enable the brightness tag. **/   
-  int32 brightness                  = 5; /** Optionally adjusts the brightness from 0 (off) to 15 (full brightness). **/
-  LedBackpackBlinkRate blink_rate   = 6; /** Optionally sets the blink rate for the LED backpack. **/
-  bool enable_scroll_marquee        = 7; /** Optionally enables automatic text scrolling **/
-  float scroll_marquee_speed        = 8; /** Speed for the scrolling marquee. **/
+  string message = 1 [(nanopb).max_size = 5]; /** Message to write to the LED backpack. **/
 }
 
 /**
-* CharLCDWrite represents a request from the broker to write to a character LCD.
+* CharLcdWrite represents a request from the broker to write to a character LCD.
 */
-message CharLCDWrite {
+message CharLcdWrite {
   string message         = 1 [(nanopb).max_size = 128]; /** Message to write to the character LCD. **/
-  string backlight_color = 2 [(nanopb).max_size = 16]; /** Optional Backlight color for the character LCD, in Hex. **/
-  bool enable_scroll     = 3; /** Optional Enable automatic scrolling for the character LCD. **/
 }
 
 /**
