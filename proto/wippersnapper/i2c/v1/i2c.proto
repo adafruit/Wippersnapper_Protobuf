@@ -93,8 +93,8 @@ message I2CDeviceInitRequest {
   uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
   string i2c_device_name                                    = 4[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   repeated I2CDeviceSensorProperties i2c_device_properties  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
-  bool is_output_device                                     = 6; /** True if the I2C device is an i2c output device, False otherwise (default). */
-  I2cOutputAdd i2c_output_add                               = 7; /** The configuration for an I2C output device. */
+  bool is_output_device                                     = 6; /** True if the I2C device is an I2C output device, False otherwise (default). */
+  I2COutputAdd i2c_output_add                               = 7; /** The configuration for an I2C output device. */
 }
 
 /**
@@ -209,7 +209,7 @@ message I2CDeviceEvent {
 }
 
 /**
-* I2cDeviceOutputWrite represents a request to write to an I2C output device.
+* I2CDeviceOutputWrite represents a request to write to an I2C output device.
 * NOTE: This message is similar to the I2CDeviceOutputWrite message on
 * the api-v2 branch but NOT identical.
 */
@@ -217,19 +217,19 @@ message I2CDeviceOutputWrite {
   uint32 i2c_device_address             = 1; /** The 7-bit I2C address of the device on the bus. */
   string i2c_device_name                = 2[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   oneof output_msg {
-    LedBackpackWrite write_led_backpack = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
-    CharLcdWrite write_char_lcd         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
-    Ssd1306Write write_ssd1306          = 5; /** Optional - If the I2C device is a SSD1306 OLED display, fill this field. **/
+    LEDBackpackWrite write_LED_backpack = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
+    CharLCDWrite write_char_LCD         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
+    SSD1306Write write_SSD1306          = 5; /** Optional - If the I2C device is a SSD1306 OLED display, fill this field. **/
   }
 }
 
 ///*** I2C Output Device Messages (from i2c_output.proto in api v2) ***///
 
 /**
-* LedBackpackAlignment represents all text alignment
+* LEDBackpackAlignment represents all text alignment
 * options for LED backpack displays
 */
-enum LedBackpackAlignment {
+enum LEDBackpackAlignment {
   LED_BACKPACK_ALIGNMENT_UNSPECIFIED = 0; /** Unspecified alignment option. **/
   LED_BACKPACK_ALIGNMENT_LEFT        = 1; /** (Default) Left-aligned. **/
   LED_BACKPACK_ALIGNMENT_RIGHT       = 2; /** Right-aligned. **/
@@ -238,7 +238,7 @@ enum LedBackpackAlignment {
 /**
 * Desired SSD1306 text 'magnification' size.
 */
-enum Ssd1306TextSize {
+enum SSD1306TextSize {
   SSD1306_TEXT_SIZE_UNSPECIFIED = 0; /** Unspecified text size. **/
   SSD1306_TEXT_SIZE_1           = 1; /** Default text size. 6x8. **/
   SSD1306_TEXT_SIZE_2           = 2; /** Text size 2. 12x16. **/
@@ -246,60 +246,60 @@ enum Ssd1306TextSize {
 }
 
 /**
-* LedBackpackConfig represents the configuration for a LED backpack display.
+* LEDBackpackConfig represents the configuration for a LED backpack display.
 */
-message LedBackpackConfig {
+message LEDBackpackConfig {
   int32 brightness                = 1; /** Desired brightness of the LED backpack, from 0 (off) to 15 (full brightness). **/
-  LedBackpackAlignment alignment  = 2; /** Desired text alignment for the LED backpack. **/
+  LEDBackpackAlignment alignment  = 2; /** Desired text alignment for the LED backpack. **/
 }
 
 /**
-* CharLcdConfig represents the configuration for a character LCD display.
+* CharLCDConfig represents the configuration for a character LCD display.
 */
-message CharLcdConfig {
+message CharLCDConfig {
   uint32 rows            = 1; /** Number of rows for the character LCD. **/
   uint32 columns         = 2; /** Number of columns for the character LCD. **/
 }
 
 /**
-* Ssd1306Config represents the configuration for a SSD1306 OLED display.
+* SSD1306Config represents the configuration for a SSD1306 OLED display.
 */
-message Ssd1306Config {
+message SSD1306Config {
   uint32 width              = 1; /** Width of the display. **/
   uint32 height             = 2; /** Height of the display. **/
-  Ssd1306TextSize text_size = 3; /** Desired text 'magnification' size. **/
+  SSD1306TextSize text_size = 3; /** Desired text 'magnification' size. **/
 }
 
 /**
-* I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
+* I2COutputAdd represents a request from the broker to add an I2C output device to a device.
 */
-message I2cOutputAdd {
+message I2COutputAdd {
   oneof config {
-    LedBackpackConfig led_backpack_config = 1; /** Configuration for LED backpack. **/
-    CharLcdConfig char_lcd_config         = 2; /** Configuration for character LCD. **/
-    Ssd1306Config ssd1306_config          = 3; /** Configuration for SSD1306 OLED display. **/
+    LEDBackpackConfig LED_backpack_config = 1; /** Configuration for LED backpack. **/
+    CharLCDConfig char_LCD_config         = 2; /** Configuration for character LCD. **/
+    SSD1306Config SSD1306_config          = 3; /** Configuration for SSD1306 OLED display. **/
   }
 }
 
 /**
-* LedBackpackWrite represents a request from the broker to write a message to a LED backpack.
+* LEDBackpackWrite represents a request from the broker to write a message to a LED backpack.
 */
-message LedBackpackWrite {
+message LEDBackpackWrite {
   string message = 1 [(nanopb).max_size = 5]; /** Message to write to the LED backpack. **/
 }
 
 /**
-* CharLcdWrite represents a request from the broker to write to a character LCD.
+* CharLCDWrite represents a request from the broker to write to a character LCD.
 */
-message CharLcdWrite {
+message CharLCDWrite {
   string message         = 1 [(nanopb).max_size = 128]; /** Message to write to the character LCD. **/
   bool enable_backlight  = 2; /** Optional field to enable/disable the backlight. Should be its own feed (0 is off, 1 is on).**/
 }
 
 /**
-* Ssd1306Write represents a request from the broker to
+* SSD1306Write represents a request from the broker to
 * write to a SSD1306 OLED display.
 */
-message Ssd1306Write {
+message SSD1306Write {
   string message = 1 [(nanopb).max_size = 128]; /** Message to write to a SSD1306 OLED display. **/
 }
