@@ -217,7 +217,7 @@ message I2CDeviceOutputWrite {
   uint32 i2c_device_address             = 1; /** The 7-bit I2C address of the device on the bus. */
   string i2c_device_name                = 2[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   oneof output_msg {
-    LEDBackpackWrite write_ed_backpack  = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
+    LEDBackpackWrite write_led_backpack = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
     CharLCDWrite write_char_lcd         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
     SSD1306Write write_ssd1306          = 5; /** Optional - If the I2C device is a SSD1306 OLED display, fill this field. **/
   }
