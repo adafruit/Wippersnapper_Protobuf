@@ -15,7 +15,7 @@ jobs:
     steps:
 
     # Setup
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.x'
     - name: Install Protoc
@@ -28,7 +28,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install protobuf setuptools
     - name: Self Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: protobuf-checkout
         submodules: true
@@ -53,7 +53,7 @@ jobs:
         # protoc --plugin=nanopb/generator/protoc-gen-nanopb -Inanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./arduino_out --nanopb_opt=-I./proto --nanopb_opt=-t --plugin=protoc-gen-doc=./protoc-gen-doc --doc_out=./doc --doc_opt=html,index.html
 
     - name: Checkout Arduino Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: adafruit/Adafruit_Wippersnapper_Arduino
         token: ${{ secrets.IO_BOT_PAT }}
@@ -84,7 +84,7 @@ jobs:
         protoc --proto_path=./protobuf-checkout/proto ./protobuf-checkout/proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:js_out
         protoc ./protobuf-checkout/nanopb/generator/proto/nanopb.proto --js_out=import_style=commonjs,binary:js_out
     - name: Checkout io-node Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: AdafruitInternalDev/io-node
         token: ${{ secrets.IO_BOT_PAT }}
@@ -112,7 +112,7 @@ jobs:
 
     # Docs
     - name: Checkout doc branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         ref: gh-pages
         path: protobuf-docs-checkout
@@ -124,11 +124,11 @@ jobs:
         git commit -m "Add generated HTML documentation for $GITHUB_SHA" || exit 0 # quit cleanly if nothing to commit
         git push
     - name: Setup Pages
-      uses: actions/configure-pages@v3
+      uses: actions/configure-pages@v5
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
+      uses: actions/upload-pages-artifact@v3
       with:
         path: 'protobuf-docs-checkout/doc'
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v2
+      uses: actions/deploy-pages@v4
