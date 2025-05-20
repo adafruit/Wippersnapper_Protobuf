@@ -4,23 +4,21 @@ syntax = "proto3";
 package wippersnapper.i2c_output;
 
 /**
-* LedBackpackBlinkRate represents supported, OPTIONAL, blink rates for LED backpack displays
-*/
-enum LedBackpackBlinkRate {
-  LED_BACKPACK_BLINK_RATE_UNSPECIFIED = 0; /** No blinking. **/
-  LED_BACKPACK_BLINK_RATE_OFF         = 1; /** No blinking. **/
-  LED_BACKPACK_BLINK_RATE_2HZ         = 2; /** 2 Hz blink rate. **/
-  LED_BACKPACK_BLINK_RATE_1HZ         = 3; /** 1 Hz blink rate. **/
-  LED_BACKPACK_BLINK_RATE_HALFHZ      = 4; /** 0.5 Hz blink rate. **/
-}
-
-/**
 * LedBackpackAlignment represents all text alignment option for LED backpack displays
 */
 enum LedBackpackAlignment {
   LED_BACKPACK_ALIGNMENT_UNSPECIFIED = 0; /** Unspecified alignment option. **/
   LED_BACKPACK_ALIGNMENT_LEFT        = 1; /** (Default) Left-aligned. **/
   LED_BACKPACK_ALIGNMENT_RIGHT       = 2; /** Right-aligned. **/
+}
+
+/**
+* Desired OLED display text 'magnification' size.
+*/
+enum OledTextSize {
+  OLED_TEXT_SIZE_UNSPECIFIED = 0; /** Unspecified text size. **/
+  OLED_TEXT_SIZE_DEFAULT     = 1; /** Default text size, 6x8px. **/
+  OLED_TEXT_SIZE_LARGE       = 2; /** Larger text size option, 12x16px. **/
 }
 
 /**
@@ -37,16 +35,26 @@ message LedBackpackConfig {
 message CharLCDConfig {
   uint32 rows            = 1; /** Number of rows for the character LCD. **/
   uint32 columns         = 2; /** Number of columns for the character LCD. **/
-  string backlight_color = 3; /** Optional Backlight color for the character LCD, in Hex. **/
 }
+
+/**
+* OledConfig represents the configuration for a OLED display.
+*/
+message OledConfig {
+  uint32 width           = 1; /** Width of the OLED display in pixels. **/
+  uint32 height          = 2; /** Height of the OLED display in pixels. **/
+  OledTextSize font_size = 3; /** Desired font magnification for the OLED display. Defaults to OLED_TEXT_SIZE_DEFAULT. **/
+}
+
 
 /**
 * I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
 */
 message I2cOutputAdd {
   oneof config {
-    LedBackpackConfig led_backpack_config = 1; /** Configuration for LED backpack. **/
-    CharLCDConfig char_lcd_config         = 2; /** Configuration for character LCD. **/
+    LedBackpackConfig led_backpack_config = 1; /** Configuration for a LED backpack. **/
+    CharLCDConfig char_lcd_config         = 2; /** Configuration for a character LCD. **/
+    OledConfig oled_config                = 3; /** Configuration for an OLED display. **/
   }
 }
 
@@ -54,25 +62,20 @@ message I2cOutputAdd {
 * LedBackpackWrite represents a request from the broker to write a message to a LED backpack.
 */
 message LedBackpackWrite {
-  oneof message {
-    string text        = 1; /** Text to write to the LED backpack. **/
-    int32 number_int   = 2; /** Number to write to the LED backpack. **/
-    float number_float = 3; /** Float to write to the LED backpack. **/
-  }
-  bool adjust_brightness            = 4; /** Optionally used to enable the brightness tag. **/   
-  int32 brightness                  = 5; /** Optionally adjusts the brightness from 0 (off) to 15 (full brightness). **/
-  LedBackpackBlinkRate blink_rate   = 6; /** Optionally sets the blink rate for the LED backpack. **/
-  bool enable_scroll_marquee        = 7; /** Optionally enables automatic text scrolling **/
-  float scroll_marquee_speed        = 8; /** Speed for the scrolling marquee. **/
+  string message = 1; /** Message to write to the LED backpack. **/
 }
 
 /**
 * CharLCDWrite represents a request from the broker to write to a character LCD.
 */
 message CharLCDWrite {
-  string message         = 1; /** Message to write to the character LCD. **/
-  string backlight_color = 2; /** Optional Backlight color for the character LCD, in Hex. **/
-  bool enable_scroll     = 3; /** Optional Enable automatic scrolling for the character LCD. **/
+  string message        = 1; /** Message to write to the character LCD. **/
+  bool enable_backlight = 2; /** Whether to enable the backlight. Defaults to True. **/
 }
 
-
+/**
+* OLEDWrite represents a request from the broker to write to a OLED display.
+*/
+message OLEDWrite {
+  string message = 1; /** Message to write to an OLED display. **/
+}
