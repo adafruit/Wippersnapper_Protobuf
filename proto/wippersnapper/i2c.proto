@@ -127,5 +127,6 @@ message I2cDeviceOutputWrite {
   oneof output_msg {
     wippersnapper.i2c_output.LedBackpackWrite write_led_backpack = 2; /** Optional - If the I2C device is a LED backpack, fill this field. **/
     wippersnapper.i2c_output.CharLCDWrite write_char_lcd         = 3; /** Optional - If the I2C device is a character LCD, fill this field. **/
+    wippersnapper.i2c_output.OLEDWrite write_oled                = 4; /** Optional - If the I2C device is an OLED display, fill this field. **/
   }
 }
