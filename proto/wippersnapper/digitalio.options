@@ -1,0 +1,5 @@
+# digitalio.options
+wippersnapper.digitalio.DigitalIOAdd.pin_name max_size: 64
+wippersnapper.digitalio.DigitalIORemove.pin_name max_size: 64
+wippersnapper.digitalio.DigitalIOEvent.pin_name max_size: 64
+wippersnapper.digitalio.DigitalIOWrite.pin_name max_size: 64
