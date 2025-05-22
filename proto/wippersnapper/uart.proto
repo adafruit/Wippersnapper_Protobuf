@@ -121,18 +121,18 @@ message UartAdd {
 }
 
 /**
-* UARTAdded represents a message sent from a device to IO to
+* UartAdded represents a message sent from a device to IO to
 * confirm that a device has been attached to the UART bus.
 */
-message UARTAdded {
+message UartAdded {
   string id     = 1; /** The unique identifier of the UART device. */
   bool success  = 2; /** True if the UART bus was successfully initialized, False otherwise. */
 }
 
 /*
-* UARTRemove represents a message sent from IO to a device
+* UartRemove represents a message sent from IO to a device
 * to detach a driver from the UART bus and deinitialize the bus.
 */
-message UARTRemove {
+message UartRemove {
   string id = 1; /** The unique identifier of the UART device. */
 }
