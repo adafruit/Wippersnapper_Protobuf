@@ -53,6 +53,7 @@ message BrokerToDevice {
     // uart.proto
     wippersnapper.uart.UartAdd uart_add       = 80;
     wippersnapper.uart.UartRemove uart_remove = 81;
+    wippersnapper.uart.UartWrite uart_write = 82;
     // i2c.proto
     wippersnapper.i2c.I2cBusScan i2c_bus_scan                      = 90;
     wippersnapper.i2c.I2cDeviceAddOrReplace i2c_device_add_replace = 91;
@@ -89,6 +90,7 @@ message DeviceToBroker {
     wippersnapper.ds18x20.Ds18x20Event ds18x20_event = 80;
     // uart.proto
     wippersnapper.uart.UartAdded uart_added = 90;
+    wippersnapper.uart.UartWritten uart_written = 91;
     // i2c.proto
     wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 110;
     wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 111;
