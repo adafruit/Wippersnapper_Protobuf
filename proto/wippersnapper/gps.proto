@@ -27,7 +27,7 @@ message GPSDateTime {
 /** GPSRMCResponse represents the response from a GPS RMC (Recommended Minimum Specific GPS/Transit Data) message. **/
 message GPSRMCResponse {
   GPSDateTime datetime = 1; /** Date and time of the GPS data **/
-  string fix_status = 2; /** Fix status: 'A' for active **/
+  string fix_status = 2; /** Fix status: 'A' for active, 'V' for void **/
   string lat = 4; /** Latitude in decimal degrees **/
   string lat_dir = 5; /** Latitude direction: 'North' or 'South' **/
   string lon = 6; /** Longitude in decimal degrees **/
