@@ -1,0 +1,51 @@
+// SPDX-FileCopyrightText: 2025 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package wippersnapper.gps;
+
+/**
+ * GPSConfig represents a message containing configuration data to set up and configure a GPS.
+ * Since GPS devices can output lots of data, this message allows users to select which data they want to receive
+ * and a resulting command string to initialize the GPS device with the selected options will be generated.
+ */
+message GPSConfig {
+  string config_msg = 1; /** Initilization command (PMTK for MediaTek, or similar for other chipsets) **/
+  // Baud rate is not included here as it is included in the UartAdd->UartSerialConfig message.
+}
+
+/** GPSDateTime represents the date and time information from a GPRMC/GPGGA string **/
+message GPSDateTime {
+  int32 hour = 1; /** Hour of the day (0-23) **/
+  int32 minute = 2; /** Minute of the hour (0-59) **/
+  int32 seconds = 3; /** Seconds of the minute (0-59) **/
+  int32 milliseconds = 4; /** Milliseconds (0-999) **/
+  int32 day = 5; /** Day of the month (1-31) **/
+  int32 month = 6; /** Month of the year (1-12) **/
+  int32 year = 7; /** Year (e.g., 2023) **/
+}
+
+/** GPSRMCResponse represents the response from a GPS RMC (Recommended Minimum Specific GPS/Transit Data) message. **/
+message GPSRMCResponse {
+  GPSDateTime datetime = 1; /** Date and time of the GPS data **/
+  string fix_status = 2; /** Fix status: 'A' for active **/
+  string lat = 4; /** Latitude in decimal degrees **/
+  string lat_dir = 5; /** Latitude direction: 'North' or 'South' **/
+  string lon = 6; /** Longitude in decimal degrees **/
+  string lon_dir = 7; /** Longitude direction: 'East' or 'West' **/
+  string speed = 8; /** Speed, in knots **/
+  string angle = 9; /** Course/heading angle, in degrees **/
+}
+
+/** GPGGAResponse represents the response from a GPS GGA (Global Positioning System Fix Data) message. **/
+message GPGGAResponse {
+  GPSDateTime datetime = 1; /** Date and time of the GPS data **/
+  string lat = 4; /** Latitude in decimal degrees **/
+  string lat_dir = 5; /** Latitude direction: 'N' or 'S' **/
+  string lon = 6; /** Longitude in decimal degrees **/
+  string lon_dir = 7; /** Longitude direction: 'E' or 'W' **/
+  int32 fix_quality = 8; /** Quality of the GPS fix (0-3) **/
+  int32 num_satellites = 9; /** Number of satellites in use **/
+  string hdop = 10; /** HDOP- horizontal dilution of precision **/
+  string altitude = 11; /** Altitude in meters above MSL **/
+  string geoid_height = 12; /** Diff between geoid height and WGS84 height **/
+}
