@@ -1,2 +1,6 @@
 # uart.options
-wippersnapper.UartAdd.id max_size: 32
+wippersnapper.uart.UartAdd.id               max_size: 32
+wippersnapper.uart.UartAdded                max_size: 32
+wippersnapper.uart.UartRemove               max_size: 32
+wippersnapper.uart.UartSerialConfig.pin_rx  max_size: 16
+wippersnapper.uart.UartSerialConfig.pin_tx  max_size: 16
