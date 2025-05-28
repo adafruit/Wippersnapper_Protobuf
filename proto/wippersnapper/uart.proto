@@ -117,9 +117,9 @@ message UartDeviceConfig {
 * to configure a device on a UART bus for communication.
 */
 message UartAdd {
-  string id                       = 1; /** The unique identifier of the UART device. */
-  UartSerialConfig config         = 2; /** The Serial configuration. */
-  UartDeviceConfig device_config  = 3; /** The device-specific configuration. */
+  string id                    = 1; /** The unique identifier of the UART device. */
+  UartSerialConfig cfg_serial  = 2; /** The Serial configuration. */
+  UartDeviceConfig cfg_device  = 3; /** The device-specific configuration. */
 }
 
 /**

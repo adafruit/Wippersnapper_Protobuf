@@ -1,1 +1,2 @@
 # uart.options
+wippersnapper.UartAdd.id max_size: 32
