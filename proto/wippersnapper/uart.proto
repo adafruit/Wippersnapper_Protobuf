@@ -5,7 +5,7 @@ package wippersnapper.uart;
 import "gps.proto";
 
 /**
-* UartPacketFormat contains the configuration data, parity, and stop bits for a serial bus.
+* UartPacketFormat contains the configuration data, parity, and stop bits for a serial port.
 */
 enum UartPacketFormat {
   UART_PACKET_FORMAT_UNSPECIFIED = 0; // Format was not specified by IO.
@@ -36,7 +36,7 @@ enum UartPacketFormat {
 }
 
 /**
-* UartDeviceType represents the type of device connected to the UART bus.
+* UartDeviceType represents the type of device connected to the UART port.
 * This is used to determine the driver to use for the device.
 */
 enum UartDeviceType {
@@ -67,7 +67,7 @@ enum GenericDeviceLineEnding {
 message UartSerialConfig {
   string pin_rx           = 1; /** The pin on which to receive on. */
   string pin_tx           = 2; /** The pin on which to transmit with. */
-  uint32 uart_nbr         = 3; /** The UART bus number to use, eg: 0, 1, 2, etc. */
+  uint32 uart_nbr         = 3; /** The UART port number to use, eg: 0, 1, 2, etc. */
   uint32 baud_rate        = 4; /** The desired baudrate, in bits per second. */
   UartPacketFormat format = 5; /** The data, parity, and stop bits. */
   float timeout           = 6; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
@@ -106,7 +106,7 @@ message PM25AQIConfig {
 * This message is never sent directly, it is packed inside UartAdd.
 */
 message UartDeviceConfig {
-  UartDeviceType device_type                        = 1; /** The type of device connected to the UART bus. */
+  UartDeviceType device_type                        = 1; /** The type of device connected to the UART port. */
   GenericUartInputConfig generic_uart_input_config  = 2; /** OPTIONAL configuration for a generic UART input device. */
   TrinamicDynamixelConfig trinamic_dynamixel_config = 3; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
   PM25AQIConfig pm25aqi_config                      = 4; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
@@ -115,29 +115,35 @@ message UartDeviceConfig {
 
 /**
 * UartAdd represents a message sent from IO to a device
-* to configure a device on a UART bus for communication.
+* to configure a device on a UART port for communication.
 */
 message UartAdd {
-  string id                    = 1; /** The unique identifier of the UART device. */
-  UartSerialConfig cfg_serial  = 2; /** The Serial configuration. */
-  UartDeviceConfig cfg_device  = 3; /** The device-specific configuration. */
+  UartSerialConfig cfg_serial  = 1; /** The Serial configuration. */
+  UartDeviceConfig cfg_device  = 2; /** The device-specific configuration. */
 }
 
 /**
 * UartAdded represents a message sent from a device to IO to
-* confirm that a device has been attached to the UART bus.
+* confirm that a device has been attached to the UART port.
 */
 message UartAdded {
-  string id     = 1; /** The unique identifier of the UART device. */
-  bool success  = 2; /** True if the UART bus was successfully initialized, False otherwise. */
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device was attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+  // Payload
+  bool success        = 4; /** True if the device on the UART port was successfully initialized, False otherwise. */
 }
 
 /*
 * UartRemove represents a message sent from IO to a device
-* to detach a driver from the UART bus and deinitialize the bus.
+* to detach a driver from the UART port and deinitialize the port.
 */
 message UartRemove {
-  string id = 1; /** The unique identifier of the UART device. */
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
 }
 
 /**
@@ -145,10 +151,14 @@ message UartRemove {
 * to write data to a device.
 */
 message UartWrite {
-  string id = 1; /** The unique identifier of the UART device. */
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+  // Payload
   oneof payload {
-    bytes bytes_data = 2; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
-    string text_data = 3; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
+    bytes bytes_data  = 4; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
+    string text_data  = 5; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
   }
 }
 
@@ -157,6 +167,10 @@ message UartWrite {
 * This message is sent from a device to IO to confirm that data has been written to the device.
 */
 message UartWritten {
-  string id = 1; /** The unique identifier of the UART device. */
-  uint32 bytes_written = 2; /** The number of bytes written to the device. */
+  // Addressing
+  uint32 uart_nbr      = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type  = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id     = 3; /** The unique identifier string for the UART device. */
+  // Payload
+  uint32 bytes_written = 4; /** The number of bytes written to the device. */
 }
