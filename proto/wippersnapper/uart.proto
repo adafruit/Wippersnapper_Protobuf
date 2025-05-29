@@ -67,11 +67,12 @@ enum GenericDeviceLineEnding {
 message UartSerialConfig {
   string pin_rx           = 1; /** The pin on which to receive on. */
   string pin_tx           = 2; /** The pin on which to transmit with. */
-  uint32 baud_rate        = 3; /** The desired baudrate, in bits per second. */
-  UartPacketFormat format = 4; /** The data, parity, and stop bits. */
-  float timeout           = 5; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
-  bool use_sw_serial      = 6; /** Use software serial instead of hardware serial. Defaults to False. */
-  bool sw_serial_invert   = 7; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+  uint32 uart_nbr         = 3; /** The UART bus number to use, eg: 0, 1, 2, etc. */
+  uint32 baud_rate        = 4; /** The desired baudrate, in bits per second. */
+  UartPacketFormat format = 5; /** The data, parity, and stop bits. */
+  float timeout           = 6; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
+  bool use_sw_serial      = 7; /** Use software serial instead of hardware serial. Defaults to False. */
+  bool sw_serial_invert   = 8; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
 }
 
 /**
