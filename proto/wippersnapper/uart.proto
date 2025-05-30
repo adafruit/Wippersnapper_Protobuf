@@ -82,6 +82,7 @@ message UartSerialConfig {
 message GenericUartInputConfig {
   string name                         = 1; /** The name used to identify the device. */
   GenericDeviceLineEnding line_ending = 2; /** The line ending used by the device. */
+  int32 period                        = 3; /** The period to poll the device, in milliseconds */
 }
 
 /**
@@ -98,6 +99,7 @@ message TrinamicDynamixelConfig {
 */
 message PM25AQIConfig {
   bool is_pm1006 = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
+  int32 period   = 2; /** The period to poll the device, in milliseconds */
 }
 
 /**
