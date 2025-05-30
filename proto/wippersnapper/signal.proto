@@ -90,8 +90,9 @@ message DeviceToBroker {
     wippersnapper.ds18x20.Ds18x20Added ds18x20_added = 70;
     wippersnapper.ds18x20.Ds18x20Event ds18x20_event = 80;
     // uart.proto
-    wippersnapper.uart.UartAdded uart_added = 90;
-    wippersnapper.uart.UartWritten uart_written = 91;
+    wippersnapper.uart.UartAdded uart_added            = 90;
+    wippersnapper.uart.UartWritten uart_written        = 91;
+    wippersnapper.uart.UartInputEvent uart_input_event = 92;
     // i2c.proto
     wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 110;
     wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 111;

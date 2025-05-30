@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.uart;
+import "sensor.proto";
 import "gps.proto";
 
 /**
@@ -80,9 +81,10 @@ message UartSerialConfig {
 * containing device-specific configuration info for generic UART input devices.
 */
 message GenericUartInputConfig {
-  string name                         = 1; /** The name used to identify the device. */
-  GenericDeviceLineEnding line_ending = 2; /** The line ending used by the device. */
-  int32 period                        = 3; /** The period to poll the device, in milliseconds */
+  string name                                                       = 1; /** The name used to identify the device. */
+  GenericDeviceLineEnding line_ending                               = 2; /** The line ending used by the device. */
+  int32 period                                                      = 3; /** The period to poll the device, in milliseconds */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 4; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
@@ -98,8 +100,9 @@ message TrinamicDynamixelConfig {
 * containing device-specific configuration info for PM2.5 AQI sensors.
 */
 message PM25AQIConfig {
-  bool is_pm1006 = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
-  int32 period   = 2; /** The period to poll the device, in milliseconds */
+  bool is_pm1006                                                   = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
+  int32 period                                                     = 2; /** The period to poll the device, in milliseconds */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types = 3; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
@@ -176,4 +179,19 @@ message UartWritten {
   string device_id     = 3; /** The unique identifier string for the UART device. */
   // Payload
   uint32 bytes_written = 4; /** The number of bytes written to the device. */
+}
+
+/**
+* UartInputEvent represents a message sent from a device to IO
+* containing data from a UART input device.
+* This message is sent from a device to IO to report sensor data.
+* It can contain multiple SensorEvents if the device has multiple sensors.
+*/
+message UartInputEvent {
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+  // Payload
+  repeated wippersnapper.sensor.SensorEvent events = 4; /** Required, but optionally repeated, SensorEvent from a sensor. */
 }
