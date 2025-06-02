@@ -9,3 +9,5 @@ wippersnapper.uart.UartSerialConfig.pin_rx                        max_size: 16
 wippersnapper.uart.UartSerialConfig.pin_tx                        max_size: 16
 wippersnapper.uart.GenericUartInputConfig.i2c_device_sensor_types max_count:15
 wippersnapper.uart.PM25AQIConfig.i2c_device_sensor_types          max_count:15
+wippersnapper.uart.UartInputEvent.device_id                       max_size:16
+wippersnapper.uart.UartInputEvent.events                          max_count:15
