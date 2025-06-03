@@ -113,10 +113,12 @@ message PM25AQIConfig {
 message UartDeviceConfig {
   UartDeviceType device_type                        = 1; /** The type of device connected to the UART port. */
   string device_id                                  = 2; /** The unique identifier string for the UART device. */
-  GenericUartInputConfig generic_uart_input_config  = 3; /** OPTIONAL configuration for a generic UART input device. */
-  TrinamicDynamixelConfig trinamic_dynamixel_config = 4; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
-  PM25AQIConfig pm25aqi_config                      = 5; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
-  wippersnapper.gps.GPSConfig gps_config            = 6; /** OPTIONAL configuration for a GPS RMC response. */
+  oneof config {
+    GenericUartInputConfig generic_uart_input  = 3; /** OPTIONAL configuration for a generic UART input device. */
+    TrinamicDynamixelConfig trinamic_dynamixel = 4; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
+    PM25AQIConfig pm25aqi                      = 5; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
+    wippersnapper.gps.GPSConfig gps            = 6; /** OPTIONAL configuration for a GPS RMC response. */
+  }
 }
 
 /**
