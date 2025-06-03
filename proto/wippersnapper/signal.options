@@ -1,0 +1,3 @@
+# signal.options
+wippersnapper.signal.BrokerToDevice  submsg_callback:true
+wippersnapper.signal.DeviceToBroker  submsg_callback:true

@@ -1,0 +1,199 @@
+// SPDX-FileCopyrightText: 2023-2025 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package wippersnapper.uart;
+import "gps.proto";
+import "sensor.proto";
+
+/**
+* UartPacketFormat contains the configuration data, parity, and stop bits for a serial port.
+*/
+enum UartPacketFormat {
+  UART_PACKET_FORMAT_UNSPECIFIED = 0; // Format was not specified by IO.
+  UART_PACKET_FORMAT_8N1 = 1; // 8 data bits, no parity, 1 stop bit
+  UART_PACKET_FORMAT_5N1 = 2; // 5 data bits, no parity, 1 stop bit
+  UART_PACKET_FORMAT_6N1 = 3; // 6 data bits, no parity, 1 stop bit
+  UART_PACKET_FORMAT_7N1 = 4; // 7 data bits, no parity, 1 stop bit
+  UART_PACKET_FORMAT_5N2 = 5; // 5 data bits, no parity, 2 stop bits
+  UART_PACKET_FORMAT_6N2 = 6; // 6 data bits, no parity, 2 stop bits
+  UART_PACKET_FORMAT_7N2 = 7; // 7 data bits, no parity, 2 stop bits
+  UART_PACKET_FORMAT_8N2 = 8; // 8 data bits, no parity, 2 stop bits
+  UART_PACKET_FORMAT_5E1 = 9; // 5 data bits, even parity, 1 stop bit
+  UART_PACKET_FORMAT_6E1 = 10; // 6 data bits, even parity, 1 stop bit
+  UART_PACKET_FORMAT_7E1 = 11; // 7 data bits, even parity, 1 stop bit
+  UART_PACKET_FORMAT_8E1 = 12; // 8 data bits, even parity, 1 stop bit
+  UART_PACKET_FORMAT_5E2 = 13; // 5 data bits, even parity, 2 stop bits
+  UART_PACKET_FORMAT_6E2 = 14; // 6 data bits, even parity, 2 stop bits
+  UART_PACKET_FORMAT_7E2 = 15; // 7 data bits, even parity, 2 stop bits
+  UART_PACKET_FORMAT_8E2 = 16; // 8 data bits, even parity, 2 stop bits
+  UART_PACKET_FORMAT_5O1 = 17; // 5 data bits, odd parity, 1 stop bit
+  UART_PACKET_FORMAT_6O1 = 18; // 6 data bits, odd parity, 1 stop bit
+  UART_PACKET_FORMAT_7O1 = 19; // 7 data bits, odd parity, 1 stop bit
+  UART_PACKET_FORMAT_8O1 = 20; // 8 data bits, odd parity, 1 stop bit
+  UART_PACKET_FORMAT_5O2 = 21; // 5 data bits, odd parity, 2 stop bits
+  UART_PACKET_FORMAT_6O2 = 22; // 6 data bits, odd parity, 2 stop bits
+  UART_PACKET_FORMAT_7O2 = 23; // 7 data bits, odd parity, 2 stop bits
+  UART_PACKET_FORMAT_8O2 = 24; // 8 data bits, odd parity, 2 stop bits
+}
+
+/**
+* UartDeviceType represents the type of device connected to the UART port.
+* This is used to determine the driver to use for the device.
+*/
+enum UartDeviceType {
+  UART_DEVICE_TYPE_UNSPECIFIED    = 0; /** Unspecified device type. */
+  UART_DEVICE_TYPE_GENERIC_INPUT  = 1; /** Use UART input. */
+  UART_DEVICE_TYPE_GENERIC_OUTPUT = 2; /** Use the Generic UART output driver. */
+  UART_DEVICE_TYPE_GPS            = 3; /** Use the GPS driver. */
+  UART_DEVICE_TYPE_PM25AQI        = 4; /** Use the PM2.5 driver. */
+  UART_DEVICE_TYPE_TM22XX         = 5; /** Use the TM22XX stepper driver. */
+}
+
+/**
+* GenericDeviceLineEnding represents the line ending used by the device.
+* This is used to determine how to parse the incoming data.
+*/
+enum GenericDeviceLineEnding {
+  GENERIC_DEVICE_LINE_ENDING_UNSPECIFIED    = 0; /** Unspecified line ending. */
+  GENERIC_DEVICE_LINE_ENDING_LF             = 1; /** Newline (LF). */
+  GENERIC_DEVICE_LINE_ENDING_CRLF           = 2; /** Carriage return (CR) and newline (LF). */
+  GENERIC_DEVICE_LINE_ENDING_TIMEOUT_100MS  = 3; /** 100ms timeout - sensor returns every 100ms with a new Event. */
+  GENERIC_DEVICE_LINE_ENDING_TIMEOUT_1000MS = 4; /** 1s timeout - device returns every 1s with a new Event. */
+}
+
+/**
+* UartSerialConfig represents a message to configure the Serial (eg: HardwareSerial, SoftwareSerial).
+* This message is never sent directly, it is packed inside UartAdd.
+*/
+message UartSerialConfig {
+  string pin_rx           = 1; /** The pin on which to receive on. */
+  string pin_tx           = 2; /** The pin on which to transmit with. */
+  uint32 uart_nbr         = 3; /** The UART port number to use, eg: 0, 1, 2, etc. */
+  uint32 baud_rate        = 4; /** The desired baudrate, in bits per second. */
+  UartPacketFormat format = 5; /** The data, parity, and stop bits. */
+  float timeout           = 6; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
+  bool use_sw_serial      = 7; /** Use software serial instead of hardware serial. Defaults to False. */
+  bool sw_serial_invert   = 8; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+}
+
+/**
+* GenericUartInputConfig represents a message sent from IO to a device
+* containing device-specific configuration info for generic UART input devices.
+*/
+message GenericUartInputConfig {
+  string name                                                       = 1; /** The name used to identify the device. */
+  GenericDeviceLineEnding line_ending                               = 2; /** The line ending used by the device. */
+  int32 period                                                      = 3; /** The period to poll the device, in milliseconds */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 4; /** SI Types for each sensor on the I2c device. */
+}
+
+/**
+* TrinamicDynamixelConfig represents a message sent from IO to a device
+* containing device-specific configuration info for Trinamic stepper or DYNAMIXEL servos.
+*/
+message TrinamicDynamixelConfig {
+  uint32 device_id = 1; /** The device identifier, used for sub-addressing (multiple servos on one UART). */
+}
+
+/**
+* PM25AQIConfig represents a message sent from IO to a device
+* containing device-specific configuration info for PM2.5 AQI sensors.
+*/
+message PM25AQIConfig {
+  bool is_pm1006                                                   = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
+  int32 period                                                     = 2; /** The period to poll the device, in milliseconds */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types = 3; /** SI Types for each sensor on the I2c device. */
+}
+
+/**
+* UartDeviceConfig represents a message sent from IO to a device
+* containing device-specific configuration data.
+* This message is never sent directly, it is packed inside UartAdd.
+*/
+message UartDeviceConfig {
+  UartDeviceType device_type                        = 1; /** The type of device connected to the UART port. */
+  string device_id                                  = 2; /** The unique identifier string for the UART device. */
+  oneof config {
+    GenericUartInputConfig generic_uart_input  = 3; /** OPTIONAL configuration for a generic UART input device. */
+    TrinamicDynamixelConfig trinamic_dynamixel = 4; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
+    PM25AQIConfig pm25aqi                      = 5; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
+    wippersnapper.gps.GPSConfig gps            = 6; /** OPTIONAL configuration for a GPS RMC response. */
+  }
+}
+
+/**
+* UartAdd represents a message sent from IO to a device
+* to configure a device on a UART port for communication.
+*/
+message UartAdd {
+  UartSerialConfig cfg_serial  = 1; /** The Serial configuration. */
+  UartDeviceConfig cfg_device  = 2; /** The device-specific configuration. */
+}
+
+/**
+* UartAdded represents a message sent from a device to IO to
+* confirm that a device has been attached to the UART port.
+*/
+message UartAdded {
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device was attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+  // Payload
+  bool success        = 4; /** True if the device on the UART port was successfully initialized, False otherwise. */
+}
+
+/*
+* UartRemove represents a message sent from IO to a device
+* to detach a driver from the UART port and deinitialize the port.
+*/
+message UartRemove {
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+}
+
+/**
+* UartWrite represents a message sent from IO to a device
+* to write data to a device.
+*/
+message UartWrite {
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+  // Payload
+  oneof payload {
+    bytes bytes_data  = 4; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
+    string text_data  = 5; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
+  }
+}
+
+/**
+* UartWritten represents the number of bytes written to a device.enum
+* This message is sent from a device to IO to confirm that data has been written to the device.
+*/
+message UartWritten {
+  // Addressing
+  uint32 uart_nbr      = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type  = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id     = 3; /** The unique identifier string for the UART device. */
+  // Payload
+  uint32 bytes_written = 4; /** The number of bytes written to the device. */
+}
+
+/**
+* UartInputEvent represents a message sent from a device to IO
+* containing data from a UART input device.
+* This message is sent from a device to IO to report sensor data.
+* It can contain multiple SensorEvents if the device has multiple sensors.
+*/
+message UartInputEvent {
+  // Addressing
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+  // Payload
+  repeated wippersnapper.sensor.SensorEvent events = 4; /** Required, but optionally repeated, SensorEvent from a sensor. */
+}
