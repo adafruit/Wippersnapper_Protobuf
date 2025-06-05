@@ -91,7 +91,7 @@ message I2CDeviceInitRequest {
   int32  i2c_port_number                                    = 1; /** The desired I2C port to initialize an I2C device on. */
   I2CBusInitRequest i2c_bus_init_req                        = 2; /** An I2C bus initialization request. */
   uint32 i2c_device_address                                 = 3; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                                    = 4[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
+  string i2c_device_name                                    = 4[(nanopb).max_size = 256]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   repeated I2CDeviceSensorProperties i2c_device_properties  = 5[(nanopb).max_count = 15]; /** Properties of each sensor on the I2C device. */
   bool is_output_device                                     = 6; /** True if the I2C device is an I2C output device, False otherwise (default). */
   I2COutputAdd i2c_output_add                               = 7; /** The configuration for an I2C output device. */
@@ -114,7 +114,7 @@ message I2CDeviceInitResponse {
 message I2CDeviceUpdateRequest {
   int32  i2c_port_number                                    = 1; /** The desired I2C port. */
   uint32 i2c_device_address                                 = 2; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                                    = 3[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON file. */
+  string i2c_device_name                                    = 3[(nanopb).max_size = 256]; /** The I2C device's name, MUST MATCH the name on the JSON file. */
   repeated I2CDeviceSensorProperties i2c_device_properties  = 4[(nanopb).max_count = 15]; /** Properties for the I2C device's sensors. */
 }
 
@@ -215,7 +215,7 @@ message I2CDeviceEvent {
 */
 message I2CDeviceOutputWrite {
   uint32 i2c_device_address             = 1; /** The 7-bit I2C address of the device on the bus. */
-  string i2c_device_name                = 2[(nanopb).max_size = 15]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
+  string i2c_device_name                = 2[(nanopb).max_size = 256]; /** The I2C device's name, MUST MATCH the name on the JSON definition file on https://github.com/adafruit/Wippersnapper_Components. */
   oneof output_msg {
     LEDBackpackWrite write_led_backpack = 3; /** Optional - If the I2C device is a LED backpack, fill this field. **/
     CharLCDWrite write_char_lcd         = 4; /** Optional - If the I2C device is a character LCD, fill this field. **/
@@ -300,5 +300,5 @@ message CharLCDWrite {
 * write to a SSD1306 OLED display.
 */
 message SSD1306Write {
-  string message = 1 [(nanopb).max_size = 128]; /** Message to write to a SSD1306 OLED display. **/
+  string message = 1 [(nanopb).max_size = 256]; /** Message to write to a SSD1306 OLED display. **/
 }
