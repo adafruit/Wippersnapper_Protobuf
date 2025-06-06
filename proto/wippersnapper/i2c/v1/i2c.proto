@@ -284,7 +284,7 @@ message I2COutputAdd {
 * LEDBackpackWrite represents a request from the broker to write a message to a LED backpack.
 */
 message LEDBackpackWrite {
-  string message = 1 [(nanopb).max_size = 5]; /** Message to write to the LED backpack. **/
+  string message = 1 [(nanopb).max_size = 128]; /** Message to write to the LED backpack. **/
 }
 
 /**
