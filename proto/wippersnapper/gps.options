@@ -1,0 +1,17 @@
+# gps.options
+wippersnapper.gps.GPSConfig.commands         max_size:256
+wippersnapper.gps.GPSConfig.commands         max_count:16
+wippersnapper.gps.GPSRMCResponse.fix_status  max_size:2
+wippersnapper.gps.GPSRMCResponse.lat         max_size:12
+wippersnapper.gps.GPSRMCResponse.lat_dir     max_size:6
+wippersnapper.gps.GPSRMCResponse.lon         max_size:12
+wippersnapper.gps.GPSRMCResponse.lon_dir     max_size:6
+wippersnapper.gps.GPSRMCResponse.speed       max_size:8
+wippersnapper.gps.GPSRMCResponse.angle       max_size:7
+wippersnapper.gps.GPGGAResponse.lat          max_size:12
+wippersnapper.gps.GPGGAResponse.lat_dir      max_size:6
+wippersnapper.gps.GPGGAResponse.lon          max_size:12
+wippersnapper.gps.GPGGAResponse.lon_dir      max_size:6
+wippersnapper.gps.GPGGAResponse.hdop         max_size:6
+wippersnapper.gps.GPGGAResponse.altitude     max_size:8
+wippersnapper.gps.GPGGAResponse.geoid_height max_size:10

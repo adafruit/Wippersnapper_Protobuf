@@ -1,0 +1,30 @@
+// SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package wippersnapper.analogio;
+import "sensor.proto";
+
+/**
+* AnalogIOAdd adds an analog pin to the device.
+*/
+message AnalogIOAdd {
+  string pin_name                           = 1; /** Name of the pin. */
+  float period                              = 2; /** Time between reads, in seconds. */
+  wippersnapper.sensor.SensorType read_mode = 3; /** Desired read mode for the pin. */
+}
+
+/**
+* AnalogIORemove removes an analog pin from the device.
+*/
+message AnalogIORemove {
+  string pin_name = 1; /** Name of the pin. */
+}
+
+
+/**
+* AnalogIOEvent is contains a value, sent when an analog pin is read.
+*/
+message AnalogIOEvent {
+  string pin_name                                = 1; /** Name of the pin. */
+  wippersnapper.sensor.SensorEvent sensor_event  = 2; /** Reading(s) from an analog pin. */
+}

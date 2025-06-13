@@ -1,0 +1,132 @@
+// SPDX-FileCopyrightText: 2021-2024 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package wippersnapper.i2c;
+import "i2c_output.proto";
+import "sensor.proto";
+
+/**
+* I2cBusStatus represents the status of a board's I2C bus
+*/
+enum I2cBusStatus {
+  I2C_BUS_STATUS_UNSPECIFIED   = 0; /** Unspecified error occurred. **/
+  I2C_BUS_STATUS_SUCCESS       = 1; /** I2C bus successfully initialized. **/
+  I2C_BUS_STATUS_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
+  I2C_BUS_STATUS_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
+  I2C_BUS_STATUS_ERROR_WIRING  = 4; /** I2C bus failed to communicate - Please check your wiring. **/
+  I2C_BUS_STATUS_ERROR_INVALID_CHANNEL = 5; /** I2C MUX failed - Output channel must be within range 0-7. **/
+}
+
+/**
+* I2cDeviceStatus represents the state of an I2C device/peripheral
+*/
+enum I2cDeviceStatus {
+  I2C_DEVICE_STATUS_UNSPECIFIED             = 0; /** Unspecified error occurred. **/
+  I2C_DEVICE_STATUS_SUCCESS                 = 1; /** I2C device successfully initialized. **/
+  I2C_DEVICE_STATUS_FAIL_INIT               = 2; /** I2C device failed to initialize. **/
+  I2C_DEVICE_STATUS_FAIL_DEINIT             = 3; /** I2C device failed to deinitialize. **/
+  I2C_DEVICE_STATUS_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
+  I2C_DEVICE_STATUS_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
+}
+
+/**
+* I2cDeviceDescriptor represents the I2c device's address and related metadata.
+*/
+message I2cDeviceDescriptor {
+  string i2c_bus_sda        = 1; /** Optional SDA pin for an alt. i2c bus.**/
+  string i2c_bus_scl        = 2; /** Optional SCL pin for an alt. i2c bus.**/
+  uint32 i2c_device_address = 3; /** I2C Device's Address. **/
+  uint32 i2c_mux_address    = 4; /** Optional I2C multiplexer address. **/
+  uint32 i2c_mux_channel    = 5; /** Optional I2C multiplexer channel. **/
+}
+
+/**
+* I2cBusDescriptor represents the I2c bus' SDA and SCL pins.
+*/
+message I2cBusDescriptor {
+  string i2c_bus_sda = 1; /** SDA pin for an i2c bus.**/
+  string i2c_bus_scl = 2; /** SCL pin for an i2c bus.**/
+}
+
+/**
+* I2cBusScan represents a command for a device to perform an i2c scan.
+*/
+message I2cBusScan {
+  bool scan_default_bus                         = 1; /** Default - Scan for i2c devices on the hardware's default I2C bus.**/
+  bool scan_alt_bus                             = 2; /** Optional - Scan for i2c devices on an alternative I2C bus.**/
+  I2cBusDescriptor i2c_alt_bus_descriptor       = 3; /** Optional - Metadata to optionally initialize (if not already init'd) an alt. i2c bus.**/
+  bool scan_default_bus_mux                     = 4; /** Optional - Scan for i2c devices on the default I2C bus with a multiplexer.**/
+  bool scan_alt_bus_mux                         = 5; /** Optional - Scan for i2c devices on an alternative I2C bus with a multiplexer.**/
+}
+
+/**
+* I2cBusScanned represents a list of I2c addresses
+* found on the bus after I2cScan has executed.
+*/
+message I2cBusScanned {
+  repeated I2cDeviceDescriptor i2c_bus_found_devices = 1; /** The 7-bit addresses of the I2c devices found on the bus, empty if not found. */
+  I2cBusStatus i2c_bus_status                        = 2; /** The I2c bus' status. **/
+}
+
+// DEVICE COMMANDS
+
+/**
+* I2cDeviceAddOrReplace is a message for initializing (or replacing/updating) an i2c device.
+*/
+message I2cDeviceAddOrReplace {
+  I2cDeviceDescriptor i2c_device_description                        = 1; /** The I2c device's address and metadata. */
+  string i2c_device_name                                            = 2; /** The I2c device's name, MUST MATCH the name on the JSON definition file on
+                                                                     https://github.com/adafruit/Wippersnapper_Components. */
+  float i2c_device_period                                           = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
+  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types  = 4; /** SI Types for each sensor on the I2c device. */
+  bool is_persistent                                   = 5; /** Offline-Mode ONLY - True if the device exits in the config file, False otherwise. **/
+  bool is_output                                       = 6; /** Required by the device to determine if the device is an output device.**/
+  wippersnapper.i2c_output.I2cOutputAdd i2c_output_add = 7; /** Optional - If the I2C device is an output device, fill this field. **/
+}
+
+/**
+* I2cDeviceAddedOrReplaced contains the response from a device after processing a I2cDeviceAddOrReplace message.
+*/
+message I2cDeviceAddedOrReplaced {
+  I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
+  I2cBusStatus i2c_bus_status                = 2; /** The I2c bus' status. **/
+  I2cDeviceStatus i2c_device_status          = 3; /** The I2c device's status. **/
+}
+
+/**
+* I2cDeviceRemove represents a request to de-init an i2c device.
+*/
+message I2cDeviceRemove {
+  I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
+  bool is_output_device                      = 2; /** Determines if the device is an output device.**/
+}
+
+/**
+* I2cDeviceRemoved represents a response to a I2cDeviceRemove message.
+*/
+message I2cDeviceRemoved {
+  I2cDeviceDescriptor i2c_device_description = 1; /** The I2c device's address and metadata. */
+  bool did_remove                            = 2; /** True if the I2C device was successfully removed from the controller, False otherwise. **/
+}
+
+/**
+* Each I2cDeviceEvent represents data from **one** I2c sensor.
+* NOTE: An I2cDeviceEvent can have multiple sensor events if
+* the I2c device contains > 1 sensor.
+*/
+message I2cDeviceEvent {
+  I2cDeviceDescriptor i2c_device_description                  = 1; /** The I2c device's address and metadata. */
+  repeated wippersnapper.sensor.SensorEvent i2c_device_events = 2; /** Required, but optionally repeated, SensorEvent from a sensor. */
+}
+
+/**
+* I2cDeviceOutputWrite represents a request to write to an I2C output device.
+*/
+message I2cDeviceOutputWrite {
+  I2cDeviceDescriptor i2c_device_description                     = 1; /** Required - The I2c device's address and metadata. */
+  oneof output_msg {
+    wippersnapper.i2c_output.LedBackpackWrite write_led_backpack = 2; /** Optional - If the I2C device is a LED backpack, fill this field. **/
+    wippersnapper.i2c_output.CharLCDWrite write_char_lcd         = 3; /** Optional - If the I2C device is a character LCD, fill this field. **/
+    wippersnapper.i2c_output.OLEDWrite write_oled                = 4; /** Optional - If the I2C device is an OLED display, fill this field. **/
+  }
+}

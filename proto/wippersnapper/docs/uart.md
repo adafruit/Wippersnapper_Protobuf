@@ -1,0 +1,61 @@
+
+# uart.proto
+
+This file details the WipperSnapper messaging API for interfacing with a UART bus.
+
+## WipperSnapper Components
+
+The following WipperSnapper components utilize `uart.proto`:
+
+* PMS* Air Quality Sensors
+* Adafruit Universal GPS module using the MTK33x9 chipset
+
+
+## Sequence Diagrams
+
+### Attaching a UART Component to a device running WipperSnapper 
+
+```mermaid
+sequenceDiagram
+autonumber
+
+IO-->>WS Device: UARTAdd
+
+WS Device-->>WS Device Decoder: UARTAdd
+
+WS Device Decoder-->>WS Device UART: UARTBusData
+Note over WS Device Decoder, WS Device UART: Initialize UART bus using configuration (UARTBusData).
+
+WS Device Decoder-->>WS Device UART: device_id, polling_interval
+Note over WS Device Decoder, WS Device UART: Initialize UART device on the UART bus and associate it with a driver and a polling period.
+
+WS Device UART-->>WS Device: UARTAdded
+
+WS Device-->>IO: UARTAdded
+Note over WS Device, IO: Returns true if successful, False if not.
+```
+
+### Attaching a UART Component to a device running WipperSnapper 
+
+```mermaid
+sequenceDiagram
+autonumber
+
+Device-->>IO Broker: UARTEvent
+IO Broker -->>IO Backend: Parse out repeated sensor_event into apropriate feeds for device_id
+```
+
+### Detaching a UART Component from a device running WipperSnapper 
+
+```mermaid
+sequenceDiagram
+autonumber
+
+IO Broker --> Device: UARTRemove
+Device --> UART Class: Detach UART device from UART bus according to device_id.
+```
+
+
+
+
+
