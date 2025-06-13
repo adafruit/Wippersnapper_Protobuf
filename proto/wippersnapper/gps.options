@@ -1,5 +1,6 @@
 # gps.options
-wippersnapper.gps.GPSConfig.config_msg       max_size:256
+wippersnapper.gps.GPSConfig.commands         max_size:256
+wippersnapper.gps.GPSConfig.commands         max_count:16
 wippersnapper.gps.GPSRMCResponse.fix_status  max_size:2
 wippersnapper.gps.GPSRMCResponse.lat         max_size:12
 wippersnapper.gps.GPSRMCResponse.lat_dir     max_size:6

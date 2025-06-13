@@ -9,8 +9,8 @@ package wippersnapper.gps;
  * and a resulting command string to initialize the GPS device with the selected options will be generated.
  */
 message GPSConfig {
-  string config_msg = 1; /** Initilization command (PMTK for MediaTek, or similar for other chipsets) **/
   // Baud rate is not included here as it is included in the UartAdd->UartSerialConfig message.
+  repeated string commands = 1; /** List of commands to configure the GPS **/
 }
 
 /** GPSDateTime represents the date and time information from a GPRMC/GPGGA string **/
