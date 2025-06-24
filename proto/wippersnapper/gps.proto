@@ -11,6 +11,7 @@ package wippersnapper.gps;
 message GPSConfig {
   // Baud rate is not included here as it is included in the UartAdd->UartSerialConfig message.
   repeated string commands = 1; /** List of commands to configure the GPS **/
+  repeated string responses = 1; /** List of corresponding responses to the commands **/
 }
 
 /** GPSDateTime represents the date and time information from a GPRMC/GPGGA string **/
