@@ -15,3 +15,5 @@ wippersnapper.gps.GPGGAResponse.lon_dir      max_size:6
 wippersnapper.gps.GPGGAResponse.hdop         max_size:6
 wippersnapper.gps.GPGGAResponse.altitude     max_size:8
 wippersnapper.gps.GPGGAResponse.geoid_height max_size:10
+wippersnapper.gps.GPSEvent.rmc_responses     max_size:10
+wippersnapper.gps.GPSEvent.gga_responses     max_size:10

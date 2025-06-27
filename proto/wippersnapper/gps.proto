@@ -50,3 +50,9 @@ message GPGGAResponse {
   string altitude = 11; /** Altitude in meters above MSL **/
   string geoid_height = 12; /** Diff between geoid height and WGS84 height **/
 }
+
+/** GPSEvent represents a collection of GPS event responses, including RMC and GGA data. **/
+message GPSEvent {
+  repeated GPSRMCResponse rmc_responses = 1; /** List of RMC responses **/
+  repeated GPGGAResponse gga_responses  = 2; /** List of GGA responses **/
+}
