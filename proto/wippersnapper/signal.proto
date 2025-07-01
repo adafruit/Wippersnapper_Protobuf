@@ -99,7 +99,6 @@ message DeviceToBroker {
     wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 112;
     wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 113;
     // gps.proto
-    wippersnapper.gps.GPSRMCResponse gps_rmc_response = 120;
-    wippersnapper.gps.GPGGAResponse gps_gga_response = 121;
+    wippersnapper.gps.GPSEvent gps_event = 120;
   }
 }
