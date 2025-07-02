@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.i2c;
+import "gps.proto";
 import "i2c_output.proto";
 import "sensor.proto";
-import "gps.proto";
 
 /**
 * I2cBusStatus represents the status of a board's I2C bus
