@@ -4,6 +4,7 @@ syntax = "proto3";
 package wippersnapper.i2c;
 import "i2c_output.proto";
 import "sensor.proto";
+import "gps.proto";
 
 /**
 * I2cBusStatus represents the status of a board's I2C bus
@@ -82,6 +83,8 @@ message I2cDeviceAddOrReplace {
   bool is_persistent                                   = 5; /** Offline-Mode ONLY - True if the device exits in the config file, False otherwise. **/
   bool is_output                                       = 6; /** Required by the device to determine if the device is an output device.**/
   wippersnapper.i2c_output.I2cOutputAdd i2c_output_add = 7; /** Optional - If the I2C device is an output device, fill this field. **/
+  bool is_gps_device                                   = 8; /** Optional - If the I2C device is a GPS driver, fill this field. **/
+  wippersnapper.gps.GPSConfig gps_config               = 9; /** Optional - If the I2C device is a GPS driver, fill this field with the GPS config. **/
 }
 
 /**
