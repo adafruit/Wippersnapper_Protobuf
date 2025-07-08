@@ -29,26 +29,26 @@ message GPSDateTime {
 message GPSRMCResponse {
   GPSDateTime datetime = 1; /** Date and time of the GPS data **/
   string fix_status = 2; /** Fix status: 'A' for active, 'V' for void **/
-  string lat = 4; /** Latitude in decimal degrees **/
-  string lat_dir = 5; /** Latitude direction: 'North' or 'South' **/
-  string lon = 6; /** Longitude in decimal degrees **/
-  string lon_dir = 7; /** Longitude direction: 'East' or 'West' **/
-  string speed = 8; /** Speed, in knots **/
-  string angle = 9; /** Course/heading angle, in degrees **/
+  string lat = 3; /** Latitude in decimal degrees **/
+  string lat_dir = 4; /** Latitude direction: 'North' or 'South' **/
+  string lon = 5; /** Longitude in decimal degrees **/
+  string lon_dir = 6; /** Longitude direction: 'East' or 'West' **/
+  string speed = 7; /** Speed, in knots **/
+  string angle = 8; /** Course/heading angle, in degrees **/
 }
 
 /** GPGGAResponse represents the response from a GPS GGA (Global Positioning System Fix Data) message. **/
 message GPGGAResponse {
   GPSDateTime datetime = 1; /** Date and time of the GPS data **/
-  string lat = 4; /** Latitude in decimal degrees **/
-  string lat_dir = 5; /** Latitude direction: 'N' or 'S' **/
-  string lon = 6; /** Longitude in decimal degrees **/
-  string lon_dir = 7; /** Longitude direction: 'E' or 'W' **/
-  int32 fix_quality = 8; /** Quality of the GPS fix (0-3) **/
-  int32 num_satellites = 9; /** Number of satellites in use **/
-  string hdop = 10; /** HDOP- horizontal dilution of precision **/
-  string altitude = 11; /** Altitude in meters above MSL **/
-  string geoid_height = 12; /** Diff between geoid height and WGS84 height **/
+  string lat = 2; /** Latitude in decimal degrees **/
+  string lat_dir = 3; /** Latitude direction: 'N' or 'S' **/
+  string lon = 4; /** Longitude in decimal degrees **/
+  string lon_dir = 5; /** Longitude direction: 'E' or 'W' **/
+  int32 fix_quality = 6; /** Quality of the GPS fix (0-3) **/
+  int32 num_satellites = 7; /** Number of satellites in use **/
+  string hdop = 8; /** HDOP- horizontal dilution of precision **/
+  string altitude = 9; /** Altitude in meters above MSL **/
+  string geoid_height = 10; /** Diff between geoid height and WGS84 height **/
 }
 
 /** GPSEvent represents a collection of GPS event responses, including RMC and GGA data. **/
