@@ -9,9 +9,10 @@ package wippersnapper.gps;
  * and a resulting command string to initialize the GPS device with the selected options will be generated.
  */
 message GPSConfig {
-  // Baud rate is not included here as it is included in the UartAdd->UartSerialConfig message.
-  repeated string commands = 1; /** List of commands to configure the GPS **/
-  int32 period             = 2; /** The period to poll the GPS module, in milliseconds */
+  // NOTE:  Baud rate is not included here as it is included in the UartAdd->UartSerialConfig message.
+  repeated string commands_pmtks = 1; /** List of PMTK commands in string format. **/
+  repeated bytes commands_ubxes  = 2; /** List of UBX commands in bytes format. **/
+  int32 period                   = 3; /** Desired period to poll the GPS module, in milliseconds */
 }
 
 /** GPSDateTime represents the date and time information from a GPRMC/GPGGA string **/
