@@ -1,8 +1,8 @@
 # gps.options
 wippersnapper.gps.GPSConfig.commands_pmtks   max_size:90
-wippersnapper.gps.GPSConfig.commands_pmtks   max_count:16
-wippersnapper.gps.GPSConfig.commands_ubxes   max_size:512
-wippersnapper.gps.GPSConfig.commands_ubxes   max_count:16
+wippersnapper.gps.GPSConfig.commands_pmtks   max_count:8
+wippersnapper.gps.GPSConfig.commands_ubxes   max_size:128
+wippersnapper.gps.GPSConfig.commands_ubxes   max_count:8
 wippersnapper.gps.GPSRMCResponse.fix_status  max_size:2
 wippersnapper.gps.GPSRMCResponse.lat         max_size:12
 wippersnapper.gps.GPSRMCResponse.lat_dir     max_size:6
