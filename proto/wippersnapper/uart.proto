@@ -100,9 +100,9 @@ message TrinamicDynamixelConfig {
 * containing device-specific configuration info for PM2.5 AQI sensors.
 */
 message PM25AQIConfig {
-  bool is_pm1006                                                   = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
-  int32 period                                                     = 2; /** The period to poll the device, in milliseconds */
-  repeated wippersnapper.sensor.SensorType i2c_device_sensor_types = 3; /** SI Types for each sensor on the I2c device. */
+  bool is_pm1006                                        = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
+  int32 period                                          = 2; /** The period to poll the device, in milliseconds */
+  repeated wippersnapper.sensor.SensorType sensor_types = 3; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
