@@ -87,17 +87,17 @@ message DeviceToBroker {
     wippersnapper.pixels.PixelsAdded pixels_added = 60;
     // ds18x20.proto
     wippersnapper.ds18x20.Ds18x20Added ds18x20_added = 70;
-    wippersnapper.ds18x20.Ds18x20Event ds18x20_event = 80;
+    wippersnapper.ds18x20.Ds18x20Event ds18x20_event = 71;
     // uart.proto
-    wippersnapper.uart.UartAdded uart_added            = 90;
-    wippersnapper.uart.UartWritten uart_written        = 91;
-    wippersnapper.uart.UartInputEvent uart_input_event = 92;
+    wippersnapper.uart.UartAdded uart_added            = 80;
+    wippersnapper.uart.UartWritten uart_written        = 81;
+    wippersnapper.uart.UartInputEvent uart_input_event = 82;
     // i2c.proto
-    wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 100;
-    wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 101;
-    wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 102;
-    wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 103;
+    wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 90;
+    wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 91;
+    wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 92;
+    wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 93;
     // gps.proto
-    wippersnapper.gps.GPSEvent gps_event = 120;
+    wippersnapper.gps.GPSEvent gps_event = 100;
   }
 }
