@@ -145,3 +145,4 @@ cython_debug/
 arduino_out/
 
 nanopb/
+.DS_Store
