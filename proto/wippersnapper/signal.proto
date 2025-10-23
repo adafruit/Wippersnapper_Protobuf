@@ -27,8 +27,7 @@ message BrokerToDevice {
     // digitalio.proto
     wippersnapper.digitalio.DigitalIOAdd digitalio_add       = 10;
     wippersnapper.digitalio.DigitalIORemove digitalio_remove = 11;
-    wippersnapper.digitalio.DigitalIOEvent digitalio_event   = 12;
-    wippersnapper.digitalio.DigitalIOWrite digitalio_write   = 13;
+    wippersnapper.digitalio.DigitalIOWrite digitalio_write   = 12;
     // analogio.proto
     wippersnapper.analogio.AnalogIOAdd analogio_add       = 20;
     wippersnapper.analogio.AnalogIORemove analogio_remove = 21;
@@ -94,10 +93,10 @@ message DeviceToBroker {
     wippersnapper.uart.UartWritten uart_written        = 91;
     wippersnapper.uart.UartInputEvent uart_input_event = 92;
     // i2c.proto
-    wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 110;
-    wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 111;
-    wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 112;
-    wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 113;
+    wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 100;
+    wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 101;
+    wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 102;
+    wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 103;
     // gps.proto
     wippersnapper.gps.GPSEvent gps_event = 120;
   }
