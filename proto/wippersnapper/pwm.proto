@@ -8,11 +8,9 @@ package wippersnapper.pwm;
  */
 message PWMB2D {
   oneof payload {
-    PWMAdd pwm_add                              = 10;
-    PWMRemove pwm_remove                        = 11;
-    PWMWriteDutyCycle pwm_write_duty            = 12;
-    PWMWriteDutyCycleMulti pwm_write_duty_multi = 13;
-    PWMWriteFrequency pwm_write_freq            = 14;
+    PWMAdd pwm_add       = 10;
+    PWMRemove pwm_remove = 11;
+    PWMWrite pwm_write   = 12;
   }
 }
 
@@ -55,28 +53,15 @@ message PWMRemove {
 }
 
 /**
-* PWMWriteDutyCycle represents a  to write a duty cycle to a pin with a frequency (fixed).
-* This is used for controlling LEDs.
+* PWMWrite represents writing to a pin either:
+* - a duty cycle (frequency is fixed) This is used for controlling LEDs.
+* - a frequency in Hz (duty cycle fixed at 50%) This is used for playing tones using a piezo buzzer or speaker
+* This value will be changed by the slider on Adafruit IO. 
 */
-message PWMWriteDutyCycle {
+message PWMWrite {
   string pin       = 1; /** The pin to write to. */
-  int32 duty_cycle = 2; /** The desired duty cycle to write (range is from 0 to (2 ** duty_resolution)).
-                            This value will be changed by the slider on Adafruit IO. **/
-}
-
-/**
-* PWMWriteDutyCycleMulti represents a wrapper  to write duty cycles to multiple pins.
-* This is used for controlling RGB/RGBW LEDs.
-*/
-message PWMWriteDutyCycleMulti {
-  repeated PWMWriteDutyCycle write_duty_cycle_reqs = 1; /** Multiple duty cycles to write, one per pin of a RGB LED. **/
-}
-
-/**
-* PWMWriteFrequency represents a  to write a Frequency, in Hz, to a pin with a duty cycle of 50%.
-* This is used for playing tones using a piezo buzzer or speaker.
-*/
-message PWMWriteFrequency {
-  string pin       = 1; /** The pin to write to. */
-  int32 frequency  = 2; /** The desired PWM frequency, in Hz. This value will be changed by the slider on Adafruit IO. **/
+  oneof payload {
+    int32 duty_cycle = 2; /** The desired duty cycle (range is from 0 to (2 ** duty_resolution)). **/
+    int32 frequency  = 3; /** The desired PWM frequency, in Hz. **/
+  }
 }
