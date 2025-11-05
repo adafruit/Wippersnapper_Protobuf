@@ -4,17 +4,17 @@ syntax = "proto3";
 package wippersnapper.digitalio;
 import "sensor.proto";
 
-message B2D {
+message DigitalIOB2D {
   oneof payload {
-    DigitalIOAdd add       = 10;
-    DigitalIORemove remove = 11;
-    DigitalIOWrite write   = 12;
+    DigitalIOAdd digitalio_add       = 10;
+    DigitalIORemove digitalio_remove = 11;
+    DigitalIOWrite digitalio_write   = 12;
   }
 }
 
-message D2B {
+message DigitalIOD2B {
   oneof payload {
-    DigitalIOEvent event = 10;
+    DigitalIOEvent digitalio_event = 10;
   }
 }
 

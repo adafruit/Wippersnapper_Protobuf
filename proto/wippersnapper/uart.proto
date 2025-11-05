@@ -8,7 +8,7 @@ import "sensor.proto";
 /**
  * BrokerToDevice message envelope
  */
-message B2D {
+message UartB2D {
   oneof payload {
     UartAdd uart_add       = 10;
     UartRemove uart_remove = 11;
@@ -19,7 +19,7 @@ message B2D {
 /**
  * DeviceToBroker message envelope
  */
-message D2B {
+message UartD2B {
   oneof payload {
     UartAdded uart_added            = 10;
     UartWritten uart_written        = 11;

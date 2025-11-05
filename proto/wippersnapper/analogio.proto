@@ -4,16 +4,16 @@ syntax = "proto3";
 package wippersnapper.analogio;
 import "sensor.proto";
 
-message B2D {
+message AnalogIOB2D {
   oneof payload {
-    AnalogIOAdd add       = 10;
-    AnalogIORemove remove = 11;
+    AnalogIOAdd analogio_add       = 10;
+    AnalogIORemove analogio_remove = 11;
   }
 }
 
-message D2B {
+message AnalogIOD2B {
   oneof payload {
-    AnalogIOEvent event = 10;
+    AnalogIOEvent analogio_event = 10;
   }
 }
 

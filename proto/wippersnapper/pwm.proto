@@ -6,7 +6,7 @@ package wippersnapper.pwm;
 /**
  * BrokerToDevice message envelope
  */
-message B2D {
+message PWMB2D {
   oneof payload {
     PWMAdd pwm_add                              = 10;
     PWMRemove pwm_remove                        = 11;
@@ -19,7 +19,7 @@ message B2D {
 /**
  * DeviceToBroker message envelope
  */
-message D2B {
+message PWMD2B {
   oneof payload {
     PWMAdded pwm_added = 10;
   }

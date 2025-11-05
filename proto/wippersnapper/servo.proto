@@ -6,7 +6,7 @@ package wippersnapper.servo;
 /**
  * BrokerToDevice message envelope
  */
-message B2D {
+message ServoB2D {
   oneof payload {
     ServoAdd servo_add       = 10;
     ServoRemove servo_remove = 11;
@@ -17,7 +17,7 @@ message B2D {
 /**
  * DeviceToBroker message envelope
  */
-message D2B {
+message ServoD2B {
   oneof payload {
     ServoAdded servo_added = 10;
   }

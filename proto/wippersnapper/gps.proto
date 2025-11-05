@@ -3,13 +3,13 @@
 syntax = "proto3";
 package wippersnapper.gps;
 
-message B2D {
+message GPSB2D {
   // oneof payload {
   //
   // }
 }
 
-message D2B {
+message GPSD2B {
   oneof payload {
     GPSEvent gps_event = 10;
   }

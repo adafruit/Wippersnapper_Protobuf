@@ -8,7 +8,7 @@ import "sensor.proto";
 /**
  * BrokerToDevice message envelope
  */
-message B2D {
+message Ds18x20B2D {
   oneof payload {
     Ds18x20Add ds18x20_add       = 10;
     Ds18x20Remove ds18x20_remove = 11;
@@ -18,7 +18,7 @@ message B2D {
 /**
  * DeviceToBroker message envelope
  */
-message D2B {
+message Ds18x20D2B {
   oneof payload {
     Ds18x20Added ds18x20_added = 10;
     Ds18x20Event ds18x20_event = 11;

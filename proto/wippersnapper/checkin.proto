@@ -7,7 +7,7 @@ package wippersnapper.checkin;
 /**
  * BrokerToDevice message envelope
  */
-message B2D {
+message CheckinB2D {
   oneof payload {
     CheckinResponse checkin_response = 10;
   }
@@ -16,7 +16,7 @@ message B2D {
 /**
  * DeviceToBroker message envelope
  */
-message D2B {
+message CheckinD2B {
   oneof payload {
     CheckinRequest checkin_request = 10;
     /* CheckinConfirm checkin_confirm = 20 */

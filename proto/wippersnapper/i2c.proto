@@ -9,7 +9,7 @@ import "sensor.proto";
 /**
  * BrokerToDevice message envelope
  */
-message B2D {
+message I2cB2D {
   oneof payload {
     I2cBusScan i2c_bus_scan                      = 10;
     I2cDeviceAddOrReplace i2c_device_add_replace = 11;
@@ -21,7 +21,7 @@ message B2D {
 /**
  * DeviceToBroker message envelope
  */
-message D2B {
+message I2cD2B {
   oneof payload {
     I2cBusScanned i2c_bus_scanned                      = 10;
     I2cDeviceAddedOrReplaced i2c_device_added_replaced = 11;

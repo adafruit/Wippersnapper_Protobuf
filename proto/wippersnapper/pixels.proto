@@ -7,7 +7,7 @@ package wippersnapper.pixels;
 /**
  * BrokerToDevice message envelope
  */
-message B2D {
+message PixelsB2D {
   oneof payload {
     PixelsAdd pixels_add       = 10;
     PixelsRemove pixels_remove = 11;
@@ -18,7 +18,7 @@ message B2D {
 /**
  * DeviceToBroker message envelope
  */
-message D2B {
+message PixelsD2B {
   oneof payload {
     PixelsAdded pixels_added = 10;
   }
