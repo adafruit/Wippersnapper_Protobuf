@@ -7,6 +7,30 @@ import "i2c_output.proto";
 import "sensor.proto";
 
 /**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    I2cBusScan i2c_bus_scan                      = 10;
+    I2cDeviceAddOrReplace i2c_device_add_replace = 11;
+    I2cDeviceRemove i2c_device_remove            = 12;
+    I2cDeviceOutputWrite i2c_device_output_write = 13;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    I2cBusScanned i2c_bus_scanned                      = 10;
+    I2cDeviceAddedOrReplaced i2c_device_added_replaced = 11;
+    I2cDeviceRemoved i2c_device_removed                = 12;
+    I2cDeviceEvent i2c_device_event                    = 13;
+  }
+}
+
+/**
 * I2cBusStatus represents the status of a board's I2C bus
 */
 enum I2cBusStatus {

@@ -6,6 +6,26 @@ package wippersnapper.ds18x20;
 import "sensor.proto";
 
 /**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Ds18x20Add ds18x20_add       = 10;
+    Ds18x20Remove ds18x20_remove = 11;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Ds18x20Added ds18x20_added = 10;
+    Ds18x20Event ds18x20_event = 11;
+  }
+}
+
+/**
 * Ds18x20Add represents a  to initialize
 * a DS18X20 Maxim temperature sensor, from the broker.
 * NOTE: This API currently only supports ONE device per OneWire bus.

@@ -3,6 +3,18 @@
 syntax = "proto3";
 package wippersnapper.gps;
 
+message B2D {
+  // oneof payload {
+  //
+  // }
+}
+
+message D2B {
+  oneof payload {
+    GPSEvent gps_event = 10;
+  }
+}
+
 /**
  * GPSConfig represents a message containing configuration data to set up and configure a GPS.
  * Since GPS devices can output lots of data, this message allows users to select which data they want to receive

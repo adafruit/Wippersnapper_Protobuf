@@ -4,6 +4,19 @@ syntax = "proto3";
 package wippersnapper.analogio;
 import "sensor.proto";
 
+message B2D {
+  oneof payload {
+    AnalogIOAdd add       = 10;
+    AnalogIORemove remove = 11;
+  }
+}
+
+message D2B {
+  oneof payload {
+    AnalogIOEvent event = 10;
+  }
+}
+
 /**
 * AnalogIOAdd adds an analog pin to the device.
 */

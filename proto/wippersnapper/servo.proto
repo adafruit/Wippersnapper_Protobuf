@@ -4,6 +4,26 @@ syntax = "proto3";
 package wippersnapper.servo;
 
 /**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    ServoAdd servo_add       = 10;
+    ServoRemove servo_remove = 11;
+    ServoWrite servo_write   = 12;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    ServoAdded servo_added = 10;
+  }
+}
+
+/**
 * ServoAdd represents a request to attach a servo to a pin.
 */
 message ServoAdd {

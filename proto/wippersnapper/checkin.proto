@@ -5,6 +5,25 @@ syntax = "proto3";
 package wippersnapper.checkin;
 
 /**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    CheckinResponse checkin_response = 10;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    CheckinRequest checkin_request = 10;
+    /* CheckinConfirm checkin_confirm = 20 */
+  }
+}
+
+/**
 * CheckinRequest notifies the MQTT broker that a new/existing device is requesting to connect.
 */
 message CheckinRequest {

@@ -6,6 +6,28 @@ import "gps.proto";
 import "sensor.proto";
 
 /**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    UartAdd uart_add       = 10;
+    UartRemove uart_remove = 11;
+    UartWrite uart_write   = 12;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    UartAdded uart_added            = 10;
+    UartWritten uart_written        = 11;
+    UartInputEvent uart_input_event = 12;
+  }
+}
+
+/**
 * UartPacketFormat contains the configuration data, parity, and stop bits for a serial port.
 */
 enum UartPacketFormat {

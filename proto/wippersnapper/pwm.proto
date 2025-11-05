@@ -4,6 +4,28 @@ syntax = "proto3";
 package wippersnapper.pwm;
 
 /**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    PWMAdd pwm_add                              = 10;
+    PWMRemove pwm_remove                        = 11;
+    PWMWriteDutyCycle pwm_write_duty            = 12;
+    PWMWriteDutyCycleMulti pwm_write_duty_multi = 13;
+    PWMWriteFrequency pwm_write_freq            = 14;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    PWMAdded pwm_added = 10;
+  }
+}
+
+/**
 * PWMAdd represents a  to a device to attach/allocate a PWM pin.
 * On ESP32 Arduino, this will "attach" a pin to a LEDC channel/timer group.
 * On non-ESP32 Arduino, this does nothing.

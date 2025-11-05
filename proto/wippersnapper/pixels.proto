@@ -5,6 +5,26 @@ syntax = "proto3";
 package wippersnapper.pixels;
 
 /**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    PixelsAdd pixels_add       = 10;
+    PixelsRemove pixels_remove = 11;
+    PixelsWrite pixels_write   = 12;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    PixelsAdded pixels_added = 10;
+  }
+}
+
+/**
 * PixelsType defines the type/model of pixel strand.
 */
 enum PixelsType {
