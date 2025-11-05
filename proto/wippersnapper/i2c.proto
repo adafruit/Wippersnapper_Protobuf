@@ -34,24 +34,24 @@ message D2B {
 * BusStatus represents the status of a board's I2C bus
 */
 enum BusStatus {
-  BUS_STATUS_UNSPECIFIED   = 0; /** Unspecified error occurred. **/
-  BUS_STATUS_SUCCESS       = 1; /** I2C bus successfully initialized. **/
-  BUS_STATUS_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
-  BUS_STATUS_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
-  BUS_STATUS_ERROR_WIRING  = 4; /** I2C bus failed to communicate - Please check your wiring. **/
-  BUS_STATUS_ERROR_INVALID_CHANNEL = 5; /** I2C MUX failed - Output channel must be within range 0-7. **/
+  BS_UNSPECIFIED   = 0; /** Unspecified error occurred. **/
+  BS_SUCCESS       = 1; /** I2C bus successfully initialized. **/
+  BS_ERROR_HANG    = 2; /** I2C Bus hang, user should reset their board if this persists. **/
+  BS_ERROR_PULLUPS = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
+  BS_ERROR_WIRING  = 4; /** I2C bus failed to communicate - Please check your wiring. **/
+  BS_ERROR_INVALID_CHANNEL = 5; /** I2C MUX failed - Output channel must be within range 0-7. **/
 }
 
 /**
 * DeviceStatus represents the state of an I2C device/peripheral
 */
 enum DeviceStatus {
-  DEVICE_STATUS_UNSPECIFIED             = 0; /** Unspecified error occurred. **/
-  DEVICE_STATUS_SUCCESS                 = 1; /** I2C device successfully initialized. **/
-  DEVICE_STATUS_FAIL_INIT               = 2; /** I2C device failed to initialize. **/
-  DEVICE_STATUS_FAIL_DEINIT             = 3; /** I2C device failed to deinitialize. **/
-  DEVICE_STATUS_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
-  DEVICE_STATUS_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
+  DS_UNSPECIFIED             = 0; /** Unspecified error occurred. **/
+  DS_SUCCESS                 = 1; /** I2C device successfully initialized. **/
+  DS_FAIL_INIT               = 2; /** I2C device failed to initialize. **/
+  DS_FAIL_DEINIT             = 3; /** I2C device failed to deinitialize. **/
+  DS_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
+  DS_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
 }
 
 /**

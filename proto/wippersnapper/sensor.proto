@@ -7,44 +7,44 @@ package wippersnapper.sensor;
 * Type allows us determine what types of units the sensor uses, etc.
 */
 enum Type {
-  TYPE_UNSPECIFIED                    = 0;  /** Sensor value type which is not defined by this list, "Raw Value: {value}". */
-  TYPE_ACCELEROMETER                  = 1;  /** Acceleration, in meter per second per second, "{value}m/s/s". */
-  TYPE_MAGNETIC_FIELD                 = 2;  /** Magnetic field strength, in micro-Tesla, "{value}µT". */
-  TYPE_ORIENTATION                    = 3;  /** Orientation angle, in degrees, "{value}°". */
-  TYPE_GYROSCOPE                      = 4;  /** Angular rate, in radians per second, "{value}rad/s". */
-  TYPE_LIGHT                          = 5;  /** Light-level, non-unit-specific (For a unit-specific measurement, see: Lux),
+  T_UNSPECIFIED                    = 0;  /** Sensor value type which is not defined by this list, "Raw Value: {value}". */
+  T_ACCELEROMETER                  = 1;  /** Acceleration, in meter per second per second, "{value}m/s/s". */
+  T_MAGNETIC_FIELD                 = 2;  /** Magnetic field strength, in micro-Tesla, "{value}µT". */
+  T_ORIENTATION                    = 3;  /** Orientation angle, in degrees, "{value}°". */
+  T_GYROSCOPE                      = 4;  /** Angular rate, in radians per second, "{value}rad/s". */
+  T_LIGHT                          = 5;  /** Light-level, non-unit-specific (For a unit-specific measurement, see: Lux),
                                                        "Raw Value: {value}". */
-  TYPE_PRESSURE                       = 6;  /** Pressure, in hectopascal, , "{value}hPa". */
-  TYPE_PROXIMITY                      = 8;  /** Distance from an object to a sensor, non-unit-specific, "Raw Value: {value}". */
-  TYPE_GRAVITY                        = 9;  /** Metres per second squared, "{value}m/s^2". */
-  TYPE_LINEAR_ACCELERATION            = 10; /** Acceleration not including gravity, in meter per second squared, "{value}m/s^2". */
-  TYPE_ROTATION_VECTOR                = 11; /** An angle in radians, "{value} rad".*/
-  TYPE_RELATIVE_HUMIDITY              = 12; /** in percent (%), "{value}%". */
-  TYPE_AMBIENT_TEMPERATURE            = 13; /** Temperature of the air around a sensor, in degrees Celsius, "{value}°C". */
-  TYPE_OBJECT_TEMPERATURE             = 14; /** Temperature of the object a sensor is touching/pointed at, in degrees Celsius, "{value}°C".*/
-  TYPE_VOLTAGE                        = 15; /** Volts, "{value}V". */
-  TYPE_CURRENT                        = 16; /** Milliamps, "{value}mA". */
-  TYPE_COLOR                          = 17; /** Values are in 0..1.0 RGB channel luminosity and 32-bit RGBA format. "Color: {value}".*/
-  TYPE_RAW                            = 18; /** Sensor reads a value which is not defined by this list, "Raw Value: {value}".*/
-  TYPE_PM10_STD                       = 19; /** Standard Particulate Matter 1.0, in ppm, "{value}ppm". */
-  TYPE_PM25_STD                       = 20; /** Standard Particulate Matter 2.5, in ppm, "{value}ppm". */
-  TYPE_PM100_STD                      = 21; /** Standard Particulate Matter 100, in ppm, "{value}ppm". */
-  TYPE_PM10_ENV                       = 22; /** Environmental Particulate Matter 1.0, in ppm, "{value}ppm". */
-  TYPE_PM25_ENV                       = 23; /** Environmental Particulate Matter 2.5, in ppm, "{value}ppm". */
-  TYPE_PM100_ENV                      = 24; /** Environmental Particulate Matter 100, in ppm, "{value}ppm".*/
-  TYPE_CO2                            = 25; /** Measured CO2, in ppm, "{value}ppm". */
-  TYPE_GAS_RESISTANCE                 = 26; /** Proportional to the amount of VOC particles in the air, in Ohms, "{value}Ω". */
-  TYPE_ALTITUDE                       = 27; /** Values are in meters (m), "${$v} m". */
-  TYPE_LUX                            = 28; /** Light level, in lux, "Lux: {value}". */
-  TYPE_ECO2                           = 29; /** equivalent/estimated CO2 in ppm (estimated from some other measurement), "{value}ppm". */
-  TYPE_UNITLESS_PERCENT               = 30; /** Percentage, unit-less, "{value}%". */
-  TYPE_AMBIENT_TEMPERATURE_FAHRENHEIT = 31; /** Temperature of the air around a sensor, in degrees Fahrenheit, "{value}°F". */
-  TYPE_OBJECT_TEMPERATURE_FAHRENHEIT  = 32; /** Temperature of the object a sensor is touching/pointed at, in Fahrenheit, "{value}°F".*/
-  TYPE_VOC_INDEX                      = 33; /** Values are an index from 1-500 with 100 being normal, "${$v} VOC".*/
-  TYPE_NOX_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
-  TYPE_TVOC                           = 35; /** Values are in parts per billion (ppb), "${$v} ppb". */
-  TYPE_BYTES                          = 36; /** Values are in bytes, "${$v} bytes". */
-  TYPE_BOOLEAN                        = 37; /** Values are boolean, "Boolean Value: ${$v}". */
+  T_PRESSURE                       = 6;  /** Pressure, in hectopascal, , "{value}hPa". */
+  T_PROXIMITY                      = 8;  /** Distance from an object to a sensor, non-unit-specific, "Raw Value: {value}". */
+  T_GRAVITY                        = 9;  /** Metres per second squared, "{value}m/s^2". */
+  T_LINEAR_ACCELERATION            = 10; /** Acceleration not including gravity, in meter per second squared, "{value}m/s^2". */
+  T_ROTATION_VECTOR                = 11; /** An angle in radians, "{value} rad".*/
+  T_RELATIVE_HUMIDITY              = 12; /** in percent (%), "{value}%". */
+  T_AMBIENT_TEMPERATURE            = 13; /** Temperature of the air around a sensor, in degrees Celsius, "{value}°C". */
+  T_OBJECT_TEMPERATURE             = 14; /** Temperature of the object a sensor is touching/pointed at, in degrees Celsius, "{value}°C".*/
+  T_VOLTAGE                        = 15; /** Volts, "{value}V". */
+  T_CURRENT                        = 16; /** Milliamps, "{value}mA". */
+  T_COLOR                          = 17; /** Values are in 0..1.0 RGB channel luminosity and 32-bit RGBA format. "Color: {value}".*/
+  T_RAW                            = 18; /** Sensor reads a value which is not defined by this list, "Raw Value: {value}".*/
+  T_PM10_STD                       = 19; /** Standard Particulate Matter 1.0, in ppm, "{value}ppm". */
+  T_PM25_STD                       = 20; /** Standard Particulate Matter 2.5, in ppm, "{value}ppm". */
+  T_PM100_STD                      = 21; /** Standard Particulate Matter 100, in ppm, "{value}ppm". */
+  T_PM10_ENV                       = 22; /** Environmental Particulate Matter 1.0, in ppm, "{value}ppm". */
+  T_PM25_ENV                       = 23; /** Environmental Particulate Matter 2.5, in ppm, "{value}ppm". */
+  T_PM100_ENV                      = 24; /** Environmental Particulate Matter 100, in ppm, "{value}ppm".*/
+  T_CO2                            = 25; /** Measured CO2, in ppm, "{value}ppm". */
+  T_GAS_RESISTANCE                 = 26; /** Proportional to the amount of VOC particles in the air, in Ohms, "{value}Ω". */
+  T_ALTITUDE                       = 27; /** Values are in meters (m), "${$v} m". */
+  T_LUX                            = 28; /** Light level, in lux, "Lux: {value}". */
+  T_ECO2                           = 29; /** equivalent/estimated CO2 in ppm (estimated from some other measurement), "{value}ppm". */
+  T_UNITLESS_PERCENT               = 30; /** Percentage, unit-less, "{value}%". */
+  T_AMBIENT_TEMPERATURE_FAHRENHEIT = 31; /** Temperature of the air around a sensor, in degrees Fahrenheit, "{value}°F". */
+  T_OBJECT_TEMPERATURE_FAHRENHEIT  = 32; /** Temperature of the object a sensor is touching/pointed at, in Fahrenheit, "{value}°F".*/
+  T_VOC_INDEX                      = 33; /** Values are an index from 1-500 with 100 being normal, "${$v} VOC".*/
+  T_NOX_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
+  T_TVOC                           = 35; /** Values are in parts per billion (ppb), "${$v} ppb". */
+  T_BYTES                          = 36; /** Values are in bytes, "${$v} bytes". */
+  T_BOOLEAN                        = 37; /** Values are boolean, "Boolean Value: ${$v}". */
 }
 
 /**

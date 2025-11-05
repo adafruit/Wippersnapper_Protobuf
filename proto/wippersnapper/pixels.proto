@@ -28,24 +28,24 @@ message D2B {
 * Type defines the type/model of pixel strand.
 */
 enum Type {
-  TYPE_UNSPECIFIED = 0; /** Unspecified pixel type, error. */
-  TYPE_NEOPIXEL    = 1; /** NeoPixel pixel strand. */
-  TYPE_DOTSTAR     = 2; /** DotStar pixel strand. */
+  T_UNSPECIFIED = 0; /** Unspecified pixel type, error. */
+  T_NEOPIXEL    = 1; /** NeoPixel pixel strand. */
+  T_DOTSTAR     = 2; /** DotStar pixel strand. */
 }
 
 /**
 * Order defines the color ordering.
 */
 enum Order {
-  ORDER_UNSPECIFIED  = 0; /** Unspecified color ordering, error. */
-  ORDER_GRB          = 1; /** DEFAULT for NeoPixels - Green, Red, Blue */
-  ORDER_GRBW         = 2; /** Green, Red, Blue, White */
-  ORDER_RGB          = 3; /** Red, Green, Blue */
-  ORDER_RGBW         = 4; /** Red, Green, Blue, White */
-  ORDER_BRG          = 5; /** DEFAULT for DotStars - Blue, Red, Green */
-  ORDER_RBG          = 6; /** Red, Blue Green */
-  ORDER_GBR          = 7; /** Green, Blue, Red */
-  ORDER_BGR          = 8; /** Blue, Green, Red */
+  O_UNSPECIFIED  = 0; /** Unspecified color ordering, error. */
+  O_GRB          = 1; /** DEFAULT for NeoPixels - Green, Red, Blue */
+  O_GRBW         = 2; /** Green, Red, Blue, White */
+  O_RGB          = 3; /** Red, Green, Blue */
+  O_RGBW         = 4; /** Red, Green, Blue, White */
+  O_BRG          = 5; /** DEFAULT for DotStars - Blue, Red, Green */
+  O_RBG          = 6; /** Red, Blue Green */
+  O_GBR          = 7; /** Green, Blue, Red */
+  O_BGR          = 8; /** Blue, Green, Red */
 }
 
 /**

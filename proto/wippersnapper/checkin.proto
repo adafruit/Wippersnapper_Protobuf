@@ -54,9 +54,9 @@ message Response {
    * Response. Specifies if the hardware definiton is within the database.
    */
   enum Response {
-    RESPONSE_UNSPECIFIED     = 0; /** Invalid response from server */
-    RESPONSE_OK              = 1; /** Board found within definition index */
-    RESPONSE_BOARD_NOT_FOUND = 2; /** Board not found in definition index */
+    R_UNSPECIFIED     = 0; /** Invalid response from server */
+    R_OK              = 1; /** Board found within definition index */
+    R_BOARD_NOT_FOUND = 2; /** Board not found in definition index */
   }
 }
 

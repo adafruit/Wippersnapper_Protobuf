@@ -28,19 +28,19 @@ message D2B {
 * SampleMode specifies the pin's sample mode.
 */
 enum SampleMode {
-  SAMPLE_MODE_UNSPECIFIED = 0; /** Invalid Sample Mode from Broker. */
-  SAMPLE_MODE_TIMER       = 1; /** Periodically sample the pin's value. */
-  SAMPLE_MODE_EVENT       = 2; /** Sample the pin's value when an event occurs. */
+  SM_UNSPECIFIED = 0; /** Invalid Sample Mode from Broker. */
+  SM_TIMER       = 1; /** Periodically sample the pin's value. */
+  SM_EVENT       = 2; /** Sample the pin's value when an event occurs. */
 }
 
 /**
 * Direction specifies the pin's direction, INPUT/INPUT_PULL_UP/OUTPUT.
 */
 enum Direction {
-  DIRECTION_UNSPECIFIED   = 0; /** Invalid Direction from Broker. */
-  DIRECTION_INPUT         = 1; /** Set the pin to behave as an input. */
-  DIRECTION_INPUT_PULL_UP = 2; /** Set the pin to behave as an input. */
-  DIRECTION_OUTPUT        = 3; /** Set the pin to behave as an output. */
+  D_UNSPECIFIED   = 0; /** Invalid Direction from Broker. */
+  D_INPUT         = 1; /** Set the pin to behave as an input. */
+  D_INPUT_PULL_UP = 2; /** Set the pin to behave as an input. */
+  D_OUTPUT        = 3; /** Set the pin to behave as an output. */
 }
 
 /**
