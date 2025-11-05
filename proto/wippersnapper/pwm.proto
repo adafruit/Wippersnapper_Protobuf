@@ -6,59 +6,59 @@ package wippersnapper.pwm;
 /**
  * BrokerToDevice message envelope
  */
-message PWMB2D {
+message B2D {
   oneof payload {
-    PWMAdd pwm_add       = 10;
-    PWMRemove pwm_remove = 11;
-    PWMWrite pwm_write   = 12;
+    Add add       = 10;
+    Remove remove = 11;
+    Write write   = 12;
   }
 }
 
 /**
  * DeviceToBroker message envelope
  */
-message PWMD2B {
+message D2B {
   oneof payload {
-    PWMAdded pwm_added = 10;
+    Added added = 10;
   }
 }
 
 /**
-* PWMAdd represents a  to a device to attach/allocate a PWM pin.
+* Add represents a  to a device to attach/allocate a PWM pin.
 * On ESP32 Arduino, this will "attach" a pin to a LEDC channel/timer group.
 * On non-ESP32 Arduino, this does nothing.
 */
-message PWMAdd {
+message Add {
   string pin       = 1; /** The pin to be attached. */
   int32 frequency  = 2; /** PWM frequency of an analog pin, in Hz. **/
   int32 resolution = 3; /** The resolution of an analog pin, in bits. **/
 }
 
 /**
-* PWMAdded represents a response from a device's execution of an
+* Added represents a response from a device's execution of an
 * Add message.
 */
-message PWMAdded {
+message Added {
   string pin      = 1; /** The ed pin. */
   bool did_attach = 2; /** True if Add successful, False otherwise. */
 }
 
 /**
-* PWMRemove represents a  to stop PWM'ing and release the pin for re-use.
+* Remove represents a  to stop PWM'ing and release the pin for re-use.
 * On ESP32, this will "detach" a pin from a LEDC channel/timer group.
 * On non-ESP32 Arduino, this calls digitalWrite(LOW) on the pin
 */
-message PWMRemove {
+message Remove {
   string pin       = 1; /** The PWM pin to de-initialized. */
 }
 
 /**
-* PWMWrite represents writing to a pin either:
+* Write represents writing to a pin either:
 * - a duty cycle (frequency is fixed) This is used for controlling LEDs.
 * - a frequency in Hz (duty cycle fixed at 50%) This is used for playing tones using a piezo buzzer or speaker
 * This value will be changed by the slider on Adafruit IO. 
 */
-message PWMWrite {
+message Write {
   string pin       = 1; /** The pin to write to. */
   oneof payload {
     int32 duty_cycle = 2; /** The desired duty cycle (range is from 0 to (2 ** duty_resolution)). **/

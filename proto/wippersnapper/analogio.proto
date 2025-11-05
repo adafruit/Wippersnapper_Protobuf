@@ -7,43 +7,43 @@ import "sensor.proto";
 /**
  * BrokerToDevice message envelope
  */
-message AnalogIOB2D {
+message B2D {
   oneof payload {
-    AnalogIOAdd analogio_add       = 10;
-    AnalogIORemove analogio_remove = 11;
+    Add add       = 10;
+    Remove remove = 11;
   }
 }
 
 /**
  * DeviceToBroker message envelope
  */
-message AnalogIOD2B {
+message D2B {
   oneof payload {
-    AnalogIOEvent analogio_event = 10;
+    Event event = 10;
   }
 }
 
 /**
-* AnalogIOAdd adds an analog pin to the device.
+* Add adds an analog pin to the device.
 */
-message AnalogIOAdd {
-  string pin_name                           = 1; /** Name of the pin. */
-  float period                              = 2; /** Time between reads, in seconds. */
-  wippersnapper.sensor.SensorType read_mode = 3; /** Desired read mode for the pin. */
+message Add {
+  string pin_name                     = 1; /** Name of the pin. */
+  float period                        = 2; /** Time between reads, in seconds. */
+  wippersnapper.sensor.Type read_mode = 3; /** Desired read mode for the pin. */
 }
 
 /**
-* AnalogIORemove removes an analog pin from the device.
+* Remove removes an analog pin from the device.
 */
-message AnalogIORemove {
+message Remove {
   string pin_name = 1; /** Name of the pin. */
 }
 
 
 /**
-* AnalogIOEvent is contains a value, sent when an analog pin is read.
+* Event is contains a value, sent when an analog pin is read.
 */
-message AnalogIOEvent {
-  string pin_name                                = 1; /** Name of the pin. */
-  wippersnapper.sensor.SensorEvent sensor_event  = 2; /** Reading(s) from an analog pin. */
+message Event {
+  string pin_name                   = 1; /** Name of the pin. */
+  wippersnapper.sensor.Event event  = 2; /** Reading(s) from an analog pin. */
 }

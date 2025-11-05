@@ -6,7 +6,7 @@ package wippersnapper.gps;
 /**
  * BrokerToDevice message envelope
  */
-message GPSB2D {
+message B2D {
   // oneof payload {
   //
   // }
@@ -15,26 +15,26 @@ message GPSB2D {
 /**
  * DeviceToBroker message envelope
  */
-message GPSD2B {
+message D2B {
   oneof payload {
-    GPSEvent gps_event = 10;
+    Event event = 10;
   }
 }
 
 /**
- * GPSConfig represents a message containing configuration data to set up and configure a GPS.
+ * Config represents a message containing configuration data to set up and configure a GPS.
  * Since GPS devices can output lots of data, this message allows users to select which data they want to receive
  * and a resulting command string to initialize the GPS device with the selected options will be generated.
  */
-message GPSConfig {
+message Config {
   // NOTE:  Baud rate is not included here as it is included in the UartAdd->UartSerialConfig message.
   repeated string commands_pmtks = 1; /** List of PMTK commands in string format. **/
   repeated bytes commands_ubxes  = 2; /** List of UBX commands in bytes format. **/
   int32 period                   = 3; /** Desired period to poll the GPS module, in milliseconds */
 }
 
-/** GPSDateTime represents the date and time information from a GPRMC/GPGGA string **/
-message GPSDateTime {
+/** DateTime represents the date and time information from a GPRMC/GPGGA string **/
+message DateTime {
   int32 hour = 1; /** Hour of the day (0-23) **/
   int32 minute = 2; /** Minute of the hour (0-59) **/
   int32 seconds = 3; /** Seconds of the minute (0-59) **/
@@ -44,9 +44,9 @@ message GPSDateTime {
   int32 year = 7; /** Year (e.g., 2023) **/
 }
 
-/** GPSRMCResponse represents the response from a GPS RMC (Recommended Minimum Specific GPS/Transit Data) message. **/
-message GPSRMCResponse {
-  GPSDateTime datetime = 1; /** Date and time of the GPS data **/
+/** RMCResponse represents the response from a GPS RMC (Recommended Minimum Specific GPS/Transit Data) message. **/
+message RMCResponse {
+  DateTime datetime = 1; /** Date and time of the GPS data **/
   string fix_status = 2; /** Fix status: 'A' for active, 'V' for void **/
   string lat = 3; /** Latitude in decimal degrees **/
   string lat_dir = 4; /** Latitude direction: 'North' or 'South' **/
@@ -58,7 +58,7 @@ message GPSRMCResponse {
 
 /** GPGGAResponse represents the response from a GPS GGA (Global Positioning System Fix Data) message. **/
 message GPGGAResponse {
-  GPSDateTime datetime = 1; /** Date and time of the GPS data **/
+  DateTime datetime = 1; /** Date and time of the GPS data **/
   string lat = 2; /** Latitude in decimal degrees **/
   string lat_dir = 3; /** Latitude direction: 'N' or 'S' **/
   string lon = 4; /** Longitude in decimal degrees **/
@@ -70,8 +70,8 @@ message GPGGAResponse {
   string geoid_height = 10; /** Diff between geoid height and WGS84 height **/
 }
 
-/** GPSEvent represents a collection of GPS event responses, including RMC and GGA data. **/
-message GPSEvent {
-  repeated GPSRMCResponse rmc_responses = 1; /** List of RMC responses **/
+/** Event represents a collection of GPS event responses, including RMC and GGA data. **/
+message Event {
+  repeated RMCResponse rmc_responses = 1; /** List of RMC responses **/
   repeated GPGGAResponse gga_responses  = 2; /** List of GGA responses **/
 }

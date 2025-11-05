@@ -15,34 +15,34 @@ import "uart.proto";
 /**
  * BrokerToDevice message envelope
  */
-message CheckinB2D {
+message B2D {
   oneof payload {
-    CheckinResponse checkin_response = 10;
+    Response checkin_response = 10;
   }
 }
 
 /**
  * DeviceToBroker message envelope
  */
-message CheckinD2B {
+message D2B {
   oneof payload {
-    CheckinRequest checkin_request   = 1;
-    CheckinComplete checkin_complete = 2;
+    Request checkin_request   = 1;
+    Complete checkin_complete = 2;
   }
 }
 
 /**
-* CheckinRequest notifies the MQTT broker that a new/existing device is requesting to connect.
+* Request notifies the MQTT broker that a new/existing device is requesting to connect.
 */
-message CheckinRequest {
+message Request {
   string hardware_uid = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
   string firmware_version = 2; /** Identifies the client's firmware version. */
 }
 
 /**
-* CheckinResponse sends a broker response to the client's CheckinRequest.
+* Response sends a broker response to the client's Request.
 */
-message CheckinResponse {
+message Response {
   Response response        = 1; /** Specifies if the hardware definition exists on the server. */
   int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the device. */
   int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the device. */
@@ -65,14 +65,14 @@ message CheckinResponse {
  */
 message ComponentAdd {
   oneof payload {
-    wippersnapper.digitalio.DigitalIOAdd digitalio = 1;
-    wippersnapper.analogio.AnalogIOAdd analogio    = 2;
-    wippersnapper.servo.ServoAdd servo             = 3;
-    wippersnapper.pwm.PWMAdd pwm                   = 4;
-    wippersnapper.pixels.PixelsAdd pixels          = 5;
-    wippersnapper.ds18x20.Ds18x20Add ds18x20       = 6;
-    wippersnapper.uart.UartAdd uart                = 7;
-    wippersnapper.i2c.I2cDeviceAddOrReplace i2c    = 8;
+    wippersnapper.digitalio.Add digitalio = 1;
+    wippersnapper.analogio.Add analogio    = 2;
+    wippersnapper.servo.Add servo             = 3;
+    wippersnapper.pwm.Add pwm                   = 4;
+    wippersnapper.pixels.Add pixels          = 5;
+    wippersnapper.ds18x20.Add ds18x20       = 6;
+    wippersnapper.uart.Add uart                = 7;
+    wippersnapper.i2c.DeviceAddOrReplace i2c    = 8;
   }
 }
 
@@ -80,6 +80,6 @@ message ComponentAdd {
  * Signal to the broker that the device has completed the checkin
  * routine and is now operating normally
  */
-message CheckinComplete {
+message Complete {
 
 }

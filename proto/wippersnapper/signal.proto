@@ -27,18 +27,18 @@ message BrokerToDevice {
     wippersnapper.error.Error error = 10;
 
     // Device Interactions
-    wippersnapper.checkin.CheckinB2D checkin = 20;
+    wippersnapper.checkin.B2D checkin = 20;
 
     // Component Interactions
-    wippersnapper.digitalio.DigitalIOB2D digitalio = 30;
-    wippersnapper.analogio.AnalogIOB2D analogio    = 31;
-    wippersnapper.servo.ServoB2D servo             = 32;
-    wippersnapper.pwm.PWMB2D pwm                   = 33;
-    wippersnapper.pixels.PixelsB2D pixels          = 34;
-    wippersnapper.ds18x20.Ds18x20B2D ds18x20       = 35;
-    wippersnapper.uart.UartB2D uart                = 36;
-    wippersnapper.i2c.I2cB2D i2c                   = 37;
-    // wippersnapper.gps.GPSB2D gps                      = xx;
+    wippersnapper.digitalio.B2D digitalio = 30;
+    wippersnapper.analogio.B2D analogio   = 31;
+    wippersnapper.servo.B2D servo         = 32;
+    wippersnapper.pwm.B2D pwm             = 33;
+    wippersnapper.pixels.B2D pixels       = 34;
+    wippersnapper.ds18x20.B2D ds18x20     = 35;
+    wippersnapper.uart.B2D uart           = 36;
+    wippersnapper.i2c.B2D i2c             = 37;
+    // wippersnapper.gps.B2D gps             = xx;
   }
 }
 
@@ -54,17 +54,17 @@ message DeviceToBroker {
     // device error channel here?
 
     // Device Interactions
-    wippersnapper.checkin.CheckinD2B checkin = 20;
+    wippersnapper.checkin.D2B checkin = 20;
 
     // Component Interactions
-    wippersnapper.digitalio.DigitalIOD2B digitalio = 30;
-    wippersnapper.analogio.AnalogIOD2B analogio    = 31;
-    wippersnapper.servo.ServoD2B servo             = 32;
-    wippersnapper.pwm.PWMD2B pwm                   = 33;
-    wippersnapper.pixels.PixelsD2B pixels          = 34;
-    wippersnapper.ds18x20.Ds18x20D2B ds18x20       = 35;
-    wippersnapper.uart.UartD2B uart                = 36;
-    wippersnapper.i2c.I2cD2B i2c                   = 37;
-    // wippersnapper.gps.GPSD2B gps                      = xx;
+    wippersnapper.digitalio.D2B digitalio = 30;
+    wippersnapper.analogio.D2B analogio   = 31;
+    wippersnapper.servo.D2B servo         = 32;
+    wippersnapper.pwm.D2B pwm             = 33;
+    wippersnapper.pixels.D2B pixels       = 34;
+    wippersnapper.ds18x20.D2B ds18x20     = 35;
+    wippersnapper.uart.D2B uart           = 36;
+    wippersnapper.i2c.D2B i2c             = 37;
+    // wippersnapper.gps.D2B gps             = xx;
   }
 }

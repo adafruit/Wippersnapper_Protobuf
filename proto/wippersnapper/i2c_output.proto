@@ -50,7 +50,7 @@ message OledConfig {
 /**
 * I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
 */
-message I2cOutputAdd {
+message Add {
   oneof config {
     LedBackpackConfig led_backpack_config = 1; /** Configuration for a LED backpack. **/
     CharLCDConfig char_lcd_config         = 2; /** Configuration for a character LCD. **/
