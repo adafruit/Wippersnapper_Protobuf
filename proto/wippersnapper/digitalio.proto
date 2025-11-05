@@ -4,6 +4,20 @@ syntax = "proto3";
 package wippersnapper.digitalio;
 import "sensor.proto";
 
+message DigitalIOB2D {
+  oneof payload {
+    DigitalIOAdd add       = 10;
+    DigitalIORemove remove = 11;
+    DigitalIOWrite write   = 12;
+  }
+}
+
+message DigitalIOD2B {
+  oneof payload {
+    DigitalIOEvent event = 10;
+  }
+}
+
 /**
 * DigitalIOSampleMode specifies the pin's sample mode.
 */

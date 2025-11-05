@@ -24,43 +24,59 @@ import "uart.proto";
  */
 message BrokerToDevice {
   oneof payload {
+    // System Messages
+    wippersnapper.error.Error error = 10;
+
+    // Device Actions
+    // wippersnapper.checkin.CheckinB2D checkin = 20;
+
+    // Component Actions
+    wippersnapper.digitalio.DigitalIOB2D digitalio = 30;
+    // wippersnapper.analogio.AnalogIOB2D analogio = 20;
+    // wippersnapper.servo.ServoB2D servo = 40;
+    // wippersnapper.pwm.PWMB2D pwm = 50;
+    // wippersnapper.pixels.PixelsB2D pixels = 60;
+    // wippersnapper.ds18x20.Ds18x20B2D ds18x20 = 70;
+    // wippersnapper.uart.UartB2D uart = 80;
+    // wippersnapper.i2c.I2cB2D i2c = 90;
+
     // digitalio.proto
-    wippersnapper.digitalio.DigitalIOAdd digitalio_add       = 10;
-    wippersnapper.digitalio.DigitalIORemove digitalio_remove = 11;
-    wippersnapper.digitalio.DigitalIOWrite digitalio_write   = 12;
+    // wippersnapper.digitalio.DigitalIOAdd digitalio_add       = 10;
+    // wippersnapper.digitalio.DigitalIORemove digitalio_remove = 11;
+    // wippersnapper.digitalio.DigitalIOWrite digitalio_write   = 12;
     // analogio.proto
-    wippersnapper.analogio.AnalogIOAdd analogio_add       = 20;
-    wippersnapper.analogio.AnalogIORemove analogio_remove = 21;
+    // wippersnapper.analogio.AnalogIOAdd analogio_add       = 20;
+    // wippersnapper.analogio.AnalogIORemove analogio_remove = 21;
     // checkin.proto
-    wippersnapper.checkin.CheckinResponse checkin_response = 30;
+    // wippersnapper.checkin.CheckinResponse checkin_response = 30;
     // servo.proto
-    wippersnapper.servo.ServoAdd servo_add       = 40;
-    wippersnapper.servo.ServoRemove servo_remove = 41;
-    wippersnapper.servo.ServoWrite servo_write   = 42;
+    // wippersnapper.servo.ServoAdd servo_add       = 40;
+    // wippersnapper.servo.ServoRemove servo_remove = 41;
+    // wippersnapper.servo.ServoWrite servo_write   = 42;
     // pwm.proto
-    wippersnapper.pwm.PWMAdd pwm_add                              = 50;
-    wippersnapper.pwm.PWMRemove pwm_remove                        = 51;
-    wippersnapper.pwm.PWMWriteDutyCycle pwm_write_duty            = 52;
-    wippersnapper.pwm.PWMWriteDutyCycleMulti pwm_write_duty_multi = 53;
-    wippersnapper.pwm.PWMWriteFrequency pwm_write_freq            = 54;
+    // wippersnapper.pwm.PWMAdd pwm_add                              = 50;
+    // wippersnapper.pwm.PWMRemove pwm_remove                        = 51;
+    // wippersnapper.pwm.PWMWriteDutyCycle pwm_write_duty            = 52;
+    // wippersnapper.pwm.PWMWriteDutyCycleMulti pwm_write_duty_multi = 53;
+    // wippersnapper.pwm.PWMWriteFrequency pwm_write_freq            = 54;
     // pixels.proto
-    wippersnapper.pixels.PixelsAdd pixels_add       = 60;
-    wippersnapper.pixels.PixelsRemove pixels_remove = 61;
-    wippersnapper.pixels.PixelsWrite pixels_write   = 62;
+    // wippersnapper.pixels.PixelsAdd pixels_add       = 60;
+    // wippersnapper.pixels.PixelsRemove pixels_remove = 61;
+    // wippersnapper.pixels.PixelsWrite pixels_write   = 62;
     // ds18x20.proto
-    wippersnapper.ds18x20.Ds18x20Add ds18x20_add       = 70;
-    wippersnapper.ds18x20.Ds18x20Remove ds18x20_remove = 71;
+    // wippersnapper.ds18x20.Ds18x20Add ds18x20_add       = 70;
+    // wippersnapper.ds18x20.Ds18x20Remove ds18x20_remove = 71;
     // uart.proto
-    wippersnapper.uart.UartAdd uart_add       = 80;
-    wippersnapper.uart.UartRemove uart_remove = 81;
-    wippersnapper.uart.UartWrite uart_write = 82;
+    // wippersnapper.uart.UartAdd uart_add       = 80;
+    // wippersnapper.uart.UartRemove uart_remove = 81;
+    // wippersnapper.uart.UartWrite uart_write = 82;
     // i2c.proto
-    wippersnapper.i2c.I2cBusScan i2c_bus_scan                      = 90;
-    wippersnapper.i2c.I2cDeviceAddOrReplace i2c_device_add_replace = 91;
-    wippersnapper.i2c.I2cDeviceRemove i2c_device_remove            = 92;
-    wippersnapper.i2c.I2cDeviceOutputWrite i2c_device_output_write = 93;
+    // wippersnapper.i2c.I2cBusScan i2c_bus_scan                      = 90;
+    // wippersnapper.i2c.I2cDeviceAddOrReplace i2c_device_add_replace = 91;
+    // wippersnapper.i2c.I2cDeviceRemove i2c_device_remove            = 92;
+    // wippersnapper.i2c.I2cDeviceOutputWrite i2c_device_output_write = 93;
     // error.proto
-    wippersnapper.error.Error error = 100;
+    // wippersnapper.error.Error error = 100;
   }
 }
 
@@ -73,31 +89,44 @@ message BrokerToDevice {
 message DeviceToBroker {
   option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
-    //digitalio.proto
-    wippersnapper.digitalio.DigitalIOEvent digitalio_event = 10;
-    // analogio.proto
-    wippersnapper.analogio.AnalogIOEvent analogio_event = 20;
-    // checkin.proto
-    wippersnapper.checkin.CheckinRequest checkin_request = 30;
-    // servo.proto
-    wippersnapper.servo.ServoAdded servo_added = 40;
-    // pwm.proto
-    wippersnapper.pwm.PWMAdded pwm_added = 50;
-    // pixels.proto
-    wippersnapper.pixels.PixelsAdded pixels_added = 60;
-    // ds18x20.proto
-    wippersnapper.ds18x20.Ds18x20Added ds18x20_added = 70;
-    wippersnapper.ds18x20.Ds18x20Event ds18x20_event = 71;
-    // uart.proto
-    wippersnapper.uart.UartAdded uart_added            = 80;
-    wippersnapper.uart.UartWritten uart_written        = 81;
-    wippersnapper.uart.UartInputEvent uart_input_event = 82;
-    // i2c.proto
-    wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 90;
-    wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 91;
-    wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 92;
-    wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 93;
-    // gps.proto
-    wippersnapper.gps.GPSEvent gps_event = 100;
+    // Error channel here?
+    // wippersnapper.checkin.CheckinD2B checkin = 30;
+
+    wippersnapper.digitalio.DigitalIOD2B digitalio = 10;
+    // wippersnapper.analogio.AnalogIOD2B analogio = 20;
+    // wippersnapper.servo.ServoD2B servo = 40;
+    // wippersnapper.pwm.PWMD2B pwm = 50;
+    // wippersnapper.pixels.PixelsD2B pixels = 60;
+    // wippersnapper.ds18x20.Ds18x20D2B ds18x20 = 70;
+    // wippersnapper.uart.UartD2B uart = 80;
+    // wippersnapper.i2c.I2cD2B i2c = 90;
+    // wippersnapper.gps.GPSD2B gps = 100;
+
+    // //digitalio.proto
+    // wippersnapper.digitalio.DigitalIOEvent digitalio_event = 10;
+    // // analogio.proto
+    // wippersnapper.analogio.AnalogIOEvent analogio_event = 20;
+    // // checkin.proto
+    // wippersnapper.checkin.CheckinRequest checkin_request = 30;
+    // // servo.proto
+    // wippersnapper.servo.ServoAdded servo_added = 40;
+    // // pwm.proto
+    // wippersnapper.pwm.PWMAdded pwm_added = 50;
+    // // pixels.proto
+    // wippersnapper.pixels.PixelsAdded pixels_added = 60;
+    // // ds18x20.proto
+    // wippersnapper.ds18x20.Ds18x20Added ds18x20_added = 70;
+    // wippersnapper.ds18x20.Ds18x20Event ds18x20_event = 71;
+    // // uart.proto
+    // wippersnapper.uart.UartAdded uart_added            = 80;
+    // wippersnapper.uart.UartWritten uart_written        = 81;
+    // wippersnapper.uart.UartInputEvent uart_input_event = 82;
+    // // i2c.proto
+    // wippersnapper.i2c.I2cBusScanned i2c_bus_scanned                      = 90;
+    // wippersnapper.i2c.I2cDeviceAddedOrReplaced i2c_device_added_replaced = 91;
+    // wippersnapper.i2c.I2cDeviceRemoved i2c_device_removed                = 92;
+    // wippersnapper.i2c.I2cDeviceEvent i2c_device_event                    = 93;
+    // // gps.proto
+    // wippersnapper.gps.GPSEvent gps_event = 100;
   }
 }
