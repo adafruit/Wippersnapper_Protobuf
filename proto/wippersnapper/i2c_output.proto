@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2025 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.i2c_output;
+package ws.i2c_output;
 
 /**
 * LedBackpackAlignment represents all text alignment option for LED backpack displays

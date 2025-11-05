@@ -1,4 +1,4 @@
 # analogio.options
-wippersnapper.analogio.Add.pin_name     max_size: 64
-wippersnapper.analogio.Remove.pin_name  max_size: 64
-wippersnapper.analogio.Event.pin_name   max_size: 64
+ws.analogio.Add.pin_name     max_size: 64
+ws.analogio.Remove.pin_name  max_size: 64
+ws.analogio.Event.pin_name   max_size: 64

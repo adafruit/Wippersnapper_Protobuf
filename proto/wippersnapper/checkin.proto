@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 // Messages for registering new and existing hardware with the Adafruit.io MQTT Broker
 syntax = "proto3";
-package wippersnapper.checkin;
+package ws.checkin;
 import "analogio.proto";
 import "digitalio.proto";
 import "ds18x20.proto";
@@ -65,14 +65,14 @@ message Response {
  */
 message ComponentAdd {
   oneof payload {
-    wippersnapper.digitalio.Add digitalio = 1;
-    wippersnapper.analogio.Add analogio    = 2;
-    wippersnapper.servo.Add servo             = 3;
-    wippersnapper.pwm.Add pwm                   = 4;
-    wippersnapper.pixels.Add pixels          = 5;
-    wippersnapper.ds18x20.Add ds18x20       = 6;
-    wippersnapper.uart.Add uart                = 7;
-    wippersnapper.i2c.DeviceAddOrReplace i2c    = 8;
+    ws.digitalio.Add digitalio = 1;
+    ws.analogio.Add analogio    = 2;
+    ws.servo.Add servo             = 3;
+    ws.pwm.Add pwm                   = 4;
+    ws.pixels.Add pixels          = 5;
+    ws.ds18x20.Add ds18x20       = 6;
+    ws.uart.Add uart                = 7;
+    ws.i2c.DeviceAddOrReplace i2c    = 8;
   }
 }
 

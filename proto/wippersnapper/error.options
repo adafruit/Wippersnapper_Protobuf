@@ -1,2 +1,2 @@
 # error.options
-wippersnapper.error.Error  submsg_callback:true
+ws.error.Error  submsg_callback:true

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 // WipperSnapper's Protobuf communication API for DS18X20 Maxim Temperature ICs
 syntax = "proto3";
-package wippersnapper.ds18x20;
+package ws.ds18x20;
 import "sensor.proto";
 
 /**
@@ -34,7 +34,7 @@ message Add {
   string onewire_pin                                      = 1; /** The desired pin to use as a OneWire bus. */
   int32  sensor_resolution                                = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
   float period                                            = 3; /** The desired period to read the sensor, in seconds. */
-  repeated wippersnapper.sensor.Type  sensor_types  = 4; /** SI types used by the DS18x20 sensor. */
+  repeated ws.sensor.Type  sensor_types  = 4; /** SI types used by the DS18x20 sensor. */
 }
 
 /**
@@ -59,5 +59,5 @@ message Remove {
 */
 message Event {
   string onewire_pin                                         = 1; /** The desired pin to use as a OneWire bus. */
-  repeated wippersnapper.sensor.Event sensor_events = 2; /** The DS18X20's SensorEvent. */
+  repeated ws.sensor.Event sensor_events = 2; /** The DS18X20's SensorEvent. */
 }

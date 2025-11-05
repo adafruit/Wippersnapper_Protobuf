@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2023-2025 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.uart;
+package ws.uart;
 import "gps.proto";
 import "sensor.proto";
 
@@ -107,7 +107,7 @@ message GenericInputConfig {
   string name                                            = 1; /** The name used to identify the device. */
   GenericDeviceLineEnding line_ending                    = 2; /** The line ending used by the device. */
   int32 period                                           = 3; /** The period to poll the device, in milliseconds */
-  repeated wippersnapper.sensor.Type sensor_types  = 4; /** SI Types for each sensor on the UART device. */
+  repeated ws.sensor.Type sensor_types  = 4; /** SI Types for each sensor on the UART device. */
 }
 
 /**
@@ -125,7 +125,7 @@ message TrinamicDynamixelConfig {
 message PM25AQIConfig {
   bool is_pm1006                                        = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
   int32 period                                          = 2; /** The period to poll the device, in milliseconds */
-  repeated wippersnapper.sensor.Type sensor_types = 3; /** SI Types for each sensor on the I2c device. */
+  repeated ws.sensor.Type sensor_types = 3; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
@@ -140,7 +140,7 @@ message DeviceConfig {
     GenericInputConfig generic_input  = 3; /** OPTIONAL configuration for a generic UART input device. */
     TrinamicDynamixelConfig trinamic_dynamixel = 4; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
     PM25AQIConfig pm25aqi                      = 5; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
-    wippersnapper.gps.Config gps            = 6; /** OPTIONAL configuration for a GPS RMC response. */
+    ws.gps.Config gps            = 6; /** OPTIONAL configuration for a GPS RMC response. */
   }
 }
 
@@ -218,5 +218,5 @@ message InputEvent {
   DeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
   string device_id    = 3; /** The unique identifier string for the UART device. */
   // Payload
-  repeated wippersnapper.sensor.Event events = 4; /** Required, but optionally repeated, SensorEvent from a sensor. */
+  repeated ws.sensor.Event events = 4; /** Required, but optionally repeated, SensorEvent from a sensor. */
 }

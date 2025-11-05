@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2025 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.gps;
+package ws.gps;
 
 /**
  * BrokerToDevice message envelope

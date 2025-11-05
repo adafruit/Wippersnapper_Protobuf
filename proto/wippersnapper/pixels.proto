@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 // Addressable Pixels API for Adafruit WipperSnapper
 syntax = "proto3";
-package wippersnapper.pixels;
+package ws.pixels;
 
 /**
  * BrokerToDevice message envelope

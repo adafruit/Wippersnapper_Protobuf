@@ -1,5 +1,5 @@
 # servo.options
-wippersnapper.servo.Add.pin    max_size:6
-wippersnapper.servo.Added.pin  max_size:6
-wippersnapper.servo.Remove.pin max_size:6
-wippersnapper.servo.Write.pin  max_size:6
+ws.servo.Add.pin    max_size:6
+ws.servo.Added.pin  max_size:6
+ws.servo.Remove.pin max_size:6
+ws.servo.Write.pin  max_size:6

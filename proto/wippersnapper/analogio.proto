@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.analogio;
+package ws.analogio;
 import "sensor.proto";
 
 /**
@@ -29,7 +29,7 @@ message D2B {
 message Add {
   string pin_name                     = 1; /** Name of the pin. */
   float period                        = 2; /** Time between reads, in seconds. */
-  wippersnapper.sensor.Type read_mode = 3; /** Desired read mode for the pin. */
+  ws.sensor.Type read_mode = 3; /** Desired read mode for the pin. */
 }
 
 /**
@@ -45,5 +45,5 @@ message Remove {
 */
 message Event {
   string pin_name                   = 1; /** Name of the pin. */
-  wippersnapper.sensor.Event event  = 2; /** Reading(s) from an analog pin. */
+  ws.sensor.Event event  = 2; /** Reading(s) from an analog pin. */
 }

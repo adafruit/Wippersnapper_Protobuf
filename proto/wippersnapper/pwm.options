@@ -1,5 +1,5 @@
 # pwm.options
-wippersnapper.pwm.Add.pin    max_size:6
-wippersnapper.pwm.Added.pin  max_size:6
-wippersnapper.pwm.Remove.pin max_size:6
-wippersnapper.pwm.Write.pin  max_size:6
+ws.pwm.Add.pin    max_size:6
+ws.pwm.Added.pin  max_size:6
+ws.pwm.Remove.pin max_size:6
+ws.pwm.Write.pin  max_size:6

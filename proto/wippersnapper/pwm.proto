@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2022-2023 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.pwm;
+package ws.pwm;
 
 /**
  * BrokerToDevice message envelope

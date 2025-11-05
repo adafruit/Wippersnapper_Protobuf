@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2024 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.digitalio;
+package ws.digitalio;
 import "sensor.proto";
 
 /**
@@ -66,7 +66,7 @@ message Remove {
 */
 message Event {
   string pin_name                        = 1; /** The pin's name. */
-  wippersnapper.sensor.Event value = 2; /** The pin's value. */
+  ws.sensor.Event value = 2; /** The pin's value. */
 }
 
 /**
@@ -74,5 +74,5 @@ message Event {
 */
 message Write {
   string pin_name                        = 1; /** The pin's name. */
-  wippersnapper.sensor.Event value = 2; /** The pin's value. */
+  ws.sensor.Event value = 2; /** The pin's value. */
 }
