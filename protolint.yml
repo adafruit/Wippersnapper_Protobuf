@@ -2,11 +2,17 @@
 # configuration file reference: https://github.com/yoheimuta/protolint/blob/master/_example/config/.protolint.yaml
 ---
 lint:
+  files:
+    exclude:
+      - proto/wippersnapper/nanopb.proto
+
   rules:
     all_default: true
     remove:
       - IMPORTS_SORTED
       - FIELDS_HAVE_COMMENT
+      - MESSAGE_NAMES_EXCLUDE_PREPOSITIONS
+
   rules_option:
     max_line_length:
       max_chars: 150

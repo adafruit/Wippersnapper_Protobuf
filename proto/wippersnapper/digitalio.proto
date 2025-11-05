@@ -4,6 +4,9 @@ syntax = "proto3";
 package wippersnapper.digitalio;
 import "sensor.proto";
 
+/**
+ * BrokerToDevice message envelope
+ */
 message DigitalIOB2D {
   oneof payload {
     DigitalIOAdd digitalio_add       = 10;
@@ -12,6 +15,9 @@ message DigitalIOB2D {
   }
 }
 
+/**
+ * DeviceToBroker message envelope
+ */
 message DigitalIOD2B {
   oneof payload {
     DigitalIOEvent digitalio_event = 10;

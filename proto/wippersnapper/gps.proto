@@ -3,12 +3,18 @@
 syntax = "proto3";
 package wippersnapper.gps;
 
+/**
+ * BrokerToDevice message envelope
+ */
 message GPSB2D {
   // oneof payload {
   //
   // }
 }
 
+/**
+ * DeviceToBroker message envelope
+ */
 message GPSD2B {
   oneof payload {
     GPSEvent gps_event = 10;
