@@ -3,6 +3,14 @@
 // Messages for registering new and existing hardware with the Adafruit.io MQTT Broker
 syntax = "proto3";
 package wippersnapper.checkin;
+import "analogio.proto";
+import "digitalio.proto";
+import "ds18x20.proto";
+import "i2c.proto";
+import "pixels.proto";
+import "pwm.proto";
+import "servo.proto";
+import "uart.proto";
 
 /**
  * BrokerToDevice message envelope
@@ -18,8 +26,8 @@ message CheckinB2D {
  */
 message CheckinD2B {
   oneof payload {
-    CheckinRequest checkin_request = 10;
-    /* CheckinConfirm checkin_confirm = 20 */
+    CheckinRequest checkin_request   = 1;
+    CheckinComplete checkin_complete = 2;
   }
 }
 
@@ -40,6 +48,8 @@ message CheckinResponse {
   int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the device. */
   float reference_voltage  = 4; /** Specifies the hardware's default reference voltage. */
 
+  repeated ComponentAdd component_adds = 5; /** A list of components to set up and initialize during checkin */
+
   /**
    * Response. Specifies if the hardware definiton is within the database.
    */
@@ -48,4 +58,28 @@ message CheckinResponse {
     RESPONSE_OK              = 1; /** Board found within definition index */
     RESPONSE_BOARD_NOT_FOUND = 2; /** Board not found in definition index */
   }
+}
+
+/**
+ * Generic component add message, could contain any *Add message from component protos
+ */
+message ComponentAdd {
+  oneof payload {
+    wippersnapper.digitalio.DigitalIOAdd digitalio = 1;
+    wippersnapper.analogio.AnalogIOAdd analogio    = 2;
+    wippersnapper.servo.ServoAdd servo             = 3;
+    wippersnapper.pwm.PWMAdd pwm                   = 4;
+    wippersnapper.pixels.PixelsAdd pixels          = 5;
+    wippersnapper.ds18x20.Ds18x20Add ds18x20       = 6;
+    wippersnapper.uart.UartAdd uart                = 7;
+    wippersnapper.i2c.I2cDeviceAddOrReplace i2c    = 8;
+  }
+}
+
+/**
+ * Signal to the broker that the device has completed the checkin
+ * routine and is now operating normally
+ */
+message CheckinComplete {
+
 }
