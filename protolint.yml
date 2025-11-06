@@ -2,10 +2,6 @@
 # configuration file reference: https://github.com/yoheimuta/protolint/blob/master/_example/config/.protolint.yaml
 ---
 lint:
-  files:
-    exclude:
-      - proto/wippersnapper/nanopb.proto
-
   rules:
     all_default: true
     remove:

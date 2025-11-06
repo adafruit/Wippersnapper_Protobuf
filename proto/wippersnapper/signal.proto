@@ -2,14 +2,12 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package wippersnapper.signal;
-import "nanopb.proto";
 import "error.proto";
 import "checkin.proto";
 import "analogio.proto";
 import "digitalio.proto";
 import "ds18x20.proto";
 import "i2c.proto";
-import "i2c_output.proto";
 import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
