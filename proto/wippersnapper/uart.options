@@ -1,5 +1,4 @@
 # uart.options
-wippersnapper.uart.UartAdd.device_id                              max_size: 32
 wippersnapper.uart.UartDeviceConfig.device_id                     max_size: 32
 wippersnapper.uart.UartAdded.device_id                            max_size: 32
 wippersnapper.uart.UartRemove.device_id                           max_size: 32
