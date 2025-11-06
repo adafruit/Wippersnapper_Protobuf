@@ -10,8 +10,8 @@ import "sensor.proto";
  */
 message B2D {
   oneof payload {
-    Add add       = 10;
-    Remove remove = 11;
+    Add add       = 1;
+    Remove remove = 2;
   }
 }
 
@@ -20,8 +20,8 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added = 10;
-    Event event = 11;
+    Added added = 1;
+    Event event = 2;
   }
 }
 
@@ -31,10 +31,10 @@ message D2B {
 * NOTE: This API currently only supports ONE device per OneWire bus.
 */
 message Add {
-  string onewire_pin                                      = 1; /** The desired pin to use as a OneWire bus. */
-  int32  sensor_resolution                                = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
-  float period                                            = 3; /** The desired period to read the sensor, in seconds. */
-  repeated ws.sensor.Type  sensor_types  = 4; /** SI types used by the DS18x20 sensor. */
+  string onewire_pin                   = 1; /** The desired pin to use as a OneWire bus. */
+  int32 sensor_resolution              = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
+  float period                         = 3; /** The desired period to read the sensor, in seconds. */
+  repeated ws.sensor.Type sensor_types = 4; /** SI types used by the DS18x20 sensor. */
 }
 
 /**
@@ -42,8 +42,8 @@ message Add {
 * to a Add message.
 */
 message Added {
-  bool is_initialized  = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
-  string onewire_pin   = 2; /** The pin being used as a OneWire bus. */
+  bool is_initialized = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
+  string onewire_pin  = 2; /** The pin being used as a OneWire bus. */
 }
 
 /**
@@ -51,13 +51,13 @@ message Added {
 * Maxim temperature sensor, from the broker.
 */
 message Remove {
-  string onewire_pin  = 1; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
+  string onewire_pin = 1; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
 }
 
 /**
 * Event event represents data from **one** DS18X20 sensor.
 */
 message Event {
-  string onewire_pin                                         = 1; /** The desired pin to use as a OneWire bus. */
+  string onewire_pin                     = 1; /** The desired pin to use as a OneWire bus. */
   repeated ws.sensor.Event sensor_events = 2; /** The DS18X20's SensorEvent. */
 }

@@ -9,9 +9,9 @@ import "sensor.proto";
  */
 message B2D {
   oneof payload {
-    Add add       = 10;
-    Remove remove = 11;
-    Write write   = 12;
+    Add add       = 1;
+    Remove remove = 2;
+    Write write   = 3;
   }
 }
 
@@ -20,7 +20,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Event event = 10;
+    Event event = 1;
   }
 }
 
@@ -47,11 +47,11 @@ enum Direction {
 * Add adds a digital pin to the device.
 */
 message Add {
-  string pin_name                   = 1; /** The pin's name. */
+  string pin_name          = 1; /** The pin's name. */
   Direction gpio_direction = 2; /** The pin's direction. */
   SampleMode sample_mode   = 3; /** Specifies the pin's sample mode. */
-  float period                      = 4; /** Time between measurements in seconds, if MODE_TIMER. */
-  bool value                        = 5; /** Re-sync only - send the pin's value. */
+  float period             = 4; /** Time between measurements in seconds, if MODE_TIMER. */
+  bool value               = 5; /** Re-sync only - send the pin's value. */
 }
 
 /**
@@ -65,7 +65,7 @@ message Remove {
 * Event is sent from the device to the broker when a digital pin's value changes.
 */
 message Event {
-  string pin_name                        = 1; /** The pin's name. */
+  string pin_name       = 1; /** The pin's name. */
   ws.sensor.Event value = 2; /** The pin's value. */
 }
 
@@ -73,6 +73,6 @@ message Event {
 * Write writes a boolean value to a digital pin.
 */
 message Write {
-  string pin_name                        = 1; /** The pin's name. */
+  string pin_name       = 1; /** The pin's name. */
   ws.sensor.Event value = 2; /** The pin's value. */
 }

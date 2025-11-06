@@ -9,9 +9,9 @@ package ws.pixels;
  */
 message B2D {
   oneof payload {
-    Add add       = 10;
-    Remove remove = 11;
-    Write write   = 12;
+    Add add       = 1;
+    Remove remove = 2;
+    Write write   = 3;
   }
 }
 
@@ -20,7 +20,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added = 10;
+    Added added = 1;
   }
 }
 
@@ -37,15 +37,15 @@ enum Type {
 * Order defines the color ordering.
 */
 enum Order {
-  O_UNSPECIFIED  = 0; /** Unspecified color ordering, error. */
-  O_GRB          = 1; /** DEFAULT for NeoPixels - Green, Red, Blue */
-  O_GRBW         = 2; /** Green, Red, Blue, White */
-  O_RGB          = 3; /** Red, Green, Blue */
-  O_RGBW         = 4; /** Red, Green, Blue, White */
-  O_BRG          = 5; /** DEFAULT for DotStars - Blue, Red, Green */
-  O_RBG          = 6; /** Red, Blue Green */
-  O_GBR          = 7; /** Green, Blue, Red */
-  O_BGR          = 8; /** Blue, Green, Red */
+  O_UNSPECIFIED = 0; /** Unspecified color ordering, error. */
+  O_GRB         = 1; /** DEFAULT for NeoPixels - Green, Red, Blue */
+  O_GRBW        = 2; /** Green, Red, Blue, White */
+  O_RGB         = 3; /** Red, Green, Blue */
+  O_RGBW        = 4; /** Red, Green, Blue, White */
+  O_BRG         = 5; /** DEFAULT for DotStars - Blue, Red, Green */
+  O_RBG         = 6; /** Red, Blue Green */
+  O_GBR         = 7; /** Green, Blue, Red */
+  O_BGR         = 8; /** Blue, Green, Red */
 }
 
 /**
@@ -54,9 +54,9 @@ enum Order {
 * Initial brightness is always 128.
 */
 message Add {
-  Type type          = 1; /** Defines the model/type of pixel strand */
+  Type type                = 1; /** Defines the model/type of pixel strand */
   uint32 num               = 2; /** Number of pixels attached to strand. */
-  Order ordering     = 3; /** Defines the pixel strand's color ordering. */
+  Order ordering           = 3; /** Defines the pixel strand's color ordering. */
   uint32 brightness        = 4; /** Strand brightness, 0 to 255 */
   string pin_data          = 5; /** Data pin a NeoPixel or DotStar strand is connected to. */
   string pin_dotstar_clock = 6; /** Clock pin a DotStar strand is connected to. */
@@ -84,7 +84,7 @@ message Remove {
 * Writes to a strand of pixels.
 */
 message Write {
-  string pin_data   = 1; /** Data pin a strand is connected to. */
-  uint32 color      = 2; /* 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels),
-                                   next is red, then green, and least significant byte is blue. */
+  string pin_data = 1; /** Data pin a strand is connected to. */
+  uint32 color    = 2; /** 32-bit color value. Most significant byte is white (for RGBW pixels) or ignored (for RGB pixels),
+                          next is red, then green, and least significant byte is blue. */
 }

@@ -25,16 +25,16 @@ enum OledTextSize {
 * LedBackpackConfig represents the configuration for a LED backpack display.
 */
 message LedBackpackConfig {
-  int32 brightness                = 1; /** Desired brightness of the LED backpack, from 0 (off) to 15 (full brightness). **/
-  LedBackpackAlignment alignment  = 2; /** Desired text alignment for the LED backpack. **/
+  int32 brightness               = 1; /** Desired brightness of the LED backpack, from 0 (off) to 15 (full brightness). **/
+  LedBackpackAlignment alignment = 2; /** Desired text alignment for the LED backpack. **/
 }
 
 /**
 * CharLCDConfig represents the configuration for a character LCD display.
 */
 message CharLCDConfig {
-  uint32 rows            = 1; /** Number of rows for the character LCD. **/
-  uint32 columns         = 2; /** Number of columns for the character LCD. **/
+  uint32 rows    = 1; /** Number of rows for the character LCD. **/
+  uint32 columns = 2; /** Number of columns for the character LCD. **/
 }
 
 /**

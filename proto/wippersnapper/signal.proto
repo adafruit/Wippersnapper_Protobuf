@@ -24,10 +24,10 @@ import "uart.proto";
 message BrokerToDevice {
   oneof payload {
     // System Events
-    ws.error.Error error = 10;
+    ws.error.Error error       = 10;
 
     // Device Interactions
-    ws.checkin.B2D checkin = 20;
+    ws.checkin.B2D checkin     = 20;
 
     // Component Interactions
     ws.digitalio.B2D digitalio = 30;
@@ -54,7 +54,7 @@ message DeviceToBroker {
     // device error channel here?
 
     // Device Interactions
-    ws.checkin.D2B checkin = 20;
+    ws.checkin.D2B checkin     = 20;
 
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;

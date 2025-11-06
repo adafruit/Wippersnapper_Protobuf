@@ -17,7 +17,7 @@ import "uart.proto";
  */
 message B2D {
   oneof payload {
-    Response checkin_response = 10;
+    Response response = 1;
   }
 }
 
@@ -26,8 +26,8 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Request checkin_request   = 1;
-    Complete checkin_complete = 2;
+    Request request   = 1;
+    Complete complete = 2;
   }
 }
 
@@ -35,7 +35,7 @@ message D2B {
 * Request notifies the MQTT broker that a new/existing device is requesting to connect.
 */
 message Request {
-  string hardware_uid = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
+  string hardware_uid     = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
   string firmware_version = 2; /** Identifies the client's firmware version. */
 }
 
@@ -65,14 +65,14 @@ message Response {
  */
 message ComponentAdd {
   oneof payload {
-    ws.digitalio.Add digitalio = 1;
-    ws.analogio.Add analogio    = 2;
-    ws.servo.Add servo             = 3;
-    ws.pwm.Add pwm                   = 4;
+    ws.digitalio.Add digitalio    = 1;
+    ws.analogio.Add analogio      = 2;
+    ws.servo.Add servo            = 3;
+    ws.pwm.Add pwm                = 4;
     ws.pixels.Add pixels          = 5;
-    ws.ds18x20.Add ds18x20       = 6;
-    ws.uart.Add uart                = 7;
-    ws.i2c.DeviceAddOrReplace i2c    = 8;
+    ws.ds18x20.Add ds18x20        = 6;
+    ws.uart.Add uart              = 7;
+    ws.i2c.DeviceAddOrReplace i2c = 8;
   }
 }
 

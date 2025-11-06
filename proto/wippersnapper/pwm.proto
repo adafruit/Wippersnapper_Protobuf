@@ -8,9 +8,9 @@ package ws.pwm;
  */
 message B2D {
   oneof payload {
-    Add add       = 10;
-    Remove remove = 11;
-    Write write   = 12;
+    Add add       = 1;
+    Remove remove = 2;
+    Write write   = 3;
   }
 }
 
@@ -19,7 +19,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added = 10;
+    Added added = 1;
   }
 }
 
@@ -49,7 +49,7 @@ message Added {
 * On non-ESP32 Arduino, this calls digitalWrite(LOW) on the pin
 */
 message Remove {
-  string pin       = 1; /** The PWM pin to de-initialized. */
+  string pin = 1; /** The PWM pin to de-initialized. */
 }
 
 /**
@@ -59,7 +59,7 @@ message Remove {
 * This value will be changed by the slider on Adafruit IO. 
 */
 message Write {
-  string pin       = 1; /** The pin to write to. */
+  string pin         = 1; /** The pin to write to. */
   oneof payload {
     int32 duty_cycle = 2; /** The desired duty cycle (range is from 0 to (2 ** duty_resolution)). **/
     int32 frequency  = 3; /** The desired PWM frequency, in Hz. **/
