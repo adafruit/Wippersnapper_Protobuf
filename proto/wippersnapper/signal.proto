@@ -10,7 +10,6 @@ import "error.proto";
 import "gps.proto";
 import "i2c.proto";
 import "i2c_output.proto";
-import "nanopb.proto";
 import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
@@ -71,7 +70,6 @@ message BrokerToDevice {
  * messages that can be sent from a device to the broker.
  */
 message DeviceToBroker {
-  option (nanopb_msgopt).submsg_callback = true;
   oneof payload {
     //digitalio.proto
     wippersnapper.digitalio.DigitalIOEvent digitalio_event = 10;
