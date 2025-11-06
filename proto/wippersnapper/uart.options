@@ -1,5 +1,4 @@
 # uart.options
-ws.uart.Add.device_id                   max_size: 32
 ws.uart.DeviceConfig.device_id          max_size: 32
 ws.uart.Added.device_id                 max_size: 32
 ws.uart.Remove.device_id                max_size: 32
