@@ -9,7 +9,6 @@ import "ds18x20.proto";
 import "error.proto";
 import "gps.proto";
 import "i2c.proto";
-import "i2c_output.proto";
 import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
