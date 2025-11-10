@@ -52,3 +52,6 @@ jobs:
             name: python-wrapper
             path: ./python_out
             if-no-files-found: error
+
+      - name: Lint
+        run: bin/lint
