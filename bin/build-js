@@ -25,4 +25,4 @@ if ! which protoc-gen-js &> /dev/null; then
 fi
 
 # invoke protoc with nanopb and wippersnapper proto files, the js plugin, and output location
-protoc --plugin=`which protoc-gen-js` --proto_path=./proto ./proto/nanopb/nanopb.proto ./proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:$OUT_PATH
+protoc --plugin=`which protoc-gen-js` --proto_path=./proto/wippersnapper ./proto/wippersnapper/*.proto --js_out=import_style=commonjs,binary:$OUT_PATH

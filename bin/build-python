@@ -32,4 +32,4 @@ if ! ls $NANOPB_PROTO &> /dev/null; then
 fi
 
 # invoke protoc with nanopb plugin, nanopb and wippersnapper proto files, and output location
-protoc --proto_path=$NANOPB_PROTO --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --python_out=./$OUT_PATH
+protoc --proto_path=$NANOPB_PROTO --proto_path=./proto/wippersnapper ./proto/wippersnapper/*.proto --python_out=./$OUT_PATH
