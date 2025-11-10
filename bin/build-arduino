@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# move to the directory above this file
+cd "${0%/*}/.."
+
+# vars
+OUT_PATH=arduino_out
+
+# ensure output dir is present
+rm -rf $OUT_PATH
+mkdir $OUT_PATH
+
+# activate mise
+eval "$(mise activate bash)"
+
+# make sure necessary tools are present
+if ! which protoc &> /dev/null; then
+  echo "Could not find protoc on the path! Did you run 'mise install'?"
+  exit 1
+fi
+
+# check protoc-gen-nanopb
+PROTOC_GEN_NANOPB=nanopb/generator/protoc-gen-nanopb
+if ! ls $PROTOC_GEN_NANOPB &> /dev/null; then
+  printf "Did not find $PROTOC_GEN_NANOPB in the repo! Did you init submodules?\ngit submodule init\ngit submodule update\n"
+  exit 1
+fi
+
+# invoke protoc with nanopb plugin, nanopb and wippersnapper proto files, and output location
+protoc --plugin=$PROTOC_GEN_NANOPB --proto_path=./nanopb/generator/proto --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --nanopb_out=./$OUT_PATH --nanopb_opt=-I./proto --nanopb_opt=-t
+

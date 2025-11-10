@@ -1,0 +1,4 @@
+python 3.13
+protoc 33.0
+protolint 0.56.4
+protoc-gen-js 4.0.0

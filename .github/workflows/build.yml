@@ -1,0 +1,54 @@
+name: Build
+on:
+  pull_request:
+  push:
+    branches: [master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Tool Dependencies
+        uses: jdx/mise-action/@v2
+
+      - name: Lib Dependencies
+        run: pip install protobuf setuptools
+
+      - name: Env Debug Info
+        run: |
+          protoc --version
+          which protoc-gen-js
+          protolint -v
+          python --version
+          pip --version
+          pip list
+
+      - name: Build JS
+        run: bin/build-js
+
+      - name: Build Arduino
+        run: bin/build-arduino
+
+      - name: Build Python
+        run: bin/build-python
+
+      - uses: actions/upload-artifact@v4
+        with:
+            name: javascript-wrapper
+            path: ./js_out
+            if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+            name: arduino-wrapper
+            path: ./arduino_out
+            if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+            name: python-wrapper
+            path: ./python_out
+            if-no-files-found: error
