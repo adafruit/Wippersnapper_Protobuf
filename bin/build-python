@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# vars
+: ${OUT_PATH=python_out}
+
+# move to the directory above this file
+cd "${0%/*}/.."
+
+# include helpful functions
+source "./bin/functions.sh"
+
+clean
+activate_mise
+ensure protoc
+ensure python
+ensure_nanopb_submodule
+
+# invoke protoc for python output
+protoc \
+  --proto_path=./proto/wippersnapper \
+  --proto_path=nanopb/generator/proto \
+  --python_out=./$OUT_PATH \
+  ./proto/wippersnapper/*.proto
+
+completed_message "Python"

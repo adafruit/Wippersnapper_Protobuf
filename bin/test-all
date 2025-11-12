@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+report() {
+  TOTAL_FILE_SIZE=`du -sh $1 | awk '{print $1}'`
+  echo "Total file size: $TOTAL_FILE_SIZE"
+  FILE_COUNT=`ls -1 $1 | wc -l`
+  echo "File count: $FILE_COUNT"
+  # stat -c "%n   %s" -- $1/* | column -t
+}
+
+echo "
+Building all wrappers..."
+
+time bin/build-python
+echo
+time bin/build-js
+echo
+time bin/build-arduino
+
+echo "
+Builds succeeded"
+
+echo "
+Python
+======"
+report python_out
+
+echo "
+JavaScript
+=========="
+report js_out
+
+echo "
+Arduino
+======="
+report arduino_out

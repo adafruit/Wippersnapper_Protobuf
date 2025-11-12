@@ -13,3 +13,10 @@ lint:
     max_line_length:
       max_chars: 150
       tab_chars: 2
+  ignores:
+    - id: FIELDS_HAVE_COMMENT
+      files:
+        - proto/wippersnapper/signal.proto
+    - id: MESSAGE_NAMES_EXCLUDE_PREPOSITIONS
+      files:
+        - proto/wippersnapper/signal.proto

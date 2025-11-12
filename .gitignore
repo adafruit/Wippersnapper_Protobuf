@@ -1,3 +1,16 @@
+## WipperSnapper_Protobuf stuff
+
+# submodule
+nanopb/
+
+# built wrapper artifacts
+python_out
+js_out
+arduino_out/
+
+
+## Generic stuff
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -28,8 +41,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-python_out
-js_out
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -142,7 +153,4 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-arduino_out/
 
-nanopb/
-.DS_Store
