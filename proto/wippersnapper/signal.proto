@@ -12,7 +12,7 @@ import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
 import "uart.proto";
-// import "gps.proto";
+import "gps.proto";
 
 /*
  * BrokerToDevice
@@ -37,7 +37,6 @@ message BrokerToDevice {
     wippersnapper.ds18x20.Ds18x20B2D ds18x20       = 35;
     wippersnapper.uart.UartB2D uart                = 36;
     wippersnapper.i2c.I2cB2D i2c                   = 37;
-    // wippersnapper.gps.GPSB2D gps                      = xx;
   }
 }
 
@@ -64,6 +63,6 @@ message DeviceToBroker {
     wippersnapper.ds18x20.Ds18x20D2B ds18x20       = 35;
     wippersnapper.uart.UartD2B uart                = 36;
     wippersnapper.i2c.I2cD2B i2c                   = 37;
-    // wippersnapper.gps.GPSD2B gps                      = xx;
+    wippersnapper.gps.GPSD2B gps                   = 38;
   }
 }
