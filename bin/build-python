@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # vars
-OUT_PATH=python_out
+: ${OUT_PATH=python_out}
 
 # move to the directory above this file
 cd "${0%/*}/.."

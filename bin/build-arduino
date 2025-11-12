@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # vars
-OUT_PATH=arduino_out
+: ${OUT_PATH=arduino_out}
 
 # move to the directory above this file
 cd "${0%/*}/.."
