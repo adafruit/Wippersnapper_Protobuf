@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# vars
+: ${OUT_PATH=js_out}
+
+# move to the directory above this file
+cd "${0%/*}/.."
+
+# include helpful functions
+source "./bin/functions.sh"
+
+clean
+activate_mise
+ensure protoc
+ensure protoc-gen-js
+
+# invoke protoc for js output
+protoc \
+  --proto_path=./proto/wippersnapper \
+  --plugin=`which protoc-gen-js` \
+  --js_out=import_style=commonjs,binary:$OUT_PATH \
+  ./proto/wippersnapper/*.proto
+
+completed_message "JavaScript"
