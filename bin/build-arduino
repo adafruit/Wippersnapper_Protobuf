@@ -16,11 +16,11 @@ ensure_nanopb_submodule
 
 # invoke protoc for arduino output
 protoc \
-  --proto_path=./nanopb/generator/proto \
-  --proto_path=./proto/wippersnapper \
   --plugin=nanopb/generator/protoc-gen-nanopb \
-  --nanopb_opt=-I./proto --nanopb_opt=-t \
-  --nanopb_out=./$OUT_PATH \
+  --proto_path=./proto/wippersnapper \
+  --proto_path=./nanopb/generator/proto \
+  --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-t \
+  --nanopb_out=$OUT_PATH \
   ./proto/wippersnapper/*.proto
 
 completed_message "Arduino"
