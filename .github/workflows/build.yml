@@ -35,6 +35,9 @@ jobs:
       - name: Build Python
         run: bin/build-python
 
+      - name: Build Documentation
+        run: bin/build-docs
+
       - uses: actions/upload-artifact@v4
         with:
           name: javascript-wrapper
@@ -51,6 +54,12 @@ jobs:
         with:
           name: python-wrapper
           path: ./python_out
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: ./docs_out
           if-no-files-found: error
 
       - name: Lint
