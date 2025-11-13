@@ -22,6 +22,8 @@ jobs:
           protoc --version
           which protoc-gen-js
           protolint -v
+          go version
+          which protoc-gen-doc
           python --version
           pip --version
           pip list
