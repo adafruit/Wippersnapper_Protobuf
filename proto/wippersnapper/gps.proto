@@ -3,14 +3,9 @@
 syntax = "proto3";
 package ws.gps;
 
-/**
- * BrokerToDevice message envelope
- */
-message B2D {
-  // oneof payload {
-  //
-  // }
-}
+// Note: GPSB2D does not exist as
+// GPSConfig is sent as a submessage
+// within an UART or I2C message
 
 /**
  * DeviceToBroker message envelope

@@ -12,7 +12,7 @@ import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
 import "uart.proto";
-// import "gps.proto";
+import "gps.proto";
 
 /*
  * BrokerToDevice
@@ -23,7 +23,7 @@ import "uart.proto";
 message BrokerToDevice {
   oneof payload {
     // System Events
-    ws.error.Error error       = 10;
+    ws.error.ErrorB2D error = 10;
 
     // Device Interactions
     ws.checkin.B2D checkin     = 20;
@@ -37,7 +37,6 @@ message BrokerToDevice {
     ws.ds18x20.B2D ds18x20     = 35;
     ws.uart.B2D uart           = 36;
     ws.i2c.B2D i2c             = 37;
-    // ws.gps.B2D gps             = xx;
   }
 }
 
@@ -50,7 +49,7 @@ message BrokerToDevice {
 message DeviceToBroker {
   oneof payload {
     // System Events
-    // device error channel here?
+    wippersnapper.error.ErrorD2B error = 10;
 
     // Device Interactions
     ws.checkin.D2B checkin     = 20;
@@ -64,6 +63,6 @@ message DeviceToBroker {
     ws.ds18x20.D2B ds18x20     = 35;
     ws.uart.D2B uart           = 36;
     ws.i2c.D2B i2c             = 37;
-    // ws.gps.D2B gps             = xx;
+    ws.gps.D2B gps             = 38;
   }
 }

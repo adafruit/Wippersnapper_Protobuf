@@ -1,0 +1,72 @@
+name: Build
+on:
+  pull_request:
+  push:
+    branches: [master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Tool Dependencies
+        uses: jdx/mise-action/@v2
+
+      - name: Lib Dependencies
+        run: |
+          pip install protobuf setuptools
+          go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1
+
+      - name: Env Debug Info
+        continue-on-error: true # this is a purely informational step
+        run: |
+          protoc --version      # provided by: mise
+          which protoc-gen-js   # provided by: mise
+          protolint -v          # provided by: mise
+          go version            # provided by: mise
+          # this line doesn't work, not sure why
+          # which protoc-gen-doc  # provided by: go install ...
+          python --version      # provided by: mise
+          pip --version         # provided by: mise
+          pip list              # provided by: pip install ...
+
+      - name: Build JS
+        run: bin/build-js
+
+      - name: Build Arduino
+        run: bin/build-arduino
+
+      - name: Build Python
+        run: bin/build-python
+
+      - name: Build Documentation
+        run: bin/build-docs
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: javascript-wrapper
+          path: ./js_out
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arduino-wrapper
+          path: ./arduino_out
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wrapper
+          path: ./python_out
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: ./docs_out
+          if-no-files-found: error
+
+      - name: Lint
+        run: bin/lint

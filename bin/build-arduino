@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# vars
+: ${OUT_PATH=arduino_out}
+
+# move to the directory above this file
+cd "${0%/*}/.."
+
+# include helpful functions
+source "./bin/functions.sh"
+
+clean
+activate_mise
+ensure protoc
+ensure_nanopb_submodule
+
+# invoke protoc for arduino output
+protoc \
+  --plugin=nanopb/generator/protoc-gen-nanopb \
+  --proto_path=./proto/wippersnapper \
+  --proto_path=./nanopb/generator/proto \
+  --nanopb_opt=-I./proto/wippersnapper --nanopb_opt=-t \
+  --nanopb_out=$OUT_PATH \
+  ./proto/wippersnapper/*.proto
+
+completed_message "Arduino"

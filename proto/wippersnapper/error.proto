@@ -1,17 +1,74 @@
-// SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
+// SPDX-FileCopyrightText: 2025 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.error;
+import "i2c.proto";
+import "uart.proto";
 
-// TODO: Add error handling on the device-side to parse error
-// message and either delay on throttle, or disconnect + exponential retry+jitter
-// on ban time
+/*
+ * ComponentType
+ * Enum representing the class/type of component
+ * that an error message is associated with.
+ */
+enum ComponentType {
+  COMPONENT_TYPE_UNSPECIFIED = 0; /** Invalid Component Type. */
+  COMPONENT_TYPE_DIGITALIO   = 1; /** Digital IO Component. */
+  COMPONENT_TYPE_ANALOGIO    = 2; /** Analog IO Component. */
+  COMPONENT_TYPE_PWM         = 3; /** PWM Component. */
+  COMPONENT_TYPE_SERVO       = 4; /** Servo Component. */
+  COMPONENT_TYPE_PIXELS      = 5; /** Pixels Component. */
+  COMPONENT_TYPE_DS18X20     = 6; /** DS18X20 Component. */
+  COMPONENT_TYPE_UART        = 7; /** UART Component. */
+  COMPONENT_TYPE_I2C         = 8; /** I2C Component. */
+  COMPONENT_TYPE_GPS         = 9; /** GPS Component. */
+}
 
-// Jitter should be unique to each device, possibly derived from its clientID
+/*
+ * ErrorIOBan
+ * The ErrorIOBan message is sent from the broker to a device
+ * to inform the device that it has been banned from IO.
+ */
+message ErrorIOBan {
+}
 
-message Error {
+/*
+ * ErrorIOThrottle
+ * The ErrorIOThrottle message is sent from the broker to a device
+ * to inform the device that it has been rate-limited by IO.
+ */
+message ErrorIOThrottle {
+  uint32 timeout = 1;
+}
+
+/*
+ * ErrorB2D
+ * The ErrorB2D message is sent from the broker to a device
+ * to inform the device of an error that has occurred
+ * from IO.
+ */
+message ErrorB2D {
   oneof payload {
-    int32 ban_time = 1;      // Account ban time, in seconds
-    int32 throttle_time = 2; // Account time, in seconds
+    ErrorIOBan      io_ban      = 1;
+    ErrorIOThrottle io_throttle = 2;
   }
 }
+
+/*
+ * ErrorD2B
+ * The ErrorD2B message is sent from a device to the broker
+ * to report an error that has occurred on a specific component.
+ * It contains a way to identify the specific component along
+ * with a human-readable error message.
+ */
+message ErrorD2B {
+  ComponentType type = 1;
+  oneof component_id {
+    string pin = 2;
+    wippersnapper.i2c.I2cDeviceDescriptor i2c = 3;
+    wippersnapper.uart.UartDescriptor uart = 4;
+  }
+  string error = 5;
+
+}
+
+
