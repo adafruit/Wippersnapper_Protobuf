@@ -15,18 +15,20 @@ jobs:
         uses: jdx/mise-action/@v2
 
       - name: Lib Dependencies
-        run: pip install protobuf setuptools
+        run: |
+          pip install protobuf setuptools
+          go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1
 
       - name: Env Debug Info
         run: |
-          protoc --version
-          which protoc-gen-js
-          protolint -v
-          go version
-          which protoc-gen-doc
-          python --version
-          pip --version
-          pip list
+          protoc --version      # provided by: mise
+          which protoc-gen-js   # provided by: mise
+          protolint -v          # provided by: mise
+          go version            # provided by: mise
+          which protoc-gen-doc  # provided by: go install ...
+          python --version      # provided by: mise
+          pip --version         # provided by: mise
+          pip list              # provided by: pip install ...
 
       - name: Build JS
         run: bin/build-js
