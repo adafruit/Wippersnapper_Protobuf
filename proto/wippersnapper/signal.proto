@@ -49,7 +49,7 @@ message BrokerToDevice {
 message DeviceToBroker {
   oneof payload {
     // System Events
-    wippersnapper.error.ErrorD2B error = 10;
+    ws.error.ErrorD2B error = 10;
 
     // Device Interactions
     ws.checkin.D2B checkin     = 20;

@@ -149,7 +149,7 @@ message DeviceConfig {
 */
 message Descriptor {
   uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
-  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  DeviceType type     = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
   string device_id    = 3; /** The unique identifier string for the UART device. */
 }
 

@@ -64,8 +64,8 @@ message ErrorD2B {
   ComponentType type = 1;
   oneof component_id {
     string pin = 2;
-    wippersnapper.i2c.I2cDeviceDescriptor i2c = 3;
-    wippersnapper.uart.UartDescriptor uart = 4;
+    ws.i2c.DeviceDescriptor i2c = 3;
+    ws.uart.Descriptor uart = 4;
   }
   string error = 5;
 
