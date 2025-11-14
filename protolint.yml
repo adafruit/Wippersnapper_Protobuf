@@ -4,6 +4,12 @@
 lint:
   rules:
     all_default: true
+    remove:
+      - IMPORTS_SORTED
+      - FIELDS_HAVE_COMMENT
+      - MESSAGE_NAMES_EXCLUDE_PREPOSITIONS
+      - ENUM_FIELD_NAMES_PREFIX
+
   rules_option:
     max_line_length:
       max_chars: 150

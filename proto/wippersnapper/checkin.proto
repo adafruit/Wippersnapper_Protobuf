@@ -2,31 +2,84 @@
 // SPDX-License-Identifier: MIT
 // Messages for registering new and existing hardware with the Adafruit.io MQTT Broker
 syntax = "proto3";
-package wippersnapper.checkin;
+package ws.checkin;
+import "analogio.proto";
+import "digitalio.proto";
+import "ds18x20.proto";
+import "i2c.proto";
+import "pixels.proto";
+import "pwm.proto";
+import "servo.proto";
+import "uart.proto";
 
 /**
-* CheckinRequest notifies the MQTT broker that a new/existing device is requesting to connect.
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Response response = 1;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Request request   = 1;
+    Complete complete = 2;
+  }
+}
+
+/**
+* Request notifies the MQTT broker that a new/existing device is requesting to connect.
 */
-message CheckinRequest {
-  string hardware_uid = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
+message Request {
+  string hardware_uid     = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
   string firmware_version = 2; /** Identifies the client's firmware version. */
 }
 
 /**
-* CheckinResponse sends a broker response to the client's CheckinRequest.
+* Response sends a broker response to the client's Request.
 */
-message CheckinResponse {
+message Response {
   Response response        = 1; /** Specifies if the hardware definition exists on the server. */
   int32 total_gpio_pins    = 2; /** Specifies the number of GPIO pins on the device. */
   int32 total_analog_pins  = 3; /** Specifies the number of analog pins on the device. */
   float reference_voltage  = 4; /** Specifies the hardware's default reference voltage. */
 
+  repeated ComponentAdd component_adds = 5; /** A list of components to set up and initialize during checkin */
+
   /**
    * Response. Specifies if the hardware definiton is within the database.
    */
   enum Response {
-    RESPONSE_UNSPECIFIED     = 0; /** Invalid response from server */
-    RESPONSE_OK              = 1; /** Board found within definition index */
-    RESPONSE_BOARD_NOT_FOUND = 2; /** Board not found in definition index */
+    R_UNSPECIFIED     = 0; /** Invalid response from server */
+    R_OK              = 1; /** Board found within definition index */
+    R_BOARD_NOT_FOUND = 2; /** Board not found in definition index */
   }
+}
+
+/**
+ * Generic component add message, could contain any *Add message from component protos
+ */
+message ComponentAdd {
+  oneof payload {
+    ws.digitalio.Add digitalio    = 1;
+    ws.analogio.Add analogio      = 2;
+    ws.servo.Add servo            = 3;
+    ws.pwm.Add pwm                = 4;
+    ws.pixels.Add pixels          = 5;
+    ws.ds18x20.Add ds18x20        = 6;
+    ws.uart.Add uart              = 7;
+    ws.i2c.DeviceAddOrReplace i2c = 8;
+  }
+}
+
+/**
+ * Signal to the broker that the device has completed the checkin
+ * routine and is now operating normally
+ */
+message Complete {
+
 }

@@ -1,40 +1,40 @@
 // SPDX-FileCopyrightText: 2025 Brent Rubell for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package wippersnapper.i2c_output;
+package ws.i2c_output;
 
 /**
 * LedBackpackAlignment represents all text alignment option for LED backpack displays
 */
 enum LedBackpackAlignment {
-  LED_BACKPACK_ALIGNMENT_UNSPECIFIED = 0; /** Unspecified alignment option. **/
-  LED_BACKPACK_ALIGNMENT_LEFT        = 1; /** (Default) Left-aligned. **/
-  LED_BACKPACK_ALIGNMENT_RIGHT       = 2; /** Right-aligned. **/
+  LBA_UNSPECIFIED = 0; /** Unspecified alignment option. **/
+  LBA_LEFT        = 1; /** (Default) Left-aligned. **/
+  LBA_RIGHT       = 2; /** Right-aligned. **/
 }
 
 /**
 * Desired OLED display text 'magnification' size.
 */
 enum OledTextSize {
-  OLED_TEXT_SIZE_UNSPECIFIED = 0; /** Unspecified text size. **/
-  OLED_TEXT_SIZE_DEFAULT     = 1; /** Default text size, 6x8px. **/
-  OLED_TEXT_SIZE_LARGE       = 2; /** Larger text size option, 12x16px. **/
+  OTS_UNSPECIFIED = 0; /** Unspecified text size. **/
+  OTS_DEFAULT     = 1; /** Default text size, 6x8px. **/
+  OTS_LARGE       = 2; /** Larger text size option, 12x16px. **/
 }
 
 /**
 * LedBackpackConfig represents the configuration for a LED backpack display.
 */
 message LedBackpackConfig {
-  int32 brightness                = 1; /** Desired brightness of the LED backpack, from 0 (off) to 15 (full brightness). **/
-  LedBackpackAlignment alignment  = 2; /** Desired text alignment for the LED backpack. **/
+  int32 brightness               = 1; /** Desired brightness of the LED backpack, from 0 (off) to 15 (full brightness). **/
+  LedBackpackAlignment alignment = 2; /** Desired text alignment for the LED backpack. **/
 }
 
 /**
 * CharLCDConfig represents the configuration for a character LCD display.
 */
 message CharLCDConfig {
-  uint32 rows            = 1; /** Number of rows for the character LCD. **/
-  uint32 columns         = 2; /** Number of columns for the character LCD. **/
+  uint32 rows    = 1; /** Number of rows for the character LCD. **/
+  uint32 columns = 2; /** Number of columns for the character LCD. **/
 }
 
 /**
@@ -43,14 +43,14 @@ message CharLCDConfig {
 message OledConfig {
   uint32 width           = 1; /** Width of the OLED display in pixels. **/
   uint32 height          = 2; /** Height of the OLED display in pixels. **/
-  OledTextSize font_size = 3; /** Desired font magnification for the OLED display. Defaults to OLED_TEXT_SIZE_DEFAULT. **/
+  OledTextSize font_size = 3; /** Desired font magnification for the OLED display. Defaults to OTS_DEFAULT. **/
 }
 
 
 /**
 * I2cOutputAdd represents a request from the broker to add an I2C output device to a device.
 */
-message I2cOutputAdd {
+message Add {
   oneof config {
     LedBackpackConfig led_backpack_config = 1; /** Configuration for a LED backpack. **/
     CharLCDConfig char_lcd_config         = 2; /** Configuration for a character LCD. **/
