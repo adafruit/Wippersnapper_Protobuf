@@ -144,6 +144,9 @@ message UartDeviceConfig {
   }
 }
 
+/**
+* UartDescriptor represents a message that uniquely identifies a UART device.
+*/
 message UartDescriptor {
   uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
   UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
