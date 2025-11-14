@@ -144,6 +144,12 @@ message UartDeviceConfig {
   }
 }
 
+message UartDescriptor {
+  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
+  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
+  string device_id    = 3; /** The unique identifier string for the UART device. */
+}
+
 /**
 * UartAdd represents a message sent from IO to a device
 * to configure a device on a UART port for communication.
@@ -158,10 +164,7 @@ message UartAdd {
 * confirm that a device has been attached to the UART port.
 */
 message UartAdded {
-  // Addressing
-  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device was attached to. */
-  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
-  string device_id    = 3; /** The unique identifier string for the UART device. */
+  UartDescriptor uart_descriptor = 1;
   // Payload
   bool success        = 4; /** True if the device on the UART port was successfully initialized, False otherwise. */
 }
@@ -171,10 +174,7 @@ message UartAdded {
 * to detach a driver from the UART port and deinitialize the port.
 */
 message UartRemove {
-  // Addressing
-  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
-  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
-  string device_id    = 3; /** The unique identifier string for the UART device. */
+  UartDescriptor uart_descriptor = 1;
 }
 
 /**
@@ -182,10 +182,7 @@ message UartRemove {
 * to write data to a device.
 */
 message UartWrite {
-  // Addressing
-  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
-  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
-  string device_id    = 3; /** The unique identifier string for the UART device. */
+  UartDescriptor uart_descriptor = 1;
   // Payload
   oneof payload {
     bytes bytes_data  = 4; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
@@ -198,10 +195,7 @@ message UartWrite {
 * This message is sent from a device to IO to confirm that data has been written to the device.
 */
 message UartWritten {
-  // Addressing
-  uint32 uart_nbr      = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
-  UartDeviceType type  = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
-  string device_id     = 3; /** The unique identifier string for the UART device. */
+  UartDescriptor uart_descriptor = 1;
   // Payload
   uint32 bytes_written = 4; /** The number of bytes written to the device. */
 }
@@ -213,10 +207,7 @@ message UartWritten {
 * It can contain multiple SensorEvents if the device has multiple sensors.
 */
 message UartInputEvent {
-  // Addressing
-  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
-  UartDeviceType type = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
-  string device_id    = 3; /** The unique identifier string for the UART device. */
+  UartDescriptor uart_descriptor = 1;
   // Payload
   repeated wippersnapper.sensor.SensorEvent events = 4; /** Required, but optionally repeated, SensorEvent from a sensor. */
 }

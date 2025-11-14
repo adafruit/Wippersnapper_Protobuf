@@ -23,7 +23,7 @@ import "gps.proto";
 message BrokerToDevice {
   oneof payload {
     // System Events
-    wippersnapper.error.Error error = 10;
+    wippersnapper.error.ErrorB2D error = 10;
 
     // Device Interactions
     wippersnapper.checkin.CheckinB2D checkin = 20;
@@ -49,7 +49,7 @@ message BrokerToDevice {
 message DeviceToBroker {
   oneof payload {
     // System Events
-    // device error channel here?
+    wippersnapper.error.ErrorD2B error = 10;
 
     // Device Interactions
     wippersnapper.checkin.CheckinD2B checkin = 20;
