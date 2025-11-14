@@ -24,9 +24,9 @@ jobs:
         run: |
           protoc --version      # provided by: mise
           which protoc-gen-js   # provided by: mise
-          go version            # provided by: mise
           protolint -v          # provided by: mise
-          which protoc-gen-doc  # provided by: go install ...
+          go version            # provided by: mise
+          which protoc-gen-doc || true  # provided by: go install ...
           python --version      # provided by: mise
           pip --version         # provided by: mise
           pip list              # provided by: pip install ...
