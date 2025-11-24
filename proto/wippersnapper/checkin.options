@@ -1,4 +1,3 @@
 # checkin.options
 ws.checkin.Request.hardware_uid max_size: 64
 ws.checkin.Request.firmware_version max_size: 25
-ws.checkin.Response.component_adds max_count: 32
