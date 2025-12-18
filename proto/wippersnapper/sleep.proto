@@ -98,10 +98,11 @@ message PinConfig {
  * Contains configuration to enter a sleep mode.
  */
 message Enter {
-  SleepMode mode      = 1; /** Sleep mode. */
-  WakeupSource wakeup = 2; /** Wakeup source. */
+  bool lock           = 1; /** Tells the device if it is entering sleep or not. */
+  SleepMode mode      = 2; /** Sleep mode. */
+  WakeupSource wakeup = 3; /** Wakeup source. */
   oneof config {
-    TimerConfig timer = 3; /** Timer configuration for wakeup source. */
-    PinConfig pin     = 4; /** Pin configuration for wakeup source. */
+    TimerConfig timer = 4; /** Timer configuration for wakeup source. */
+    PinConfig pin     = 5; /** Pin configuration for wakeup source. */
   }
 }

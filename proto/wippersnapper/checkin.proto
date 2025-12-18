@@ -10,6 +10,7 @@ import "i2c.proto";
 import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
+import "sleep.proto";
 import "uart.proto";
 
 /**
@@ -73,6 +74,7 @@ message ComponentAdd {
     ws.ds18x20.Add ds18x20        = 6;
     ws.uart.Add uart              = 7;
     ws.i2c.DeviceAddOrReplace i2c = 8;
+    ws.sleep.Enter sleep          = 9;
   }
 }
 
