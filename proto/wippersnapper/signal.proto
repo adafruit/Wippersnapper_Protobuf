@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-2024 Brent Rubell, Loren Norman for Adafruit Industries
+// SPDX-FileCopyrightText: 2020-2025 Brent Rubell, Loren Norman for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.signal;
@@ -11,6 +11,7 @@ import "i2c.proto";
 import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
+import "sleep.proto";
 import "uart.proto";
 import "gps.proto";
 
@@ -23,10 +24,11 @@ import "gps.proto";
 message BrokerToDevice {
   oneof payload {
     // System Events
-    ws.error.ErrorB2D error = 10;
+    ws.error.ErrorB2D error    = 10;
 
     // Device Interactions
     ws.checkin.B2D checkin     = 20;
+    ws.sleep.B2D sleep         = 21;
 
     // Component Interactions
     ws.digitalio.B2D digitalio = 30;
@@ -49,10 +51,11 @@ message BrokerToDevice {
 message DeviceToBroker {
   oneof payload {
     // System Events
-    ws.error.ErrorD2B error = 10;
+    ws.error.ErrorD2B error    = 10;
 
     // Device Interactions
     ws.checkin.D2B checkin     = 20;
+    ws.sleep.D2B sleep         = 21;
 
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;

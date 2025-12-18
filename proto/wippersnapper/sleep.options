@@ -1,0 +1,2 @@
+# uart.options
+ws.sleep.PinConfig.name         max_size: 32
