@@ -40,6 +40,9 @@ enum DisplayDriver {
   DISPLAY_DRIVER_EPD_ILI0373 = 2; /** EPD SSD167 driver */
   DISPLAY_DRIVER_TFT_ST7789  = 3; /** TFT ST7789 driver */
   DISPLAY_DRIVER_EPD_UC8253  = 4; /** EPD UC8253 driver */
+  DISPLAY_DRIVER_EPD_UC8179  = 5; /** EPD UC8179 driver */
+  DISPLAY_DRIVER_EPD_UC8151  = 6; /** EPD UC8151 driver */
+  DISPLAY_DRIVER_EPD_SSD1683 = 7; /** EPD SSD1683 driver */
 }
 
 // ============================================================================
