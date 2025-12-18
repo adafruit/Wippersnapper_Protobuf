@@ -56,8 +56,16 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Wake wake = 1; /** Wakeup event. */
+    Goodnight goodnight = 1; /** Goodnight event. */
+    Wake      wake = 2; /** Wakeup event. */
   }
+}
+
+/**
+ * Goodnight event message from the device.
+ */
+message Goodnight {
+  string message = 1; /** Message indicating the device is going to sleep. */
 }
 
 /**
