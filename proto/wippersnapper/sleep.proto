@@ -105,4 +105,5 @@ message Enter {
     TimerConfig timer = 4; /** Timer configuration for wakeup source. */
     PinConfig pin     = 5; /** Pin configuration for wakeup source. */
   }
+  uint32 run_duration = 6; /** Duration the app loop is actively running, in seconds. */
 }
