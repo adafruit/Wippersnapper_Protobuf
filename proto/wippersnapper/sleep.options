@@ -1,2 +1,2 @@
 # uart.options
-ws.sleep.PinConfig.name         max_size: 32
+ws.sleep.Ext0Config.name         max_size: 32

@@ -77,9 +77,9 @@ message TimerConfig {
 }
 
 /**
- * Pin configuration for wakeup source.
+ * Pin configuration for ext0 RTC wakeup source.
  */
-message PinConfig {
+message Ext0Config {
   string name = 1; /** Pin to wake up from. */
   bool level  = 2; /**  Input level which will trigger wakeup (False = low, True = high) */
   bool pull   = 3; /**  Enable internal pull-up or pull-down resistors */
@@ -93,7 +93,7 @@ message Enter {
   SleepMode mode      = 2; /** Sleep mode. */
   oneof config {
     TimerConfig timer = 3; /** Timer configuration for wakeup source. */
-    PinConfig pin     = 4; /** Pin configuration for wakeup source. */
+    Ext0Config ext0   = 4; /** EXT0 RTC configuration for wakeup source. */
   }
   uint32 run_duration = 5; /** Duration the app loop is actively running, in seconds. */
 }
