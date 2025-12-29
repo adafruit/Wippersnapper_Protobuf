@@ -25,15 +25,6 @@ enum EspWakeCause {
 }
 
 /**
- * Device's wakeup sources
- */
-enum WakeupSource {
-  W_UNSPECIFIED = 0; /** Wakeup source is unspecified. */
-  W_TIMER       = 1; /** Wakeup source is a timer. */
-  W_PIN         = 2; /** Wakeup source is a pin. */
-}
-
-/**
  * Device sleep modes
  */
 enum SleepMode {
@@ -100,10 +91,9 @@ message PinConfig {
 message Enter {
   bool lock           = 1; /** Tells the device if it is entering sleep or not. */
   SleepMode mode      = 2; /** Sleep mode. */
-  WakeupSource wakeup = 3; /** Wakeup source. */
   oneof config {
-    TimerConfig timer = 4; /** Timer configuration for wakeup source. */
-    PinConfig pin     = 5; /** Pin configuration for wakeup source. */
+    TimerConfig timer = 3; /** Timer configuration for wakeup source. */
+    PinConfig pin     = 4; /** Pin configuration for wakeup source. */
   }
-  uint32 run_duration = 6; /** Duration the app loop is actively running, in seconds. */
+  uint32 run_duration = 5; /** Duration the app loop is actively running, in seconds. */
 }
