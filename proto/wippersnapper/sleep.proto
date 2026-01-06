@@ -95,5 +95,4 @@ message Enter {
     TimerConfig timer = 3; /** Timer configuration for wakeup source. */
     Ext0Config ext0   = 4; /** EXT0 RTC configuration for wakeup source. */
   }
-  uint32 run_duration = 5; /** Duration the app loop is actively running, in seconds. */
 }
