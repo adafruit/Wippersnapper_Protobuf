@@ -45,6 +45,13 @@ enum DisplayDriver {
   DISPLAY_DRIVER_EPD_SSD1683 = 7; /** EPD SSD1683 driver */
 }
 
+  /*
+5.83" Monochrome E-Ink Display (648x480 UC8179) (#6397)
+4.2" Grayscale E-Ink Display (300x400 SSD1683) (#6381)
+3.7" Monochrome E-Ink Display (416x240 UC8253) (#6395)
+2.9" Flexible E-Ink Display (296x128 UC8151 / now ILI0343) (#4262)
+  */
+
 // ============================================================================
 // Configuration Messages
 // ============================================================================
