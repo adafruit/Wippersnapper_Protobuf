@@ -3,9 +3,9 @@
 // Display API for Adafruit WipperSnapper
 
 syntax = "proto3";
+package ws.display;
+import "sensor.proto";
 
-package wippersnapper.display.v1;
-import "nanopb/nanopb.proto";
 
 // ============================================================================
 // Enums
