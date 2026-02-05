@@ -108,6 +108,61 @@ message TftConfig {
   int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
 }
 
+message TtlRgb666PinConfig {
+  string pin_r0 = 1[(nanopb).max_size = 6]; /** Pin for R0 */
+  string pin_r1 = 2[(nanopb).max_size = 6]; /** Pin for R1 */
+  string pin_r2 = 3[(nanopb).max_size = 6]; /** Pin for R2 */
+  string pin_g0 = 4[(nanopb).max_size = 6]; /** Pin for G0 */
+  string pin_g1 = 5[(nanopb).max_size = 6]; /** Pin for G1 */
+  string pin_g2 = 6[(nanopb).max_size = 6]; /** Pin for G2 */
+  string pin_b0 = 7[(nanopb).max_size = 6]; /** Pin for B0 */
+  string pin_b1 = 8[(nanopb).max_size = 6]; /** Pin for B1 */
+  string pin_b2 = 9[(nanopb).max_size = 6]; /** Pin for B2 */
+}
+
+message TtlRgb666Config {
+  int32 width     = 1;   /** Width of the display in pixels */
+  int32 height    = 2;   /** Height of the display in pixels */
+  int32 rotation  = 3; /** Rotation of the display (0-3) */
+  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
+}
+
+message I8080PinConfig {
+  string pin_d0  = 1[(nanopb).max_size = 6]; /** Pin for D0 */
+  string pin_d1  = 2[(nanopb).max_size = 6]; /** Pin for D1 */
+  string pin_d2  = 3[(nanopb).max_size = 6]; /** Pin for D2 */
+  string pin_d3  = 4[(nanopb).max_size = 6]; /** Pin for D3 */
+  string pin_d4  = 5[(nanopb).max_size = 6]; /** Pin for D4 */
+  string pin_d5  = 6[(nanopb).max_size = 6]; /** Pin for D5 */
+  string pin_d6  = 7[(nanopb).max_size = 6]; /** Pin for D6 */
+  string pin_d7  = 8[(nanopb).max_size = 6]; /** Pin for D7 */
+  string pin_cs      = 9[(nanopb).max_size = 6]; /** Pin for chip select */
+  string pin_dc      = 10[(nanopb).max_size = 6]; /** Pin for data/command */
+  string pin_rst     = 11[(nanopb).max_size = 6]; /** Pin for reset */
+}
+
+message I8080Config {
+  int32 width     = 1;   /** Width of the display in pixels */
+  int32 height    = 2;   /** Height of the display in pixels */
+  int32 rotation  = 3; /** Rotation of the display (0-3) */
+  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
+}
+
+message DsiPinConfig {
+  string pin_clk   = 1[(nanopb).max_size = 6]; /** Pin for DSI clock */
+  string pin_data0 = 2[(nanopb).max_size = 6]; /** Pin for DSI data lane 0 */
+  string pin_data1 = 3[(nanopb).max_size = 6]; /** Pin for DSI data lane 1 */
+  string pin_data2 = 4[(nanopb).max_size = 6]; /** Pin for DSI data lane 2 */
+  string pin_data3 = 5[(nanopb).max_size = 6]; /** Pin for DSI data lane 3 */
+}
+
+message DsiConfig {
+  int32 width     = 1;   /** Width of the display in pixels */
+  int32 height    = 2;   /** Height of the display in pixels */
+  int32 rotation  = 3; /** Rotation of the display (0-3) */
+  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
+}
+
 // ============================================================================
 // Request Messages
 // ============================================================================
@@ -122,10 +177,16 @@ message DisplayAddOrReplace {
   oneof interface_type {
     EpdSpiConfig spi_epd = 4; /** SPI configuration for EPD. */
     TftSpiConfig spi_tft = 5; /** SPI configuration for TFT. */
+    TtlRgb666PinConfig ttl_rgb666 = 6; /** RGB666 configuration for Qualia. */
+    I8080PinConfig i8080 = 7; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
+    DsiPinConfig dsi = 8; /** DSI configuration for T-DisplayS3/Memento. */
   }
   oneof config {
-    EPDConfig config_epd = 6; /** Configuration for EPD. */
-    TftConfig config_tft = 7; /** Configuration for TFT. */
+    EPDConfig config_epd = 9; /** Configuration for EPD. */
+    TftConfig config_tft = 10; /** Configuration for TFT. */
+    TtlRgb666Config config_ttl_rgb666 = 11; /** Configuration for TTL RGB666. */
+    I8080Config config_i8080 = 12; /** Configuration for i8080. */
+    DsiConfig config_dsi = 13; /** Configuration for DSI. */
   }
 }
 
