@@ -163,6 +163,14 @@ message DsiConfig {
   int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
 }
 
+/*
+  TODO:Tyeth: protobuf v2 changes:
+  * Consider merging config message types, currently EPDmode + w/h/rot/txtSz
+  * Allow brightness pin control / inclusion in pin configs
+  * Refactor SPI bus pin info to be sub message Spi
+*/
+
+
 // ============================================================================
 // Request Messages
 // ============================================================================
@@ -201,6 +209,9 @@ message DisplayRemove {
  * DisplayWrite writes content to a display.
  */
 message DisplayWrite {
+  /** TODO:Tyeth: Is name enough, or do we want to eventually support 
+  multiple displays with the same name and use additional identifiers? 
+  */
   string name     = 1[(nanopb).max_size = 64]; /** Identifies the display. */
   string message  = 2[(nanopb).max_size = 1024]; /** Message to write. */
 }
