@@ -205,6 +205,11 @@ message DisplayRemove {
   string name = 1[(nanopb).max_size = 64]; /** Identifier for the display. */
 }
 
+message BinaryImageType {
+  string content_type = 1[(nanopb).max_size = 64]; /** MIME type of the image (e.g., "image/png"). */
+  bytes data         = 2[(nanopb).max_size = 102400]; /** Raw image bytes. */
+}
+
 /**
  * DisplayWrite writes content to a display.
  */
@@ -213,7 +218,11 @@ message DisplayWrite {
   multiple displays with the same name and use additional identifiers? 
   */
   string name     = 1[(nanopb).max_size = 64]; /** Identifies the display. */
-  string message  = 2[(nanopb).max_size = 1024]; /** Message to write. */
+  oneof content {
+    string message  = 2[(nanopb).max_size = 1024]; /** Monospace text message */
+    string base64image = 3[(nanopb).max_size = 102400]; /** Base64-encoded w/content-type prefix. */
+    BinaryImageType binary_image = 4; /** Binary image data with content type. */
+  }
 }
 
 // ============================================================================
