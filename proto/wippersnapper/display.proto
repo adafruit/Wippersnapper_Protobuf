@@ -183,16 +183,17 @@ message DisplayAddOrReplace {
   oneof interface_type {
     EpdSpiConfig spi_epd          = 4; /** SPI configuration for EPD. */
     TftSpiConfig spi_tft          = 5; /** SPI configuration for TFT. */
-    TtlRgb666PinConfig ttl_rgb666 = 6; /** RGB666 configuration for Qualia. */
-    I8080PinConfig i8080          = 7; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
-    DsiPinConfig dsi              = 8; /** DSI configuration for T-DisplayS3/Memento. */
+    I2cBusConfig i2c              = 6; /** I2C bus configuration. */
+    TtlRgb666PinConfig ttl_rgb666 = 7; /** RGB666 configuration for Qualia. */
+    I8080PinConfig i8080          = 8; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
+    DsiPinConfig dsi              = 9; /** DSI configuration for T-DisplayS3/Memento. */
   }
   oneof config {
-    EPDConfig config_epd              = 9; /** Configuration for EPD. */
-    TftConfig config_tft              = 10; /** Configuration for TFT. */
-    TtlRgb666Config config_ttl_rgb666 = 11; /** Configuration for TTL RGB666. */
-    I8080Config config_i8080          = 12; /** Configuration for i8080. */
-    DsiConfig config_dsi              = 13; /** Configuration for DSI. */
+    EPDConfig config_epd              = 10; /** Configuration for EPD. */
+    TftConfig config_tft              = 11; /** Configuration for TFT. */
+    TtlRgb666Config config_ttl_rgb666 = 12; /** Configuration for TTL RGB666. */
+    I8080Config config_i8080          = 13; /** Configuration for i8080. */
+    DsiConfig config_dsi              = 14; /** Configuration for DSI. */
   }
 }
 
