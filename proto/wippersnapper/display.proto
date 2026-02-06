@@ -205,7 +205,7 @@ message DisplayRemove {
 
 message BinaryImageType {
   string content_type = 1 [(nanopb).max_size = 64]; /** MIME type of the image (e.g., "image/png"). */
-  bytes data          = 2 [(nanopb).max_size = 102400]; /** Raw image bytes. */
+  bytes data          = 3 [(nanopb).max_size = 102400]; /** Raw image bytes. */
 }
 
 /**
@@ -218,8 +218,9 @@ message DisplayWrite {
   string name = 1 [(nanopb).max_size = 64]; /** Identifies the display. */
   oneof content {
     string message               = 2 [(nanopb).max_size = 1024]; /** Monospace text message */
-    string base64image           = 3 [(nanopb).max_size = 102400]; /** Base64-encoded w/content-type prefix. */
-    BinaryImageType binary_image = 4; /** Binary image data with content type. */
+    string url                   = 3 [(nanopb).max_size = 10240]; /** URL to fetch the image from. */
+    string base64image           = 4 [(nanopb).max_size = 102400]; /** Base64-encoded w/content-type prefix. */
+    BinaryImageType binary_image = 5; /** Binary image data with content type. */
   }
 }
 
