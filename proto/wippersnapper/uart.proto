@@ -160,6 +160,7 @@ message Descriptor {
 message Add {
   SerialConfig cfg_serial = 1; /** The Serial configuration. */
   DeviceConfig cfg_device = 2; /** The device-specific configuration. */
+  Write write             = 3; /** Optional initial write for a UART device, used during check-in. */
 }
 
 /**

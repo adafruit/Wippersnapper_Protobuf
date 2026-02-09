@@ -56,6 +56,11 @@ message Add {
     CharLCDConfig char_lcd_config         = 2; /** Configuration for a character LCD. **/
     OledConfig oled_config                = 3; /** Configuration for an OLED display. **/
   }
+  oneof write {
+    LedBackpackWrite led_backpack_write = 4; /** Optional initial write for a LED backpack, used during check-in. **/
+    CharLCDWrite char_lcd_write         = 5; /** Optional initial write for a character LCD, used during check-in. **/
+    OLEDWrite oled_write                = 6; /** Optional initial write for an OLED display, used during check-in. **/
+  }
 }
 
 /**
