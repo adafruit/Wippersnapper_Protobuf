@@ -16,8 +16,9 @@ jobs:
 
       - name: Lib Dependencies
         run: |
-          pip install protobuf setuptools
+          pip install protobuf setuptools setuptools-pkg-resources
           go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1
+          
 
       - name: Env Debug Info
         continue-on-error: true # this is a purely informational step
