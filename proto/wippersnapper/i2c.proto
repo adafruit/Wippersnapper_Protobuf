@@ -4,7 +4,6 @@ syntax = "proto3";
 package ws.i2c;
 import "gps.proto";
 import "display.proto";
-import "i2c_output.proto";
 import "sensor.proto";
 
 /**
@@ -107,8 +106,7 @@ message DeviceAddOrReplace {
   repeated ws.sensor.Type device_sensor_types = 4; /** SI Types for each sensor on the I2c device. */
   bool is_persistent                          = 5; /** Offline-Mode ONLY - True if the device exits in the config file, False otherwise. **/
   bool is_output                              = 6; /** Required by the device to determine if the component is an output.**/
-  ws.i2c_output.Add output_add                = 7; /** Optional - If the I2C device is an output device, fill this field. **/
-  ws.display.Add display_output_add                = 7; /** Optional - If the I2C device is an output device, fill this field. **/
+  ws.display.Add output_add                   = 7; /** Optional - If the I2C device is an output device (display), fill this field. **/
   bool is_gps                                 = 8; /** Required by the device to determine if the component is a GPS.**/
   ws.gps.Config gps_config                    = 9; /** Optional - If the I2C device is a GPS driver, fill this field with the GPS config. **/
 }
@@ -150,12 +148,9 @@ message DeviceEvent {
 
 /**
 * DeviceOutputWrite represents a request to write to an I2C output device.
+* Uses unified display.Write message for all display types.
 */
 message DeviceOutputWrite {
-  DeviceDescriptor device_description                 = 1; /** Required - The I2c device's address and metadata. */
-  oneof output_msg {
-    ws.i2c_output.LedBackpackWrite write_led_backpack = 2; /** Optional - If the I2C device is a LED backpack, fill this field. **/
-    ws.i2c_output.CharLCDWrite write_char_lcd         = 3; /** Optional - If the I2C device is a character LCD, fill this field. **/
-    ws.i2c_output.OLEDWrite write_oled                = 4; /** Optional - If the I2C device is an OLED display, fill this field. **/
-  }
+  DeviceDescriptor device_description = 1; /** Required - The I2c device's address and metadata. */
+  ws.display.Write write_display      = 2; /** Display write message (supports LED backpack, char LCD, OLED). */
 }
