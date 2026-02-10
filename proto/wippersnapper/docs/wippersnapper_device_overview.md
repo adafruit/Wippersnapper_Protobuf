@@ -729,11 +729,11 @@ sequenceDiagram
 
 The v2 WipperSnapper API brings:
 
-✅ **Cleaner architecture** with B2D/D2B envelopes
-✅ **Better organization** with component-specific namespaces
-✅ **Enhanced display support** for various interface types
-✅ **Improved I2C flexibility** with multiplexers and alternate buses
-✅ **Stronger typing** with protobuf oneof patterns
-✅ **Easier extensibility** for future features
+ - ✅ **Cleaner architecture** with B2D/D2B envelopes
+ - ✅ **Better organization** with component-specific namespaces
+ - ✅ **Enhanced display support** for various interface types
+ - ✅ **Improved I2C flexibility** with multiplexers and alternate buses
+ - ✅ **Stronger typing** with protobuf oneof patterns
+ - ✅ **Easier extensibility** for future features
 
 The envelope pattern makes the codebase more maintainable while providing a clear, consistent interface for all WipperSnapper components.
