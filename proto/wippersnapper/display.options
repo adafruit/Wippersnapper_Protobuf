@@ -1,0 +1,72 @@
+# display.options
+# Nanopb configuration for display.proto
+
+# Add message
+ws.display.Add.driver                           max_size:32
+ws.display.Add.panel                            max_size:32
+ws.display.Add.name                             max_size:64
+
+# Pin configuration constraints
+ws.display.EpdSpiConfig.pin_dc                  max_size:6
+ws.display.EpdSpiConfig.pin_rst                 max_size:6
+ws.display.EpdSpiConfig.pin_cs                  max_size:6
+ws.display.EpdSpiConfig.pin_sram_cs             max_size:6
+ws.display.EpdSpiConfig.pin_busy                max_size:6
+
+ws.display.TftSpiConfig.pin_cs                  max_size:6
+ws.display.TftSpiConfig.pin_dc                  max_size:6
+ws.display.TftSpiConfig.pin_mosi                max_size:6
+ws.display.TftSpiConfig.pin_sck                 max_size:6
+ws.display.TftSpiConfig.pin_rst                 max_size:6
+ws.display.TftSpiConfig.pin_miso                max_size:6
+
+ws.display.I2cDisplayConfig.bus_sda             max_size:6
+ws.display.I2cDisplayConfig.bus_scl             max_size:6
+
+ws.display.TtlRgb666PinConfig.pin_r0            max_size:6
+ws.display.TtlRgb666PinConfig.pin_r1            max_size:6
+ws.display.TtlRgb666PinConfig.pin_r2            max_size:6
+ws.display.TtlRgb666PinConfig.pin_g0            max_size:6
+ws.display.TtlRgb666PinConfig.pin_g1            max_size:6
+ws.display.TtlRgb666PinConfig.pin_g2            max_size:6
+ws.display.TtlRgb666PinConfig.pin_b0            max_size:6
+ws.display.TtlRgb666PinConfig.pin_b1            max_size:6
+ws.display.TtlRgb666PinConfig.pin_b2            max_size:6
+
+ws.display.I8080PinConfig.pin_d0                max_size:6
+ws.display.I8080PinConfig.pin_d1                max_size:6
+ws.display.I8080PinConfig.pin_d2                max_size:6
+ws.display.I8080PinConfig.pin_d3                max_size:6
+ws.display.I8080PinConfig.pin_d4                max_size:6
+ws.display.I8080PinConfig.pin_d5                max_size:6
+ws.display.I8080PinConfig.pin_d6                max_size:6
+ws.display.I8080PinConfig.pin_d7                max_size:6
+ws.display.I8080PinConfig.pin_cs                max_size:6
+ws.display.I8080PinConfig.pin_dc                max_size:6
+ws.display.I8080PinConfig.pin_rst               max_size:6
+
+ws.display.DsiPinConfig.pin_clk                 max_size:6
+ws.display.DsiPinConfig.pin_data0               max_size:6
+ws.display.DsiPinConfig.pin_data1               max_size:6
+ws.display.DsiPinConfig.pin_data2               max_size:6
+ws.display.DsiPinConfig.pin_data3               max_size:6
+
+# Remove message
+ws.display.Remove.name                          max_size:64
+
+# Write message
+ws.display.Write.name                           max_size:64
+ws.display.Write.message                        max_size:1024
+ws.display.Write.url                            max_size:10240
+ws.display.Write.base64image                    max_size:102400
+ws.display.BinaryImageType.content_type         max_size:64
+ws.display.BinaryImageType.data                 max_size:102400
+
+# Write message defaults
+ws.display.Write.clear_first                    default:true
+ws.display.Write.cursor_x                       default:0
+ws.display.Write.cursor_y                       default:0
+
+# Response messages
+ws.display.AddedOrReplaced.name                 max_size:64
+ws.display.Removed.name                         max_size:64
