@@ -3,6 +3,7 @@
 syntax = "proto3";
 package ws.i2c;
 import "gps.proto";
+import "display.proto";
 import "i2c_output.proto";
 import "sensor.proto";
 
@@ -107,6 +108,7 @@ message DeviceAddOrReplace {
   bool is_persistent                          = 5; /** Offline-Mode ONLY - True if the device exits in the config file, False otherwise. **/
   bool is_output                              = 6; /** Required by the device to determine if the component is an output.**/
   ws.i2c_output.Add output_add                = 7; /** Optional - If the I2C device is an output device, fill this field. **/
+  ws.display.Add display_output_add                = 7; /** Optional - If the I2C device is an output device, fill this field. **/
   bool is_gps                                 = 8; /** Required by the device to determine if the component is a GPS.**/
   ws.gps.Config gps_config                    = 9; /** Optional - If the I2C device is a GPS driver, fill this field with the GPS config. **/
 }
