@@ -25,35 +25,83 @@ enum DisplayType {
 }
 ```
 
-### 2. Expand DisplayDriver Enum
+### 2. Change DisplayDriver from Enum to String
+
+**Rationale:** Using strings allows adding new drivers without protobuf changes. The driver name identifies the chip/controller IC.
 
 ```protobuf
-enum DisplayDriver {
-  DISPLAY_DRIVER_UNSPECIFIED = 0;
-
-  // EPD Drivers
-  DISPLAY_DRIVER_EPD_SSD1680 = 1;
-  DISPLAY_DRIVER_EPD_ILI0373 = 2;
-  DISPLAY_DRIVER_EPD_UC8253  = 4;
-  DISPLAY_DRIVER_EPD_UC8179  = 5;
-  DISPLAY_DRIVER_EPD_UC8151  = 6;
-  DISPLAY_DRIVER_EPD_SSD1683 = 7;
-
-  // TFT Drivers
-  DISPLAY_DRIVER_TFT_ST7789  = 3;
-
-  // OLED Drivers (NEW)
-  DISPLAY_DRIVER_OLED_SSD1306 = 10;
-  DISPLAY_DRIVER_OLED_SH1106  = 11;
-  DISPLAY_DRIVER_OLED_SSD1327 = 12;
-
-  // LED Backpack Drivers (NEW)
-  DISPLAY_DRIVER_LED_HT16K33  = 20;  // Adafruit LED backpacks
-
-  // Character LCD Drivers (NEW)
-  DISPLAY_DRIVER_LCD_HD44780  = 30;  // Standard character LCD via I2C backpack
+message DisplayAddOrReplace {
+  DisplayType type = 1;  // Enum: EPD, TFT, OLED, LED_BACKPACK, CHAR_LCD
+  string driver    = 2;  // String: Driver chip name (e.g., "UC8179", "SSD1306")
+  string panel     = 3;  // Optional: Panel identifier for driver (e.g., "5.83-648x480")
+  string name      = 4;  // Display instance name
+  // ... rest of message
 }
 ```
+
+**Known Driver Strings** (for reference - not enforced by proto):
+
+```
+// EPD (E-Paper Display) Drivers
+"SSD1680"   // EPD controller for monochrome e-paper
+"ILI0373"   // EPD controller (also known as SSD167)
+"UC8253"    // EPD controller for 3.7" displays
+"UC8179"    // EPD controller for 5.83" displays
+"UC8151"    // EPD controller for flexible e-ink (also ILI0343)
+"SSD1683"   // EPD controller for 4.2" grayscale displays
+
+// TFT (Color LCD) Drivers
+"ST7789"    // TFT LCD controller
+"ILI9341"   // TFT LCD controller
+"ST7735"    // TFT LCD controller
+
+// OLED Drivers
+"SSD1306"   // Monochrome OLED (128x64, 128x32)
+"SH1106"    // Monochrome OLED (128x64)
+"SSD1327"   // 4-bit grayscale OLED
+"SSD1351"   // Color OLED
+
+// LED Backpack Drivers
+"HT16K33"   // Adafruit LED backpacks (7-segment, alphanumeric)
+
+// Character LCD Drivers
+"HD44780"   // Standard character LCD controller (via I2C backpack)
+"PCF8574"   // I2C to parallel expander for LCD
+```
+
+### 3. Add Panel Identifier Field
+
+For E-Paper displays especially, the same driver can support multiple panel sizes and configurations. The `panel` field identifies the specific panel:
+
+```protobuf
+string panel = 3;  // Optional panel identifier
+```
+
+**Example Panel Identifiers:**
+
+```
+// E-Paper Panels (driver: "UC8179")
+"5.83-648x480-mono"     // 5.83" monochrome, 648x480 resolution
+"5.65-600x448-7color"   // 5.65" 7-color ACeP display
+
+// E-Paper Panels (driver: "SSD1683")
+"4.2-300x400-gray4"     // 4.2" 4-level grayscale, 300x400
+
+// Or use Adafruit product SKUs:
+"adafruit-6397"         // Direct product reference
+"adafruit-6381"
+
+// OLED Panels (driver: "SSD1306")
+"128x64"                // Standard 128x64 OLED
+"128x32"                // Smaller 128x32 OLED
+"64x48"                 // Tiny 64x48 OLED
+```
+
+**Benefits:**
+- Same driver code, different panel configs
+- Add new panels without proto changes
+- Clear hardware specification
+- Easier to look up datasheets
 
 ### 3. Add I2C Display Config Messages
 
@@ -111,33 +159,39 @@ message I2cDisplayConfig {
 
 ```protobuf
 message DisplayAddOrReplace {
-  DisplayType type     = 1;
-  DisplayDriver driver = 2;
-  string name          = 3 [(nanopb).max_size = 64];
+  DisplayType type = 1;  // Enum: DISPLAY_TYPE_EPD, DISPLAY_TYPE_TFT, etc.
+  string driver    = 2;  // Driver chip: "UC8179", "SSD1306", "HT16K33", etc.
+  string panel     = 3;  // Panel ID: "5.83-648x480-mono", "adafruit-6397", etc.
+  string name      = 4 [(nanopb).max_size = 64];  // Instance name: "weather-display" // maybe should be feedname!
 
   // Interface configuration (how display is physically connected)
   oneof interface_type {
-    EpdSpiConfig spi_epd          = 4;
-    TftSpiConfig spi_tft          = 5;
-    I2cDisplayConfig i2c          = 6;  // For OLED, LED backpack, char LCD over I2C
-    TtlRgb666PinConfig ttl_rgb666 = 7;
-    I8080PinConfig i8080          = 8;
-    DsiPinConfig dsi              = 9;
+    EpdSpiConfig spi_epd          = 5;
+    TftSpiConfig spi_tft          = 6;
+    I2cDisplayConfig i2c          = 7;  // For OLED, LED backpack, char LCD over I2C
+    TtlRgb666PinConfig ttl_rgb666 = 8;
+    I8080PinConfig i8080          = 9;
+    DsiPinConfig dsi              = 10;
   }
 
   // Display-specific configuration (what the display can do)
   oneof config {
-    EPDConfig config_epd              = 10;
-    TftConfig config_tft              = 11;
-    TtlRgb666Config config_ttl_rgb666 = 12;
-    I8080Config config_i8080          = 13;
-    DsiConfig config_dsi              = 14;
-    OledConfig config_oled            = 15;  // NEW
-    LedBackpackConfig config_led      = 16;  // NEW
-    CharLcdConfig config_char_lcd     = 17;  // NEW
+    EPDConfig config_epd              = 11;
+    TftConfig config_tft              = 12;
+    TtlRgb666Config config_ttl_rgb666 = 13;
+    I8080Config config_i8080          = 14;
+    DsiConfig config_dsi              = 15;
+    OledConfig config_oled            = 16;  // NEW
+    LedBackpackConfig config_led      = 17;  // NEW
+    CharLcdConfig config_char_lcd     = 18;  // NEW
   }
 }
 ```
+
+**Key Changes:**
+- `driver` is now `string` (field 2) - no enum needed
+- `panel` is new `string` (field 3) - identifies specific panel for driver
+- Field numbers shifted to accommodate new fields
 
 ### 5. Update DisplayWrite for I2C Displays
 
@@ -169,7 +223,8 @@ message DisplayWrite {
 ```protobuf
 DisplayAddOrReplace {
   type: DISPLAY_TYPE_OLED,
-  driver: DISPLAY_DRIVER_OLED_SSD1306,
+  driver: "SSD1306",
+  panel: "128x64",
   name: "status-display",
 
   i2c: {
@@ -190,7 +245,8 @@ DisplayAddOrReplace {
 ```protobuf
 DisplayAddOrReplace {
   type: DISPLAY_TYPE_LED_BACKPACK,
-  driver: DISPLAY_DRIVER_LED_HT16K33,
+  driver: "HT16K33",
+  panel: "4digit-7seg",      // 4-digit 7-segment display
   name: "clock-display",
 
   i2c: {
@@ -210,7 +266,8 @@ DisplayAddOrReplace {
 ```protobuf
 DisplayAddOrReplace {
   type: DISPLAY_TYPE_CHAR_LCD,
-  driver: DISPLAY_DRIVER_LCD_HD44780,
+  driver: "HD44780",
+  panel: "16x2",             // 16 columns, 2 rows
   name: "info-display",
 
   i2c: {
@@ -221,6 +278,56 @@ DisplayAddOrReplace {
     rows: 2,
     columns: 16,
     enable_backlight: true
+  }
+}
+```
+
+### Example 4: UC8179 E-Paper with Different Panels
+
+```protobuf
+// 5.83" Monochrome E-Ink (Adafruit #6397)
+DisplayAddOrReplace {
+  type: DISPLAY_TYPE_EPD,
+  driver: "UC8179",
+  panel: "5.83-648x480-mono",  // Or "adafruit-6397"
+  name: "large-eink",
+
+  spi_epd: {
+    bus: 0,
+    pin_dc: "D10",
+    pin_rst: "D9",
+    pin_cs: "D8",
+    pin_busy: "D11"
+  },
+
+  config_epd: {
+    mode: EPD_MODE_MONO,
+    width: 648,
+    height: 480,
+    text_size: 3
+  }
+}
+
+// Same UC8179 driver, different panel size
+DisplayAddOrReplace {
+  type: DISPLAY_TYPE_EPD,
+  driver: "UC8179",
+  panel: "5.65-600x448-7color",  // 7-color ACeP display
+  name: "color-eink",
+
+  spi_epd: {
+    bus: 0,
+    pin_dc: "D10",
+    pin_rst: "D9",
+    pin_cs: "D8",
+    pin_busy: "D11"
+  },
+
+  config_epd: {
+    mode: EPD_MODE_GRAYSCALE4,  // 7-color treated as multi-level
+    width: 600,
+    height: 448,
+    text_size: 2
   }
 }
 ```
@@ -396,6 +503,58 @@ For char LCDs, backlight can be:
 
 ---
 
+## Additional Benefits of String-Based Driver/Panel
+
+### Flexibility
+- **No proto recompilation** - Add new drivers by updating firmware only
+- **Rapid iteration** - Test new drivers without proto version bumps
+- **Community drivers** - Third parties can add drivers via firmware mods
+
+### E-Paper Specific Benefits
+- **One driver, many panels** - UC8179 works with multiple panel sizes
+- **Panel-specific tuning** - Different waveforms, refresh rates per panel
+- **Product SKU mapping** - `panel: "adafruit-6397"` maps directly to products
+
+### Firmware Implementation
+```cpp
+// Driver registry in firmware
+DisplayDriver* createDriver(const char* driver_name, const char* panel_name) {
+  if (strcmp(driver_name, "UC8179") == 0) {
+    return new UC8179Driver(panel_name);
+  }
+  else if (strcmp(driver_name, "SSD1306") == 0) {
+    return new SSD1306Driver(panel_name);
+  }
+  // ... etc
+  return nullptr;  // Unknown driver
+}
+
+// UC8179 can load panel-specific configs
+UC8179Driver::UC8179Driver(const char* panel) {
+  if (strcmp(panel, "5.83-648x480-mono") == 0) {
+    loadPanelConfig_583_mono();
+  }
+  else if (strcmp(panel, "5.65-600x448-7color") == 0) {
+    loadPanelConfig_565_7color();
+  }
+  // ... etc
+}
+```
+
+### Versioning Strategy
+```
+// Firmware version 2.1.0 supports:
+"UC8179", "SSD1306", "HT16K33"
+
+// Firmware version 2.2.0 adds:
+"SSD1683", "SH1106", "ILI9341"
+
+// Proto doesn't change!
+// Only firmware update needed
+```
+
+---
+
 ## Summary
 
 This refactor creates a clean, consistent display API where:
@@ -405,3 +564,6 @@ This refactor creates a clean, consistent display API where:
 - ✅ Follows established GPS pattern for multi-interface devices
 - ✅ Simplifies component registration at check-in
 - ✅ Enables future expansion (DSI, MIPI, etc.) without API changes
+- ✅ **String-based drivers** - Add new drivers without proto changes
+- ✅ **Panel tracking** - Same driver supports multiple panel configurations
+- ✅ **No enum limitations** - Firmware can support any driver/panel combination
