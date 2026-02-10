@@ -8,6 +8,35 @@ This file details the API used by hardware running Adafruit WipperSnapper firmwa
 The following JSON component definition type(s) reference `i2c.proto`:
 * [i2c](https://github.com/adafruit/Wippersnapper_Components/tree/main/components/i2c)
 
+## Bus Response Status Codes
+
+All I2C operations return a `BusResponse` enum value to indicate success or failure:
+
+| Status Code | Description |
+|------------|-------------|
+| `BUS_RESPONSE_SUCCESS` | I2C bus/device successfully initialized |
+| `BUS_RESPONSE_ERROR_HANG` | I2C Bus hang detected - user should reset board if persists |
+| `BUS_RESPONSE_ERROR_PULLUPS` | I2C bus failed - SDA or SCL needs a pull-up resistor |
+| `BUS_RESPONSE_ERROR_WIRING` | I2C bus failed to communicate - check wiring |
+| `BUS_RESPONSE_UNSUPPORTED_SENSOR` | WipperSnapper firmware outdated - update required |
+| `BUS_RESPONSE_DEVICE_INIT_FAIL` | I2C device failed to initialize |
+| `BUS_RESPONSE_DEVICE_DEINIT_FAIL` | I2C device failed to de-initialize |
+
+## I2C Device Types
+
+### Input Devices (Sensors)
+
+Most I2C devices are sensors that read environmental data and send it to Adafruit IO. These devices use the `I2CDeviceSensorProperties` message to configure:
+* **sensor_type** - The type of sensor (temperature, humidity, pressure, etc.) using the `SensorType` enum
+* **sensor_period** - How often to read the sensor in milliseconds
+
+### Output Devices
+
+Some I2C devices are output devices (displays, LED controllers, etc.). These are configured with `is_output_device = true` and include an `I2COutputAdd` configuration:
+* **LED Backpack** - Alphanumeric LED displays with brightness and alignment control
+* **Character LCD** - Character LCD displays with row/column configuration
+* **SSD1306 OLED** - Small OLED displays with configurable width, height, and text size
+
 ## Sequence Diagrams
 
 ### I2C Scan
@@ -91,5 +120,54 @@ autonumber
 IO->>Device: I2CDeviceDeinitRequest
 Device->>IO: I2CDeviceDeinitResponse
 ```
+
+## Supported Sensor Types
+
+The `SensorType` enum defines all supported sensor measurement types and their units:
+
+### Environmental Sensors
+* `SENSOR_TYPE_AMBIENT_TEMPERATURE` - Air temperature in °C
+* `SENSOR_TYPE_AMBIENT_TEMPERATURE_FAHRENHEIT` - Air temperature in °F
+* `SENSOR_TYPE_OBJECT_TEMPERATURE` - Object/surface temperature in °C
+* `SENSOR_TYPE_OBJECT_TEMPERATURE_FAHRENHEIT` - Object/surface temperature in °F
+* `SENSOR_TYPE_RELATIVE_HUMIDITY` - Relative humidity in %
+* `SENSOR_TYPE_PRESSURE` - Atmospheric pressure in hPa
+* `SENSOR_TYPE_ALTITUDE` - Altitude in meters
+
+### Light Sensors
+* `SENSOR_TYPE_LIGHT` - Light level (non-unit-specific)
+* `SENSOR_TYPE_LUX` - Light level in lux
+* `SENSOR_TYPE_COLOR` - RGB color values (0-1.0 range, 32-bit RGBA)
+
+### Motion & Orientation Sensors
+* `SENSOR_TYPE_ACCELEROMETER` - Acceleration in m/s²
+* `SENSOR_TYPE_GYROSCOPE` - Angular rate in rad/s
+* `SENSOR_TYPE_MAGNETIC_FIELD` - Magnetic field in µT
+* `SENSOR_TYPE_ORIENTATION` - Orientation angle in degrees
+* `SENSOR_TYPE_GRAVITY` - Gravity in m/s²
+* `SENSOR_TYPE_LINEAR_ACCELERATION` - Acceleration (excluding gravity) in m/s²
+* `SENSOR_TYPE_ROTATION_VECTOR` - Rotation angle in radians
+
+### Air Quality Sensors
+* `SENSOR_TYPE_PM10_STD` / `SENSOR_TYPE_PM10_ENV` - Particulate Matter 1.0 in ppm
+* `SENSOR_TYPE_PM25_STD` / `SENSOR_TYPE_PM25_ENV` - Particulate Matter 2.5 in ppm
+* `SENSOR_TYPE_PM100_STD` / `SENSOR_TYPE_PM100_ENV` - Particulate Matter 10.0 in ppm
+* `SENSOR_TYPE_CO2` - Measured CO2 in ppm
+* `SENSOR_TYPE_ECO2` - Estimated/equivalent CO2 in ppm
+* `SENSOR_TYPE_GAS_RESISTANCE` - VOC gas resistance in Ω
+* `SENSOR_TYPE_VOC_INDEX` - VOC index (1-500, 100 is normal)
+* `SENSOR_TYPE_NOX_INDEX` - NOx index (1-500, 100 is normal)
+* `SENSOR_TYPE_TVOC` - Total VOC in ppb
+
+### Electrical Sensors
+* `SENSOR_TYPE_VOLTAGE` - Voltage in V
+* `SENSOR_TYPE_CURRENT` - Current in mA
+
+### Distance & Position
+* `SENSOR_TYPE_PROXIMITY` - Distance (non-unit-specific)
+
+### Generic Types
+* `SENSOR_TYPE_RAW` - Raw sensor value (no specific unit)
+* `SENSOR_TYPE_UNITLESS_PERCENT` - Percentage value (unitless)
 
 
