@@ -83,11 +83,14 @@ enum OledTextSize {
 /**
  * I2cDisplayConfig contains the I2C bus configuration for I2C-based displays
  * (OLED, LED Backpack, Character LCD)
+ * Matches DeviceDescriptor structure from i2c.proto for consistency
  */
 message I2cDisplayConfig {
   uint32 device_address = 1; /** I2C device address (typically 0x3C or 0x3D for OLED, 0x70 for HT16K33) */
   string bus_sda        = 2 [(nanopb).max_size = 6]; /** Optional SDA pin for alternate I2C bus */
   string bus_scl        = 3 [(nanopb).max_size = 6]; /** Optional SCL pin for alternate I2C bus */
+  uint32 mux_address    = 4; /** Optional I2C multiplexer address */
+  uint32 mux_channel    = 5; /** Optional I2C multiplexer channel (0-7) */
 }
 
 /**
