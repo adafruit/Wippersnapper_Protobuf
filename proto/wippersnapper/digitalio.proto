@@ -51,7 +51,7 @@ message Add {
   Direction gpio_direction = 2; /** The pin's direction. */
   SampleMode sample_mode   = 3; /** Specifies the pin's sample mode. */
   float period             = 4; /** Time between measurements in seconds, if MODE_TIMER. */
-  bool value               = 5; /** Re-sync only - send the pin's value. */
+  Write write              = 5; /** Optional initial value to write to the pin, used during check-in. */
 }
 
 /**
