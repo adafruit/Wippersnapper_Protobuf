@@ -12,13 +12,13 @@ source "./bin/functions.sh"
 clean
 activate_mise
 ensure protoc
-ensure protoc-gen-js
 
-# invoke protoc for js output
-protoc \
-  --proto_path=./proto/wippersnapper \
-  --plugin=`which protoc-gen-js` \
-  --js_out=import_style=commonjs,binary:$OUT_PATH \
-  ./proto/wippersnapper/*.proto
+# put buf on the path and invoke protoc
+PATH=$PATH:$(pwd)/node_modules/.bin \
+    protoc \
+    --proto_path=./proto/wippersnapper \
+    --es_out $OUT_PATH \
+    --es_opt target=js+dts \
+    ./proto/wippersnapper/*.proto
 
 completed_message "JavaScript"
