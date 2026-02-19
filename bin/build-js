@@ -19,6 +19,7 @@ PATH=$PATH:$(pwd)/node_modules/.bin \
     --proto_path=./proto/wippersnapper \
     --es_out $OUT_PATH \
     --es_opt target=js+dts \
+    --es_opt js_import_style=legacy_commonjs \
     ./proto/wippersnapper/*.proto
 
 completed_message "JavaScript"
