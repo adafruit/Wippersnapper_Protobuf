@@ -3,6 +3,9 @@
 # submodule
 nanopb/
 
+# npm libs for buf-es
+node_modules/
+
 # built wrapper artifacts
 python_out
 js_out

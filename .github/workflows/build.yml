@@ -19,12 +19,12 @@ jobs:
           pip install protobuf
           pip install setuptools==75.3.4
           go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1
+          npm ci
 
       - name: Env Debug Info
         continue-on-error: true # this is a purely informational step
         run: |
           protoc --version      # provided by: mise
-          which protoc-gen-js   # provided by: mise
           protolint -v          # provided by: mise
           go version            # provided by: mise
           # this line doesn't work, not sure why
@@ -32,6 +32,8 @@ jobs:
           python --version      # provided by: mise
           pip --version         # provided by: mise
           pip list              # provided by: pip install ...
+          node --version        # provided by: mise
+          npm --version         # provided by: mise
 
       - name: Build JS
         run: bin/build-js
