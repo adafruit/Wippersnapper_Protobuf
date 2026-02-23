@@ -25,7 +25,6 @@ jobs:
         continue-on-error: true # this is a purely informational step
         run: |
           protoc --version      # provided by: mise
-          which protoc-gen-js   # provided by: mise
           protolint -v          # provided by: mise
           go version            # provided by: mise
           # this line doesn't work, not sure why
