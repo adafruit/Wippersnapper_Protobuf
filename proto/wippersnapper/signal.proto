@@ -65,9 +65,10 @@ message DeviceToBroker {
     ws.servo.D2B servo         = 32;
     ws.pwm.D2B pwm             = 33;
     ws.pixels.D2B pixels       = 34;
-    ws.display.D2B display     = 35;
-    ws.uart.D2B uart           = 36;
-    ws.i2c.D2B i2c             = 37;
-    ws.gps.D2B gps             = 38;
+    ws.ds18x20.D2B ds18x20     = 35;
+    ws.display.D2B display     = 36;
+    ws.uart.D2B uart           = 37;
+    ws.i2c.D2B i2c             = 38;
+    ws.gps.D2B gps             = 39;
   }
 }
