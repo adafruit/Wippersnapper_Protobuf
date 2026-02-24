@@ -87,8 +87,8 @@ enum OledTextSize {
  */
 message I2cDisplayConfig {
   uint32 device_address = 1; /** I2C device address (typically 0x3C or 0x3D for OLED, 0x70 for HT16K33) */
-  string bus_sda        = 2 [(nanopb).max_size = 6]; /** Optional SDA pin for alternate I2C bus */
-  string bus_scl        = 3 [(nanopb).max_size = 6]; /** Optional SCL pin for alternate I2C bus */
+  string bus_sda        = 2; /** Optional SDA pin for alternate I2C bus */
+  string bus_scl        = 3; /** Optional SCL pin for alternate I2C bus */
   uint32 mux_address    = 4; /** Optional I2C multiplexer address */
   uint32 mux_channel    = 5; /** Optional I2C multiplexer channel (0-7) */
 }
@@ -99,11 +99,11 @@ message I2cDisplayConfig {
  */
 message EpdSpiConfig {
   int32 bus          = 1; /** The SPI bus to use */
-  string pin_dc      = 2 [(nanopb).max_size = 6]; /** Pin for data/command */
-  string pin_rst     = 3 [(nanopb).max_size = 6]; /** Pin for reset */
-  string pin_cs      = 4 [(nanopb).max_size = 6]; /** Pin for chip select */
-  string pin_sram_cs = 5 [(nanopb).max_size = 6]; /** Pin for SRAM chip select */
-  string pin_busy    = 6 [(nanopb).max_size = 6]; /** Pin for busy signal */
+  string pin_dc      = 2; /** Pin for data/command */
+  string pin_rst     = 3; /** Pin for reset */
+  string pin_cs      = 4; /** Pin for chip select */
+  string pin_sram_cs = 5; /** Pin for SRAM chip select */
+  string pin_busy    = 6; /** Pin for busy signal */
 }
 
 /**
@@ -148,12 +148,12 @@ message CharLcdConfig {
  */
 message TftSpiConfig {
   int32 bus       = 1; /** The SPI bus to use */
-  string pin_cs   = 2 [(nanopb).max_size = 6]; /** Pin for chip select */
-  string pin_dc   = 3 [(nanopb).max_size = 6]; /** Pin for data/command */
-  string pin_mosi = 4 [(nanopb).max_size = 6]; /** Pin for MOSI */
-  string pin_sck  = 5 [(nanopb).max_size = 6]; /** Pin for SCK */
-  string pin_rst  = 6 [(nanopb).max_size = 6]; /** Pin for reset */
-  string pin_miso = 7 [(nanopb).max_size = 6]; /** Pin for MISO */
+  string pin_cs   = 2; /** Pin for chip select */
+  string pin_dc   = 3; /** Pin for data/command */
+  string pin_mosi = 4; /** Pin for MOSI */
+  string pin_sck  = 5; /** Pin for SCK */
+  string pin_rst  = 6; /** Pin for reset */
+  string pin_miso = 7; /** Pin for MISO */
 }
 
 message TftConfig {
@@ -164,15 +164,15 @@ message TftConfig {
 }
 
 message TtlRgb666PinConfig {
-  string pin_r0 = 1 [(nanopb).max_size = 6]; /** Pin for R0 */
-  string pin_r1 = 2 [(nanopb).max_size = 6]; /** Pin for R1 */
-  string pin_r2 = 3 [(nanopb).max_size = 6]; /** Pin for R2 */
-  string pin_g0 = 4 [(nanopb).max_size = 6]; /** Pin for G0 */
-  string pin_g1 = 5 [(nanopb).max_size = 6]; /** Pin for G1 */
-  string pin_g2 = 6 [(nanopb).max_size = 6]; /** Pin for G2 */
-  string pin_b0 = 7 [(nanopb).max_size = 6]; /** Pin for B0 */
-  string pin_b1 = 8 [(nanopb).max_size = 6]; /** Pin for B1 */
-  string pin_b2 = 9 [(nanopb).max_size = 6]; /** Pin for B2 */
+  string pin_r0 = 1; /** Pin for R0 */
+  string pin_r1 = 2; /** Pin for R1 */
+  string pin_r2 = 3; /** Pin for R2 */
+  string pin_g0 = 4; /** Pin for G0 */
+  string pin_g1 = 5; /** Pin for G1 */
+  string pin_g2 = 6; /** Pin for G2 */
+  string pin_b0 = 7; /** Pin for B0 */
+  string pin_b1 = 8; /** Pin for B1 */
+  string pin_b2 = 9; /** Pin for B2 */
 }
 
 message TtlRgb666Config {
@@ -183,17 +183,17 @@ message TtlRgb666Config {
 }
 
 message I8080PinConfig {
-  string pin_d0  = 1 [(nanopb).max_size = 6]; /** Pin for D0 */
-  string pin_d1  = 2 [(nanopb).max_size = 6]; /** Pin for D1 */
-  string pin_d2  = 3 [(nanopb).max_size = 6]; /** Pin for D2 */
-  string pin_d3  = 4 [(nanopb).max_size = 6]; /** Pin for D3 */
-  string pin_d4  = 5 [(nanopb).max_size = 6]; /** Pin for D4 */
-  string pin_d5  = 6 [(nanopb).max_size = 6]; /** Pin for D5 */
-  string pin_d6  = 7 [(nanopb).max_size = 6]; /** Pin for D6 */
-  string pin_d7  = 8 [(nanopb).max_size = 6]; /** Pin for D7 */
-  string pin_cs  = 9 [(nanopb).max_size = 6]; /** Pin for chip select */
-  string pin_dc  = 10 [(nanopb).max_size = 6]; /** Pin for data/command */
-  string pin_rst = 11 [(nanopb).max_size = 6]; /** Pin for reset */
+  string pin_d0  = 1; /** Pin for D0 */
+  string pin_d1  = 2; /** Pin for D1 */
+  string pin_d2  = 3; /** Pin for D2 */
+  string pin_d3  = 4; /** Pin for D3 */
+  string pin_d4  = 5; /** Pin for D4 */
+  string pin_d5  = 6; /** Pin for D5 */
+  string pin_d6  = 7; /** Pin for D6 */
+  string pin_d7  = 8; /** Pin for D7 */
+  string pin_cs  = 9; /** Pin for chip select */
+  string pin_dc  = 10; /** Pin for data/command */
+  string pin_rst = 11; /** Pin for reset */
 }
 
 message I8080Config {
@@ -204,11 +204,11 @@ message I8080Config {
 }
 
 message DsiPinConfig {
-  string pin_clk   = 1 [(nanopb).max_size = 6]; /** Pin for DSI clock */
-  string pin_data0 = 2 [(nanopb).max_size = 6]; /** Pin for DSI data lane 0 */
-  string pin_data1 = 3 [(nanopb).max_size = 6]; /** Pin for DSI data lane 1 */
-  string pin_data2 = 4 [(nanopb).max_size = 6]; /** Pin for DSI data lane 2 */
-  string pin_data3 = 5 [(nanopb).max_size = 6]; /** Pin for DSI data lane 3 */
+  string pin_clk   = 1; /** Pin for DSI clock */
+  string pin_data0 = 2; /** Pin for DSI data lane 0 */
+  string pin_data1 = 3; /** Pin for DSI data lane 1 */
+  string pin_data2 = 4; /** Pin for DSI data lane 2 */
+  string pin_data3 = 5; /** Pin for DSI data lane 3 */
 }
 
 message DsiConfig {
@@ -246,9 +246,9 @@ message DsiConfig {
  */
 message Add {
   DisplayType type   = 1; /** The type of display */
-  string driver      = 2 [(nanopb).max_size = 32]; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
-  string panel       = 3 [(nanopb).max_size = 32]; /** Panel identifier for same driver with different configs */
-  string name        = 4 [(nanopb).max_size = 64]; /** Instance identifier for the display. */
+  string driver      = 2; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
+  string panel       = 3; /** Panel identifier for same driver with different configs */
+  string name        = 4; /** Instance identifier for the display. */
   oneof interface_type {
     EpdSpiConfig spi_epd          = 5; /** SPI configuration for EPD. */
     TftSpiConfig spi_tft          = 6; /** SPI configuration for TFT. */
@@ -273,30 +273,30 @@ message Add {
  * Remove removes an existing display.
  */
 message Remove {
-  string name = 1 [(nanopb).max_size = 64]; /** Identifier for the display. */
+  string name = 1; /** Identifier for the display. */
 }
 
 message BinaryImageType {
-  string content_type = 1 [(nanopb).max_size = 64]; /** MIME type of the image (e.g., "image/png"). */
-  bytes data          = 2 [(nanopb).max_size = 102400]; /** Raw image bytes. */
+  string content_type = 1; /** MIME type of the image (e.g., "image/png"). */
+  bytes data          = 2; /** Raw image bytes. */
 }
 
 /**
  * Write writes content to a display.
  */
 message Write {
-  string name = 1 [(nanopb).max_size = 64]; /** Identifies the display. */
+  string name = 1; /** Identifies the display. */
   oneof content {
-    string message               = 2 [(nanopb).max_size = 1024]; /** Monospace text message */
-    string url                   = 3 [(nanopb).max_size = 10240]; /** URL to fetch the image from. */
-    string base64image           = 4 [(nanopb).max_size = 102400]; /** Base64-encoded w/content-type prefix. */
+    string message               = 2; /** Monospace text message */
+    string url                   = 3; /** URL to fetch the image from. */
+    string base64image           = 4; /** Base64-encoded w/content-type prefix. */
     BinaryImageType binary_image = 5; /** Binary image data with content type. */
   }
 
   // Display-specific write options (optional, with defaults)
-  bool clear_first = 6 [default = true]; /** Clear display before writing. Default: true */
-  int32 cursor_x   = 7 [default = 0];    /** Cursor position X (for char LCD/OLED). Default: 0 */
-  int32 cursor_y   = 8 [default = 0];    /** Cursor position Y (for char LCD/OLED). Default: 0 */
+  bool clear_first = 6; /** Clear display before writing. Default: true */
+  int32 cursor_x   = 7; /** Cursor position X (for char LCD/OLED). Default: 0 */
+  int32 cursor_y   = 8; /** Cursor position Y (for char LCD/OLED). Default: 0 */
 }
 
 // ============================================================================
@@ -307,7 +307,7 @@ message Write {
  * AddedOrReplaced confirms a display was added or replaced.
  */
 message AddedOrReplaced {
-  string name  = 1 [(nanopb).max_size = 64]; /** Identifier for the display. */
+  string name  = 1; /** Identifier for the display. */
   bool did_add = 2; /** Indicates if a display was added */
 }
 
@@ -315,6 +315,6 @@ message AddedOrReplaced {
  * Removed confirms a display was removed.
  */
 message Removed {
-  string name     = 1 [(nanopb).max_size = 64]; /** Identifies the display. */
+  string name     = 1; /** Identifies the display. */
   bool did_remove = 2; /** Indicates if a display was removed */
 }
