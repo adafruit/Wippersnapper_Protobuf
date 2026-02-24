@@ -1,4 +1,4 @@
 # checkin.options
 ws.checkin.Request.hardware_uid     max_size: 64
 ws.checkin.Request.firmware_version max_size: 25
-ws.checkin.B2D.payload              submsg_callback:true
+ws.checkin.B2D                      submsg_callback:true
