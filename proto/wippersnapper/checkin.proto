@@ -10,6 +10,7 @@ import "i2c.proto";
 import "pixels.proto";
 import "pwm.proto";
 import "servo.proto";
+import "sleep.proto";
 import "uart.proto";
 
 /**
@@ -37,6 +38,7 @@ message D2B {
 message Request {
   string hardware_uid     = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
   string firmware_version = 2; /** Identifies the client's firmware version. */
+  ws.sleep.Wake wake_cause = 3; /** Optional wakeup cause metadata for low-power mode. */
 }
 
 /**
@@ -49,7 +51,7 @@ message Response {
   float reference_voltage  = 4; /** Specifies the hardware's default reference voltage. */
 
   repeated ComponentAdd component_adds = 5; /** A list of components to set up and initialize during checkin */
-
+  ws.sleep.Enter sleep                 = 6; /** Sleep configuration for the device */
   /**
    * Response. Specifies if the hardware definiton is within the database.
    */
@@ -73,6 +75,7 @@ message ComponentAdd {
     ws.ds18x20.Add ds18x20        = 6;
     ws.uart.Add uart              = 7;
     ws.i2c.DeviceAddOrReplace i2c = 8;
+    ws.sleep.Enter sleep          = 9;
   }
 }
 
