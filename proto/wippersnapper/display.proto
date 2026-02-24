@@ -4,7 +4,6 @@
 
 syntax = "proto3";
 package ws.display;
-import "sensor.proto";
 
 // ============================================================================
 // Message Envelopes
