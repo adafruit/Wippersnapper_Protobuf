@@ -65,7 +65,7 @@ message Response {
 /**
  * Generic component add message, could contain any *Add message from component protos
  */
-message ComponentAdd {
+message ComponentAdds {
   repeated ws.digitalio.Add digitalio    = 1;
   repeated ws.analogio.Add analogio      = 2;
   repeated ws.servo.Add servo            = 3;
