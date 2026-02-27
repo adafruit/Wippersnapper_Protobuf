@@ -66,14 +66,14 @@ message Response {
  * Generic component add message, could contain any *Add message from component protos
  */
 message ComponentAdds {
-  repeated ws.digitalio.Add digitalioAdds    = 1;
-  repeated ws.analogio.Add analogioAdds      = 2;
-  repeated ws.servo.Add servoAdds            = 3;
-  repeated ws.pwm.Add pwmAdds                = 4;
-  repeated ws.pixels.Add pixelsAdds          = 5;
-  repeated ws.ds18x20.Add ds18x20Adds        = 6;
-  repeated ws.uart.Add uartAdds              = 7;
-  repeated ws.i2c.DeviceAddOrReplace i2cAdds = 8;
+  repeated ws.digitalio.Add digitalio_adds    = 1;
+  repeated ws.analogio.Add analogio_adds      = 2;
+  repeated ws.servo.Add servo_adds            = 3;
+  repeated ws.pwm.Add pwm_adds                = 4;
+  repeated ws.pixels.Add pixels_adds          = 5;
+  repeated ws.ds18x20.Add ds18x20_adds        = 6;
+  repeated ws.uart.Add uart_adds              = 7;
+  repeated ws.i2c.DeviceAddOrReplace i2c_adds = 8;
 }
 
 /**
