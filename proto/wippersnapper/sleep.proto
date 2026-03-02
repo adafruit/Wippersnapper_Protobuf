@@ -4,27 +4,6 @@ syntax = "proto3";
 package ws.sleep;
 
 /**
- * Wakeup (post-sleep) causes for ES32x chips.
- */
-enum EspWakeCause {
-  ESP_UNSPECIFIED     = 0;  /** In case of deep sleep, reset was not caused by exit from deep sleep. */
-  ESP_ALL             = 1;  /** Not a wakeup cause, used to disable all wakeup sources with esp_sleep_disable_wakeup_source. */
-  ESP_EXT0            = 2;  /** Wakeup caused by external signal using RTC_IO. */
-  ESP_EXT1            = 3;  /** Wakeup caused by external signal using RTC_CNTL. */
-  ESP_TIMER           = 4;  /** Wakeup caused by timer. */
-  ESP_TOUCHPAD        = 5;  /** Wakeup caused by touchpad. */
-  ESP_ULP             = 6;  /** Wakeup caused by ULP program. */
-  ESP_GPIO            = 7;  /** Wakeup caused by GPIO (light sleep only on ESP32, S2 and S3). */
-  ESP_UART            = 8;  /** Wakeup caused by UART (light sleep only). */
-  ESP_WIFI            = 9;  /** Wakeup caused by WIFI (light sleep only). */
-  ESP_COCPU           = 10; /** Wakeup caused by  COCPU int. */
-  ESP_COCPU_TRAP      = 11; /** Wakeup caused by COCPU crash. */
-  ESP_BT              = 12; /** Wakeup caused by BT (light sleep only). */
-  ESP_VAD             = 13; /** Wakeup caused by VAD. */
-  ESP_VBAT_UNDER_VOLT = 14; /** Wakeup caused by VDD_BAT under voltage. */
-}
-
-/**
  * Device sleep modes
  */
 enum SleepMode {
@@ -38,7 +17,7 @@ enum SleepMode {
  */
 message B2D {
   oneof payload {
-    Enter enter = 1; /** Message containing required information to enter deep sleep. */
+    SleepConfig sleep_config = 1; /** Message containing required information to enter deep sleep. */
   }
 }
 
@@ -48,7 +27,6 @@ message B2D {
 message D2B {
   oneof payload {
     Goodnight goodnight = 1; /** Goodnight event. */
-    Wake      wake = 2; /** Wakeup event. */
   }
 }
 
@@ -57,16 +35,6 @@ message D2B {
  */
 message Goodnight {
   string message = 1; /** Message indicating the device is going to sleep. */
-}
-
-/**
- * Wakeup event message from the device.
- */
-message Wake {
-  oneof WakeCause {
-    EspWakeCause esp    = 1; /** Wakeup cause for ESP32x MCUs. */
-  }
-  uint32 sleep_duration = 2; /** Calculated duration of the sleep duration, in seconds. */
 }
 
 /**
@@ -80,19 +48,18 @@ message TimerConfig {
  * Pin configuration for ext0 RTC wakeup source.
  */
 message Ext0Config {
-  string name = 1; /** Pin to wake up from. */
-  bool level  = 2; /**  Input level which will trigger wakeup (False = low, True = high) */
-  bool pull   = 3; /**  Enable internal pull-up or pull-down resistors */
+  string pin_name = 1; /** Pin to wake up from. */
+  bool level      = 2; /** Input level which will trigger wakeup (False = low, True = high) */
+  bool pull       = 3; /** Enable internal pull-up or pull-down resistors */
 }
 
 /**
  * Contains configuration to enter a sleep mode.
  */
-message Enter {
-  bool lock           = 1; /** Tells the device if it is entering sleep or not. */
-  SleepMode mode      = 2; /** Sleep mode. */
+message SleepConfig {
+  SleepMode mode      = 1; /** Sleep mode. */
   oneof config {
-    TimerConfig timer = 3; /** Timer configuration for wakeup source. */
-    Ext0Config ext0   = 4; /** EXT0 RTC configuration for wakeup source. */
+    TimerConfig timer = 2; /** Timer configuration for wakeup source. */
+    Ext0Config ext0   = 3; /** EXT0 RTC configuration for wakeup source. */
   }
 }
