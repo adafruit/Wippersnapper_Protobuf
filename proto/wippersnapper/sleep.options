@@ -1,2 +1,2 @@
-# uart.options
-ws.sleep.Ext0Config.name         max_size: 32
+# sleep.options
+ws.sleep.Ext0Config.pin_name         max_size: 32
