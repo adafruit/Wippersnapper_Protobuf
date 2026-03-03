@@ -266,6 +266,7 @@ message Add {
     I8080Config config_i8080          = 17; /** Configuration for i8080. */
     DsiConfig config_dsi              = 18; /** Configuration for DSI. */
   }
+  Write write             = 19; /** Optional initial write for a display, used during check-in. */
 }
 
 /**
