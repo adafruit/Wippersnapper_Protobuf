@@ -31,11 +31,9 @@ message D2B {
 }
 
 /**
- * Goodnight event message from the device.
+ * Tell the broker the device is going to sleep now.
  */
-message Goodnight {
-  string message = 1; /** Message indicating the device is going to sleep. */
-}
+message Goodnight {}
 
 /**
  * Timer configuration for wakeup source.
