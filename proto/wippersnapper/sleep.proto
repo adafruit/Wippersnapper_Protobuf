@@ -33,7 +33,9 @@ message D2B {
 /**
  * Tell the broker the device is going to sleep now.
  */
-message Goodnight {}
+message Goodnight {
+
+}
 
 /**
  * Timer configuration for wakeup source.
