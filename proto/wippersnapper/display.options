@@ -45,11 +45,9 @@ ws.display.I8080PinConfig.pin_cs                max_size:6
 ws.display.I8080PinConfig.pin_dc                max_size:6
 ws.display.I8080PinConfig.pin_rst               max_size:6
 
-ws.display.DsiPinConfig.pin_clk                 max_size:6
-ws.display.DsiPinConfig.pin_data0               max_size:6
-ws.display.DsiPinConfig.pin_data1               max_size:6
-ws.display.DsiPinConfig.pin_data2               max_size:6
-ws.display.DsiPinConfig.pin_data3               max_size:6
+ws.display.DsiInterfaceConfig.pin_rst            max_size:6
+
+ws.display.BacklightConfig.pin                   max_size:6
 
 # Remove message
 ws.display.Remove.name                          max_size:64

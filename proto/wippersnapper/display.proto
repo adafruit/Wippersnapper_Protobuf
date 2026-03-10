@@ -82,7 +82,7 @@ enum OledTextSize {
 /**
  * I2cDisplayConfig contains the I2C bus configuration for I2C-based displays
  * (OLED, LED Backpack, Character LCD)
- * Matches DeviceDescriptor structure from i2c.proto for consistency
+ * Matches DeviceDescriptor structure from i2c.proto for consistency (no #2 bus)
  */
 message I2cDisplayConfig {
   uint32 device_address = 1; /** I2C device address (typically 0x3C or 0x3D for OLED, 0x70 for HT16K33) */
@@ -202,12 +202,13 @@ message I8080Config {
   int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
 }
 
-message DsiPinConfig {
-  string pin_clk   = 1; /** Pin for DSI clock */
-  string pin_data0 = 2; /** Pin for DSI data lane 0 */
-  string pin_data1 = 3; /** Pin for DSI data lane 1 */
-  string pin_data2 = 4; /** Pin for DSI data lane 2 */
-  string pin_data3 = 5; /** Pin for DSI data lane 3 */
+/**
+ * DsiInterfaceConfig contains the minimal configuration for MIPI DSI displays.
+ * DSI clock and data lanes are dedicated differential pads on the SoC, not GPIOs.
+ */
+message DsiInterfaceConfig {
+  int32 bus       = 1; /** DSI bus index (0 if only one DSI peripheral). */
+  string pin_rst  = 2; /** GPIO pin for display panel reset. */
 }
 
 message DsiConfig {
@@ -217,10 +218,30 @@ message DsiConfig {
   int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
 }
 
+/**
+ * BacklightMode selects how the backlight pin is driven.
+ */
+enum BacklightMode {
+  BL_MODE_UNSPECIFIED = 0; /** Unspecified, firmware default. */
+  BL_MODE_BINARY      = 1; /** Simple on/off GPIO control. */
+  BL_MODE_PWM         = 2; /** PWM brightness control. */
+}
+
+/**
+ * BacklightConfig configures the display backlight.
+ * Shared across any display type with a controllable backlight
+ * (TFT, DSI, Character LCD with RGB backlight, etc.).
+ */
+message BacklightConfig {
+  string pin          = 1; /** GPIO pin for backlight control. */
+  BacklightMode mode  = 2; /** Binary (on/off) or PWM. */
+  bool active_low     = 3; /** If true, logic low = backlight on (inverted output). */
+  uint32 brightness   = 4; /** Initial brightness 0-100 (PWM mode only, ignored for binary). Default: 100. */
+}
+
 /*
   TODO:Tyeth: protobuf v2 changes:
   * Consider merging config message types, currently EPDmode + w/h/rot/txtSz
-  * Allow brightness pin control / inclusion in pin configs
   * Refactor SPI bus pin info to be sub message Spi
 */
 
@@ -254,7 +275,7 @@ message Add {
     I2cDisplayConfig i2c          = 7; /** I2C configuration for OLED/LED/LCD displays. */
     TtlRgb666PinConfig ttl_rgb666 = 8; /** RGB666 configuration for Qualia. */
     I8080PinConfig i8080          = 9; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
-    DsiPinConfig dsi              = 10; /** DSI configuration for T-DisplayS3/Memento. */
+    DsiInterfaceConfig dsi        = 10; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
   }
   oneof config {
     EPDConfig config_epd              = 11; /** Configuration for EPD. */
@@ -267,6 +288,7 @@ message Add {
     DsiConfig config_dsi              = 18; /** Configuration for DSI. */
   }
   Write write             = 19; /** Optional initial write for a display, used during check-in. */
+  BacklightConfig backlight = 20; /** Optional backlight configuration (shared across display types). */
 }
 
 /**
