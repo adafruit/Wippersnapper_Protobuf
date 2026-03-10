@@ -61,9 +61,9 @@ ws.display.Write.base64image                    type:FT_CALLBACK
 ws.display.Write.binary_image                   type:FT_CALLBACK
 
 # Write message defaults
-ws.display.Write.clear_first                    default:true
-ws.display.Write.cursor_x                       default:0
-ws.display.Write.cursor_y                       default:0
+# clear_first: proto3 defaults bool to false, use initializer to override init macros
+ws.display.Write.clear_first                    initializer:"true"
+# cursor_x/cursor_y default to 0 already in proto3, no override needed
 
 # Response messages
 ws.display.AddedOrReplaced.name                 max_size:64
