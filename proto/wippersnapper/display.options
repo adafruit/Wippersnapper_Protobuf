@@ -57,10 +57,10 @@ ws.display.Remove.name                          max_size:64
 # Write message
 ws.display.Write.name                           max_size:64
 ws.display.Write.message                        max_size:1024
-ws.display.Write.url                            max_size:10240
-ws.display.Write.base64image                    max_size:102400
-ws.display.BinaryImageType.content_type         max_size:64
-ws.display.BinaryImageType.data                 max_size:102400
+# Large content fields use callbacks to avoid static allocation on embedded
+ws.display.Write.url                            type:FT_CALLBACK
+ws.display.Write.base64image                    type:FT_CALLBACK
+ws.display.Write.binary_image                   type:FT_CALLBACK
 
 # Write message defaults
 ws.display.Write.clear_first                    default:true
