@@ -69,6 +69,9 @@ message DeviceDescriptor {
 message Scan {
   ScanTarget target = 1; /** Which bus or mux to scan **/
 
+  /**
+  * ScanTarget represents which bus or mux to scan for I2C devices.
+  */
   enum ScanTarget {
     ST_UNSPECIFIED = 0; /** Unspecified target, should not happen **/
     ST_BUS         = 1; /** Scan the default bus **/
