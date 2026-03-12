@@ -3,6 +3,7 @@
 // Display API for Adafruit WipperSnapper
 
 syntax = "proto3";
+import "i2c.proto";
 package ws.display;
 
 // ============================================================================
@@ -38,7 +39,7 @@ message D2B {
  * DisplayType determines the type of display
  * and selects which driver should be used.
  */
-enum DisplayType {
+enum DisplayType { //DisplayClassType
   DISPLAY_TYPE_UNSPECIFIED = 0; /** Unspecified display type. */
   DISPLAY_TYPE_EPD         = 1; /** EPD (E-Paper Display) type */
   DISPLAY_TYPE_TFT         = 2; /** TFT (Thin Film Transistor) type */
@@ -78,19 +79,6 @@ enum OledTextSize {
 // ============================================================================
 // Configuration Messages
 // ============================================================================
-
-/**
- * I2cDisplayConfig contains the I2C bus configuration for I2C-based displays
- * (OLED, LED Backpack, Character LCD)
- * Matches DeviceDescriptor structure from i2c.proto for consistency (no #2 bus)
- */
-message I2cDisplayConfig {
-  uint32 device_address = 1; /** I2C device address (typically 0x3C or 0x3D for OLED, 0x70 for HT16K33) */
-  string bus_sda        = 2; /** Optional SDA pin for alternate I2C bus */
-  string bus_scl        = 3; /** Optional SCL pin for alternate I2C bus */
-  uint32 mux_address    = 4; /** Optional I2C multiplexer address */
-  uint32 mux_channel    = 5; /** Optional I2C multiplexer channel (0-7) */
-}
 
 /**
  * EpdSpiConfig contains the configuration for SPI-based EPD displays.
@@ -272,7 +260,7 @@ message Add {
   oneof interface_type {
     EpdSpiConfig spi_epd          = 5; /** SPI configuration for EPD. */
     TftSpiConfig spi_tft          = 6; /** SPI configuration for TFT. */
-    I2cDisplayConfig i2c          = 7; /** I2C configuration for OLED/LED/LCD displays. */
+    ws.i2c.DeviceDescriptor i2c   = 7; /** I2C configuration for OLED/LED/LCD displays. */
     TtlRgb666PinConfig ttl_rgb666 = 8; /** RGB666 configuration for Qualia. */
     I8080PinConfig i8080          = 9; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
     DsiInterfaceConfig dsi        = 10; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
