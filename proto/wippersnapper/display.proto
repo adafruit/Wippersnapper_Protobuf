@@ -36,16 +36,16 @@ message D2B {
 // ============================================================================
 
 /**
- * DisplayType determines the type of display
+ * DisplayClass determines the type of display
  * and selects which driver should be used.
  */
-enum DisplayType { //DisplayClassType
-  DISPLAY_TYPE_UNSPECIFIED = 0; /** Unspecified display type. */
-  DISPLAY_TYPE_EPD         = 1; /** EPD (E-Paper Display) type */
-  DISPLAY_TYPE_TFT         = 2; /** TFT (Thin Film Transistor) type */
-  DISPLAY_TYPE_OLED        = 3; /** OLED (Organic LED) type */
-  DISPLAY_TYPE_LED_BACKPACK = 4; /** LED Backpack (HT16K33-based 7-segment/14-segment displays) */
-  DISPLAY_TYPE_CHAR_LCD    = 5; /** Character LCD (text-based LCD displays) */
+enum DisplayClass {
+  DISPLAY_CLASS_UNSPECIFIED = 0; /** Unspecified display type. */
+  DISPLAY_CLASS_EPD         = 1; /** EPD (E-Paper Display) type */
+  DISPLAY_CLASS_TFT         = 2; /** TFT (Thin Film Transistor) type */
+  DISPLAY_CLASS_OLED        = 3; /** OLED (Organic LED) type */
+  DISPLAY_CLASS_LED_BACKPACK = 4; /** LED Backpack (HT16K33-based 7-segment/14-segment displays) */
+  DISPLAY_CLASS_CHAR_LCD    = 5; /** Character LCD (text-based LCD displays) */
 }
 
 /**
@@ -253,7 +253,7 @@ message BacklightConfig {
  * Examples: "5.83-648x480-mono", "4.2-300x400-gray", "adafruit-6397"
  */
 message Add {
-  DisplayType type   = 1; /** The type of display */
+  DisplayClass type   = 1; /** The type of display */
   string driver      = 2; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
   string panel       = 3; /** Panel identifier for same driver with different configs */
   string name        = 4; /** Instance identifier for the display. */
