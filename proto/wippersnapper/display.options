@@ -16,9 +16,6 @@ ws.display.SpiPinConfig.pin_miso                max_size:6
 ws.display.EpdSpiConfig.pin_sram_cs             max_size:6
 ws.display.EpdSpiConfig.pin_busy                max_size:6
 
-ws.i2c.DeviceDescriptor.bus_sda                max_size:6
-ws.i2c.DeviceDescriptor.bus_scl                max_size:6
-
 ws.display.TtlRgb666PinConfig.pin_r0            max_size:6
 ws.display.TtlRgb666PinConfig.pin_r1            max_size:6
 ws.display.TtlRgb666PinConfig.pin_r2            max_size:6

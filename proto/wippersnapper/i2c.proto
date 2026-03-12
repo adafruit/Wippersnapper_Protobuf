@@ -5,6 +5,7 @@ package ws.i2c;
 import "gps.proto";
 import "display.proto";
 import "sensor.proto";
+import "i2c_types.proto";
 
 /**
  * BrokerToDevice message envelope
@@ -54,24 +55,7 @@ enum DeviceStatus {
   DS_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
 }
 
-/**
-* DeviceDescriptor represents the I2c device's address and related metadata.
-*/
-message DeviceDescriptor {
-  string bus_sda        = 1; /** Optional SDA pin for an alt. i2c bus.**/
-  string bus_scl        = 2; /** Optional SCL pin for an alt. i2c bus.**/
-  uint32 device_address = 3; /** I2C Device's Address. **/
-  uint32 mux_address    = 4; /** Optional I2C multiplexer address. **/
-  uint32 mux_channel    = 5; /** Optional I2C multiplexer channel. **/
-}
-
-/**
-* BusDescriptor represents the I2c bus' SDA and SCL pins.
-*/
-message BusDescriptor {
-  string bus_sda = 1; /** SDA pin for an i2c bus.**/
-  string bus_scl = 2; /** SCL pin for an i2c bus.**/
-}
+// DeviceDescriptor and BusDescriptor are in i2c_types.proto
 
 /**
 * BusScan represents a command for a device to perform an i2c scan.
