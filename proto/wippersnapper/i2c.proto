@@ -11,10 +11,9 @@ import "sensor.proto";
  */
 message B2D {
   oneof payload {
-    BusScan bus_scan                      = 1;
+    Scan bus_scan                      = 1;
     DeviceAddOrReplace device_add_replace = 2;
     DeviceRemove device_remove            = 3;
-    DeviceOutputWrite device_output_write = 4;
   }
 }
 
@@ -23,7 +22,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    BusScanned bus_scanned                      = 1;
+    Scanned bus_scanned                      = 1;
     DeviceAddedOrReplaced device_added_replaced = 2;
     DeviceRemoved device_removed                = 3;
     DeviceEvent device_event                    = 4;
@@ -65,7 +64,7 @@ message DeviceDescriptor {
 }
 
 /**
-* BusScan represents a command for a device to perform an i2c scan.
+* Scan represents a command for a device to perform an i2c scan.
 */
 message Scan {
   ScanTarget target = 1; /** Which bus or mux to scan **/
