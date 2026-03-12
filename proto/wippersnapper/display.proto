@@ -67,30 +67,44 @@ enum LedBackpackAlignment {
   LBA_RIGHT       = 2; /** Right-aligned. */
 }
 
-/**
- * OledTextSize represents the desired OLED display text 'magnification' size.
- */
-enum OledTextSize {
-  OTS_UNSPECIFIED = 0; /** Unspecified text size. */
-  OTS_DEFAULT     = 1; /** Default text size, 6x8px. */
-  OTS_LARGE       = 2; /** Larger text size option, 12x16px. */
-}
+// /**
+//  * OledTextSize represents the desired OLED display text 'magnification' size.
+//  */
+// enum OledTextSize {
+//   OTS_UNSPECIFIED = 0; /** Unspecified text size. */
+//   OTS_DEFAULT     = 1; /** Default text size, 6x8px. */
+//   OTS_LARGE       = 2; /** Larger text size option, 12x16px. */
+// }
 
 // ============================================================================
 // Configuration Messages
 // ============================================================================
 
+message DisplayProperties {
+  int32 width  = 1; /** Display width in pixels. */
+  int32 height = 2; /** Display height in pixels. */
+  int32 rotation = 3; /** Display rotation (0-3). */
+  int32 text_size = 4; /** Text size or magnification factor (if applicable). */
+}
+
+message SpiPinConfig {
+  int32 bus       = 1; /** The SPI bus to use */
+  string pin_mosi = 2; /** Pin for MOSI */
+  string pin_sck  = 3; /** Pin for SCK */
+  string pin_miso = 4; /** Pin for MISO */
+  string pin_cs   = 5; /** Pin for chip select */
+  string pin_dc   = 6; /** Pin for data/command */
+  string pin_rst  = 7; /** Pin for reset */
+}
+
 /**
- * EpdSpiConfig contains the configuration for SPI-based EPD displays.
- * Includes the SPI bus number and pin assignments.
- */
+* EpdSpiConfig contains the configuration for SPI-based EPD displays.
+* Includes the SPI Pin Config plus the SRAM chip select pin.
+*/
 message EpdSpiConfig {
-  int32 bus          = 1; /** The SPI bus to use */
-  string pin_dc      = 2; /** Pin for data/command */
-  string pin_rst     = 3; /** Pin for reset */
-  string pin_cs      = 4; /** Pin for chip select */
-  string pin_sram_cs = 5; /** Pin for SRAM chip select */
-  string pin_busy    = 6; /** Pin for busy signal */
+  SpiPinConfig spi_pins = 1; /** SPI bus and pin configuration for EPD. */
+  string pin_sram_cs    = 2; /** Pin for SRAM chip select (if required by the EPD). */
+  string pin_busy       = 3; /** Pin for busy signal */
 }
 
 /**
@@ -99,19 +113,18 @@ message EpdSpiConfig {
  */
 message EPDConfig {
   EPDMode mode    = 1; /** The mode of the EPD display */
-  int32 width     = 2; /** Width of the EPD display, in pixels */
-  int32 height    = 3; /** Height of the EPD display, in pixels */
-  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
+  DisplayProperties properties = 2; /** Common display properties (dimensions, rotation, text size). */
+  /** Text Size is a Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
 }
 
-/**
- * OledConfig represents the configuration for an OLED display.
- */
-message OledConfig {
-  uint32 width           = 1; /** Width of the OLED display in pixels. */
-  uint32 height          = 2; /** Height of the OLED display in pixels. */
-  OledTextSize font_size = 3; /** Desired font magnification for the OLED display. Defaults to OTS_DEFAULT. */
-}
+// /**
+//  * OledConfig represents the configuration for an OLED display.
+//  */
+// message OledConfig {
+//   uint32 width           = 1; /** Width of the OLED display in pixels. */
+//   uint32 height          = 2; /** Height of the OLED display in pixels. */
+//   OledTextSize font_size = 3; /** Desired font magnification for the OLED display. Defaults to OTS_DEFAULT. */
+// }
 
 /**
  * LedBackpackConfig represents the configuration for a LED backpack display.
@@ -134,20 +147,7 @@ message CharLcdConfig {
  * Includes the SPI bus number and pin assignments.
  */
 message TftSpiConfig {
-  int32 bus       = 1; /** The SPI bus to use */
-  string pin_cs   = 2; /** Pin for chip select */
-  string pin_dc   = 3; /** Pin for data/command */
-  string pin_mosi = 4; /** Pin for MOSI */
-  string pin_sck  = 5; /** Pin for SCK */
-  string pin_rst  = 6; /** Pin for reset */
-  string pin_miso = 7; /** Pin for MISO */
-}
-
-message TftConfig {
-  int32 width     = 1; /** Width of the TFT display in pixels */
-  int32 height    = 2; /** Height of the TFT display in pixels */
-  int32 rotation  = 3; /** Rotation of the display (0-3) */
-  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
+  SpiPinConfig spi_pins = 1; /** SPI bus and pin configuration for TFT. */
 }
 
 message TtlRgb666PinConfig {
@@ -160,13 +160,6 @@ message TtlRgb666PinConfig {
   string pin_b0 = 7; /** Pin for B0 */
   string pin_b1 = 8; /** Pin for B1 */
   string pin_b2 = 9; /** Pin for B2 */
-}
-
-message TtlRgb666Config {
-  int32 width     = 1; /** Width of the display in pixels */
-  int32 height    = 2; /** Height of the display in pixels */
-  int32 rotation  = 3; /** Rotation of the display (0-3) */
-  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
 }
 
 message I8080PinConfig {
@@ -183,13 +176,6 @@ message I8080PinConfig {
   string pin_rst = 11; /** Pin for reset */
 }
 
-message I8080Config {
-  int32 width     = 1; /** Width of the display in pixels */
-  int32 height    = 2; /** Height of the display in pixels */
-  int32 rotation  = 3; /** Rotation of the display (0-3) */
-  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
-}
-
 /**
  * DsiInterfaceConfig contains the minimal configuration for MIPI DSI displays.
  * DSI clock and data lanes are dedicated differential pads on the SoC, not GPIOs.
@@ -197,13 +183,6 @@ message I8080Config {
 message DsiInterfaceConfig {
   int32 bus       = 1; /** DSI bus index (0 if only one DSI peripheral). */
   string pin_rst  = 2; /** GPIO pin for display panel reset. */
-}
-
-message DsiConfig {
-  int32 width     = 1; /** Width of the display in pixels */
-  int32 height    = 2; /** Height of the display in pixels */
-  int32 rotation  = 3; /** Rotation of the display (0-3) */
-  int32 text_size = 4; /** Scale factor for text (1 = 6x8px, 2 = 12x16px,...) */
 }
 
 /**
@@ -267,13 +246,9 @@ message Add {
   }
   oneof config {
     EPDConfig config_epd              = 11; /** Configuration for EPD. */
-    TftConfig config_tft              = 12; /** Configuration for TFT. */
-    OledConfig config_oled            = 13; /** Configuration for OLED. */
     LedBackpackConfig config_led      = 14; /** Configuration for LED Backpack. */
     CharLcdConfig config_char_lcd     = 15; /** Configuration for Character LCD. */
-    TtlRgb666Config config_ttl_rgb666 = 16; /** Configuration for TTL RGB666. */
-    I8080Config config_i8080          = 17; /** Configuration for i8080. */
-    DsiConfig config_dsi              = 18; /** Configuration for DSI. */
+    DisplayProperties config_display  = 18; /** Configuration for Generic display (w/h/r/txtSz). */
   }
   Write write             = 19; /** Optional initial write for a display, used during check-in. */
   BacklightConfig backlight = 20; /** Optional backlight configuration (shared across display types). */
