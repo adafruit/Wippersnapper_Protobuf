@@ -7,21 +7,17 @@ ws.display.Add.panel                            max_size:32
 ws.display.Add.name                             max_size:64
 
 # Pin configuration constraints
-ws.display.EpdSpiConfig.pin_dc                  max_size:6
-ws.display.EpdSpiConfig.pin_rst                 max_size:6
-ws.display.EpdSpiConfig.pin_cs                  max_size:6
+ws.display.SpiPinConfig.pin_dc                  max_size:6
+ws.display.SpiPinConfig.pin_rst                 max_size:6
+ws.display.SpiPinConfig.pin_cs                  max_size:6
+ws.display.SpiPinConfig.pin_mosi                max_size:6
+ws.display.SpiPinConfig.pin_sck                 max_size:6
+ws.display.SpiPinConfig.pin_miso                max_size:6
 ws.display.EpdSpiConfig.pin_sram_cs             max_size:6
 ws.display.EpdSpiConfig.pin_busy                max_size:6
 
-ws.display.TftSpiConfig.pin_cs                  max_size:6
-ws.display.TftSpiConfig.pin_dc                  max_size:6
-ws.display.TftSpiConfig.pin_mosi                max_size:6
-ws.display.TftSpiConfig.pin_sck                 max_size:6
-ws.display.TftSpiConfig.pin_rst                 max_size:6
-ws.display.TftSpiConfig.pin_miso                max_size:6
-
-ws.display.I2cDisplayConfig.bus_sda             max_size:6
-ws.display.I2cDisplayConfig.bus_scl             max_size:6
+ws.i2c.DeviceDescriptor.bus_sda                max_size:6
+ws.i2c.DeviceDescriptor.bus_scl                max_size:6
 
 ws.display.TtlRgb666PinConfig.pin_r0            max_size:6
 ws.display.TtlRgb666PinConfig.pin_r1            max_size:6
