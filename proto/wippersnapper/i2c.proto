@@ -57,28 +57,20 @@ enum DeviceStatus {
 * DeviceDescriptor represents the I2c device's address and related metadata.
 */
 message DeviceDescriptor {
-  bool alt_bus          = 1; /** On the alternate bus? **/
-  uint32 device_address = 2; /** Device's i2c address, on either the bus or the mux **/
-  uint32 mux_address    = 3; /** Optional - I2C multiplexer address. **/
-  uint32 mux_channel    = 4; /** Optional - I2C multiplexer channel. **/
+  string pin_scl        = 1; /** Pin name for the I2C SCL line **/
+  string pin_sda        = 2; /** Pin name for the I2C SDA line **/
+  uint32 device_address = 3; /** Device's i2c address, either on the bus or the mux **/
+  uint32 mux_address    = 4; /** Optional - I2C multiplexer address. **/
+  uint32 mux_channel    = 5; /** Optional - I2C multiplexer channel. **/
 }
 
 /**
 * Scan represents a command for a device to perform an i2c scan.
 */
 message Scan {
-  ScanTarget target = 1; /** Which bus or mux to scan **/
-
-  /**
-  * ScanTarget represents which bus or mux to scan for I2C devices.
-  */
-  enum ScanTarget {
-    ST_UNSPECIFIED = 0; /** Unspecified target, should not happen **/
-    ST_BUS         = 1; /** Scan the default bus **/
-    ST_ALT_BUS     = 2; /** Scan the alternate bus **/
-    ST_BUS_MUX     = 3; /** Scan the mux on the default bus **/
-    ST_ALT_BUS_MUX = 4; /** Scan the mux on the alternate bus **/
-  }
+  string pin_scl     = 1; /** Pin name for the I2C SCL line **/
+  string pin_sda     = 2; /** Pin name for the I2C SDA line **/
+  uint32 mux_address = 3; /** Optional - I2C multiplexer address to scan. **/
 }
 
 /**
