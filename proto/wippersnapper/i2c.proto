@@ -3,7 +3,6 @@
 syntax = "proto3";
 package ws.i2c;
 import "gps.proto";
-import "i2c_output.proto";
 import "sensor.proto";
 
 /**
