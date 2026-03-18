@@ -56,8 +56,8 @@ enum DeviceStatus {
 * DeviceDescriptor represents the I2c device's address and related metadata.
 */
 message DeviceDescriptor {
-  string pin_scl        = 1; /** Pin name for the I2C SCL line **/
-  string pin_sda        = 2; /** Pin name for the I2C SDA line **/
+  uint32 pin_scl        = 1; /** Pin name for the I2C SCL line **/
+  uint32 pin_sda        = 2; /** Pin name for the I2C SDA line **/
   uint32 device_address = 3; /** Device's i2c address, either on the bus or the mux **/
   uint32 mux_address    = 4; /** Optional - I2C multiplexer address. **/
   uint32 mux_channel    = 5; /** Optional - I2C multiplexer channel. **/
@@ -67,8 +67,8 @@ message DeviceDescriptor {
 * Scan represents a command for a device to perform an i2c scan.
 */
 message Scan {
-  string pin_scl     = 1; /** Pin name for the I2C SCL line **/
-  string pin_sda     = 2; /** Pin name for the I2C SDA line **/
+  uint32 pin_scl     = 1; /** Pin name for the I2C SCL line **/
+  uint32 pin_sda     = 2; /** Pin name for the I2C SDA line **/
   uint32 mux_address = 3; /** Optional - I2C multiplexer address to scan. **/
 }
 
