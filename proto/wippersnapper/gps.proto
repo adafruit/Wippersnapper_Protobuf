@@ -29,12 +29,20 @@ message B2D {
 }
 
 /**
- * DeviceAddOrReplace message
+ * AddOrReplace message
  */
 message DeviceAddOrReplace {
   i2c.DeviceAddedOrReplaced add_i2c  = 1;
   uart.Add                  add_uart = 2;
   Config                    config   = 3;
+}
+
+/**
+ * Remove message
+ */
+message DeviceRemove {
+  i2c.DeviceRemove remove_i2c  = 1;
+  uart.Remove      remove_uart = 2;
 }
 
 /**
