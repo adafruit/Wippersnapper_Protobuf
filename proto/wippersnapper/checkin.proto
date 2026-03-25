@@ -82,4 +82,6 @@ message ComponentAdds {
  * Signal to the broker that the device has completed the checkin
  * routine and is now operating normally
  */
-message Complete {}
+message Complete {
+
+}

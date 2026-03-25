@@ -1,6 +1,5 @@
 # i2c.options
-ws.i2c.BusScanned.bus_found_devices           max_count:120
-ws.i2c.DeviceAddOrReplace.device_name         max_size:15
-ws.i2c.DeviceAddOrReplace.device_sensor_types max_count:15
-ws.i2c.DeviceEvent.device_events              max_count:15
-# DeviceDescriptor and BusDescriptor options are in i2c_types.options
+ws.i2c.Scanned.found_devices                  max_count:16
+ws.i2c.DeviceAddOrReplace.device_name         max_size:16
+ws.i2c.DeviceAddOrReplace.device_sensor_types max_count:16
+ws.i2c.DeviceEvent.device_events              max_count:16
