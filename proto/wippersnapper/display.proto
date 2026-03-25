@@ -3,7 +3,7 @@
 // Display API for Adafruit WipperSnapper
 
 syntax = "proto3";
-import "i2c_types.proto";
+import "i2c.proto";
 package ws.display;
 
 // ============================================================================

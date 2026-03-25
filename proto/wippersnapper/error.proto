@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.error;
-import "i2c_types.proto";
+import "i2c.proto";
 import "uart.proto";
 
 /*

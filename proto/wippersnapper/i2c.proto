@@ -3,7 +3,6 @@
 syntax = "proto3";
 package ws.i2c;
 import "sensor.proto";
-import "i2c_types.proto";
 
 /**
  * BrokerToDevice message envelope

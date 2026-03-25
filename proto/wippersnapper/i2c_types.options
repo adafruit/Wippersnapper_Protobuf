@@ -1,5 +1,0 @@
-# i2c_types.options
-ws.i2c.DeviceDescriptor.bus_sda               max_size:6
-ws.i2c.DeviceDescriptor.bus_scl               max_size:6
-ws.i2c.BusDescriptor.bus_sda                  max_size:6
-ws.i2c.BusDescriptor.bus_scl                  max_size:6
