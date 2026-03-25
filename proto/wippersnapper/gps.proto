@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.gps;
+import "i2c.proto"
+import "uart.proto"
 
 // Note: GPSB2D does not exist as
 // GPSConfig is sent as a submessage
@@ -12,8 +14,27 @@ package ws.gps;
  */
 message D2B {
   oneof payload {
-    Event event = 10;
+    Event event = 1;
   }
+}
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    DeviceAddOrReplace device_add_replace = 1;
+    DeviceRemove device_remove            = 2;
+  }
+}
+
+/**
+ * DeviceAddOrReplace message
+ */
+message DeviceAddOrReplace {
+  i2c.DeviceAddedOrReplaced add_i2c  = 1;
+  uart.Add                  add_uart = 2;
+  Config                    config   = 3;
 }
 
 /**
