@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.gps;
-import "i2c.proto"
-import "uart.proto"
+import "i2c.proto";
+import "uart.proto";
 
 // Note: GPSB2D does not exist as
 // GPSConfig is sent as a submessage
