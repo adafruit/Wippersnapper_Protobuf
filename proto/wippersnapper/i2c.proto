@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.i2c;
-import "gps.proto";
 import "sensor.proto";
 
 /**
@@ -90,7 +89,6 @@ message DeviceAddOrReplace {
                                                        https://github.com/adafruit/Wippersnapper_Components. */
   float device_period                         = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
   repeated ws.sensor.Type device_sensor_types = 4; /** SI Types for each sensor on the I2c device. */
-  ws.gps.Config gps_config                    = 5; /** Optional - If the I2C device is a GPS driver, fill this field with the GPS config. **/
 }
 
 /**
