@@ -3,8 +3,8 @@
 // Display API for Adafruit WipperSnapper
 
 syntax = "proto3";
-import "i2c.proto";
 package ws.display;
+import "i2c.proto";
 
 // ============================================================================
 // Message Envelopes
@@ -87,6 +87,7 @@ message DisplayProperties {
   int32 text_size = 4; /** Text size or magnification factor (if applicable). */
 }
 
+/** SPI pin configuration for display interfaces. */
 message SpiPinConfig {
   int32 bus       = 1; /** The SPI bus to use */
   string pin_mosi = 2; /** Pin for MOSI */
@@ -150,6 +151,7 @@ message TftSpiConfig {
   SpiPinConfig spi_pins = 1; /** SPI bus and pin configuration for TFT. */
 }
 
+/** TTL RGB666 pin configuration for parallel RGB displays. */
 message TtlRgb666PinConfig {
   string pin_r0 = 1; /** Pin for R0 */
   string pin_r1 = 2; /** Pin for R1 */
@@ -162,6 +164,7 @@ message TtlRgb666PinConfig {
   string pin_b2 = 9; /** Pin for B2 */
 }
 
+/** Intel 8080 8-bit parallel pin configuration for displays. */
 message I8080PinConfig {
   string pin_d0  = 1; /** Pin for D0 */
   string pin_d1  = 2; /** Pin for D1 */
@@ -261,6 +264,7 @@ message Remove {
   string name = 1; /** Identifier for the display. */
 }
 
+/** BinaryImageType holds raw image bytes with their MIME content type. */
 message BinaryImageType {
   string content_type = 1; /** MIME type of the image (e.g., "image/png"). */
   bytes data          = 2; /** Raw image bytes. */
