@@ -6,21 +6,23 @@ import "i2c.proto";
 import "uart.proto";
 
 /**
- * DeviceToBroker message envelope
- */
-message D2B {
-  oneof payload {
-    Event event = 1;
-  }
-}
-
-/**
  * BrokerToDevice message envelope
  */
 message B2D {
   oneof payload {
     DeviceAddOrReplace device_add_replace = 1;
     DeviceRemove device_remove            = 2;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    DeviceAddedOrReplaced device_added_replaced = 1;
+    DeviceRemoved device_removed                = 2;
+    Event event = 3;
   }
 }
 
@@ -35,11 +37,28 @@ message DeviceAddOrReplace {
 }
 
 /**
- * Remove message
+ * DeviceAddedOrReplaced represents a message indicating a GPS device was added or replaced.
+ */
+message DeviceAddedOrReplaced {
+  i2c.DeviceAddedOrReplaced added_i2c  = 1;
+  uart.AddedOrReplaced      added_uart = 2;
+}
+
+/**
+ * DeviceRemove represents a message to remove a GPS device,
+ * including the transport-specific options.
  */
 message DeviceRemove {
   i2c.DeviceRemove remove_i2c  = 1;
   uart.Remove      remove_uart = 2;
+}
+
+/**
+ * DeviceRemoved represents a message indicating a GPS device was removed.
+ */
+message DeviceRemoved {
+  i2c.DeviceRemoved removed_i2c  = 1;
+  uart.Removed      removed_uart = 2;
 }
 
 /**
