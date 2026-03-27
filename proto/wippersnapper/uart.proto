@@ -21,8 +21,9 @@ message B2D {
 message D2B {
   oneof payload {
     Added added            = 1;
-    Written written        = 2;
-    InputEvent input_event = 3;
+    Removed removed        = 2;
+    Written written        = 3;
+    InputEvent input_event = 4;
   }
 }
 
@@ -166,10 +167,8 @@ message Add {
 * confirm that a device has been attached to the UART port.
 */
 message Added {
-  // Addressing
-  Descriptor descriptor = 1;
-  // Payload
-  bool success     = 4; /** True if the device on the UART port was successfully initialized, False otherwise. */
+  Descriptor descriptor = 1; /** The descriptor of the device that was added. */
+  bool success     = 2; /** True if the device on the UART port was successfully initialized, False otherwise. */
 }
 
 /*
@@ -177,8 +176,16 @@ message Added {
 * to detach a driver from the UART port and deinitialize the port.
 */
 message Remove {
-  // Addressing
-  Descriptor descriptor = 1;
+  Descriptor descriptor = 1; /** The descriptor of the device to remove. */
+}
+
+/*
+* Removed represents a message sent from a device to IO to
+* confirm that a device has been detached from the UART port.
+*/
+message Removed {
+  Descriptor descriptor = 1; /** The descriptor of the device that was removed. */
+  bool       did_remove = 2; /** True if the device on the UART port was successfully removed, False otherwise. */
 }
 
 /**
@@ -186,12 +193,11 @@ message Remove {
 * to write data to a device.
 */
 message Write {
-  // Addressing
-  Descriptor descriptor = 1;
+  Descriptor descriptor = 1; /** The descriptor of the device to write to. */
   // Payload
   oneof payload {
-    bytes bytes_data = 4; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
-    string text_data = 5; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
+    bytes bytes_data = 2; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
+    string text_data = 3; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
   }
 }
 
@@ -200,10 +206,8 @@ message Write {
 * This message is sent from a device to IO to confirm that data has been written to the device.
 */
 message Written {
-  // Addressing
-  Descriptor descriptor = 1;
-  // Payload
-  uint32 bytes_written = 4; /** The number of bytes written to the device. */
+  Descriptor descriptor = 1; /** The descriptor of the device that was written to. */
+  uint32 bytes_written = 2; /** The number of bytes written to the device. */
 }
 
 /**
@@ -213,8 +217,6 @@ message Written {
 * It can contain multiple SensorEvents if the device has multiple sensors.
 */
 message InputEvent {
-  // Addressing
-  Descriptor descriptor = 1;
-  // Payload
-  repeated ws.sensor.Event events = 4; /** Required, but optionally repeated, SensorEvent from a sensor. */
+  Descriptor descriptor = 1; /** The descriptor of the device that generated the input event. */
+  repeated ws.sensor.Event events = 2; /** Required, but optionally repeated, SensorEvent from a sensor. */
 }
