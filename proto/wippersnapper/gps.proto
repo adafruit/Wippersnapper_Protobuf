@@ -41,7 +41,7 @@ message DeviceAddOrReplace {
  */
 message DeviceAddedOrReplaced {
   i2c.DeviceAddedOrReplaced added_i2c  = 1;
-  uart.AddedOrReplaced      added_uart = 2;
+  uart.Added                added_uart = 2;
 }
 
 /**
