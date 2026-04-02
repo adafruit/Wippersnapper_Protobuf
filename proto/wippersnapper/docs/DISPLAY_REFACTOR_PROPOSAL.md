@@ -2,22 +2,23 @@
 
 ## Implementation Status
 
-✅ **COMPLETED** (2025-02-10):
+✅ **COMPLETED**:
 
 ### display.proto Changes:
 - ✅ String-based `driver` field (field 2) replaces DisplayDriver enum
 - ✅ `panel` field added (field 3) for panel identification
-- ✅ DisplayType enum expanded with OLED, LED_BACKPACK, CHAR_LCD
-- ✅ I2cDisplayConfig message added for I2C display connections
-- ✅ OledConfig, LedBackpackConfig, CharLcdConfig migrated from i2c_output.proto
-- ✅ LedBackpackAlignment and OledTextSize enums added
-- ✅ B2D/D2B message envelopes added
+- ✅ DisplayType enum renamed to `DisplayClass`, expanded with OLED, LED_BACKPACK, CHAR_LCD
+- ✅ I2C displays use `ws.i2c.DeviceDescriptor` (not a custom I2cDisplayConfig)
+- ✅ LedBackpackConfig, CharLcdConfig migrated from i2c_output.proto
+- ✅ LedBackpackAlignment enum added
+- ✅ B2D/D2B message envelopes with `name` and `did_succeed`
 - ✅ Messages renamed: Add, Remove, Write (from DisplayAddOrReplace, DisplayRemove, DisplayWrite)
-- ✅ Write message updated with optional fields:
-  - `clear_first = 6 [default = true]`
-  - `cursor_x = 7 [default = 0]`
-  - `cursor_y = 8 [default = 0]`
-- ✅ BinaryImageType field numbering fixed (field 2)
+- ✅ Write message simplified to text-only (`string message = 1`) — no binary/url/base64 content
+- ✅ Shared `SpiPinConfig` message used by both EPD and TFT SPI configs
+- ✅ Configs consolidated: `DisplayProperties` used for TFT, OLED, RGB666, i8080, DSI
+- ✅ `BacklightConfig` added to `Add` message — supports DigitalIO (on/off) or PWM (dimmable) pin
+- ✅ Optional initial `Write` field in `Add` message for check-in content
+- ✅ `DsiInterfaceConfig` for MIPI DSI (bus index + reset GPIO, not lane pins)
 - ✅ Known driver strings documented in Add message comments
 
 ### Supporting Files:
@@ -43,7 +44,6 @@
 - **Backwards compatibility**: Field numbering preserved - minimizes migration impact
 
 📋 **TODO** (Future Work):
-- Update display.md documentation to reflect new string-based driver approach
 - Add migration guide from v1 to v2 display API
 - Update WipperSnapper firmware to use new unified display API
 - Consider removing i2c_output.proto file once confirmed no dependencies remain
