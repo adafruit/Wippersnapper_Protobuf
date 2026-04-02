@@ -41,7 +41,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
-IO->>Device: B2D(Add)
+IO->>Device: ws.analogio.B2D { add }
 Note over IO,Device: pin_name: "A0"<br/>period: 2.0 (seconds)<br/>read_mode: SENSOR_TYPE_VOLTAGE
 
 Device->>ADC: Configure analog pin
@@ -50,8 +50,8 @@ ADC->>Device: Pin configured
 loop Every period seconds
     ADC->>ADC: Read analog value
     ADC->>Device: Convert to requested mode
-    Device->>IO: D2B(Event)
-    Note over Device,IO: pin_name: "A0"<br/>event: {type: VOLTAGE, value: 3.28}
+    Device->>IO: ws.analogio.D2B { event }
+    Note over Device,IO: pin_name: "A0"<br/>value: {type: VOLTAGE, value: 3.28}
 end
 ```
 
@@ -64,7 +64,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
-IO->>Device: B2D(Remove)
+IO->>Device: ws.analogio.B2D { remove }
 Note over IO,Device: pin_name: "A0"
 
 Device->>ADC: Stop reading pin
@@ -79,22 +79,19 @@ ADC->>Device: Pin removed
 Monitor a battery voltage with a voltage divider:
 
 ```
-B2D(Add) {
+ws.analogio.B2D { add: {
   pin_name: "A1",
-  period: 10.0,  // Read every 10 seconds
+  period: 10.0,
   read_mode: SENSOR_TYPE_VOLTAGE
-}
+}}
 ```
 
 The device sends voltage readings:
 ```
-D2B(Event) {
+ws.analogio.D2B { event: {
   pin_name: "A1",
-  event: {
-    type: SENSOR_TYPE_VOLTAGE,
-    value: 3.7  // Volts
-  }
-}
+  value: {type: VOLTAGE, value: 3.7}
+}}
 ```
 
 **Note:** Voltage reading is based on board's reference voltage (typically 3.3V). Use external voltage dividers for higher voltages.
@@ -104,22 +101,19 @@ D2B(Event) {
 Read a potentiometer as a percentage:
 
 ```
-B2D(Add) {
+ws.analogio.B2D { add: {
   pin_name: "A2",
-  period: 0.5,  // Read twice per second
+  period: 0.5,
   read_mode: SENSOR_TYPE_UNITLESS_PERCENT
-}
+}}
 ```
 
 Returns:
 ```
-D2B(Event) {
+ws.analogio.D2B { event: {
   pin_name: "A2",
-  event: {
-    type: SENSOR_TYPE_UNITLESS_PERCENT,
-    value: 75.3  // 75.3%
-  }
-}
+  value: {type: UNITLESS_PERCENT, value: 75.3}
+}}
 ```
 
 ### Example 3: Raw ADC Value
@@ -127,22 +121,19 @@ D2B(Event) {
 Get raw ADC reading for custom calibration:
 
 ```
-B2D(Add) {
+ws.analogio.B2D { add: {
   pin_name: "A3",
   period: 1.0,
   read_mode: SENSOR_TYPE_RAW
-}
+}}
 ```
 
 Returns:
 ```
-D2B(Event) {
+ws.analogio.D2B { event: {
   pin_name: "A3",
-  event: {
-    type: SENSOR_TYPE_RAW,
-    value: 2048  // Raw ADC value (0-4095 on 12-bit ADC)
-  }
-}
+  value: {type: RAW, value: 2048}
+}}
 ```
 
 ### Example 4: Light Sensor (Photoresistor)
@@ -150,11 +141,11 @@ D2B(Event) {
 Monitor light levels with a photoresistor voltage divider:
 
 ```
-B2D(Add) {
+ws.analogio.B2D { add: {
   pin_name: "A4",
   period: 5.0,
   read_mode: SENSOR_TYPE_VOLTAGE
-}
+}}
 ```
 
 Higher voltage = more light (depending on circuit configuration).

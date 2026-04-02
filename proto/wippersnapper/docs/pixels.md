@@ -8,6 +8,61 @@ The following component definitions reference `pixels.proto`:
 * [Adafruit_DotStar](https://github.com/adafruit/Wippersnapper_Components/pull/44)
 * [Adafruit_NeoPixels](https://github.com/adafruit/Wippersnapper_Components/pull/44)
 
+## Architecture Overview
+
+The v2 Pixels API uses message envelopes:
+
+- **B2D (BrokerToDevice)** - Commands from Adafruit IO to device
+  - `add` - Add a strand of addressable pixels
+  - `remove` - Remove a strand and release resources
+  - `write` - Write a color to a strand
+
+- **D2B (DeviceToBroker)** - Responses from device to Adafruit IO
+  - `added` - Confirmation of strand initialization
+
+## Enums
+
+### Type
+| Value | Description |
+|-------|-------------|
+| `T_UNSPECIFIED` | Unspecified (error) |
+| `T_NEOPIXEL` | NeoPixel strand |
+| `T_DOTSTAR` | DotStar strand |
+
+### Order (Color Ordering)
+| Value | Description |
+|-------|-------------|
+| `O_GRB` | Green, Red, Blue (NeoPixel default) |
+| `O_GRBW` | Green, Red, Blue, White |
+| `O_RGB` | Red, Green, Blue |
+| `O_RGBW` | Red, Green, Blue, White |
+| `O_BRG` | Blue, Red, Green (DotStar default) |
+| `O_RBG` | Red, Blue, Green |
+| `O_GBR` | Green, Blue, Red |
+| `O_BGR` | Blue, Green, Red |
+
+## Message Details
+
+### Add
+
+- **type** - Pixel type (`T_NEOPIXEL` or `T_DOTSTAR`)
+- **num** - Number of pixels in the strand
+- **ordering** - Color ordering (e.g., `O_GRB`)
+- **brightness** - Strand brightness (0-255)
+- **pin_data** - Data pin for NeoPixel or DotStar
+- **pin_dotstar_clock** - Clock pin (DotStar only)
+- **write** - Optional initial write (used during check-in)
+
+### Write
+
+- **pin_data** - Data pin of the strand
+- **color** - 32-bit color value (MSB: white for RGBW or ignored for RGB, then red, green, blue LSB)
+
+### Added (response)
+
+- **is_success** - True if strand initialized successfully
+- **pin_data** - Data pin of the responding strand
+
 ## Sequence Diagrams
 
 ### Create: NeoPixel
@@ -15,10 +70,11 @@ The following component definitions reference `pixels.proto`:
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsAdd
-Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` according to form<br> `pixels_pin_dotstar_data` is unused<br>`pixels_pin_dotstar_clock` is unused
-Device->>IO: PixelsAdded
-Note over Device,IO: `is_success`, true if init'd OK
+IO->>Device: ws.pixels.B2D { add }
+Note over IO, Device: type: T_NEOPIXEL<br/>num: 8<br/>ordering: O_GRB<br/>brightness: 128<br/>pin_data: "D5"
+
+Device->>IO: ws.pixels.D2B { added }
+Note over Device,IO: is_success: true<br/>pin_data: "D5"
 ```
 
 ### Write: NeoPixel
@@ -26,8 +82,8 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsWrite
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB<br>`pixels_color` according to picker<br>
+IO->>Device: ws.pixels.B2D { write }
+Note over IO, Device: pin_data: "D5"<br/>color: 0x00FF0000 (red)
 ```
 
 ### Update: NeoPixel
@@ -35,12 +91,14 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pix
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsRemove
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>pixels_pin_data according to DB
-IO-->>Device: PixelsAdd
-Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` of 0<br>`pixels_pin_neopixel` according to form<br> `pixels_pin_dotstar_data` is unused<br>`pixels_pin_dotstar_clock` is unused
-Device->>IO: PixelsAdded
-Note over Device,IO: `is_success`, true if init'd OK
+IO->>Device: ws.pixels.B2D { remove }
+Note over IO, Device: pin_data: "D5"
+
+IO->>Device: ws.pixels.B2D { add }
+Note over IO, Device: type: T_NEOPIXEL<br/>num: 16<br/>ordering: O_GRB<br/>brightness: 64<br/>pin_data: "D5"
+
+Device->>IO: ws.pixels.D2B { added }
+Note over Device,IO: is_success: true<br/>pin_data: "D5"
 ```
 
 ### Delete: NeoPixel
@@ -48,20 +106,22 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsRemove
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB
+IO->>Device: ws.pixels.B2D { remove }
+Note over IO, Device: pin_data: "D5"
 ```
 
 ### Sync: NeoPixel
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsAdd
-Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` according to form<br> `pixels_pin_dotstar_data` is unused<br>`pixels_pin_dotstar_clock` is unused
-Device->>IO: PixelsAdded
-Note over Device,IO: `is_success`, true if init'd OK
-IO->>Device: PixelsWrite
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB<br>`pixels_color` according to feed's last_value<br>
+IO->>Device: ws.pixels.B2D { add }
+Note over IO, Device: type: T_NEOPIXEL<br/>num: 8<br/>ordering: O_GRB<br/>brightness: 128<br/>pin_data: "D5"
+
+Device->>IO: ws.pixels.D2B { added }
+Note over Device,IO: is_success: true<br/>pin_data: "D5"
+
+IO->>Device: ws.pixels.B2D { write }
+Note over IO, Device: pin_data: "D5"<br/>color: 0x0000FF00 (green, from feed's last_value)
 ```
 
 
@@ -70,10 +130,11 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pix
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsAdd
-Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` unused<br> `pixels_pin_dotstar_data` according to form<br>`pixels_pin_dotstar_clock` according to form
-Device->>IO: PixelsAdded
-Note over Device,IO: `is_success`, true if init'd OK
+IO->>Device: ws.pixels.B2D { add }
+Note over IO, Device: type: T_DOTSTAR<br/>num: 12<br/>ordering: O_BRG<br/>brightness: 128<br/>pin_data: "D5"<br/>pin_dotstar_clock: "D6"
+
+Device->>IO: ws.pixels.D2B { added }
+Note over Device,IO: is_success: true<br/>pin_data: "D5"
 ```
 
 ### Write: DotStar
@@ -81,8 +142,8 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsWrite
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_pin_data` according to DB<br>`pixels_color` according to picker<br>
+IO->>Device: ws.pixels.B2D { write }
+Note over IO, Device: pin_data: "D5"<br/>color: 0x0000FF00 (green)
 ```
 
 ### Update: DotStar
@@ -90,12 +151,14 @@ Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixe
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsRemove
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>pixels_pin_data according to DB
-IO-->>Device: PixelsAdd
-Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` of 0<br>`pixels_pin_neopixel` is unused<br> `pixels_pin_dotstar_data` according to form<br>`pixels_pin_dotstar_clock` according to form
-Device->>IO: PixelsAdded
-Note over Device,IO: `is_success`, true if init'd OK
+IO->>Device: ws.pixels.B2D { remove }
+Note over IO, Device: pin_data: "D5"
+
+IO->>Device: ws.pixels.B2D { add }
+Note over IO, Device: type: T_DOTSTAR<br/>num: 24<br/>ordering: O_BRG<br/>brightness: 64<br/>pin_data: "D5"<br/>pin_dotstar_clock: "D6"
+
+Device->>IO: ws.pixels.D2B { added }
+Note over Device,IO: is_success: true<br/>pin_data: "D5"
 ```
 
 ### Delete: DotStar
@@ -103,18 +166,20 @@ Note over Device,IO: `is_success`, true if init'd OK
 ```mermaid
 sequenceDiagram
 autonumber
-IO->>Device: PixelsRemove
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_pin_data` according to DB
+IO->>Device: ws.pixels.B2D { remove }
+Note over IO, Device: pin_data: "D5"
 ```
 
 ### Sync: DotStar
 ```mermaid
 sequenceDiagram
 autonumber
-IO-->>Device: PixelsAdd
-Note over IO, Device: Contains:<br> `pixels_type` of PIXELS_TYPE_DOTSTAR<br>`pixels_num` according to form<br>`pixels_ordering` according to form<br> `pixels_brightness` according to form <br>`pixels_pin_neopixel` is unused<br> `pixels_pin_dotstar_data` according to form<br>`pixels_pin_dotstar_clock` according to form
-Device->>IO: PixelsAdded
-Note over Device,IO: `is_success`, true if init'd OK
-IO->>Device: PixelsWrite
-Note over IO, Device: Contains<br> `pixels_type` of PIXELS_TYPE_NEOPIXEL<br>`pixels_pin_data` according to DB<br>`pixels_color` according to feed's last_value<br>
+IO->>Device: ws.pixels.B2D { add }
+Note over IO, Device: type: T_DOTSTAR<br/>num: 12<br/>ordering: O_BRG<br/>brightness: 128<br/>pin_data: "D5"<br/>pin_dotstar_clock: "D6"
+
+Device->>IO: ws.pixels.D2B { added }
+Note over Device,IO: is_success: true<br/>pin_data: "D5"
+
+IO->>Device: ws.pixels.B2D { write }
+Note over IO, Device: pin_data: "D5"<br/>color: 0x00FF0000 (red, from feed's last_value)
 ```

@@ -61,7 +61,7 @@ Boards->>IO: Board definition found
 
 IO->>IO: Load stored components<br/>for this device
 
-IO->>Device: ws.checkin.B2D {<br/>  response: {<br/>    response: R_OK,<br/>    total_gpio_pins: 20,<br/>    total_analog_pins: 6,<br/>    reference_voltage: 3.3,<br/>    component_adds: [<br/>      {digitalio: {<br/>        pin_name: "D13",<br/>        gpio_direction: D_OUTPUT,<br/>        value: false<br/>      }},<br/>      {i2c: {<br/>        device_description: {device_address: 0x77},<br/>        device_name: "bme280",<br/>        device_period: 60.0,<br/>        device_sensor_types: [TEMPERATURE, HUMIDITY]<br/>      }}<br/>    ]<br/>  }<br/>}
+IO->>Device: ws.checkin.B2D {<br/>  response: {<br/>    response: R_OK,<br/>    total_gpio_pins: 20,<br/>    total_analog_pins: 6,<br/>    reference_voltage: 3.3,<br/>    component_adds: {<br/>      digitalio_adds: [{<br/>        pin_name: "D13",<br/>        gpio_direction: D_OUTPUT,<br/>        write: { pin_name: "D13", value: ... }<br/>      }],<br/>      i2c_adds: [{<br/>        device_description: {device_address: 0x77},<br/>        device_name: "bme280",<br/>        device_period: 60.0,<br/>        device_sensor_types: [TEMPERATURE, HUMIDITY]<br/>      }]<br/>    }<br/>  }<br/>}
 
 Note over Device: PHASE 2: Component Initialization
 
@@ -141,12 +141,13 @@ ws.checkin.B2D {
     reference_voltage: 3.3,
 
     // All pre-configured components sent here!
-    component_adds: [
-      {digitalio: {...}},
-      {analogio: {...}},
-      {i2c: {...}},
-      // ... more components
-    ]
+    component_adds: {
+      digitalio_adds: [{...}, {...}],
+      analogio_adds: [{...}],
+      i2c_adds: [{...}],
+      display_adds: [{...}],
+      // ... more component types
+    }
   }
 }
 ```
@@ -165,67 +166,72 @@ This signals the device has finished initialization and is ready for normal oper
 
 ## 3. Component Registration Details
 
-### ComponentAdd Message Structure
+### ComponentAdds Message Structure
 
-The `ComponentAdd` message is a union (oneof) that can contain any component type:
+The `ComponentAdds` message contains separate repeated fields for each component type:
 
 ```protobuf
-message ComponentAdd {
-  oneof payload {
-    ws.digitalio.Add digitalio    = 1;
-    ws.analogio.Add analogio      = 2;
-    ws.servo.Add servo            = 3;
-    ws.pwm.Add pwm                = 4;
-    ws.pixels.Add pixels          = 5;
-    ws.ds18x20.Add ds18x20        = 6;
-    ws.uart.Add uart              = 7;
-    ws.i2c.DeviceAddOrReplace i2c = 8;
-  }
+message ComponentAdds {
+  repeated ws.digitalio.Add digitalio_adds    = 1;
+  repeated ws.analogio.Add analogio_adds      = 2;
+  repeated ws.servo.Add servo_adds            = 3;
+  repeated ws.pwm.Add pwm_adds               = 4;
+  repeated ws.pixels.Add pixels_adds          = 5;
+  repeated ws.ds18x20.Add ds18x20_adds        = 6;
+  repeated ws.uart.Add uart_adds              = 7;
+  repeated ws.i2c.DeviceAddOrReplace i2c_adds = 8;
+  repeated ws.display.Add display_adds        = 9;
 }
 ```
 
 ### Example: Multiple Components at Check-In
 
 ```protobuf
-component_adds: [
+component_adds: {
   // Digital Output: Status LED
-  {
-    digitalio: {
+  digitalio_adds: [
+    {
       pin_name: "D13",
       gpio_direction: D_OUTPUT,
-      value: false
-    }
-  },
-
-  // Digital Input: Button
-  {
-    digitalio: {
+      write: { pin_name: "D13", value: ... }
+    },
+    // Digital Input: Button
+    {
       pin_name: "D2",
       gpio_direction: D_INPUT_PULL_UP,
       sample_mode: SM_EVENT
     }
-  },
+  ],
 
   // Analog Input: Battery Monitor
-  {
-    analogio: {
+  analogio_adds: [
+    {
       pin_name: "A1",
       period: 30.0,
       read_mode: SENSOR_TYPE_VOLTAGE
     }
-  },
+  ],
 
   // I2C Sensor: Temperature/Humidity
-  {
-    i2c: {
+  i2c_adds: [
+    {
       device_description: {device_address: 0x77},
       device_name: "bme280",
       device_period: 60.0,
-      device_sensor_types: [TEMPERATURE, HUMIDITY, PRESSURE],
-      is_persistent: true
+      device_sensor_types: [TEMPERATURE, HUMIDITY, PRESSURE]
     }
-  }
-]
+  ],
+
+  // Display
+  display_adds: [
+    {
+      type: DISPLAY_CLASS_TFT,
+      driver: "ST7789",
+      spi_tft: { spi_pins: { ... } },
+      config_display: { width: 240, height: 135 }
+    }
+  ]
+}
 ```
 
 ### Processing ComponentAdd Array
@@ -368,16 +374,16 @@ participant Device as WipperSnapper Device
 participant Display as Display Controller
 participant Driver as UC8179 Driver
 
-IO->>Device: ws.display.DisplayAddOrReplace {<br/>  type: DISPLAY_TYPE_EPD,<br/>  driver: DISPLAY_DRIVER_EPD_UC8179,<br/>  name: "weather-display",<br/>  spi_epd: {<br/>    bus: 0, pin_dc: "D10", pin_rst: "D9",<br/>    pin_cs: "D8", pin_busy: "D11"<br/>  },<br/>  config_epd: {<br/>    mode: EPD_MODE_MONO,<br/>    width: 648, height: 480, text_size: 2<br/>  }<br/>}
+IO->>Device: ws.display.B2D {<br/>  name: "weather-display",<br/>  add: {<br/>    type: DISPLAY_CLASS_EPD,<br/>    driver: "UC8179",<br/>    panel: "5.83-648x480-mono",<br/>    spi_epd: { spi_pins: {bus: 0, pin_dc: "D10", ...}, pin_busy: 11 },<br/>    config_epd: {<br/>      mode: EPD_MODE_MONO,<br/>      properties: { width: 648, height: 480, text_size: 2 }<br/>    }<br/>  }<br/>}
 
 Device->>Display: Initialize display
 Display->>Driver: Load UC8179 driver
 Driver->>Display: Driver ready
 
-Device->>IO: ws.display.DisplayAddedOrReplaced {<br/>  name: "weather-display",<br/>  did_add: true<br/>}
+Device->>IO: ws.display.D2B {<br/>  name: "weather-display",<br/>  did_succeed: true,<br/>  added_or_replaced: {}<br/>}
 
 Note over IO: Write to Display
-IO->>Device: ws.display.DisplayWrite {<br/>  name: "weather-display",<br/>  message: "Temp: 23.5°C\\nHumidity: 45%"<br/>}
+IO->>Device: ws.display.B2D {<br/>  name: "weather-display",<br/>  write: { message: "Temp: 23.5C\nHumidity: 45%" }<br/>}
 
 Device->>Display: Render text
 Display->>Driver: Update display
@@ -498,8 +504,8 @@ Adafruit IO                          Device
 |-----------|-------------|--------------|-----------|
 | **digitalio** | add, remove, write | event | Input & Output |
 | **analogio** | add, remove | event | Input only |
-| **i2c** | bus_scan, device_add_replace, device_remove, device_output_write | bus_scanned, device_added_replaced, device_removed, device_event | Input & Output |
-| **display** | DisplayAddOrReplace, DisplayRemove, DisplayWrite | DisplayAddedOrReplaced, DisplayRemoved | Output only |
+| **i2c** | bus_scan, device_add_replace, device_remove | bus_scanned, device_added_replaced, device_removed, device_event | Input & Output |
+| **display** | Add, Remove, Write | AddedOrReplaced, Removed | Output only |
 | **pwm** | add, remove, write | - | Output only |
 | **servo** | add, remove, write | - | Output only |
 | **pixels** | add, remove, write | - | Output only |
@@ -671,7 +677,7 @@ sequenceDiagram
     loop Every 60 seconds
         BME->>Device: Read temp, humidity, pressure
         Device->>IO: i2c.D2B{device_event: {...}}
-        IO->>Device: display.DisplayWrite{"Temp: 23°C"}
+        IO->>Device: display.B2D{name, write: {message: "Temp: 23°C"}}
         Device->>Display: Update display
         IO->>Device: digitalio.B2D{write: LED blink}
         Device->>LED: Blink to show update
@@ -701,7 +707,7 @@ sequenceDiagram
     loop Every 60 seconds
         BME->>Device: Read temp, humidity, pressure
         Device->>IO: D2B{device_event: {...}}
-        IO->>Device: B2D{DisplayWrite: "Temp: 23°C"}
+        IO->>Device: display.B2D{name, write: {message: "Temp: 23°C"}}
         Device->>Display: Update display
         IO->>Device: B2D{digitalio.write: LED blink}
         Device->>LED: Blink to show update
