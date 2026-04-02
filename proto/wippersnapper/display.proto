@@ -89,13 +89,13 @@ message DisplayProperties {
 
 /** SPI pin configuration for display interfaces. */
 message SpiPinConfig {
-  int32 bus       = 1; /** The SPI bus to use */
-  string pin_mosi = 2; /** Pin for MOSI */
-  string pin_sck  = 3; /** Pin for SCK */
-  string pin_miso = 4; /** Pin for MISO */
-  string pin_cs   = 5; /** Pin for chip select */
-  string pin_dc   = 6; /** Pin for data/command */
-  string pin_rst  = 7; /** Pin for reset */
+  uint32 bus       = 1; /** The SPI bus to use */
+  uint32 pin_mosi = 2; /** Pin for MOSI */
+  uint32 pin_sck  = 3; /** Pin for SCK */
+  uint32 pin_miso = 4; /** Pin for MISO */
+  uint32 pin_cs   = 5; /** Pin for chip select */
+  uint32 pin_dc   = 6; /** Pin for data/command */
+  uint32 pin_rst  = 7; /** Pin for reset */
 }
 
 /**
@@ -153,30 +153,30 @@ message TftSpiConfig {
 
 /** TTL RGB666 pin configuration for parallel RGB displays. */
 message TtlRgb666PinConfig {
-  string pin_r0 = 1; /** Pin for R0 */
-  string pin_r1 = 2; /** Pin for R1 */
-  string pin_r2 = 3; /** Pin for R2 */
-  string pin_g0 = 4; /** Pin for G0 */
-  string pin_g1 = 5; /** Pin for G1 */
-  string pin_g2 = 6; /** Pin for G2 */
-  string pin_b0 = 7; /** Pin for B0 */
-  string pin_b1 = 8; /** Pin for B1 */
-  string pin_b2 = 9; /** Pin for B2 */
+  uint32 pin_r0 = 1; /** Pin for R0 */
+  uint32 pin_r1 = 2; /** Pin for R1 */
+  uint32 pin_r2 = 3; /** Pin for R2 */
+  uint32 pin_g0 = 4; /** Pin for G0 */
+  uint32 pin_g1 = 5; /** Pin for G1 */
+  uint32 pin_g2 = 6; /** Pin for G2 */
+  uint32 pin_b0 = 7; /** Pin for B0 */
+  uint32 pin_b1 = 8; /** Pin for B1 */
+  uint32 pin_b2 = 9; /** Pin for B2 */
 }
 
 /** Intel 8080 8-bit parallel pin configuration for displays. */
 message I8080PinConfig {
-  string pin_d0  = 1; /** Pin for D0 */
-  string pin_d1  = 2; /** Pin for D1 */
-  string pin_d2  = 3; /** Pin for D2 */
-  string pin_d3  = 4; /** Pin for D3 */
-  string pin_d4  = 5; /** Pin for D4 */
-  string pin_d5  = 6; /** Pin for D5 */
-  string pin_d6  = 7; /** Pin for D6 */
-  string pin_d7  = 8; /** Pin for D7 */
-  string pin_cs  = 9; /** Pin for chip select */
-  string pin_dc  = 10; /** Pin for data/command */
-  string pin_rst = 11; /** Pin for reset */
+  uint32 pin_d0  = 1; /** Pin for D0 */
+  uint32 pin_d1  = 2; /** Pin for D1 */
+  uint32 pin_d2  = 3; /** Pin for D2 */
+  uint32 pin_d3  = 4; /** Pin for D3 */
+  uint32 pin_d4  = 5; /** Pin for D4 */
+  uint32 pin_d5  = 6; /** Pin for D5 */
+  uint32 pin_d6  = 7; /** Pin for D6 */
+  uint32 pin_d7  = 8; /** Pin for D7 */
+  uint32 pin_cs  = 9; /** Pin for chip select */
+  uint32 pin_dc  = 10; /** Pin for data/command */
+  uint32 pin_rst = 11; /** Pin for reset */
 }
 
 /**
