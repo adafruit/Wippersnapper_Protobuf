@@ -1,0 +1,16 @@
+// SPDX-FileCopyrightText: 2025 Tyeth Gundry for Adafruit Industries
+// SPDX-License-Identifier: MIT
+// SPI interface for Adafruit WipperSnapper
+// Reusable SPI bus and device pin configuration, shared across component types.
+
+syntax = "proto3";
+package ws.spi;
+
+/** SPI device configuration — bus selection and pin assignments. */
+message DeviceConfig {
+  int32 bus       = 1; /** SPI bus number */
+  string pin_mosi = 2; /** Pin for MOSI */
+  string pin_sck  = 3; /** Pin for SCK */
+  string pin_miso = 4; /** Pin for MISO */
+  string pin_cs   = 5; /** Pin for Chip Select */
+}

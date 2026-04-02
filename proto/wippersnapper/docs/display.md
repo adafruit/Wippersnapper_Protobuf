@@ -108,35 +108,27 @@ message DisplayProperties {
 
 ## Interface Configurations
 
-### Shared SPI Pin Config
+### Shared SPI Device Config
 
-All SPI displays share a common pin configuration:
-
-```protobuf
-message SpiPinConfig {
-  int32 bus       = 1;  // SPI bus number
-  string pin_mosi = 2;  // MOSI pin
-  string pin_sck  = 3;  // SCK pin
-  string pin_miso = 4;  // MISO pin (optional)
-  string pin_cs   = 5;  // Chip Select pin
-  string pin_dc   = 6;  // Data/Command pin
-  string pin_rst  = 7;  // Reset pin
-}
-```
-
-### EPD SPI Configuration
-
-Wraps the shared SPI config with EPD-specific pins:
-
-* **spi_pins** - SPI bus and pin configuration
-* **pin_sram_cs** - SRAM Chip Select pin (optional, for buffering)
-* **pin_busy** - Busy signal pin (indicates when display is ready)
+All SPI displays build on `ws.spi.DeviceConfig` from [spi.proto](spi.md), which provides the standard SPI bus and pin assignments (bus, MOSI, SCK, MISO, CS). Display-specific pins (Data/Command, Reset) are added by each display SPI config.
 
 ### TFT SPI Configuration
 
-Wraps the shared SPI config directly:
+Extends the shared SPI config with display-specific pins:
 
-* **spi_pins** - SPI bus and pin configuration
+* **spi** - `ws.spi.DeviceConfig` (bus number, MOSI, SCK, MISO, CS)
+* **pin_dc** - Data/Command pin
+* **pin_rst** - Reset pin
+
+### EPD SPI Configuration
+
+Extends the shared SPI config with display-specific and EPD-specific pins:
+
+* **spi** - `ws.spi.DeviceConfig` (bus number, MOSI, SCK, MISO, CS)
+* **pin_dc** - Data/Command pin
+* **pin_rst** - Reset pin
+* **pin_sram_cs** - SRAM Chip Select pin (optional, for buffering)
+* **pin_busy** - Busy signal pin (indicates when display is ready)
 
 ### I2C Configuration
 
@@ -333,13 +325,13 @@ B2D {
     driver: "UC8179",
     panel: "5.83-648x480-mono",
     spi_epd: {
-      spi_pins: {
+      spi: {
         bus: 0,
-        pin_dc: "D10",
-        pin_rst: "D9",
         pin_cs: "D8"
       },
-      pin_busy: 11
+      pin_dc: "D10",
+      pin_rst: "D9",
+      pin_busy: "D11"
     },
     config_epd: {
       mode: EPD_MODE_MONO,
@@ -362,14 +354,14 @@ B2D {
     type: DISPLAY_CLASS_TFT,
     driver: "ST7789",
     spi_tft: {
-      spi_pins: {
+      spi: {
         bus: 0,
-        pin_cs: "D5",
-        pin_dc: "D6",
         pin_mosi: "D11",
         pin_sck: "D13",
-        pin_rst: "D9"
-      }
+        pin_cs: "D5"
+      },
+      pin_dc: "D6",
+      pin_rst: "D9"
     },
     config_display: {
       width: 240,
@@ -507,6 +499,7 @@ Choose text_size based on display resolution:
 
 ## Related Documentation
 
+- [spi.proto](spi.md) - Shared SPI bus and device pin configuration
 - [i2c.proto](i2c.md) - For I2C-connected display device descriptors
 - [pwm.proto](pwm.md) - For PWM backlight control
 - [digitalio.proto](digitalio.md) - For digital backlight control
