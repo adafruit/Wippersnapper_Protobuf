@@ -88,7 +88,7 @@ enum LedBackpackAlignment {
 message DisplayProperties {
   int32 width  = 1; /** Display width in pixels. */
   int32 height = 2; /** Display height in pixels. */
-  int32 rotation = 3; /** Display rotation (0-3). */
+  int32 rotation = 3; /** Display rotation (Clockwise 90* increments 0-3). */
   int32 text_size = 4; /** Text size or magnification factor (if applicable). */
 }
 
