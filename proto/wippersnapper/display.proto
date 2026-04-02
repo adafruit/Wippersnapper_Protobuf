@@ -89,7 +89,7 @@ message DisplayProperties {
   int32 width  = 1; /** Display width in pixels. */
   int32 height = 2; /** Display height in pixels. */
   int32 rotation = 3; /** Display rotation (Clockwise 90* increments 0-3). */
-  int32 text_size = 4; /** Text size or magnification factor (if applicable). */
+  int32 text_size = 4; /** Text size or magnification factor (if applicable) - 1 = 6x8px, 2 = 12x16px, ... */
 }
 
 /** SPI pin configuration for display interfaces. */
@@ -197,11 +197,6 @@ message BacklightConfig {
    // comes via DigitalIO.Add.Write
 }
 
-/*
-  TODO:Tyeth: protobuf v2 changes:
-  * Consider merging config message types, currently EPDmode + w/h/rot/txtSz
-  * Refactor SPI bus pin info to be sub message Spi
-*/
 
 // ============================================================================
 // Request Messages
