@@ -178,7 +178,7 @@ participant Display as Display Controller
 participant Driver as Display Driver
 
 IO->>Device: DisplayWrite
-Note over IO,Device: name: "eink-main"<br/>Content type (one of):<br/>- message: "Hello World"<br/>- url: "https://example.com/image.png"<br/>- base64image: "data:image/png;base64,..."<br/>- binary_image: {content_type, data}
+Note over IO,Device: name: "eink-main"<br/>Content type (one of):<br/>- message: "Hello World"<br/>- url: "https://example.com/image.png"<br/>- base64image: "data:image/png#59;base64#44;..."<br/>- binary_image: {content_type#44; data}
 
 Device->>Display: Forward content
 
