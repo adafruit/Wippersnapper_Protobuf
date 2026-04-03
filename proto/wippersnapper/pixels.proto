@@ -20,7 +20,8 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added = 1;
+    Added added     = 1;
+    Removed removed = 2;
   }
 }
 
@@ -73,7 +74,6 @@ message Added {
 }
 
 /**
-* PixelAdd represents a call from IO to a device
 * Removes a strand of addressable pixels and release the resources and pin.
 */
 message Remove {
@@ -81,7 +81,15 @@ message Remove {
 }
 
 /**
-* Write represents a call from IO to a device.
+* Removed represents response from a WipperSnapper device to IO after a Remove call
+*/
+message Removed {
+  bool is_success = 1; /** True if the strand was removed successfully, False otherwise. */
+  string pin_data = 2; /** Data pin the responding strand is connected to. */
+}
+
+
+/**
 * Writes to a strand of pixels.
 */
 message Write {
