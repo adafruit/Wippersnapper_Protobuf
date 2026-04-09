@@ -1,4 +1,0 @@
-# i2c_output.options
-ws.i2c_output.LedBackpackWrite.message      max_size:8
-ws.i2c_output.CharLCDWrite.message          max_size:100
-ws.i2c_output.OLEDWrite.message             max_size:512

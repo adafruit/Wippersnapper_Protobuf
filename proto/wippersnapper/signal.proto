@@ -6,6 +6,7 @@ import "error.proto";
 import "checkin.proto";
 import "analogio.proto";
 import "digitalio.proto";
+import "display.proto";
 import "ds18x20.proto";
 import "i2c.proto";
 import "pixels.proto";
@@ -37,9 +38,10 @@ message BrokerToDevice {
     ws.pwm.B2D pwm             = 33;
     ws.pixels.B2D pixels       = 34;
     ws.ds18x20.B2D ds18x20     = 35;
-    ws.uart.B2D uart           = 36;
-    ws.i2c.B2D i2c             = 37;
-    ws.gps.B2D gps             = 38;
+    ws.display.B2D display     = 36;
+    ws.uart.B2D uart           = 37;
+    ws.i2c.B2D i2c             = 38;
+    ws.gps.B2D gps             = 39;
   }
 }
 
@@ -65,8 +67,9 @@ message DeviceToBroker {
     ws.pwm.D2B pwm             = 33;
     ws.pixels.D2B pixels       = 34;
     ws.ds18x20.D2B ds18x20     = 35;
-    ws.uart.D2B uart           = 36;
-    ws.i2c.D2B i2c             = 37;
-    ws.gps.D2B gps             = 38;
+    ws.display.D2B display     = 36;
+    ws.uart.D2B uart           = 37;
+    ws.i2c.D2B i2c             = 38;
+    ws.gps.D2B gps             = 39;
   }
 }

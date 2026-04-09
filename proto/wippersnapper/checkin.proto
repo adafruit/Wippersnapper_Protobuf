@@ -12,6 +12,7 @@ import "pwm.proto";
 import "servo.proto";
 import "sleep.proto";
 import "uart.proto";
+import "display.proto";
 
 /**
  * BrokerToDevice message envelope
@@ -74,6 +75,7 @@ message ComponentAdds {
   repeated ws.ds18x20.Add ds18x20_adds        = 6;
   repeated ws.uart.Add uart_adds              = 7;
   repeated ws.i2c.DeviceAddOrReplace i2c_adds = 8;
+  repeated ws.display.Add display_adds        = 9;
 }
 
 /**

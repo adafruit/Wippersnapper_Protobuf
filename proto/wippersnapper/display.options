@@ -1,0 +1,63 @@
+# display.options
+# Nanopb configuration for display.proto
+
+# Add message
+ws.display.Add.driver                           max_size:32
+ws.display.Add.panel                            max_size:32
+ws.display.Add.name                             max_size:64
+
+# Pin configuration constraints
+ws.display.SpiPinConfig.pin_dc                  max_size:6
+ws.display.SpiPinConfig.pin_rst                 max_size:6
+ws.display.SpiPinConfig.pin_cs                  max_size:6
+ws.display.SpiPinConfig.pin_mosi                max_size:6
+ws.display.SpiPinConfig.pin_sck                 max_size:6
+ws.display.SpiPinConfig.pin_miso                max_size:6
+ws.display.EpdSpiConfig.pin_sram_cs             max_size:6
+ws.display.EpdSpiConfig.pin_busy                max_size:6
+
+ws.display.TtlRgb666PinConfig.pin_r0            max_size:6
+ws.display.TtlRgb666PinConfig.pin_r1            max_size:6
+ws.display.TtlRgb666PinConfig.pin_r2            max_size:6
+ws.display.TtlRgb666PinConfig.pin_g0            max_size:6
+ws.display.TtlRgb666PinConfig.pin_g1            max_size:6
+ws.display.TtlRgb666PinConfig.pin_g2            max_size:6
+ws.display.TtlRgb666PinConfig.pin_b0            max_size:6
+ws.display.TtlRgb666PinConfig.pin_b1            max_size:6
+ws.display.TtlRgb666PinConfig.pin_b2            max_size:6
+
+ws.display.I8080PinConfig.pin_d0                max_size:6
+ws.display.I8080PinConfig.pin_d1                max_size:6
+ws.display.I8080PinConfig.pin_d2                max_size:6
+ws.display.I8080PinConfig.pin_d3                max_size:6
+ws.display.I8080PinConfig.pin_d4                max_size:6
+ws.display.I8080PinConfig.pin_d5                max_size:6
+ws.display.I8080PinConfig.pin_d6                max_size:6
+ws.display.I8080PinConfig.pin_d7                max_size:6
+ws.display.I8080PinConfig.pin_cs                max_size:6
+ws.display.I8080PinConfig.pin_dc                max_size:6
+ws.display.I8080PinConfig.pin_rst               max_size:6
+
+ws.display.DsiInterfaceConfig.pin_rst            max_size:6
+
+ws.display.BacklightConfig.pin                   max_size:6
+
+# Remove message
+ws.display.Remove.name                          max_size:64
+
+# Write message
+ws.display.Write.name                           max_size:64
+ws.display.Write.message                        max_size:1024
+# Large content fields use callbacks to avoid static allocation on embedded
+ws.display.Write.url                            type:FT_CALLBACK
+ws.display.Write.base64image                    type:FT_CALLBACK
+ws.display.Write.binary_image                   type:FT_CALLBACK
+
+# Write message defaults
+# clear_first: proto3 defaults bool to false, use initializer to override init macros
+ws.display.Write.clear_first                    initializer:"true"
+# cursor_x/cursor_y default to 0 already in proto3, no override needed
+
+# Response messages
+ws.display.AddedOrReplaced.name                 max_size:64
+ws.display.Removed.name                         max_size:64
