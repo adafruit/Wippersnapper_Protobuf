@@ -127,8 +127,8 @@ Extends the shared SPI config with display-specific and EPD-specific pins:
 * **spi** - `ws.spi.DeviceConfig` (bus number, MOSI, SCK, MISO, CS)
 * **pin_dc** - Data/Command pin
 * **pin_rst** - Reset pin
-* **pin_sram_cs** - SRAM Chip Select pin (optional, for buffering)
-* **pin_busy** - Busy signal pin (indicates when display is ready)
+* **pin_sram_cs** - SRAM Chip Select pin (**optional**, for buffering)
+* **pin_busy** - Busy signal pin (**optional**, indicates when display is ready)
 
 ### I2C Configuration
 
