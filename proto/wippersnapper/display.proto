@@ -7,6 +7,7 @@ package ws.display;
 import "i2c.proto";
 import "pwm.proto";
 import "digitalio.proto";
+import "spi.proto";
 
 // ============================================================================
 // Message Envelopes
@@ -92,25 +93,16 @@ message DisplayProperties {
   int32 text_size = 4; /** Text size or magnification factor (if applicable) - 1 = 6x8px, 2 = 12x16px, ... */
 }
 
-/** SPI pin configuration for display interfaces. */
-message SpiPinConfig {
-  int32 bus       = 1; /** The SPI bus to use */
-  string pin_mosi = 2; /** Pin for MOSI */
-  string pin_sck  = 3; /** Pin for SCK */
-  string pin_miso = 4; /** Pin for MISO */
-  string pin_cs   = 5; /** Pin for chip select */
-  string pin_dc   = 6; /** Pin for data/command */
-  string pin_rst  = 7; /** Pin for reset */
-}
-
 /**
 * EpdSpiConfig contains the configuration for SPI-based EPD displays.
-* Includes the SPI Pin Config plus the SRAM chip select pin.
+* Includes the SPI device config plus display-specific pins.
 */
 message EpdSpiConfig {
-  SpiPinConfig spi_pins = 1; /** SPI bus and pin configuration for EPD. */
-  uint32 pin_sram_cs    = 2; /** Pin for SRAM chip select (if required by the EPD). */
-  uint32 pin_busy       = 3; /** Pin for busy signal */
+  ws.spi.Config spi = 1; /** SPI bus, doesnt carry additional pin config. */
+  string pin_dc       = 2; /** Pin for data/command */
+  string pin_rst      = 3; /** Pin for reset */
+  string pin_sram_cs  = 4; /** Pin for SRAM chip select (if required by the EPD). */
+  string pin_busy     = 5; /** Pin for busy signal (if required by the EPD). */
 }
 
 /**
@@ -141,10 +133,12 @@ message CharLcdConfig {
 
 /**
  * TftSpiConfig contains the configuration for SPI TFT displays.
- * Includes the SPI bus number and pin assignments.
+ * Includes the SPI device config plus display-specific pins.
  */
 message TftSpiConfig {
-  SpiPinConfig spi_pins = 1; /** SPI bus and pin configuration for TFT. */
+  ws.spi.Config spi = 1; /** SPI bus */
+  string pin_dc  = 2; /** Pin for data/command */
+  string pin_rst = 3; /** Pin for reset */
 }
 
 /** TTL RGB666 pin configuration for parallel RGB displays. */
@@ -180,8 +174,8 @@ message I8080PinConfig {
  * DSI clock and data lanes are dedicated differential pads on the SoC, not GPIOs.
  */
 message DsiInterfaceConfig {
-  uint32 bus       = 1; /** DSI bus index (0 if only one DSI peripheral). */
-  uint32 pin_rst  = 2; /** GPIO pin for display panel reset. */
+  uint32 bus      = 1; /** DSI bus index (0 if only one DSI peripheral). */
+  string pin_rst  = 2; /** GPIO pin for display panel reset. */
 }
 
 /**
