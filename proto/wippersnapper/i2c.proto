@@ -9,7 +9,7 @@ import "sensor.proto";
  */
 message B2D {
   oneof payload {
-    Scan bus_scan                      = 1;
+    Probe probe                           = 1;
     DeviceAddOrReplace device_add_replace = 2;
     DeviceRemove device_remove            = 3;
   }
@@ -20,7 +20,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Scanned bus_scanned                      = 1;
+    Probed probed                               = 1;
     DeviceAddedOrReplaced device_added_replaced = 2;
     DeviceRemoved device_removed                = 3;
     DeviceEvent device_event                    = 4;
@@ -50,34 +50,64 @@ enum DeviceStatus {
   DS_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
   DS_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
 }
-
 /**
-* DeviceDescriptor represents the I2c device's address and related metadata.
-*/
-message DeviceDescriptor {
+ * Represents a separate I2C address space, either a Bus or a Mux.
+ * - when describing a bus, specify only the scl and sda pins
+ * - when describing a single mux channel, specify all fields
+ * - when describing an entire mux (all channels), leave mux_channel blank
+ */
+message AddressSpace {
   uint32 pin_scl        = 1; /** Pin name for the I2C SCL line **/
   uint32 pin_sda        = 2; /** Pin name for the I2C SDA line **/
-  uint32 device_address = 3; /** Device's i2c address, either on the bus or the mux **/
-  uint32 mux_address    = 4; /** Optional - I2C multiplexer address. **/
-  uint32 mux_channel    = 5; /** Optional - I2C multiplexer channel. **/
+  uint32 mux_address    = 3; /** Optional - I2C multiplexer address. **/
+  uint32 mux_channel    = 4; /** Optional - I2C multiplexer channel, or blank for "all channels" **/
 }
 
 /**
-* Scan represents a command for a device to perform an i2c scan.
-*/
-message Scan {
-  uint32 pin_scl     = 1; /** Pin name for the I2C SCL line **/
-  uint32 pin_sda     = 2; /** Pin name for the I2C SDA line **/
-  uint32 mux_address = 3; /** Optional - I2C multiplexer address to scan. **/
+ * Represents just the address part (like 0x44), without an address space (bus, mux, channel info).
+ */
+message Address {
+  uint32 address = 1; /** An I2C address between 7 and 119, inclusive **/
 }
 
 /**
-* Scanned represents a list of I2c addresses on a bus and optionally a mux,
-* found after Scan has executed.
+ * Request an I2C probe of one or more address spaces, optionally narrowing the
+ * scope of the probe to particular addresses.
+ * - a v1-style Scan would contain a single AddressSpace and no Address narrowing (scan all 112)
+ * - a v2-style Probe would contain every AddressSpace and a ist of specific Addresses to probe for
+ */
+message Probe {
+  repeated AddressSpace address_spaces = 1; /** One or more AddressSpaces, with no mux_channels **/
+  repeated Address addresses           = 2; /** Optional - Specific addresses to probe on each AddressSpace. Empty means "all address". **/
+}
+
+/**
+ * The results of scanning a particular AddressSpace.
+ * - success with found addresses populates the found_addresses list
+ * - an error populates the relevant bus_status and contains no found_addresses
+ */
+message AddressSpaceResult {
+  AddressSpace address_space       = 1; /** Which AddressSpace was probed **/
+  BusStatus bus_status             = 2; /** BS_SUCCESS on success, anything else denotes an error on this AddressSpace **/
+  repeated Address found_addresses = 3; /** List of I2C addresses where a device was detected, empty in case of error **/
+}
+
+/**
+ * Response from a Probe request, with results for every AddressSpace that either:
+ * - found 1 or more addresses
+ * - had an error
+ * (Successful probes that did not find anything do not need to be returned.)
+ */
+message Probed {
+  repeated AddressSpaceResult results = 1; /** A success or error result for each AddressSpace probed **/
+}
+
+/**
+* DeviceDescriptor represents a specific device's I2C address within an address space.
 */
-message Scanned {
-  repeated DeviceDescriptor found_devices = 1; /** List of the I2c device addresses found, with bus and mux info. */
-  BusStatus bus_status                        = 2; /** The I2c bus' status, in case of bus error. **/
+message DeviceDescriptor {
+  AddressSpace address_space = 1; /** Which address space this device lives in, with mux_channel required. **/
+  Address address            = 2; /** Device's i2c address, either on the bus or the mux **/
 }
 
 /**
