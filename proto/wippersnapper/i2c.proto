@@ -21,11 +21,10 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Scanned bus_scanned                         = 1;
+    Results bus_scanned                         = 1;
     DeviceAddedOrReplaced device_added_replaced = 2;
     DeviceRemoved device_removed                = 3;
     DeviceEvent device_event                    = 4;
-    Probed device_probed                        = 5;
   }
 }
 
@@ -74,10 +73,10 @@ message Scan {
 }
 
 /**
-* Scanned represents a list of I2c addresses on a bus and optionally a mux,
+* Results represents a list of I2c addresses on a bus and optionally a mux,
 * found after Scan has executed.
 */
-message Scanned {
+message Results {
   repeated DeviceDescriptor found_devices = 1; /** List of the I2c device addresses found, with bus and mux info. */
   BusStatus bus_status                    = 2; /** The I2c bus' status, in case of bus error. **/
 }
@@ -91,14 +90,6 @@ message Probe {
   uint32 pin_sda                   = 2; /** Desired I2C bus' SDA pin. **/
   repeated uint32 device_addresses = 3; /** List of I2c device addresses to probe on the bus. **/
 }
-
-/**
-* Probed represents the response from a device after processing a Probe message.
-*/
-message Probed {
-  Scanned devices = 1; /** List of the I2c device addresses found from the probe, with bus and mux info. **/
-}
-
 
 /**
 * DeviceAddOrReplace is a message for initializing (or replacing/updating) an i2c device.
