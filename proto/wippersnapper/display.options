@@ -45,9 +45,3 @@ ws.display.BacklightConfig.pin                   max_size:6
 
 # Write message
 ws.display.Write.message                        max_size:1024
-
-# Write message defaults
-# clear_first: proto3 defaults bool to false, use initializer to override init macros
-ws.display.Write.clear_first                    initializer:"true"
-# cursor_x/cursor_y default to 0 already in proto3, no override needed
-
