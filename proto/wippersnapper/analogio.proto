@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
+// SPDX-FileCopyrightText: 2023-2026 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.analogio;
@@ -24,12 +24,22 @@ message D2B {
 }
 
 /**
+* SampleMode specifies the pin's sample mode.
+*/
+enum SampleMode {
+  SM_UNSPECIFIED = 0; /** Invalid Sample Mode from Broker. */
+  SM_TIMER       = 1; /** Periodically sample the pin's value. */
+  SM_EVENT       = 2; /** Sample the pin's value when an event occurs. */
+}
+
+/**
 * Add adds an analog pin to the device.
 */
 message Add {
   string pin_name          = 1; /** Name of the pin. */
   float period             = 2; /** Time between reads, in seconds. */
   ws.sensor.Type read_mode = 3; /** Desired read mode for the pin. */
+  SampleMode sample_mode   = 4; /** Desired sample mode for the pin. */
 }
 
 /**
@@ -41,7 +51,7 @@ message Remove {
 
 
 /**
-* Event is contains a value, sent when an analog pin is read.
+* Event contains a value, sent when an analog pin is read.
 */
 message Event {
   string pin_name                   = 1; /** Name of the pin. */
