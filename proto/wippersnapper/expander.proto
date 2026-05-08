@@ -29,26 +29,26 @@ message D2B {
 * Add adds an expander to the hardware.
 */
 message Add {
-  i2c.DeviceAddOrReplace cfg = 1; /** I2C configuration for the expander. */
+  i2c.DeviceAddOrReplace cfg_i2c = 1; /** I2C configuration for the expander. */
 }
 
 /**
 * Added represents a message from the hardware indicating an expander was added.
 */
 message Added {
-  i2c.DeviceAddedOrReplaced response = 1; /** I2C configuration response. */
+  i2c.DeviceAddedOrReplaced response_i2c = 1; /** I2C configuration response. */
 }
 
 /**
 * Remove removes an analog pin from the hardware.
 */
 message Remove {
-  i2c.DeviceRemove cfg = 1; /** I2C configuration for the expander to remove. */
+  i2c.DeviceRemove cfg_i2c = 1; /** I2C configuration for the expander to remove. */
 }
 
 /**
 * Removed represents a message from the device indicating an expander was removed.
 */
 message Removed {
-  i2c.DeviceRemoved response = 1; /** I2C configuration response. */
+  i2c.DeviceRemoved response_i2c = 1; /** I2C configuration response. */
 }
