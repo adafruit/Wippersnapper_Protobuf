@@ -3,6 +3,7 @@
 syntax = "proto3";
 package ws.signal;
 import "error.proto";
+import "expander.proto";
 import "checkin.proto";
 import "analogio.proto";
 import "digitalio.proto";
@@ -42,6 +43,7 @@ message BrokerToDevice {
     ws.uart.B2D uart           = 37;
     ws.i2c.B2D i2c             = 38;
     ws.gps.B2D gps             = 39;
+    ws.expander.B2D expander   = 40;
   }
 }
 
@@ -71,5 +73,6 @@ message DeviceToBroker {
     ws.uart.D2B uart           = 37;
     ws.i2c.D2B i2c             = 38;
     ws.gps.D2B gps             = 39;
+    ws.expander.D2B expander   = 40;
   }
 }
