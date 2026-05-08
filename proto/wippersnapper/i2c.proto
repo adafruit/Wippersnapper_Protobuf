@@ -64,13 +64,6 @@ message AddressSpace {
 }
 
 /**
- * Represents just the address part (like 0x44), without an address space (bus, mux, channel info).
- */
-message Address {
-  uint32 address = 1; /** An I2C address between 7 and 119, inclusive **/
-}
-
-/**
  * Request an I2C probe of one or more address spaces, optionally narrowing the
  * scope of the probe to particular addresses.
  * - a v1-style Scan would contain a single AddressSpace and no Address narrowing (scan all 112)
@@ -78,7 +71,7 @@ message Address {
  */
 message Probe {
   repeated AddressSpace address_spaces = 1; /** One or more AddressSpaces, with no mux_channels **/
-  repeated Address addresses           = 2; /** Optional - Specific addresses to probe on each AddressSpace. Empty means "all address". **/
+  repeated uint32 addresses            = 2; /** Optional - Specific addresses to probe on each AddressSpace. Empty means "all address". **/
 }
 
 /**
@@ -89,7 +82,7 @@ message Probe {
 message AddressSpaceResult {
   AddressSpace address_space       = 1; /** Which AddressSpace was probed **/
   BusStatus bus_status             = 2; /** BS_SUCCESS on success, anything else denotes an error on this AddressSpace **/
-  repeated Address found_addresses = 3; /** List of I2C addresses where a device was detected, empty in case of error **/
+  repeated uint32 found_addresses  = 3; /** List of I2C addresses where a device was detected, empty in case of error **/
 }
 
 /**
@@ -107,7 +100,7 @@ message Probed {
 */
 message DeviceDescriptor {
   AddressSpace address_space = 1; /** Which address space this device lives in, with mux_channel required. **/
-  Address address            = 2; /** Device's i2c address, either on the bus or the mux **/
+  uint32 address             = 2; /** Device's i2c address, either on the bus or the mux **/
 }
 
 /**
