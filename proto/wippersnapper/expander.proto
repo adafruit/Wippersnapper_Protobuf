@@ -3,7 +3,6 @@
 syntax = "proto3";
 package ws.expander;
 import "i2c.proto";
-import "digitalio.proto";
 
 /**
  * BrokerToDevice message envelope
