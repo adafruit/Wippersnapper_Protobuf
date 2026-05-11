@@ -67,7 +67,6 @@ message Remove {
   string pin_name = 1; /** Name of the pin. */
 }
 
-
 /**
 * Event contains a value, sent when an analog input pin is read.
 */
