@@ -13,7 +13,7 @@ import "uart.proto";
 enum ComponentType {
   COMPONENT_TYPE_UNSPECIFIED = 0; /** Invalid Component Type. */
   COMPONENT_TYPE_DIGITALIO   = 1; /** Digital IO Component. */
-  COMPONENT_TYPE_ANALOGIO    = 2; /** Analog IO Component. */
+  COMPONENT_TYPE_ANALOGIN    = 2; /** Analog In Component. */
   COMPONENT_TYPE_PWM         = 3; /** PWM Component. */
   COMPONENT_TYPE_SERVO       = 4; /** Servo Component. */
   COMPONENT_TYPE_PIXELS      = 5; /** Pixels Component. */
