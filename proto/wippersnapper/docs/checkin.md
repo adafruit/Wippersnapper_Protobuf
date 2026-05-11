@@ -37,7 +37,7 @@ Contains separate repeated fields for each component type to initialize during c
 ```protobuf
 message ComponentAdds {
   repeated ws.digitalio.Add digitalio_adds    = 1;
-  repeated ws.analogio.Add analogio_adds      = 2;
+  repeated ws.analogin.Add analogio_adds      = 2;
   repeated ws.servo.Add servo_adds            = 3;
   repeated ws.pwm.Add pwm_adds                = 4;
   repeated ws.pixels.Add pixels_adds          = 5;

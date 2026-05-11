@@ -22,7 +22,7 @@ message BrokerToDevice {
 
     // Component Interactions
     ws.digitalio.B2D digitalio = 30;
-    ws.analogio.B2D analogio   = 31;
+    ws.analogin.B2D analogin   = 31;
     ws.servo.B2D servo         = 32;
     ws.pwm.B2D pwm             = 33;
     ws.pixels.B2D pixels       = 34;
@@ -51,7 +51,7 @@ message DeviceToBroker {
 
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;
-    ws.analogio.D2B analogio   = 31;
+    ws.analogin.D2B analogin   = 31;
     ws.servo.D2B servo         = 32;
     ws.pwm.D2B pwm             = 33;
     ws.pixels.D2B pixels       = 34;
@@ -115,7 +115,7 @@ Device->>Device: Set pin D13 HIGH
 | 20 | checkin | ws.checkin | Response | Request, Complete |
 | 21 | sleep | ws.sleep | - | - |
 | 30 | digitalio | ws.digitalio | Add, Remove, Write | Event |
-| 31 | analogio | ws.analogio | Add, Remove | Event |
+| 31 | analogin | ws.analogin | Add, Remove | Event |
 | 32 | servo | ws.servo | Add, Remove, Write | Added |
 | 33 | pwm | ws.pwm | Add, Remove, Write | Added |
 | 34 | pixels | ws.pixels | Add, Remove, Write | Added |
@@ -129,4 +129,4 @@ Device->>Device: Set pin D13 HIGH
 
 - [checkin.md](checkin.md) - Device registration and component initialization
 - [wippersnapper_device_overview.md](wippersnapper_device_overview.md) - Complete device flow
-- Individual component docs: [digitalio](digitalio.md), [analogio](analogio.md), [i2c](i2c.md), [display](display.md), [pwm](pwm.md), [servo](servo.md), [pixels](pixels.md), [ds18x20](ds18x20.md), [uart](uart.md)
+- Individual component docs: [digitalio](digitalio.md), [analogin](analogin.md), [i2c](i2c.md), [display](display.md), [pwm](pwm.md), [servo](servo.md), [pixels](pixels.md), [ds18x20](ds18x20.md), [uart](uart.md)
