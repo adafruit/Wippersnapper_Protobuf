@@ -39,13 +39,13 @@ enum Gain {
   G_UNSPECIFIED = 0; /** Use platform default gain. */
   G_1X          = 1; /** No gain, or unity gain. */
   G_2X          = 2; /** Gain of 2x */
-  G_2_3X        = 3; /** Gain of 2/3x (Utilized by ADS1x15) */
-  G_4X          = 4; /** Gain of 4x */
-  G_8X          = 5; /** Gain of 8x */
-  G_16X         = 6; /** Gain of 16x */
-  G_32X         = 7; /** Gain of 32x */
-  G_64X         = 8; /** Gain of 64x */
-  G_128X        = 9; /** Gain of 128x */
+  G_4X          = 3; /** Gain of 4x */
+  G_8X          = 4; /** Gain of 8x */
+  G_16X         = 5; /** Gain of 16x */
+  G_32X         = 6; /** Gain of 32x */
+  G_64X         = 7; /** Gain of 64x */
+  G_128X        = 8; /** Gain of 128x */
+  G_2_3X        = 9; /** Gain of 2/3x (Utilized by ADS1x15) */
 }
 
 /**
