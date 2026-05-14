@@ -6,6 +6,37 @@ import "i2c.proto";
 import "uart.proto";
 
 /*
+ * B2D
+ * The B2D message is sent from the broker to a device
+ * to inform the device of an error that has occurred
+ * from IO.
+ */
+message B2D {
+  oneof payload {
+    ErrorIOBan      io_ban      = 1;
+    ErrorIOThrottle io_throttle = 2;
+  }
+}
+
+/*
+ * D2B
+ * The D2B message is sent from a device to the broker
+ * to report an error that has occurred on a specific component.
+ * It contains a way to identify the specific component along
+ * with a human-readable error message.
+ */
+message D2B {
+  ComponentType type = 1;
+  oneof component_id {
+    string pin = 2;
+    ws.i2c.Descriptor i2c = 3;
+    ws.uart.Descriptor uart = 4;
+  }
+  string error = 5;
+
+}
+
+/*
  * ComponentType
  * Enum representing the class/type of component
  * that an error message is associated with.
@@ -39,36 +70,4 @@ message ErrorIOBan {
 message ErrorIOThrottle {
   uint32 timeout = 1;
 }
-
-/*
- * ErrorB2D
- * The ErrorB2D message is sent from the broker to a device
- * to inform the device of an error that has occurred
- * from IO.
- */
-message ErrorB2D {
-  oneof payload {
-    ErrorIOBan      io_ban      = 1;
-    ErrorIOThrottle io_throttle = 2;
-  }
-}
-
-/*
- * ErrorD2B
- * The ErrorD2B message is sent from a device to the broker
- * to report an error that has occurred on a specific component.
- * It contains a way to identify the specific component along
- * with a human-readable error message.
- */
-message ErrorD2B {
-  ComponentType type = 1;
-  oneof component_id {
-    string pin = 2;
-    ws.i2c.Descriptor i2c = 3;
-    ws.uart.Descriptor uart = 4;
-  }
-  string error = 5;
-
-}
-
 

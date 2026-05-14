@@ -26,7 +26,7 @@ import "gps.proto";
 message BrokerToDevice {
   oneof payload {
     // System Events
-    ws.error.ErrorB2D error    = 10;
+    ws.error.B2D error         = 10;
 
     // Device Interactions
     ws.checkin.B2D checkin     = 20;
@@ -56,7 +56,7 @@ message BrokerToDevice {
 message DeviceToBroker {
   oneof payload {
     // System Events
-    ws.error.ErrorD2B error    = 10;
+    ws.error.D2B error         = 10;
 
     // Device Interactions
     ws.checkin.D2B checkin     = 20;
