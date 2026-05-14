@@ -16,15 +16,6 @@ message B2D {
 }
 
 /**
- * DeviceToBroker message envelope
- */
-message D2B {
-  oneof payload {
-
-  }
-}
-
-/**
 * Type defines the type/model of pixel strand.
 */
 enum Type {

@@ -15,15 +15,6 @@ message B2D {
 }
 
 /**
- * DeviceToBroker message envelope
- */
-message D2B {
-  oneof payload {
-
-  }
-}
-
-/**
 * Add represents a  to a device to attach/allocate a PWM pin.
 * On ESP32 Arduino, this will "attach" a pin to a LEDC channel/timer group.
 * On non-ESP32 Arduino, this does nothing.

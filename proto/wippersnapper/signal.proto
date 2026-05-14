@@ -65,14 +65,9 @@ message DeviceToBroker {
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;
     ws.analogio.D2B analogio   = 31;
-    ws.servo.D2B servo         = 32;
-    ws.pwm.D2B pwm             = 33;
-    ws.pixels.D2B pixels       = 34;
-    ws.ds18x20.D2B ds18x20     = 35;
-    ws.display.D2B display     = 36;
-    ws.uart.D2B uart           = 37;
-    ws.i2c.D2B i2c             = 38;
-    ws.gps.D2B gps             = 39;
-    ws.expander.D2B expander   = 40;
+    ws.ds18x20.D2B ds18x20     = 32;
+    ws.uart.D2B uart           = 33;
+    ws.i2c.D2B i2c             = 34;
+    ws.gps.D2B gps             = 35;
   }
 }
