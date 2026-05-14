@@ -9,9 +9,9 @@ import "sensor.proto";
  */
 message B2D {
   oneof payload {
-    Probe probe                           = 1;
-    DeviceAddOrReplace device_add_replace = 2;
-    DeviceRemove device_remove            = 3;
+    Probe probe   = 1;
+    Add add       = 2;
+    Remove remove = 3;
   }
 }
 
@@ -20,10 +20,10 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Probed probed                               = 1;
-    DeviceAddedOrReplaced device_added_replaced = 2;
-    DeviceRemoved device_removed                = 3;
-    DeviceEvent device_event                    = 4;
+    Probed probed   = 1;
+    Added added     = 2;
+    Removed removed = 3;
+    Event event     = 4;
   }
 }
 
@@ -40,15 +40,15 @@ enum BusStatus {
 }
 
 /**
-* DeviceStatus represents the state of an I2C device/peripheral
+* Status represents the state of an I2C device/peripheral
 */
-enum DeviceStatus {
-  DS_UNSPECIFIED             = 0; /** Unspecified error occurred. **/
-  DS_SUCCESS                 = 1; /** I2C device successfully initialized. **/
-  DS_FAIL_INIT               = 2; /** I2C device failed to initialize. **/
-  DS_FAIL_DEINIT             = 3; /** I2C device failed to deinitialize. **/
-  DS_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
-  DS_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
+enum Status {
+  S_UNSPECIFIED             = 0; /** Unspecified error occurred. **/
+  S_SUCCESS                 = 1; /** I2C device successfully initialized. **/
+  S_FAIL_INIT               = 2; /** I2C device failed to initialize. **/
+  S_FAIL_DEINIT             = 3; /** I2C device failed to deinitialize. **/
+  S_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
+  S_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
 }
 /**
  * Represents a separate I2C address space, either a Bus or a Mux.
@@ -96,54 +96,54 @@ message Probed {
 }
 
 /**
-* DeviceDescriptor represents a specific device's I2C address within an address space.
+* Descriptor represents a specific device's I2C address within an address space.
 */
-message DeviceDescriptor {
+message Descriptor {
   AddressSpace address_space = 1; /** Which address space this device lives in, with mux_channel required. **/
   uint32 address             = 2; /** Device's i2c address, either on the bus or the mux **/
 }
 
 /**
-* DeviceAddOrReplace is a message for initializing (or replacing/updating) an i2c device.
+* Add is a message for initializing (or replacing/updating) an i2c device.
 */
-message DeviceAddOrReplace {
-  DeviceDescriptor device_description             = 1; /** The I2c device's address and metadata. */
+message Add {
+  Descriptor descriptor               = 1; /** The I2c device's address and metadata. */
   /** The I2c device's name, MUST MATCH the name on the JSON
    *  definition file on the Wippersnapper_Components repo. */
-  string device_name                              = 2;
-  float device_period                             = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
-  map<uint32, ws.sensor.Type> device_sensor_types = 4; /** SI Types for each sensor on the I2c device. */
+  string name                         = 2;
+  float period                        = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
+  map<uint32, ws.sensor.Type> sensors = 4; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
-* DeviceAddedOrReplaced contains the response from a device after processing a DeviceAddOrReplace message.
+* Added contains the response from a device after processing a Add message.
 */
-message DeviceAddedOrReplaced {
-  DeviceDescriptor device_description = 1; /** The I2c device's address and metadata, unless there was an error. **/
-  BusStatus bus_status                = 2; /** The I2c bus' status, in case of bus error. **/
-  DeviceStatus device_status          = 3; /** The I2c device's status, in case of device error. **/
+message Added {
+  Descriptor descriptor = 1; /** The I2c device's address and metadata, unless there was an error. **/
+  BusStatus bus_status  = 2; /** The I2c bus' status, in case of bus error. **/
+  Status status         = 3; /** The I2c device's status, in case of device error. **/
 }
 
 /**
-* DeviceRemove represents a request to de-init an i2c device.
+* Remove represents a request to de-init an i2c device.
 */
-message DeviceRemove {
-  DeviceDescriptor device_description = 1; /** The I2c device's address and metadata. */
+message Remove {
+  Descriptor descriptor = 1; /** The I2c device's address and metadata. */
 }
 
 /**
-* DeviceRemoved represents a response to a I2cDeviceRemove message.
+* Removed represents a response to a I2cRemove message.
 */
-message DeviceRemoved {
-  DeviceDescriptor device_description = 1; /** The I2c device's address and metadata. */
-  bool did_remove                     = 2; /** True if the I2C device was successfully removed from the controller, False otherwise. **/
+message Removed {
+  Descriptor descriptor = 1; /** The I2c device's address and metadata. */
+  bool did_remove       = 2; /** True if the I2C device was successfully removed from the controller, False otherwise. **/
 }
 
 /**
-* Each DeviceEvent represents data from **one** I2C device, containing one or more sensors.
+* Each Event represents data from **one** I2C device, containing one or more sensors.
 */
-message DeviceEvent {
-  DeviceDescriptor device_description        = 1; /** The I2c device's address and metadata. */
-  map<uint32, ws.sensor.Event> device_events = 2; /** An event from each of the device's configured sensors. */
+message Event {
+  Descriptor descriptor               = 1; /** The I2c device's address and metadata. */
+  map<uint32, ws.sensor.Event> events = 2; /** An event from each of the device's configured sensors. */
 }
 
