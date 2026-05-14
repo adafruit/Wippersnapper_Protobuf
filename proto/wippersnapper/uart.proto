@@ -20,7 +20,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    InputEvent input_event = 4;
+    Event event = 1;
   }
 }
 
@@ -181,12 +181,12 @@ message Write {
 }
 
 /**
-* InputEvent represents a message sent from a device to IO
+* Event represents a message sent from a device to IO
 * containing data from a UART input device.
 * This message is sent from a device to IO to report sensor data.
 * It can contain multiple SensorEvents if the device has multiple sensors.
 */
-message InputEvent {
+message Event {
   Descriptor descriptor           = 1; /** The descriptor of the device that generated the input event. */
   repeated ws.sensor.Event events = 2; /** Required, but optionally repeated, SensorEvent from a sensor. */
 }
