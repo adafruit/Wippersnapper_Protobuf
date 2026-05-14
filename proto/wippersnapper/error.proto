@@ -13,8 +13,8 @@ import "uart.proto";
  */
 message B2D {
   oneof payload {
-    ErrorIOBan      io_ban      = 1;
-    ErrorIOThrottle io_throttle = 2;
+    BanError      ban      = 1;
+    ThrottleError throttle = 2;
   }
 }
 
@@ -26,48 +26,40 @@ message B2D {
  * with a human-readable error message.
  */
 message D2B {
-  ComponentType type = 1;
-  oneof component_id {
-    string pin = 2;
-    ws.i2c.Descriptor i2c = 3;
-    ws.uart.Descriptor uart = 4;
+  oneof payload {
+    DeviceError device       = 1;
+    ComponentError component = 2;
   }
-  string error = 5;
-
 }
 
 /*
- * ComponentType
- * Enum representing the class/type of component
- * that an error message is associated with.
- */
-enum ComponentType {
-  COMPONENT_TYPE_UNSPECIFIED = 0; /** Invalid Component Type. */
-  COMPONENT_TYPE_DIGITALIO   = 1; /** Digital IO Component. */
-  COMPONENT_TYPE_ANALOGIO    = 2; /** Analog IO Component. */
-  COMPONENT_TYPE_PWM         = 3; /** PWM Component. */
-  COMPONENT_TYPE_SERVO       = 4; /** Servo Component. */
-  COMPONENT_TYPE_PIXELS      = 5; /** Pixels Component. */
-  COMPONENT_TYPE_DS18X20     = 6; /** DS18X20 Component. */
-  COMPONENT_TYPE_UART        = 7; /** UART Component. */
-  COMPONENT_TYPE_I2C         = 8; /** I2C Component. */
-  COMPONENT_TYPE_GPS         = 9; /** GPS Component. */
-}
-
-/*
- * ErrorIOBan
- * The ErrorIOBan message is sent from the broker to a device
+ * BanError
+ * The BanError message is sent from the broker to a device
  * to inform the device that it has been banned from IO.
  */
-message ErrorIOBan {
+message BanError {
+
 }
 
 /*
- * ErrorIOThrottle
- * The ErrorIOThrottle message is sent from the broker to a device
+ * ThrottleError
+ * The ThrottleError message is sent from the broker to a device
  * to inform the device that it has been rate-limited by IO.
  */
-message ErrorIOThrottle {
+message ThrottleError {
   uint32 timeout = 1;
 }
 
+/*
+ * DeviceError represents a device-level issue
+ */
+message DeviceError {
+
+}
+
+/*
+ * ComopnentError represents a specific error about a specfici components.
+ */
+message ComponentError {
+
+}
