@@ -17,11 +17,10 @@ import "spi.proto";
  * BrokerToDevice message envelope
  */
 message B2D {
-  string name        = 1; /** Unique instance identifier for the display. */
   oneof payload {
-    Add add       = 2;
-    Remove remove = 3;
-    Write write   = 4;
+    Add add       = 1;
+    Remove remove = 2;
+    Write write   = 3;
   }
 }
 
@@ -29,11 +28,10 @@ message B2D {
  * DeviceToBroker message envelope
  */
 message D2B {
-  string name        = 1; /** Unique instance identifier for the display. */
-  bool did_succeed = 2; /** Indicates if the requested operation succeeded. */
+  bool did_succeed = 1; /** Indicates if the requested operation succeeded. */
   oneof payload {
-    AddedOrReplaced added_or_replaced = 3;
-    Removed removed                   = 4;
+    AddedOrReplaced added_or_replaced = 2;
+    Removed removed                   = 3;
   }
 }
 
@@ -216,9 +214,10 @@ message BacklightConfig {
  displays/epd/ssd1680/250x122/mono/    [2.13" e-ink featherwing which has a panel variant with the same driver and no distinguishing features rev2024]
  */
 message Add {
-  DisplayClass type   = 1; /** The type of display */
-  string driver      = 2; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
-  string panel       = 3; /** Panel identifier for same driver with different configs */
+  string name = 1; /** Component name for the display. */
+  DisplayClass type   = 2; /** The type of display */
+  string driver      = 3; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
+  string panel       = 4; /** Panel identifier for same driver with different configs */
   oneof interface_type {
     EpdSpiConfig spi_epd          = 5; /** SPI configuration for EPD. */
     TftSpiConfig spi_tft          = 6; /** SPI configuration for TFT. */
@@ -241,13 +240,15 @@ message Add {
  * Remove removes an existing display.
  */
 message Remove {
+  string name = 1; /** Component name for the display. */
 }
 
 /**
  * Write writes content to a display.
  */
 message Write {
-  string message = 1; /** Monospace text message */
+  string name = 1; /** Component name for the display. */
+  string message = 2; /** Monospace text message */
 }
 
 // ============================================================================
