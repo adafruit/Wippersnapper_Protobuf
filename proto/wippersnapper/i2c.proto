@@ -113,6 +113,7 @@ message Add {
   string name                       = 2;
   float period                      = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
   map<uint32, ws.sensor.Type> types = 4; /** SI Types for each sensor on the I2c device. */
+  map<string, uint32> settings      = 6; /** Additional device configuration options. **/
 }
 
 /**
