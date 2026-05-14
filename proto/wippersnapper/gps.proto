@@ -10,8 +10,8 @@ import "uart.proto";
  */
 message B2D {
   oneof payload {
-    DeviceAddOrReplace device_add_replace = 1;
-    DeviceRemove device_remove            = 2;
+    Add add       = 1;
+    Remove remove = 2;
   }
 }
 
@@ -20,45 +20,45 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    DeviceAddedOrReplaced device_added_replaced = 1;
-    DeviceRemoved device_removed                = 2;
-    Event event = 3;
+    Added added     = 1;
+    Removed removed = 2;
+    Event event     = 3;
   }
 }
 
 /**
- * DeviceAddOrReplace represents a message to add or replace a GPS device,
+ * Add represents a message to add or replace a GPS device,
  * including the transport and GPS-specific configuration options.
  */
-message DeviceAddOrReplace {
-  i2c.DeviceAddOrReplace add_i2c  = 1;
-  uart.Add               add_uart = 2;
-  Config                 config   = 3;
+message Add {
+  i2c.Add add_i2c   = 1;
+  uart.Add add_uart = 2;
+  Config config     = 3;
 }
 
 /**
- * DeviceAddedOrReplaced represents a message indicating a GPS device was added or replaced.
+ * Added represents a message indicating a GPS device was added or replaced.
  */
-message DeviceAddedOrReplaced {
-  i2c.DeviceAddedOrReplaced added_i2c  = 1;
-  uart.Added                added_uart = 2;
+message Added {
+  i2c.Added added_i2c   = 1;
+  uart.Added added_uart = 2;
 }
 
 /**
- * DeviceRemove represents a message to remove a GPS device,
+ * Remove represents a message to remove a GPS device,
  * including the transport-specific options.
  */
-message DeviceRemove {
-  i2c.DeviceRemove remove_i2c  = 1;
-  uart.Remove      remove_uart = 2;
+message Remove {
+  i2c.Remove remove_i2c   = 1;
+  uart.Remove remove_uart = 2;
 }
 
 /**
- * DeviceRemoved represents a message indicating a GPS device was removed.
+ * Removed represents a message indicating a GPS device was removed.
  */
-message DeviceRemoved {
-  i2c.DeviceRemoved removed_i2c  = 1;
-  uart.Removed      removed_uart = 2;
+message Removed {
+  i2c.Removed removed_i2c   = 1;
+  uart.Removed removed_uart = 2;
 }
 
 /**

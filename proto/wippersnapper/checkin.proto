@@ -74,7 +74,7 @@ message ComponentAdds {
   repeated ws.pixels.Add pixels_adds          = 5;
   repeated ws.ds18x20.Add ds18x20_adds        = 6;
   repeated ws.uart.Add uart_adds              = 7;
-  repeated ws.i2c.DeviceAddOrReplace i2c_adds = 8;
+  repeated ws.i2c.Add i2c_adds                = 8;
   repeated ws.display.Add display_adds        = 9;
 }
 

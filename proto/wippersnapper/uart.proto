@@ -90,7 +90,7 @@ enum GenericDeviceLineEnding {
 message SerialConfig {
   string pin_rx           = 1; /** The pin on which to receive on. */
   string pin_tx           = 2; /** The pin on which to transmit with. */
-  string device_name      = 3; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
+  string name             = 3; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
   uint32 uart_nbr         = 4; /** The UART port number to use, eg: 0, 1, 2, etc. */
   uint32 baud_rate        = 5; /** The desired baudrate, in bits per second. */
   PacketFormat format     = 6; /** The data, parity, and stop bits. */
@@ -104,10 +104,10 @@ message SerialConfig {
 * containing device-specific configuration info for generic UART input devices.
 */
 message GenericInputConfig {
-  string name                          = 1; /** The name used to identify the device. */
-  GenericDeviceLineEnding line_ending  = 2; /** The line ending used by the device. */
-  int32 period                         = 3; /** The period to poll the device, in milliseconds */
-  repeated ws.sensor.Type sensor_types = 4; /** SI Types for each sensor on the UART device. */
+  string name                         = 1; /** The name used to identify the device. */
+  GenericDeviceLineEnding line_ending = 2; /** The line ending used by the device. */
+  int32 period                        = 3; /** The period to poll the device, in milliseconds */
+  repeated ws.sensor.Type types       = 4; /** SI Types for each sensor on the UART device. */
 }
 
 /**
@@ -115,7 +115,7 @@ message GenericInputConfig {
 * containing device-specific configuration info for Trinamic stepper or DYNAMIXEL servos.
 */
 message TrinamicDynamixelConfig {
-  uint32 device_id = 1; /** The device identifier, used for sub-addressing (multiple servos on one UART). */
+  uint32 id = 1; /** The device identifier, used for sub-addressing (multiple servos on one UART). */
 }
 
 /**
@@ -123,9 +123,9 @@ message TrinamicDynamixelConfig {
 * containing device-specific configuration info for PM2.5 AQI sensors.
 */
 message PM25AQIConfig {
-  bool is_pm1006                       = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
-  int32 period                         = 2; /** The period to poll the device, in milliseconds */
-  repeated ws.sensor.Type sensor_types = 3; /** SI Types for each sensor on the I2c device. */
+  bool is_pm1006                  = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
+  int32 period                    = 2; /** The period to poll the device, in milliseconds */
+  repeated ws.sensor.Type types   = 3; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
@@ -134,8 +134,8 @@ message PM25AQIConfig {
 * This message is never sent directly, it is packed inside Add.
 */
 message DeviceConfig {
-  DeviceType device_type                       = 1; /** The type of device connected to the UART port. */
-  string device_id                             = 2; /** The unique identifier string for the UART device. */
+  DeviceType type                              = 1; /** The type of device connected to the UART port. */
+  string id                                    = 2; /** The unique identifier string for the UART device. */
   oneof config {
     GenericInputConfig generic_input           = 3; /** OPTIONAL configuration for a generic UART input device. */
     TrinamicDynamixelConfig trinamic_dynamixel = 4; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
@@ -149,7 +149,7 @@ message DeviceConfig {
 message Descriptor {
   uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
   DeviceType type     = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
-  string device_id    = 3; /** The unique identifier string for the UART device. */
+  string id           = 3; /** The unique identifier string for the UART device. */
 }
 
 /**
@@ -168,7 +168,7 @@ message Add {
 */
 message Added {
   Descriptor descriptor = 1; /** The descriptor of the device that was added. */
-  bool success     = 2; /** True if the device on the UART port was successfully initialized, False otherwise. */
+  bool success          = 2; /** True if the device on the UART port was successfully initialized, False otherwise. */
 }
 
 /*
@@ -196,8 +196,8 @@ message Write {
   Descriptor descriptor = 1; /** The descriptor of the device to write to. */
   // Payload
   oneof payload {
-    bytes bytes_data = 2; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
-    string text_data = 3; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
+    bytes bytes_data    = 2; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
+    string text_data    = 3; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
   }
 }
 
@@ -207,7 +207,7 @@ message Write {
 */
 message Written {
   Descriptor descriptor = 1; /** The descriptor of the device that was written to. */
-  uint32 bytes_written = 2; /** The number of bytes written to the device. */
+  uint32 bytes_written  = 2; /** The number of bytes written to the device. */
 }
 
 /**
@@ -217,6 +217,6 @@ message Written {
 * It can contain multiple SensorEvents if the device has multiple sensors.
 */
 message InputEvent {
-  Descriptor descriptor = 1; /** The descriptor of the device that generated the input event. */
+  Descriptor descriptor           = 1; /** The descriptor of the device that generated the input event. */
   repeated ws.sensor.Event events = 2; /** Required, but optionally repeated, SensorEvent from a sensor. */
 }
