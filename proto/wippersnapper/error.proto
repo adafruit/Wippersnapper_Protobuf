@@ -47,19 +47,25 @@ message BanError {
  * to inform the device that it has been rate-limited by IO.
  */
 message ThrottleError {
-  uint32 timeout = 1;
+  uint32 timeout = 1;  // how long to wait before trying again
 }
 
 /*
  * DeviceError represents a device-level issue
  */
 message DeviceError {
-
+  string message = 1; // all errors need an error message
 }
 
 /*
- * ComopnentError represents a specific error about a specfici components.
+ * ComponentError represents a specific error about a specific component.
  */
 message ComponentError {
-
+  string message         = 1; // explanation of the error
+  // just enough info to uniquely identify a component
+  oneof descriptor {
+    string pin           = 2; // digital, analog, pwm, servo, pixel, ds18x20, pixel
+    i2c.Descriptor i2c   = 3; // i2c, gps, display, expander
+    uart.Descriptor uart = 4; // uart
+  }
 }
