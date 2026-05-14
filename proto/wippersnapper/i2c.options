@@ -1,5 +1,5 @@
 # i2c.options
-ws.i2c.Probed.results                         max_count:16
-ws.i2c.DeviceAddOrReplace.device_name         max_size:16
-ws.i2c.DeviceAddOrReplace.device_sensor_types max_count:16
-ws.i2c.DeviceEvent.device_events              max_count:16
+ws.i2c.Probed.results max_count:16
+ws.i2c.Add.name       max_size:16
+ws.i2c.Add.types      max_count:16
+ws.i2c.Event.events   max_count:16
