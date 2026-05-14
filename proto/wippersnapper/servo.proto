@@ -19,7 +19,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added = 1;
+
   }
 }
 
@@ -32,14 +32,6 @@ message Add {
   int32 min_pulse_width = 3; /** The minimum pulse length in uS. Default sent by Adafruit IO is 500uS. **/
   int32 max_pulse_width = 4; /** The maximum pulse length in uS. Default sent by Adafruit IO is 2500uS. **/
   Write write           = 5; /** Optional initial write for a servo pin, used during check-in. **/
-}
-
-/**
-* Added represents the result of attaching a servo to a pin.
-*/
-message Added {
-  bool attach_success = 1; /** True if a servo was attached successfully, False otherwise. **/
-  string servo_pin    = 2; /** The name of pin we're responding about. */
 }
 
 /**

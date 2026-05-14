@@ -20,9 +20,6 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added            = 1;
-    Removed removed        = 2;
-    Written written        = 3;
     InputEvent input_event = 4;
   }
 }
@@ -162,30 +159,12 @@ message Add {
   Write write             = 3; /** Optional initial write for a UART device, used during check-in. */
 }
 
-/**
-* Added represents a message sent from a device to IO to
-* confirm that a device has been attached to the UART port.
-*/
-message Added {
-  Descriptor descriptor = 1; /** The descriptor of the device that was added. */
-  bool success          = 2; /** True if the device on the UART port was successfully initialized, False otherwise. */
-}
-
 /*
 * Remove represents a message sent from IO to a device
 * to detach a driver from the UART port and deinitialize the port.
 */
 message Remove {
   Descriptor descriptor = 1; /** The descriptor of the device to remove. */
-}
-
-/*
-* Removed represents a message sent from a device to IO to
-* confirm that a device has been detached from the UART port.
-*/
-message Removed {
-  Descriptor descriptor = 1; /** The descriptor of the device that was removed. */
-  bool       did_remove = 2; /** True if the device on the UART port was successfully removed, False otherwise. */
 }
 
 /**
@@ -199,15 +178,6 @@ message Write {
     bytes bytes_data    = 2; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
     string text_data    = 3; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
   }
-}
-
-/**
-* Written represents the number of bytes written to a device.enum
-* This message is sent from a device to IO to confirm that data has been written to the device.
-*/
-message Written {
-  Descriptor descriptor = 1; /** The descriptor of the device that was written to. */
-  uint32 bytes_written  = 2; /** The number of bytes written to the device. */
 }
 
 /**

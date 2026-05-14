@@ -1,6 +1,5 @@
 # pixels.options
 ws.pixels.Add.pin_data          max_size: 6
 ws.pixels.Add.pin_dotstar_clock max_size: 6
-ws.pixels.Added.pin_data        max_size: 6
 ws.pixels.Remove.pin_data       max_size: 6
 ws.pixels.Write.pin_data        max_size: 6

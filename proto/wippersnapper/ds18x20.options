@@ -1,6 +1,5 @@
 # ds18x20.options
 ws.ds18x20.Add.onewire_pin    max_size:5
-ws.ds18x20.Added.onewire_pin  max_size:5
 ws.ds18x20.Remove.onewire_pin max_size:5
 ws.ds18x20.Event.onewire_pin  max_size:5
 ws.ds18x20.Add.types          max_count:2
