@@ -107,12 +107,12 @@ message Descriptor {
 * Add is a message for initializing (or replacing/updating) an i2c device.
 */
 message Add {
-  Descriptor descriptor               = 1; /** The I2c device's address and metadata. */
+  Descriptor descriptor             = 1; /** The I2c device's address and metadata. */
   /** The I2c device's name, MUST MATCH the name on the JSON
    *  definition file on the Wippersnapper_Components repo. */
-  string name                         = 2;
-  float period                        = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
-  map<uint32, ws.sensor.Type> sensors = 4; /** SI Types for each sensor on the I2c device. */
+  string name                       = 2;
+  float period                      = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
+  map<uint32, ws.sensor.Type> types = 4; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
