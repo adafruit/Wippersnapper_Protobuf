@@ -54,7 +54,11 @@ message ThrottleError {
  * DeviceError represents a device-level issue
  */
 message DeviceError {
-  string message = 1; // all errors need an error message
+  string message = 1; // explanation of the error
+  // optional info to associate the error with some part of the device
+  oneof descriptor {
+    i2c.AddressSpace i2c_bus = 2; // an i2c bus error
+  }
 }
 
 /*
