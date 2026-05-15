@@ -89,6 +89,7 @@ message DisplayProperties {
   int32 height = 2; /** Display height in pixels. */
   int32 rotation = 3; /** Display rotation (Clockwise 90* increments 0-3). */
   int32 text_size = 4; /** Text size or magnification factor (if applicable) - 1 = 6x8px, 2 = 12x16px, ... */
+  bool status_bar = 5; /** show status bar? **/
 }
 
 /**
