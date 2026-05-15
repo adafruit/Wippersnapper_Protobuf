@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.analogin;
-import "config.proto";
 import "sensor.proto";
 
 /**
@@ -42,7 +41,6 @@ message Add {
   ws.sensor.Type read_mode     = 3; /** Desired read mode for the pin. */
   SampleMode sample_mode       = 4; /** Desired sample mode for the pin. */
   float ref_voltage            = 5; /** Reference voltage for the pin, in volts. */
-  ws.config.Settings settings  = 6; /** Additional configuration options for the pin. **/
 }
 
 /**
