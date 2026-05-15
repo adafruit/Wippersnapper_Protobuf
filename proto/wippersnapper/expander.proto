@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
 package ws.expander;
-import "config.proto";
 import "i2c.proto";
 
 /**
@@ -30,7 +29,6 @@ message D2B {
 */
 message Add {
   i2c.Add cfg_i2c             = 1; /** I2C configuration for the expander. */
-  ws.config.Settings settings = 2; /** Additional configuration options for the expander. **/
 }
 
 /**
