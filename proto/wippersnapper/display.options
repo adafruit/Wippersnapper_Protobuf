@@ -1,6 +1,9 @@
 # display.options
 # Nanopb configuration for display.proto
 
+# DisplayProperties
+ws.display.DisplayProperties.status_bar         initializer:"true"
+
 # Add message
 ws.display.Add.driver                           max_size:32
 ws.display.Add.panel                            max_size:32
