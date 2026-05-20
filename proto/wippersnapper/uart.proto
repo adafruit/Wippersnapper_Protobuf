@@ -72,14 +72,12 @@ enum GenericDeviceLineEnding {
 * This message is never sent directly, it is packed inside Add.
 */
 message SerialConfig {
-  string pin_rx           = 1; /** The pin on which to receive on. */
-  string pin_tx           = 2; /** The pin on which to transmit with. */
-  string name             = 3; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
-  uint32 baud_rate        = 4; /** The desired baudrate, in bits per second. */
-  PacketFormat format     = 5; /** The data, parity, and stop bits. */
-  float timeout           = 6; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
-  bool use_sw_serial      = 7; /** Use software serial instead of hardware serial. Defaults to False. */
-  bool sw_serial_invert   = 8; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+  string name             = 1; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
+  uint32 baud_rate        = 2; /** The desired baudrate, in bits per second. */
+  PacketFormat format     = 3; /** The data, parity, and stop bits. */
+  float timeout           = 4; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
+  bool use_sw_serial      = 5; /** Use software serial instead of hardware serial. Defaults to False. */
+  bool sw_serial_invert   = 6; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
 }
 
 /**
@@ -128,8 +126,8 @@ message DeviceConfig {
 * Descriptor represents a message that uniquely identifies a UART device.
 */
 message Descriptor {
-  uint32 pin_scl = 1; /** The pin on which to receive on. */
-  uint32 pin_sda = 2; /** The pin on which to transmit with. */
+  uint32 pin_rx = 1; /** The pin on which to receive on. */
+  uint32 pin_tx = 2; /** The pin on which to transmit with. */
 }
 
 /**
