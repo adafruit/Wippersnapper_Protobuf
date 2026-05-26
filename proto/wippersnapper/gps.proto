@@ -20,9 +20,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added     = 1;
-    Removed removed = 2;
-    Event event     = 3;
+    Event event = 1;
   }
 }
 
@@ -37,28 +35,12 @@ message Add {
 }
 
 /**
- * Added represents a message indicating a GPS device was added or replaced.
- */
-message Added {
-  i2c.Added added_i2c   = 1;
-  uart.Added added_uart = 2;
-}
-
-/**
  * Remove represents a message to remove a GPS device,
  * including the transport-specific options.
  */
 message Remove {
   i2c.Remove remove_i2c   = 1;
   uart.Remove remove_uart = 2;
-}
-
-/**
- * Removed represents a message indicating a GPS device was removed.
- */
-message Removed {
-  i2c.Removed removed_i2c   = 1;
-  uart.Removed removed_uart = 2;
 }
 
 /**

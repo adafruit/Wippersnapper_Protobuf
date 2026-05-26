@@ -49,7 +49,3 @@ ws.display.Remove.name                          max_size:64
 # Write message
 ws.display.Write.name                           max_size:64
 ws.display.Write.message                        max_size:1024
-
-# Response messages
-ws.display.AddedOrReplaced.name                 max_size:64
-ws.display.Removed.name                         max_size:64

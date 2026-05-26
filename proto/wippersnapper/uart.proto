@@ -20,10 +20,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added            = 1;
-    Removed removed        = 2;
-    Written written        = 3;
-    InputEvent input_event = 4;
+    Event event = 1;
   }
 }
 
@@ -59,19 +56,6 @@ enum PacketFormat {
 }
 
 /**
-* DeviceType represents the type of device connected to the UART port.
-* This is used to determine the driver to use for the device.
-*/
-enum DeviceType {
-  DT_UNSPECIFIED    = 0; /** Unspecified device type. */
-  DT_GENERIC_INPUT  = 1; /** Use UART input. */
-  DT_GENERIC_OUTPUT = 2; /** Use the Generic UART output driver. */
-  DT_GPS            = 3; /** Use the GPS driver. */
-  DT_PM25AQI        = 4; /** Use the PM2.5 driver. */
-  DT_TM22XX         = 5; /** Use the TM22XX stepper driver. */
-}
-
-/**
 * GenericDeviceLineEnding represents the line ending used by the device.
 * This is used to determine how to parse the incoming data.
 */
@@ -88,15 +72,12 @@ enum GenericDeviceLineEnding {
 * This message is never sent directly, it is packed inside Add.
 */
 message SerialConfig {
-  string pin_rx           = 1; /** The pin on which to receive on. */
-  string pin_tx           = 2; /** The pin on which to transmit with. */
-  string name             = 3; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
-  uint32 uart_nbr         = 4; /** The UART port number to use, eg: 0, 1, 2, etc. */
-  uint32 baud_rate        = 5; /** The desired baudrate, in bits per second. */
-  PacketFormat format     = 6; /** The data, parity, and stop bits. */
-  float timeout           = 7; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
-  bool use_sw_serial      = 8; /** Use software serial instead of hardware serial. Defaults to False. */
-  bool sw_serial_invert   = 9; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+  string name             = 1; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
+  uint32 baud_rate        = 2; /** The desired baudrate, in bits per second. */
+  PacketFormat format     = 3; /** The data, parity, and stop bits. */
+  float timeout           = 4; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
+  bool use_sw_serial      = 5; /** Use software serial instead of hardware serial. Defaults to False. */
+  bool sw_serial_invert   = 6; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
 }
 
 /**
@@ -134,12 +115,10 @@ message PM25AQIConfig {
 * This message is never sent directly, it is packed inside Add.
 */
 message DeviceConfig {
-  DeviceType type                              = 1; /** The type of device connected to the UART port. */
-  string id                                    = 2; /** The unique identifier string for the UART device. */
   oneof config {
-    GenericInputConfig generic_input           = 3; /** OPTIONAL configuration for a generic UART input device. */
-    TrinamicDynamixelConfig trinamic_dynamixel = 4; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
-    PM25AQIConfig pm25aqi                      = 5; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
+    GenericInputConfig generic_input           = 1; /** OPTIONAL configuration for a generic UART input device. */
+    TrinamicDynamixelConfig trinamic_dynamixel = 2; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
+    PM25AQIConfig pm25aqi                      = 3; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
   }
 }
 
@@ -147,9 +126,8 @@ message DeviceConfig {
 * Descriptor represents a message that uniquely identifies a UART device.
 */
 message Descriptor {
-  uint32 uart_nbr     = 1; /** The UART port number (eg: 0, 1, 2, etc.) that the device is attached to. */
-  DeviceType type     = 2; /** The category of device attached to the UART port, corresponds to its driver type. */
-  string id           = 3; /** The unique identifier string for the UART device. */
+  uint32 pin_rx = 1; /** The pin on which to receive on. */
+  uint32 pin_tx = 2; /** The pin on which to transmit with. */
 }
 
 /**
@@ -157,18 +135,11 @@ message Descriptor {
 * to configure a device on a UART port for communication.
 */
 message Add {
-  SerialConfig cfg_serial = 1; /** The Serial configuration. */
-  DeviceConfig cfg_device = 2; /** The device-specific configuration. */
-  Write write             = 3; /** Optional initial write for a UART device, used during check-in. */
-}
-
-/**
-* Added represents a message sent from a device to IO to
-* confirm that a device has been attached to the UART port.
-*/
-message Added {
-  Descriptor descriptor = 1; /** The descriptor of the device that was added. */
-  bool success          = 2; /** True if the device on the UART port was successfully initialized, False otherwise. */
+  string name             = 1; /** The name of the device to add. */
+  Descriptor   descriptor = 2; /** The descriptor of the device to add. */
+  SerialConfig cfg_serial = 3; /** The Serial configuration. */
+  DeviceConfig cfg_device = 4; /** The device-specific configuration. */
+  Write write             = 5; /** Optional initial write for a UART device, used during check-in. */
 }
 
 /*
@@ -177,15 +148,6 @@ message Added {
 */
 message Remove {
   Descriptor descriptor = 1; /** The descriptor of the device to remove. */
-}
-
-/*
-* Removed represents a message sent from a device to IO to
-* confirm that a device has been detached from the UART port.
-*/
-message Removed {
-  Descriptor descriptor = 1; /** The descriptor of the device that was removed. */
-  bool       did_remove = 2; /** True if the device on the UART port was successfully removed, False otherwise. */
 }
 
 /**
@@ -202,21 +164,12 @@ message Write {
 }
 
 /**
-* Written represents the number of bytes written to a device.enum
-* This message is sent from a device to IO to confirm that data has been written to the device.
-*/
-message Written {
-  Descriptor descriptor = 1; /** The descriptor of the device that was written to. */
-  uint32 bytes_written  = 2; /** The number of bytes written to the device. */
-}
-
-/**
-* InputEvent represents a message sent from a device to IO
+* Event represents a message sent from a device to IO
 * containing data from a UART input device.
 * This message is sent from a device to IO to report sensor data.
 * It can contain multiple SensorEvents if the device has multiple sensors.
 */
-message InputEvent {
+message Event {
   Descriptor descriptor           = 1; /** The descriptor of the device that generated the input event. */
   repeated ws.sensor.Event events = 2; /** Required, but optionally repeated, SensorEvent from a sensor. */
 }

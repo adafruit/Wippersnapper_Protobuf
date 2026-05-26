@@ -24,17 +24,6 @@ message B2D {
   }
 }
 
-/**
- * DeviceToBroker message envelope
- */
-message D2B {
-  bool did_succeed = 1; /** Indicates if the requested operation succeeded. */
-  oneof payload {
-    AddedOrReplaced added_or_replaced = 2;
-    Removed removed                   = 3;
-  }
-}
-
 // ============================================================================
 // Enums
 // ============================================================================
@@ -250,20 +239,4 @@ message Remove {
 message Write {
   string name = 1; /** Component name for the display. */
   string message = 2; /** Monospace text message */
-}
-
-// ============================================================================
-// Response Messages
-// ============================================================================
-
-/**
- * AddedOrReplaced confirms a display was added or replaced.
- */
-message AddedOrReplaced {
-}
-
-/**
- * Removed confirms a display was removed.
- */
-message Removed {
 }

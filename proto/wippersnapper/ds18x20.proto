@@ -20,8 +20,7 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Added added = 1;
-    Event event = 2;
+    Event event = 1;
   }
 }
 
@@ -35,15 +34,6 @@ message Add {
   int32 sensor_resolution       = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
   float period                  = 3; /** The desired period to read the sensor, in seconds. */
   repeated ws.sensor.Type types = 4; /** SI types used by the DS18x20 sensor. */
-}
-
-/**
-* Added represents a device's response
-* to a Add message.
-*/
-message Added {
-  bool is_initialized = 1; /** True if the 1-wire bus has been initialized successfully, False otherwise. */
-  string onewire_pin  = 2; /** The pin being used as a OneWire bus. */
 }
 
 /**
