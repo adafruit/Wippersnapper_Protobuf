@@ -1,7 +1,5 @@
 # uart.options
-ws.uart.DeviceConfig.id          max_size: 32
-ws.uart.SerialConfig.pin_rx      max_size: 16
-ws.uart.SerialConfig.pin_tx      max_size: 16
+ws.uart.Add.name                 max_size: 32
 ws.uart.GenericInputConfig.types max_count:15
 ws.uart.PM25AQIConfig.types      max_count:15
 ws.uart.Event.events             max_count:15
