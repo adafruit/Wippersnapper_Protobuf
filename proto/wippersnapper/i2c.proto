@@ -21,36 +21,11 @@ message B2D {
  */
 message D2B {
   oneof payload {
-    Probed probed   = 1;
-    Added added     = 2;
-    Removed removed = 3;
-    Event event     = 4;
+    Probed probed = 1;
+    Event event   = 2;
   }
 }
 
-/**
-* BusStatus represents the status of a board's I2C bus
-*/
-enum BusStatus {
-  BS_UNSPECIFIED           = 0; /** Unspecified error occurred. **/
-  BS_SUCCESS               = 1; /** I2C bus successfully initialized. **/
-  BS_ERROR_HANG            = 2; /** I2C Bus hang, user should reset their board if this persists. **/
-  BS_ERROR_PULLUPS         = 3; /** I2C bus failed to initialize - SDA or SCL needs a pull up. **/
-  BS_ERROR_WIRING          = 4; /** I2C bus failed to communicate - Please check your wiring. **/
-  BS_ERROR_INVALID_CHANNEL = 5; /** I2C MUX failed - Output channel must be within range 0-7. **/
-}
-
-/**
-* Status represents the state of an I2C device/peripheral
-*/
-enum Status {
-  S_UNSPECIFIED             = 0; /** Unspecified error occurred. **/
-  S_SUCCESS                 = 1; /** I2C device successfully initialized. **/
-  S_FAIL_INIT               = 2; /** I2C device failed to initialize. **/
-  S_FAIL_DEINIT             = 3; /** I2C device failed to deinitialize. **/
-  S_FAIL_UNSUPPORTED_SENSOR = 4; /** WipperSnapper version is outdated and does not include this device. **/
-  S_NOT_FOUND               = 5; /** I2C device not found on the bus. **/
-}
 /**
  * Represents a separate I2C address space, either a Bus or a Mux.
  * - when describing a bus, specify only the scl and sda pins
@@ -78,12 +53,11 @@ message Probe {
 /**
  * The results of scanning a particular AddressSpace.
  * - success with found addresses populates the found_addresses list
- * - an error populates the relevant bus_status and contains no found_addresses
+ * - an error is emitted through the error channel
  */
 message AddressSpaceResult {
   AddressSpace address_space       = 1; /** Which AddressSpace was probed **/
-  BusStatus bus_status             = 2; /** BS_SUCCESS on success, anything else denotes an error on this AddressSpace **/
-  repeated uint32 found_addresses  = 3; /** List of I2C addresses where a device was detected, empty in case of error **/
+  repeated uint32 found_addresses  = 2; /** List of I2C addresses where a device was detected, empty in case of error **/
 }
 
 /**
@@ -116,27 +90,10 @@ message Add {
 }
 
 /**
-* Added contains the response from a device after processing a Add message.
-*/
-message Added {
-  Descriptor descriptor = 1; /** The I2c device's address and metadata, unless there was an error. **/
-  BusStatus bus_status  = 2; /** The I2c bus' status, in case of bus error. **/
-  Status status         = 3; /** The I2c device's status, in case of device error. **/
-}
-
-/**
 * Remove represents a request to de-init an i2c device.
 */
 message Remove {
   Descriptor descriptor = 1; /** The I2c device's address and metadata. */
-}
-
-/**
-* Removed represents a response to a I2cRemove message.
-*/
-message Removed {
-  Descriptor descriptor = 1; /** The I2c device's address and metadata. */
-  bool did_remove       = 2; /** True if the I2C device was successfully removed from the controller, False otherwise. **/
 }
 
 /**

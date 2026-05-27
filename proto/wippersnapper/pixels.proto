@@ -16,16 +16,6 @@ message B2D {
 }
 
 /**
- * DeviceToBroker message envelope
- */
-message D2B {
-  oneof payload {
-    Added added     = 1;
-    Removed removed = 2;
-  }
-}
-
-/**
 * Type defines the type/model of pixel strand.
 */
 enum Type {
@@ -65,29 +55,11 @@ message Add {
 }
 
 /**
-* Added represents response from a WipperSnapper
-* device to IO after a Add call
-*/
-message Added {
-  bool is_success = 1; /** True if the strand initialized successfully, False otherwise. */
-  string pin_data = 2; /** Data pin the responding strand is connected to. */
-}
-
-/**
 * Removes a strand of addressable pixels and release the resources and pin.
 */
 message Remove {
   string pin_data = 1; /** Data pin the pixel strand is connected to. */
 }
-
-/**
-* Removed represents response from a WipperSnapper device to IO after a Remove call
-*/
-message Removed {
-  bool is_success = 1; /** True if the strand was removed successfully, False otherwise. */
-  string pin_data = 2; /** Data pin the responding strand is connected to. */
-}
-
 
 /**
 * Writes to a strand of pixels.

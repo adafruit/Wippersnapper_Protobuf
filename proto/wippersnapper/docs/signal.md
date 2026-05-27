@@ -14,7 +14,7 @@ Sent from the broker to a device. Contains a `oneof payload` selecting one compo
 message BrokerToDevice {
   oneof payload {
     // System Events
-    ws.error.ErrorB2D error    = 10;
+    ws.error.B2D error    = 10;
 
     // Device Interactions
     ws.checkin.B2D checkin     = 20;
@@ -43,7 +43,7 @@ Sent from a device to the broker. Contains a `oneof payload` selecting one compo
 message DeviceToBroker {
   oneof payload {
     // System Events
-    ws.error.ErrorD2B error    = 10;
+    ws.error.D2B error    = 10;
 
     // Device Interactions
     ws.checkin.D2B checkin     = 20;
@@ -111,7 +111,7 @@ Device->>Device: Set pin D13 HIGH
 
 | Field # | Component | Package | B2D Operations | D2B Operations |
 |---------|-----------|---------|----------------|----------------|
-| 10 | error | ws.error | ErrorB2D | ErrorD2B |
+| 10 | error | ws.error | B2D | D2B |
 | 20 | checkin | ws.checkin | Response | Request, Complete |
 | 21 | sleep | ws.sleep | - | - |
 | 30 | digitalio | ws.digitalio | Add, Remove, Write | Event |

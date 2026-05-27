@@ -15,15 +15,6 @@ message B2D {
 }
 
 /**
- * DeviceToBroker message envelope
- */
-message D2B {
-  oneof payload {
-    Added added = 1;
-  }
-}
-
-/**
 * Add represents a  to a device to attach/allocate a PWM pin.
 * On ESP32 Arduino, this will "attach" a pin to a LEDC channel/timer group.
 * On non-ESP32 Arduino, this does nothing.
@@ -34,15 +25,6 @@ message Add {
   int32 resolution = 3; /** The resolution of an analog pin, in bits. **/
   bool is_inverted = 4; /** If true, inverts the pin's output (active low). */
   Write write      = 5; /** Optional initial write for a PWM pin, used during check-in. */
-}
-
-/**
-* Added represents a response from a device's execution of an
-* Add message.
-*/
-message Added {
-  string pin      = 1; /** The ed pin. */
-  bool did_attach = 2; /** True if Add successful, False otherwise. */
 }
 
 /**

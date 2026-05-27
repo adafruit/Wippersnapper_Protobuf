@@ -32,22 +32,8 @@ message Add {
 }
 
 /**
-* Added represents a message from the hardware indicating an expander component was added.
-*/
-message Added {
-  i2c.Added response_i2c = 1; /** I2C configuration response. */
-}
-
-/**
-* Remove removes an expander component from the hardware.
+* Remove removes an analog pin from the hardware.
 */
 message Remove {
   i2c.Remove cfg_i2c = 1; /** I2C configuration for the expander to remove. */
-}
-
-/**
-* Removed represents a message from the device indicating an expander component was removed.
-*/
-message Removed {
-  i2c.Removed response_i2c = 1; /** I2C configuration response. */
 }
