@@ -15,24 +15,14 @@ message B2D {
 }
 
 /**
- DeviceToBroker message envelope
- */
-message D2B {
-  oneof payload {
-    Added added     = 1;
-    Removed removed = 2;
-  }
-}
-
-/**
-* Add adds an expander component to the hardware.
+* Add adds an expander to the hardware.
 */
 message Add {
-  i2c.Add cfg_i2c             = 1; /** I2C configuration for the expander. */
+  i2c.Add cfg_i2c = 1; /** I2C configuration for the expander. */
 }
 
 /**
-* Remove removes an analog pin from the hardware.
+* Remove removes an expander from the hardware.
 */
 message Remove {
   i2c.Remove cfg_i2c = 1; /** I2C configuration for the expander to remove. */
