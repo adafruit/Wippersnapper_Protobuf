@@ -7,7 +7,7 @@ syntax = "proto3";
 package ws.spi;
 
 /** SPI device configuration — bus selection and pin assignments. */
-message Config {
+message Descriptor {
   int32 bus       = 1; /** SPI bus number */
   string pin_mosi = 2; /** Pin for MOSI */
   string pin_sck  = 3; /** Pin for SCK */
