@@ -5,7 +5,7 @@ package ws.signal;
 import "error.proto";
 import "expander.proto";
 import "checkin.proto";
-import "analogio.proto";
+import "analogin.proto";
 import "digitalio.proto";
 import "display.proto";
 import "ds18x20.proto";
@@ -34,7 +34,7 @@ message BrokerToDevice {
 
     // Component Interactions
     ws.digitalio.B2D digitalio = 30;
-    ws.analogio.B2D analogio   = 31;
+    ws.analogin.B2D analogin   = 31;
     ws.servo.B2D servo         = 32;
     ws.pwm.B2D pwm             = 33;
     ws.pixels.B2D pixels       = 34;
@@ -64,7 +64,7 @@ message DeviceToBroker {
 
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;
-    ws.analogio.D2B analogio   = 31;
+    ws.analogin.D2B analogin   = 31;
     ws.ds18x20.D2B ds18x20     = 32;
     ws.uart.D2B uart           = 33;
     ws.i2c.D2B i2c             = 34;

@@ -11,7 +11,7 @@ This document demonstrates the complete "happy path" flow for a WipperSnapper v2
 - **B2D (BrokerToDevice)** - All commands from Adafruit IO to device
 - **D2B (DeviceToBroker)** - All responses and data from device to Adafruit IO
 
-Each component (digitalio, analogio, i2c, etc.) has its own B2D and D2B envelope messages with specific payloads.
+Each component (digitalio, analogin, i2c, etc.) has its own B2D and D2B envelope messages with specific payloads.
 
 ### Benefits of v2 Architecture
 
@@ -173,7 +173,7 @@ The `ComponentAdds` message contains separate repeated fields for each component
 ```protobuf
 message ComponentAdds {
   repeated ws.digitalio.Add digitalio_adds    = 1;
-  repeated ws.analogio.Add analogio_adds      = 2;
+  repeated ws.analogin.Add analogio_adds      = 2;
   repeated ws.servo.Add servo_adds            = 3;
   repeated ws.pwm.Add pwm_adds               = 4;
   repeated ws.pixels.Add pixels_adds          = 5;
@@ -317,7 +317,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
-IO->>Device: ws.analogio.B2D {<br/>  add: {<br/>    pin_name: "A1",<br/>    period: 10.0,<br/>    read_mode: SENSOR_TYPE_VOLTAGE<br/>  }<br/>}
+IO->>Device: ws.analogin.B2D {<br/>  add: {<br/>    pin_name: "A1",<br/>    period: 10.0,<br/>    read_mode: SENSOR_TYPE_VOLTAGE<br/>  }<br/>}
 
 Device->>ADC: Configure A1 for voltage reading
 ADC->>Device: Pin configured, start polling
@@ -325,7 +325,7 @@ ADC->>Device: Pin configured, start polling
 loop Every 10 seconds
     ADC->>ADC: Read analog value
     ADC->>Device: Voltage reading
-    Device->>IO: ws.analogio.D2B {<br/>  event: {<br/>    pin_name: "A1",<br/>    value: 3.7V<br/>  }<br/>}
+    Device->>IO: ws.analogin.D2B {<br/>  event: {<br/>    pin_name: "A1",<br/>    value: 3.7V<br/>  }<br/>}
 end
 ```
 
@@ -503,7 +503,7 @@ Adafruit IO                          Device
 | Component | B2D Messages | D2B Messages | Direction |
 |-----------|-------------|--------------|-----------|
 | **digitalio** | add, remove, write | event | Input & Output |
-| **analogio** | add, remove | event | Input only |
+| **analogin** | add, remove | event | Input only |
 | **i2c** | bus_scan, device_add_replace, device_remove | bus_scanned, device_added_replaced, device_removed, device_event | Input & Output |
 | **display** | Add, Remove, Write | AddedOrReplaced, Removed | Output only |
 | **pwm** | add, remove, write | - | Output only |
@@ -723,7 +723,7 @@ sequenceDiagram
   - [display.md](display.md) - Display controllers with multiple interface types
   - [spi.md](spi.md) - Shared SPI bus and device pin configuration
   - [digitalio.md](digitalio.md) - Digital GPIO with B2D/D2B
-  - [analogio.md](analogio.md) - Analog input with B2D/D2B
+  - [analogin.md](analogin.md) - Analog input with B2D/D2B
   - [pwm.md](pwm.md), [servo.md](servo.md), [pixels.md](pixels.md), etc.
 
 - For hardware definitions:

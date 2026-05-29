@@ -6,8 +6,25 @@ import "i2c.proto";
 import "uart.proto";
 
 /*
- * B2D
- * The B2D message is sent from the broker to a device
+ * ErrorIOBan
+ * The ErrorIOBan message is sent from the broker to a device
+ * to inform the device that it has been banned from IO.
+ */
+message ErrorIOBan {
+}
+
+/*
+ * ErrorIOThrottle
+ * The ErrorIOThrottle message is sent from the broker to a device
+ * to inform the device that it has been rate-limited by IO.
+ */
+message ErrorIOThrottle {
+  uint32 timeout = 1;
+}
+
+/*
+ * ErrorB2D
+ * The ErrorB2D message is sent from the broker to a device
  * to inform the device of an error that has occurred
  * from IO.
  */

@@ -22,7 +22,7 @@ message Add {
 }
 
 /**
-* Remove removes an analog pin from the hardware.
+* Remove removes an expander from the hardware.
 */
 message Remove {
   i2c.Remove cfg_i2c = 1; /** I2C configuration for the expander to remove. */
