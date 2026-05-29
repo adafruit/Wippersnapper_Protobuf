@@ -85,8 +85,8 @@ message DisplayProperties {
 * EpdSpiConfig contains the configuration for SPI-based EPD displays.
 * Includes the SPI device config plus display-specific pins.
 */
-message EpdSpiConfig {
-  ws.spi.Config spi = 1; /** SPI bus, doesnt carry additional pin config. */
+message EpdSpiDescriptor {
+  Descriptor spi = 1; /** SPI bus, doesnt carry additional pin config. */
   string pin_dc       = 2; /** Pin for data/command */
   string pin_rst      = 3; /** Pin for reset */
   string pin_sram_cs  = 4; /** Pin for SRAM chip select (if required by the EPD). */
@@ -123,14 +123,14 @@ message CharLcdConfig {
  * TftSpiConfig contains the configuration for SPI TFT displays.
  * Includes the SPI device config plus display-specific pins.
  */
-message TftSpiConfig {
-  ws.spi.Config spi = 1; /** SPI bus */
+message TftSpiDescriptor {
+  Descriptor spi = 1; /** SPI bus */
   string pin_dc  = 2; /** Pin for data/command */
   string pin_rst = 3; /** Pin for reset */
 }
 
 /** TTL RGB666 pin configuration for parallel RGB displays. */
-message TtlRgb666PinConfig {
+message TtlRgb666PinDescriptor {
   string pin_r0 = 1; /** Pin for R0 */
   string pin_r1 = 2; /** Pin for R1 */
   string pin_r2 = 3; /** Pin for R2 */
@@ -143,7 +143,7 @@ message TtlRgb666PinConfig {
 }
 
 /** Intel 8080 8-bit parallel pin configuration for displays. */
-message I8080PinConfig {
+message I8080PinDescriptor {
   string pin_d0  = 1; /** Pin for D0 */
   string pin_d1  = 2; /** Pin for D1 */
   string pin_d2  = 3; /** Pin for D2 */
@@ -161,7 +161,7 @@ message I8080PinConfig {
  * DsiInterfaceConfig contains the minimal configuration for MIPI DSI displays.
  * DSI clock and data lanes are dedicated differential pads on the SoC, not GPIOs.
  */
-message DsiInterfaceConfig {
+message DsiInterfaceDescriptor {
   uint32 bus      = 1; /** DSI bus index (0 if only one DSI peripheral). */
   string pin_rst  = 2; /** GPIO pin for display panel reset. */
 }
@@ -204,25 +204,25 @@ message BacklightConfig {
  displays/epd/ssd1680/250x122/mono/    [2.13" e-ink featherwing which has a panel variant with the same driver and no distinguishing features rev2024]
  */
 message Add {
-  string name = 1; /** Component name for the display. */
-  DisplayClass type   = 2; /** The type of display */
-  string driver      = 3; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
-  string panel       = 4; /** Panel identifier for same driver with different configs */
+  string name       = 1; /** Component name for the display. */
+  DisplayClass type = 2; /** The type of display */
+  string driver     = 3; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
+  string panel      = 4; /** Panel identifier for same driver with different configs */
   oneof interface_type {
-    EpdSpiConfig spi_epd          = 5; /** SPI configuration for EPD. */
-    TftSpiConfig spi_tft          = 6; /** SPI configuration for TFT. */
-    ws.i2c.Descriptor i2c         = 7; /** I2C configuration for OLED/LED/LCD displays. */
-    TtlRgb666PinConfig ttl_rgb666 = 8; /** RGB666 configuration for Qualia. */
-    I8080PinConfig i8080          = 9; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
-    DsiInterfaceConfig dsi        = 10; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
+    EpdSpiDescriptor spi_epd          = 5; /** SPI configuration for EPD. */
+    TftSpiDescriptor spi_tft          = 6; /** SPI configuration for TFT. */
+    ws.i2c.Descriptor i2c             = 7; /** I2C configuration for OLED/LED/LCD displays. */
+    TtlRgb666PinDescriptor ttl_rgb666 = 8; /** RGB666 configuration for Qualia. */
+    I8080PinDescriptor i8080          = 9; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
+    DsiInterfaceDescriptor dsi        = 10; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
   }
   oneof config {
-    EPDConfig config_epd              = 11; /** Configuration for EPD. */
-    LedBackpackConfig config_led      = 14; /** Configuration for LED Backpack. */
-    CharLcdConfig config_char_lcd     = 15; /** Configuration for Character LCD. */
-    DisplayProperties config_display  = 18; /** Configuration for Generic display (w/h/r/txtSz). */
+    EPDConfig config_epd             = 11; /** Configuration for EPD. */
+    LedBackpackConfig config_led     = 14; /** Configuration for LED Backpack. */
+    CharLcdConfig config_char_lcd    = 15; /** Configuration for Character LCD. */
+    DisplayProperties config_display = 18; /** Configuration for Generic display (w/h/r/txtSz). */
   }
-  Write write             = 19; /** Optional initial write for a display, used during check-in. */
+  Write write               = 19; /** Optional initial write for a display, used during check-in. */
   BacklightConfig backlight = 20; /** Optional backlight configuration (shared across display types). */
 }
 
@@ -230,13 +230,15 @@ message Add {
  * Remove removes an existing display.
  */
 message Remove {
-  string name                   = 1; /** Component name for the display. */
-  EpdSpiConfig spi_epd          = 2; /** SPI configuration for EPD. */
-  TftSpiConfig spi_tft          = 3; /** SPI configuration for TFT. */
-  ws.i2c.Descriptor i2c         = 4; /** I2C configuration for OLED/LED/LCD displays. */
-  TtlRgb666PinConfig ttl_rgb666 = 5; /** RGB666 configuration for Qualia. */
-  I8080PinConfig i8080          = 6; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
-  DsiInterfaceConfig dsi        = 7; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
+  string name = 1; /** Component name for the display. */
+  oneof descriptor {
+    EpdSpiDescriptor spi_epd          = 2; /** SPI configuration for EPD. */
+    TftSpiDescriptor spi_tft          = 3; /** SPI configuration for TFT. */
+    ws.i2c.Descriptor i2c             = 4; /** I2C configuration for OLED/LED/LCD displays. */
+    TtlRgb666PinDescriptor ttl_rgb666 = 5; /** RGB666 configuration for Qualia. */
+    I8080PinDescriptor i8080          = 6; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
+    DsiInterfaceDescriptor dsi        = 7; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
+  }
 }
 
 /**
