@@ -86,7 +86,7 @@ message DisplayProperties {
 * Includes the SPI device config plus display-specific pins.
 */
 message EpdSpiDescriptor {
-  Descriptor spi = 1; /** SPI bus, doesnt carry additional pin config. */
+  ws.spi.Descriptor spi = 1; /** SPI bus, doesnt carry additional pin config. */
   string pin_dc       = 2; /** Pin for data/command */
   string pin_rst      = 3; /** Pin for reset */
   string pin_sram_cs  = 4; /** Pin for SRAM chip select (if required by the EPD). */
@@ -124,7 +124,7 @@ message CharLcdConfig {
  * Includes the SPI device config plus display-specific pins.
  */
 message TftSpiDescriptor {
-  Descriptor spi = 1; /** SPI bus */
+  ws.spi.Descriptor spi = 1; /** SPI bus */
   string pin_dc  = 2; /** Pin for data/command */
   string pin_rst = 3; /** Pin for reset */
 }
