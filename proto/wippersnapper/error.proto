@@ -88,7 +88,7 @@ message ComponentError {
   oneof descriptor {
     string pin           = 2; // digital, analog, pwm, servo, pixel, ds18x20, pixel
     i2c.Descriptor i2c   = 3; // i2c, gps, display, expander
-    spi.Config spi       = 4; // SPI displays
-    uart.Descriptor uart = 5; // uart
+    uart.Descriptor uart = 4; // uart
+    spi.Config spi       = 5; // SPI displays
   }
 }
