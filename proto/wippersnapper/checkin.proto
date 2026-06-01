@@ -6,6 +6,7 @@ package ws.checkin;
 import "analogin.proto";
 import "digitalio.proto";
 import "ds18x20.proto";
+import "expander.proto";
 import "i2c.proto";
 import "pixels.proto";
 import "pwm.proto";
@@ -76,6 +77,7 @@ message ComponentAdds {
   repeated ws.uart.Add uart_adds              = 7;
   repeated ws.i2c.Add i2c_adds                = 8;
   repeated ws.display.Add display_adds        = 9;
+  repeated ws.expander.Add expander_adds      = 10;
 }
 
 /**
