@@ -238,15 +238,15 @@ message Add {
  * Remove removes an existing display.
  */
 message Remove {
-  string name = 1;                   /** Component name for the display. */
-  InterfaceDescriptor descriptor = 3 /** unique descriptor */
+  string name = 1;                    /** Component name for the display. */
+  InterfaceDescriptor descriptor = 3; /** unique descriptor */
 }
 
 /**
  * Write writes content to a display.
  */
 message Write {
-  string name = 1;                   /** Component name for the display. */
-  InterfaceDescriptor descriptor = 2 /** unique descriptor */
-  string message = 3;                /** Monospace text message */
+  string name = 1;                    /** Component name for the display. */
+  InterfaceDescriptor descriptor = 2; /** unique descriptor */
+  string message = 3;                 /** Monospace text message */
 }
