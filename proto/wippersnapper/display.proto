@@ -180,9 +180,24 @@ message BacklightConfig {
 }
 
 
+message InterfaceDescriptor {
+  oneof descriptor {
+    EpdSpiDescriptor spi_epd          = 2; /** SPI configuration for EPD. */
+    TftSpiDescriptor spi_tft          = 3; /** SPI configuration for TFT. */
+    ws.i2c.Descriptor i2c             = 4; /** I2C configuration for OLED/LED/LCD displays. */
+    TtlRgb666PinDescriptor ttl_rgb666 = 5; /** RGB666 configuration for Qualia. */
+    I8080PinDescriptor i8080          = 6; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
+    DsiInterfaceDescriptor dsi        = 7; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
+  }
+}
+
+
 // ============================================================================
 // Request Messages
 // ============================================================================
+
+
+
 
 /**
  * Add adds a new display or replaces an existing one.
@@ -208,51 +223,30 @@ message Add {
   DisplayClass type = 2; /** The type of display */
   string driver     = 3; /** Driver name (e.g., "UC8179", "SSD1306", "HT16K33") */
   string panel      = 4; /** Panel identifier for same driver with different configs */
-  oneof interface_type {
-    EpdSpiDescriptor spi_epd          = 5; /** SPI configuration for EPD. */
-    TftSpiDescriptor spi_tft          = 6; /** SPI configuration for TFT. */
-    ws.i2c.Descriptor i2c             = 7; /** I2C configuration for OLED/LED/LCD displays. */
-    TtlRgb666PinDescriptor ttl_rgb666 = 8; /** RGB666 configuration for Qualia. */
-    I8080PinDescriptor i8080          = 9; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
-    DsiInterfaceDescriptor dsi        = 10; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
-  }
+  InterfaceDescriptor interface_type = 5; /** pin/data interface descriptor */
   oneof config {
-    EPDConfig config_epd             = 11; /** Configuration for EPD. */
-    LedBackpackConfig config_led     = 14; /** Configuration for LED Backpack. */
-    CharLcdConfig config_char_lcd    = 15; /** Configuration for Character LCD. */
-    DisplayProperties config_display = 18; /** Configuration for Generic display (w/h/r/txtSz). */
+    EPDConfig config_epd             = 6; /** Configuration for EPD. */
+    LedBackpackConfig config_led     = 7; /** Configuration for LED Backpack. */
+    CharLcdConfig config_char_lcd    = 8; /** Configuration for Character LCD. */
+    DisplayProperties config_display = 9; /** Configuration for Generic display (w/h/r/txtSz). */
   }
-  Write write               = 19; /** Optional initial write for a display, used during check-in. */
-  BacklightConfig backlight = 20; /** Optional backlight configuration (shared across display types). */
+  Write write               = 10; /** Optional initial write for a display, used during check-in. */
+  BacklightConfig backlight = 11; /** Optional backlight configuration (shared across display types). */
 }
 
 /**
  * Remove removes an existing display.
  */
 message Remove {
-  string name = 1; /** Component name for the display. */
-  oneof descriptor {
-    EpdSpiDescriptor spi_epd          = 2; /** SPI configuration for EPD. */
-    TftSpiDescriptor spi_tft          = 3; /** SPI configuration for TFT. */
-    ws.i2c.Descriptor i2c             = 4; /** I2C configuration for OLED/LED/LCD displays. */
-    TtlRgb666PinDescriptor ttl_rgb666 = 5; /** RGB666 configuration for Qualia. */
-    I8080PinDescriptor i8080          = 6; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
-    DsiInterfaceDescriptor dsi        = 7; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
-  }
+  string name = 1;                   /** Component name for the display. */
+  InterfaceDescriptor descriptor = 3 /** unique descriptor */
 }
 
 /**
  * Write writes content to a display.
  */
 message Write {
-  string name = 1; /** Component name for the display. */
-  string message = 2; /** Monospace text message */
-  oneof descriptor {
-    EpdSpiDescriptor spi_epd          = 3; /** SPI configuration for EPD. */
-    TftSpiDescriptor spi_tft          = 4; /** SPI configuration for TFT. */
-    ws.i2c.Descriptor i2c             = 5; /** I2C configuration for OLED/LED/LCD displays. */
-    TtlRgb666PinDescriptor ttl_rgb666 = 6; /** RGB666 configuration for Qualia. */
-    I8080PinDescriptor i8080          = 7; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
-    DsiInterfaceDescriptor dsi        = 8; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
-  }
+  string name = 1;                   /** Component name for the display. */
+  InterfaceDescriptor descriptor = 2 /** unique descriptor */
+  string message = 3;                /** Monospace text message */
 }
