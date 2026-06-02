@@ -247,4 +247,12 @@ message Remove {
 message Write {
   string name = 1; /** Component name for the display. */
   string message = 2; /** Monospace text message */
+  oneof descriptor {
+    EpdSpiDescriptor spi_epd          = 3; /** SPI configuration for EPD. */
+    TftSpiDescriptor spi_tft          = 4; /** SPI configuration for TFT. */
+    ws.i2c.Descriptor i2c             = 5; /** I2C configuration for OLED/LED/LCD displays. */
+    TtlRgb666PinDescriptor ttl_rgb666 = 6; /** RGB666 configuration for Qualia. */
+    I8080PinDescriptor i8080          = 7; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
+    DsiInterfaceDescriptor dsi        = 8; /** DSI configuration for MIPI DSI displays (e.g., ESP32-P4). */
+  }
 }
