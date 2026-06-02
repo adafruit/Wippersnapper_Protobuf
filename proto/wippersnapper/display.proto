@@ -179,7 +179,7 @@ message BacklightConfig {
    // comes via DigitalIO.Add.Write
 }
 
-
+/** Interface Descriptor: Pin or Data Bus info (unique descriptor) */
 message InterfaceDescriptor {
   oneof descriptor {
     EpdSpiDescriptor spi_epd          = 2; /** SPI configuration for EPD. */
