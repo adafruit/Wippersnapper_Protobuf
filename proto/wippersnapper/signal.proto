@@ -62,7 +62,7 @@ message DeviceToBroker {
     // Device Interactions
     ws.checkin.D2B checkin     = 20;
     ws.sleep.D2B sleep         = 21;
-    ws.deviceStats.D2B stats   = 22;
+    ws.devicestats.D2B stats   = 22;
 
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;

@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package ws.deviceStats;
+package ws.devicestats;
 
 /**
  * DeviceToBroker message envelope.
