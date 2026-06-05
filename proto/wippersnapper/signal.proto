@@ -5,6 +5,7 @@ package ws.signal;
 import "error.proto";
 import "expander.proto";
 import "checkin.proto";
+import "devicestats.proto";
 import "analogin.proto";
 import "digitalio.proto";
 import "display.proto";
@@ -61,7 +62,7 @@ message DeviceToBroker {
     // Device Interactions
     ws.checkin.D2B checkin     = 20;
     ws.sleep.D2B sleep         = 21;
-    ws.deviceStats stats       = 22;
+    ws.deviceStats.D2B stats   = 22;
 
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;
