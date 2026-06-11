@@ -1,0 +1,62 @@
+// SPDX-FileCopyrightText: 2026 Tyeth Gundry, Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.telemetry;
+import "sensor.proto";
+
+/**
+ * BrokerToDevice message envelope.
+ * Used to add, remove, or write to a telemetry component on the device.
+ */
+message B2D {
+  oneof payload {
+    Add    add    = 1;
+    Remove remove = 2;
+    Write  write  = 3;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope.
+ * Carries periodic readings or on-demand writes from a telemetry component.
+ */
+message D2B {
+  oneof payload {
+    Event event = 1;
+    Write write = 2;
+  }
+}
+
+/**
+ * Add instructs a device to create a telemetry component and start reporting it.
+ * Each telemetry metric (e.g. "rssi", "free_heap", "boot_count") is its own component instance.
+ */
+message Add {
+  string name   = 1; /** Unique name identifying this telemetry component (e.g. "rssi", "free_heap"). */
+  float  period = 2; /** Reporting interval, in seconds. */
+}
+
+/**
+ * Remove instructs a device to stop reporting and destroy a telemetry component.
+ */
+message Remove {
+  string name = 1; /** Name of the telemetry component to remove. */
+}
+
+/**
+ * Write pushes an explicit value for a telemetry component in either direction.
+ * B2D: broker writes a value to the device (e.g. a threshold or configuration).
+ * D2B: device pushes a value on-demand, outside the periodic Event cycle.
+ */
+message Write {
+  string          name  = 1; /** Name of the telemetry component. */
+  ws.sensor.Event value = 2; /** The value to write (float_value, bool_value, bytes_value, etc.). */
+}
+
+/**
+ * Event carries a periodic or triggered reading from a telemetry component.
+ */
+message Event {
+  string          name  = 1; /** Name of the telemetry component. */
+  ws.sensor.Event value = 2; /** The metric's value (float_value, bool_value, bytes_value, etc.). */
+}
