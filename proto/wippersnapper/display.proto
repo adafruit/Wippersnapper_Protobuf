@@ -249,4 +249,17 @@ message Write {
   string name = 1;                    /** Component name for the display. */
   InterfaceDescriptor descriptor = 2; /** unique descriptor */
   string message = 3;                 /** Monospace text message */
+  Canvas image = 4;                   /** Optional image canvas to write to the display. */
+}
+
+/**
+ * Canvas represents an image canvas to be used for a display.
+ * Allows chunked data transfer over MQTT due to payload size limits.
+ */
+message Canvas {
+  uint32 id = 1;          /** Unique ID for the image (prevents collisions). */
+  uint32 checksum = 2;    /** Checksum of the canvas data. */
+  uint32 chunk_id = 3;    /** Sequence ID for the canvas update. */
+  uint32 chunk_total = 4; /** Total number of sequences for the canvas update. */
+  bytes chunk_data = 5;   /** Raw pixel data for the canvas, partial. */
 }
