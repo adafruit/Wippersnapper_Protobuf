@@ -8,6 +8,7 @@ ws.display.DisplayProperties.status_bar         initializer:"true"
 ws.display.Add.driver                           max_size:32
 ws.display.Add.panel                            max_size:32
 ws.display.Add.name                             max_size:64
+ws.display.Add.pin_power                        max_size:6
 
 # Display-specific SPI pin constraints (shared SPI pins are in spi.options)
 ws.display.TftSpiDescriptor.pin_dc                  max_size:6
@@ -38,6 +39,8 @@ ws.display.I8080PinDescriptor.pin_d7                max_size:6
 ws.display.I8080PinDescriptor.pin_cs                max_size:6
 ws.display.I8080PinDescriptor.pin_dc                max_size:6
 ws.display.I8080PinDescriptor.pin_rst               max_size:6
+ws.display.I8080PinDescriptor.pin_wr                max_size:6
+ws.display.I8080PinDescriptor.pin_rd                max_size:6
 
 ws.display.DsiInterfaceDescriptor.pin_rst            max_size:6
 
