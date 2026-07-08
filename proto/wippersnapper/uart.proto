@@ -126,8 +126,8 @@ message DeviceConfig {
 * Descriptor represents a message that uniquely identifies a UART device.
 */
 message Descriptor {
-  uint32 pin_rx = 1; /** The pin on which to receive on. */
-  uint32 pin_tx = 2; /** The pin on which to transmit with. */
+  string pin_rx = 1; /** Name of the pin on which to receive on, e.g. "D16", "RX". */
+  string pin_tx = 2; /** Name of the pin on which to transmit with, e.g. "D17", "TX". */
 }
 
 /**

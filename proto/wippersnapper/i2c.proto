@@ -33,8 +33,8 @@ message D2B {
  * - when describing an entire mux (all channels), leave mux_channel blank
  */
 message AddressSpace {
-  uint32 pin_scl        = 1; /** Pin name for the I2C SCL line **/
-  uint32 pin_sda        = 2; /** Pin name for the I2C SDA line **/
+  string pin_scl        = 1; /** Pin name for the I2C SCL line, e.g. "D22", "A4", "SCL" **/
+  string pin_sda        = 2; /** Pin name for the I2C SDA line, e.g. "D21", "A5", "SDA" **/
   uint32 mux_address    = 3; /** Optional - I2C multiplexer address. **/
   uint32 mux_channel    = 4; /** Optional - I2C multiplexer channel, or blank for "all channels" **/
 }
