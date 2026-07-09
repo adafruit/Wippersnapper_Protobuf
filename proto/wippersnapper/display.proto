@@ -257,10 +257,9 @@ message Write {
  * Allows chunked data transfer over MQTT due to payload size limits.
  */
 message Canvas {
-  uint32 id = 1;          /** Unique ID for the image (prevents collisions). */
-  uint32 checksum = 2;    /** Checksum of the canvas data. */
-  uint32 total_size  = 3; /** Total size of the bitmap, in bytes. */
-  uint32 chunk_id = 4;    /** Sequence ID for the canvas update. */
-  uint32 chunk_total = 5; /** Total number of sequences for the canvas update. */
-  bytes chunk_data = 6;   /** Raw pixel data for the canvas, partial. */
+  uint32 checksum    = 1; /** Checksum of the canvas data. */
+  uint32 size        = 2; /** Total size of the bitmap, in bytes. */
+  uint32 chunk_id    = 3; /** Sequence ID for the canvas update. */
+  uint32 chunk_total = 4; /** Total number of sequences for the canvas update. */
+  bytes chunk_data   = 5; /** Raw pixel data for the canvas, partial. */
 }
