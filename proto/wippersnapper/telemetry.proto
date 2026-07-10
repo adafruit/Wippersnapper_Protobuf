@@ -6,24 +6,22 @@ import "sensor.proto";
 
 /**
  * BrokerToDevice message envelope.
- * Used to add, remove, or write to a telemetry component on the device.
+ * Used to add or remove a telemetry component on the device.
  */
 message B2D {
   oneof payload {
     Add    add    = 1;
     Remove remove = 2;
-    Write  write  = 3;
   }
 }
 
 /**
  * DeviceToBroker message envelope.
- * Carries periodic readings or on-demand writes from a telemetry component.
+ * Carries periodic or on-demand readings from a telemetry component.
  */
 message D2B {
   oneof payload {
     Event event = 1;
-    Write write = 2;
   }
 }
 
@@ -33,7 +31,7 @@ message D2B {
  */
 message Add {
   string name   = 1; /** Unique name identifying this telemetry component (e.g. "rssi", "free_heap"). */
-  float  period = 2; /** Reporting interval, in seconds. */
+  float  period = 2; /** Reporting interval, in seconds. Use 0 to only report at startup. */
 }
 
 /**
@@ -41,16 +39,6 @@ message Add {
  */
 message Remove {
   string name = 1; /** Name of the telemetry component to remove. */
-}
-
-/**
- * Write pushes an explicit value for a telemetry component in either direction.
- * B2D: broker writes a value to the device (e.g. a threshold or configuration).
- * D2B: device pushes a value on-demand, outside the periodic Event cycle.
- */
-message Write {
-  string          name  = 1; /** Name of the telemetry component. */
-  ws.sensor.Event value = 2; /** The value to write (float_value, bool_value, bytes_value, etc.). */
 }
 
 /**
