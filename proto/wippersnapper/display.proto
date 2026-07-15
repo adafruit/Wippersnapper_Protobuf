@@ -46,9 +46,12 @@ enum DisplayClass {
  * This affects how the display renders images.
  */
 enum EPDMode {
-  EPD_MODE_UNSPECIFIED = 0; /** Unspecified EPD mode */
-  EPD_MODE_GRAYSCALE4  = 1; /** Grayscale 4 EPD mode */
-  EPD_MODE_MONO        = 2; /** Monochrome EPD mode */
+  EPD_MODE_UNSPECIFIED  = 0; /** Unspecified EPD mode */
+  EPD_MODE_MONO         = 1; /** Monochrome */
+  EPD_MODE_TRICOLOR     = 2; /** Tricolor */
+  EPD_MODE_GRAYSCALE4   = 3; /** Grayscale4 */
+  EPD_MODE_MONO_PARTIAL = 4; /** Monochrome with partial update */
+  EPD_MODE_QUADCOLOR    = 5; /** Quad-color */
 }
 
 /**
