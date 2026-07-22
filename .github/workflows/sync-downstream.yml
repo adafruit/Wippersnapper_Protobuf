@@ -1,0 +1,243 @@
+# Dependabot-style sync of generated protobuf assets to downstream repos.
+#
+# Runs when a PR is merged (push) to `master` or `api-v2`. This file must exist
+# on BOTH branches with identical content — GitHub runs the copy that lives on
+# the branch that was pushed. Routing:
+#
+#   master (V1 protos):
+#     - Adafruit_Wippersnapper_Arduino, base `main`          -> src/wippersnapper/
+#     - protomq, base `main`                                 -> protobufs-v1/ + protobufs/
+#   api-v2 (V2 protos):
+#     - Adafruit_Wippersnapper_Arduino, base `migrate-api-v2` -> src/protos/
+#     - Adafruit_Wippersnapper_Python,  base `main`           -> src/Adafruit_WipperSnapper_Python/*/pb2.py
+#     - protomq, base `main`                                  -> protobufs-v1/ + protobufs/
+#
+# protomq always regenerates BOTH bundles (it checks out this repo at master
+# and api-v2 and runs `npm run import-protos`), so only genuinely changed
+# assets show up in its PR diff.
+#
+# Each target gets a single rolling PR (branch `protobuf-sync/...`) that is
+# force-updated on subsequent runs until merged, like dependabot.
+#
+# Required secret: WS_SYNC_PAT — a PAT with contents:write and
+# pull-requests:write on Adafruit_Wippersnapper_Arduino,
+# Adafruit_Wippersnapper_Python (private) and protomq.
+name: Sync Downstream Assets
+
+on:
+  push:
+    branches: [master, api-v2]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read # download-artifact within the run
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Tool Dependencies
+        uses: jdx/mise-action@v2
+
+      - name: Lib Dependencies
+        run: pip install protobuf 'setuptools==75.3.4'
+
+      - name: Build Arduino
+        run: bin/build-arduino
+
+      - name: Build Python
+        run: bin/build-python
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sync-arduino-wrapper
+          path: ./arduino_out
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sync-python-wrapper
+          path: ./python_out
+          if-no-files-found: error
+
+  sync-arduino:
+    needs: build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: protobuf-sync-arduino-${{ github.ref_name }}
+    env:
+      SOURCE_BRANCH: ${{ github.ref_name }}
+      TARGET_BRANCH: ${{ github.ref_name == 'api-v2' && 'migrate-api-v2' || 'main' }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: sync-arduino-wrapper
+          path: arduino_out
+
+      - uses: actions/checkout@v4
+        with:
+          repository: adafruit/Adafruit_Wippersnapper_Arduino
+          ref: ${{ env.TARGET_BRANCH }}
+          token: ${{ secrets.WS_SYNC_PAT }}
+          path: target-repo
+
+      - name: Copy generated wrappers
+        run: |
+          if [ "$SOURCE_BRANCH" = "api-v2" ]; then
+            # V2: flat *.pb.c/h files into src/protos/
+            rsync -a --delete \
+              --include='*.pb.c' --include='*.pb.h' --exclude='*' \
+              arduino_out/ target-repo/src/protos/
+          else
+            # V1: nested wippersnapper/<component>/v1/ tree into src/wippersnapper/
+            rsync -a --delete arduino_out/wippersnapper/ target-repo/src/wippersnapper/
+          fi
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.WS_SYNC_PAT }}
+          path: target-repo
+          branch: protobuf-sync/${{ github.ref_name }}
+          base: ${{ env.TARGET_BRANCH }}
+          delete-branch: true
+          commit-message: Update protobuf wrappers from Wippersnapper_Protobuf@${{ github.sha }}
+          title: Update protobuf assets (${{ github.ref_name }})
+          body: |
+            Auto-generated nanopb wrapper update.
+
+            Source: adafruit/Wippersnapper_Protobuf@${{ github.sha }} (branch `${{ github.ref_name }}`)
+            Workflow: [`sync-downstream.yml`](https://github.com/adafruit/Wippersnapper_Protobuf/blob/${{ github.ref_name }}/.github/workflows/sync-downstream.yml)
+
+            This PR is force-updated on every merge to `${{ github.ref_name }}` until it is merged.
+
+  sync-python:
+    needs: build
+    if: github.ref_name == 'api-v2'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: protobuf-sync-python
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: sync-python-wrapper
+          path: python_out
+
+      - uses: actions/checkout@v4
+        with:
+          repository: adafruit/Adafruit_Wippersnapper_Python
+          ref: main
+          token: ${{ secrets.WS_SYNC_PAT }}
+          path: target-repo
+
+      - name: Copy generated wrappers
+        run: |
+          # Repo convention: <component>_pb2.py lives at
+          # src/Adafruit_WipperSnapper_Python/<component>/pb2.py, alongside
+          # hand-written code — so only pb2.py files are replaced, never
+          # whole directories. nanopb_pb2.py sits at the package root.
+          pkg=target-repo/src/Adafruit_WipperSnapper_Python
+          shopt -s nullglob
+          for f in python_out/*_pb2.py; do
+            name="$(basename "$f" _pb2.py)"
+            if [ "$name" = "nanopb" ]; then
+              cp "$f" "$pkg/nanopb_pb2.py"
+            else
+              mkdir -p "$pkg/$name"
+              cp "$f" "$pkg/$name/pb2.py"
+            fi
+          done
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.WS_SYNC_PAT }}
+          path: target-repo
+          branch: protobuf-sync/${{ github.ref_name }}
+          base: main
+          delete-branch: true
+          commit-message: Update protobuf wrappers from Wippersnapper_Protobuf@${{ github.sha }}
+          title: Update protobuf assets (${{ github.ref_name }})
+          body: |
+            Auto-generated protobuf `pb2.py` update.
+
+            Source: adafruit/Wippersnapper_Protobuf@${{ github.sha }} (branch `${{ github.ref_name }}`)
+            Workflow: [`sync-downstream.yml`](https://github.com/adafruit/Wippersnapper_Protobuf/blob/${{ github.ref_name }}/.github/workflows/sync-downstream.yml)
+
+            Only `*/pb2.py` files are touched; hand-written module code is left
+            alone. If a proto was *removed* upstream its stale `pb2.py` must be
+            deleted manually.
+
+            This PR is force-updated on every merge to `${{ github.ref_name }}` until it is merged.
+
+  sync-protomq:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: protobuf-sync-protomq
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: adafruit/protomq
+          ref: main
+          token: ${{ secrets.WS_SYNC_PAT }}
+          path: protomq
+
+      - uses: actions/checkout@v4
+        with:
+          ref: api-v2
+          path: proto-v2
+
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          path: proto-v1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Import protos
+        working-directory: protomq
+        run: |
+          cat > .env.json <<EOF
+          {
+            "protobufSource": "${{ github.workspace }}/proto-v2/proto",
+            "protobufSourceV1": "${{ github.workspace }}/proto-v1/proto"
+          }
+          EOF
+          npm ci
+          npm run import-protos
+
+      - name: Track V2 bundle
+        working-directory: protomq
+        # protobufs/* is gitignored but protobufs.js hard-imports
+        # protobufs/bundle.json, so a fresh clone can't run without a local
+        # import. Un-ignore it so the V2 assets ship in the repo like
+        # protobufs-v1/ already does. Drop this step (and the gitignore line
+        # stays) if protomq maintainers prefer dev-time imports for V2.
+        run: sed -i '\|^protobufs/\*$|d' .gitignore
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.WS_SYNC_PAT }}
+          path: protomq
+          branch: protobuf-sync/assets
+          base: main
+          delete-branch: true
+          commit-message: Update protobuf assets from Wippersnapper_Protobuf@${{ github.sha }}
+          title: Update protobuf assets (V1 + V2)
+          body: |
+            Auto-generated proto/bundle update via `npm run import-protos`,
+            sourced from adafruit/Wippersnapper_Protobuf `master` (V1) and
+            `api-v2` (V2). Triggered by a merge to `${{ github.ref_name }}`
+            (adafruit/Wippersnapper_Protobuf@${{ github.sha }}).
+
+            Note: this also removes the `protobufs/*` gitignore entry so the
+            generated V2 bundle is committed — `protobufs.js` imports
+            `protobufs/bundle.json` at startup, which previously required a
+            local `npm run import-protos` on every fresh clone.
+
+            This PR is force-updated on every upstream merge until it is merged.
