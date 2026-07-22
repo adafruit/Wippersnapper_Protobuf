@@ -6,15 +6,18 @@
 #
 #   master (V1 protos):
 #     - Adafruit_Wippersnapper_Arduino, base `main`          -> src/wippersnapper/
-#     - protomq, base `main`                                 -> protobufs-v1/ + protobufs/
+#     - protomq, base `main`                                 -> protobufs-v1/
 #   api-v2 (V2 protos):
 #     - Adafruit_Wippersnapper_Arduino, base `migrate-api-v2` -> src/protos/
 #     - Adafruit_Wippersnapper_Python,  base `main`           -> src/Adafruit_WipperSnapper_Python/*/pb2.py
-#     - protomq, base `main`                                  -> protobufs-v1/ + protobufs/
+#     - protomq, base `main`                                  -> protobufs-v1/
 #
-# protomq always regenerates BOTH bundles (it checks out this repo at master
-# and api-v2 and runs `npm run import-protos`), so only genuinely changed
-# assets show up in its PR diff.
+# protomq regenerates BOTH bundles via `npm run import-protos` (the script
+# requires a V2 source, and this validates both proto sets still compile),
+# but only protobufs-v1/ is committed. protobufs/ (V2) is intentionally
+# gitignored — V2 protos are supplied by a submodule / local import, keeping
+# import-protos + build-web and simultaneous V1+V2 testing working — so a
+# V2-only change produces no protomq PR.
 #
 # Each target gets a single rolling PR (branch `protobuf-sync/...`) that is
 # force-updated on subsequent runs until merged, like dependabot.
@@ -134,23 +137,27 @@ jobs:
           token: ${{ secrets.WS_SYNC_PAT }}
           path: target-repo
 
-      - name: Copy generated wrappers
+      - name: Check for proto modules missing from update_protobuf.py
         run: |
-          # Repo convention: <component>_pb2.py lives at
-          # src/Adafruit_WipperSnapper_Python/<component>/pb2.py, alongside
-          # hand-written code — so only pb2.py files are replaced, never
-          # whole directories. nanopb_pb2.py sits at the package root.
-          pkg=target-repo/src/Adafruit_WipperSnapper_Python
+          # The repo's update script copies only the modules in its hardcoded
+          # PROTOBUF_FILES list. Fail loudly when a new proto appears upstream
+          # so the list gets extended instead of the module being silently
+          # dropped. (Removed protos already fail inside the script itself.)
+          unmapped=""
           shopt -s nullglob
           for f in python_out/*_pb2.py; do
             name="$(basename "$f" _pb2.py)"
-            if [ "$name" = "nanopb" ]; then
-              cp "$f" "$pkg/nanopb_pb2.py"
-            else
-              mkdir -p "$pkg/$name"
-              cp "$f" "$pkg/$name/pb2.py"
-            fi
+            [ "$name" = "nanopb" ] && continue
+            grep -q "\"$name\"" target-repo/update_protobuf.py || unmapped="$unmapped $name"
           done
+          if [ -n "$unmapped" ]; then
+            echo "::error::New proto module(s) not in update_protobuf.py PROTOBUF_FILES:$unmapped"
+            exit 1
+          fi
+
+      - name: Update pb2 files via repo script
+        working-directory: target-repo
+        run: python3 update_protobuf.py "$GITHUB_WORKSPACE/python_out"
 
       - uses: peter-evans/create-pull-request@v7
         with:
@@ -162,14 +169,16 @@ jobs:
           commit-message: Update protobuf wrappers from Wippersnapper_Protobuf@${{ github.sha }}
           title: Update protobuf assets (${{ github.ref_name }})
           body: |
-            Auto-generated protobuf `pb2.py` update.
+            Auto-generated protobuf `pb2.py` update, applied with the repo's
+            own `update_protobuf.py`.
 
             Source: adafruit/Wippersnapper_Protobuf@${{ github.sha }} (branch `${{ github.ref_name }}`)
             Workflow: [`sync-downstream.yml`](https://github.com/adafruit/Wippersnapper_Protobuf/blob/${{ github.ref_name }}/.github/workflows/sync-downstream.yml)
 
-            Only `*/pb2.py` files are touched; hand-written module code is left
-            alone. If a proto was *removed* upstream its stale `pb2.py` must be
-            deleted manually.
+            Only the modules in `update_protobuf.py`'s PROTOBUF_FILES list are
+            touched; hand-written module code is left alone. The sync job fails
+            (no PR update) if upstream adds a proto missing from that list or
+            removes one the list still expects.
 
             This PR is force-updated on every merge to `${{ github.ref_name }}` until it is merged.
 
@@ -211,15 +220,6 @@ jobs:
           npm ci
           npm run import-protos
 
-      - name: Track V2 bundle
-        working-directory: protomq
-        # protobufs/* is gitignored but protobufs.js hard-imports
-        # protobufs/bundle.json, so a fresh clone can't run without a local
-        # import. Un-ignore it so the V2 assets ship in the repo like
-        # protobufs-v1/ already does. Drop this step (and the gitignore line
-        # stays) if protomq maintainers prefer dev-time imports for V2.
-        run: sed -i '\|^protobufs/\*$|d' .gitignore
-
       - uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.WS_SYNC_PAT }}
@@ -227,17 +227,16 @@ jobs:
           branch: protobuf-sync/assets
           base: main
           delete-branch: true
-          commit-message: Update protobuf assets from Wippersnapper_Protobuf@${{ github.sha }}
-          title: Update protobuf assets (V1 + V2)
+          commit-message: Update V1 protobuf assets from Wippersnapper_Protobuf@${{ github.sha }}
+          title: Update V1 protobuf assets
           body: |
-            Auto-generated proto/bundle update via `npm run import-protos`,
-            sourced from adafruit/Wippersnapper_Protobuf `master` (V1) and
-            `api-v2` (V2). Triggered by a merge to `${{ github.ref_name }}`
+            Auto-generated `protobufs-v1/` update via `npm run import-protos`,
+            sourced from adafruit/Wippersnapper_Protobuf `master`. Triggered by
+            a merge to `${{ github.ref_name }}`
             (adafruit/Wippersnapper_Protobuf@${{ github.sha }}).
 
-            Note: this also removes the `protobufs/*` gitignore entry so the
-            generated V2 bundle is committed — `protobufs.js` imports
-            `protobufs/bundle.json` at startup, which previously required a
-            local `npm run import-protos` on every fresh clone.
+            The V2 bundle was regenerated in the same run (validating the
+            `api-v2` protos still compile) but is not committed — `protobufs/`
+            is intentionally gitignored and sourced separately.
 
             This PR is force-updated on every upstream merge until it is merged.
