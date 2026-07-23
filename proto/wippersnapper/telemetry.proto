@@ -5,6 +5,18 @@ package ws.telemetry;
 import "sensor.proto";
 
 /**
+ * Type enumerates the telemetry metrics a device can report.
+ * Each value identifies a distinct telemetry component. The broker fills the
+ * value and the device maps it directly to a reader, so no string name lookup
+ * or name->kind resolution is required on the device.
+ */
+enum Type {
+  TM_UNSPECIFIED = 0; /** Unspecified telemetry metric, error. */
+  TM_RSSI        = 1; /** Wi-Fi signal strength, in dBm (ws.sensor.Event.float_value, T_RAW). */
+  TM_BOOT_REASON = 2; /** Reset / boot reason string (ws.sensor.Event.bytes_value, T_BYTES). */
+}
+
+/**
  * BrokerToDevice message envelope.
  * Used to add or remove a telemetry component on the device.
  */
@@ -27,24 +39,24 @@ message D2B {
 
 /**
  * Add instructs a device to create a telemetry component and start reporting it.
- * Each telemetry metric (e.g. "rssi", "free_heap", "boot_count") is its own component instance.
+ * Each telemetry metric (e.g. TM_RSSI, TM_BOOT_REASON) is its own component instance.
  */
 message Add {
-  string name   = 1; /** Unique name identifying this telemetry component (e.g. "rssi", "free_heap"). */
-  float  period = 2; /** Reporting interval, in seconds. Use 0 to only report at startup. */
+  Type  type   = 1; /** Which telemetry metric to create and report. */
+  float period = 2; /** Reporting interval, in seconds. Use 0 to only report at startup. */
 }
 
 /**
  * Remove instructs a device to stop reporting and destroy a telemetry component.
  */
 message Remove {
-  string name = 1; /** Name of the telemetry component to remove. */
+  Type type = 1; /** Which telemetry metric to remove. */
 }
 
 /**
  * Event carries a periodic or triggered reading from a telemetry component.
  */
 message Event {
-  string          name  = 1; /** Name of the telemetry component. */
+  Type            type  = 1; /** Which telemetry metric this reading is for. */
   ws.sensor.Event value = 2; /** The metric's value (float_value, bool_value, bytes_value, etc.). */
 }
