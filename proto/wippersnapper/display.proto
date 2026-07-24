@@ -167,6 +167,8 @@ message I8080PinDescriptor {
   string pin_cs  = 9; /** Pin for chip select */
   string pin_dc  = 10; /** Pin for data/command */
   string pin_rst = 11; /** Pin for reset */
+  string pin_write = 12; /** Pin for the write strobe */
+  string pin_read  = 13; /** Pin for the read strobe (empty if not wired/used) */
 }
 
 /**
@@ -246,6 +248,9 @@ message Add {
   }
   Write write               = 10; /** Optional initial write for a display, used during check-in. */
   BacklightConfig backlight = 11; /** Optional backlight configuration (shared across display types). */
+  ws.digitalio.Add power    = 12; /** Optional prerequisite digital output (e.g. a panel power-enable
+                                      rail on boards like the LilyGo T-Display-S3), configured before
+                                      display init. Supports is_inverted + an initial write. */
 }
 
 /**

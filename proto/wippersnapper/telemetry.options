@@ -1,0 +1,5 @@
+# telemetry.options
+# Nanopb configuration for telemetry.proto
+ws.telemetry.Add.name           max_size:24
+ws.telemetry.Event.name         max_size:24
+ws.telemetry.Remove.name        max_size:24

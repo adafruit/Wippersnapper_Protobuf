@@ -1,4 +1,6 @@
 # i2c.options
+ws.i2c.AddressSpace.pin_scl max_size:32
+ws.i2c.AddressSpace.pin_sda max_size:32
 ws.i2c.Probed.results max_count:16
 ws.i2c.Add.name       max_size:16
 ws.i2c.Add.types      max_count:16

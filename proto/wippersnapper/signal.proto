@@ -5,6 +5,7 @@ package ws.signal;
 import "error.proto";
 import "expander.proto";
 import "checkin.proto";
+import "telemetry.proto";
 import "analogin.proto";
 import "digitalio.proto";
 import "display.proto";
@@ -44,7 +45,8 @@ message BrokerToDevice {
     ws.i2c.B2D i2c             = 38;
     ws.gps.B2D gps             = 39;
     ws.expander.B2D expander   = 40;
-    ws.display.D2B display     = 41;
+    ws.telemetry.B2D telemetry = 41;
+    ws.display.D2B display     = 42;
   }
 }
 
@@ -62,6 +64,7 @@ message DeviceToBroker {
     // Device Interactions
     ws.checkin.D2B checkin     = 20;
     ws.sleep.D2B sleep         = 21;
+    ws.telemetry.D2B telemetry = 22;
 
     // Component Interactions
     ws.digitalio.D2B digitalio = 30;

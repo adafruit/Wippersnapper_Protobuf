@@ -49,8 +49,8 @@ The v2 I2C API uses message envelopes for cleaner organization:
 
 All I2C operations use a `DeviceDescriptor` to identify devices:
 
-- **pin_scl** (`uint32`) - Pin number for the I2C SCL line
-- **pin_sda** (`uint32`) - Pin number for the I2C SDA line
+- **pin_scl** (`string`) - Pin name for the I2C SCL line, e.g. "D22", "SCL"
+- **pin_sda** (`string`) - Pin name for the I2C SDA line, e.g. "D21", "SDA"
 - **device_address** (`uint32`) - 7-bit I2C address
 - **mux_address** (`uint32`) - Optional I2C multiplexer address
 - **mux_channel** (`uint32`) - Optional I2C multiplexer channel
@@ -59,8 +59,8 @@ All I2C operations use a `DeviceDescriptor` to identify devices:
 
 The `Scan` message requests a bus scan:
 
-- **pin_scl** (`uint32`) - SCL pin number
-- **pin_sda** (`uint32`) - SDA pin number
+- **pin_scl** (`string`) - SCL pin name
+- **pin_sda** (`string`) - SDA pin name
 - **mux_address** (`uint32`) - Optional multiplexer address to scan through
 
 ## Sequence Diagrams

@@ -38,6 +38,8 @@ ws.display.I8080PinDescriptor.pin_d7                max_size:6
 ws.display.I8080PinDescriptor.pin_cs                max_size:6
 ws.display.I8080PinDescriptor.pin_dc                max_size:6
 ws.display.I8080PinDescriptor.pin_rst               max_size:6
+ws.display.I8080PinDescriptor.pin_write             max_size:6
+ws.display.I8080PinDescriptor.pin_read              max_size:6
 
 ws.display.DsiInterfaceDescriptor.pin_rst            max_size:6
 
