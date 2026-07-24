@@ -46,7 +46,6 @@ message BrokerToDevice {
     ws.gps.B2D gps             = 39;
     ws.expander.B2D expander   = 40;
     ws.telemetry.B2D telemetry = 41;
-    ws.display.D2B display     = 42;
   }
 }
 
