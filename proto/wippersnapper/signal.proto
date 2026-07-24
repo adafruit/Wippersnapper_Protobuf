@@ -44,6 +44,7 @@ message BrokerToDevice {
     ws.i2c.B2D i2c             = 38;
     ws.gps.B2D gps             = 39;
     ws.expander.B2D expander   = 40;
+    ws.display.D2B display     = 41;
   }
 }
 

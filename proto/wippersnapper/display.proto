@@ -24,6 +24,15 @@ message B2D {
   }
 }
 
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    WriteComplete write_complete = 1;
+  }
+}
+
 // ============================================================================
 // Enums
 // ============================================================================
@@ -267,4 +276,11 @@ message Canvas {
   uint32 chunk_id    = 3; /** Sequence ID for the canvas update. */
   uint32 chunk_total = 4; /** Total number of sequences for the canvas update. */
   bytes chunk_data   = 5; /** Raw pixel data for the canvas, partial. */
+}
+
+/**
+ * WriteComplete is sent from the broker to the device to indicate that the write operation has completed.
+ * Required for Canvas/Marquee writes, which may take multiple MQTT messages to complete.
+ */
+message WriteComplete {
 }
