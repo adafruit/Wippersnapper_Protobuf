@@ -1,5 +1,2 @@
 # telemetry.options
 # Nanopb configuration for telemetry.proto
-#
-# The telemetry metric is identified by the ws.telemetry.Type enum, which
-# encodes to a fixed-width varint, so no max_size overrides are required.

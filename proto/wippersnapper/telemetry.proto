@@ -6,9 +6,6 @@ import "sensor.proto";
 
 /**
  * Type enumerates the telemetry metrics a device can report.
- * Each value identifies a distinct telemetry component. The broker fills the
- * value and the device maps it directly to a reader, so no string name lookup
- * or name->kind resolution is required on the device.
  */
 enum Type {
   TM_UNSPECIFIED = 0; /** Unspecified telemetry metric, error. */
@@ -18,8 +15,8 @@ enum Type {
   TM_BOOT_COUNT  = 2; /** Number of boots since first power-on (ws.sensor.Event.float_value, T_RAW). */
 
   // Connectivity / latency metrics (10-19).
-  TM_RSSI        = 10; /** Wi-Fi signal strength, in dBm (ws.sensor.Event.float_value, T_RAW). */
-  TM_LATENCY_MS  = 11; /** Broker round-trip latency, in ms; e.g. Python SBC hosts (ws.sensor.Event.float_value, T_RAW). */
+  TM_RSSI    = 10; /** Wi-Fi signal strength, in dBm (ws.sensor.Event.float_value, T_RAW). */
+  TM_LATENCY = 11; /** Broker round-trip latency, in ms (ws.sensor.Event.float_value, T_RAW). */
 
   // Next metric category (memory / resource, etc.) begins at 20.
 }
