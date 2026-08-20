@@ -47,9 +47,9 @@ message D2B {
  * Each telemetry metric (e.g. TM_RSSI, TM_BOOT_REASON) is its own component instance.
  */
 message Add {
-  Type type       = 1; /** Which telemetry metric to create and report. */
-  float period    = 2; /** Reporting interval, in seconds. Use 0 to only report at startup. */
-  bool reportOnce = 3; /** If true, the device will only report this metric once, at startup. */
+  Type type        = 1; /** Which telemetry metric to create and report. */
+  float period     = 2; /** Reporting interval, in seconds. Use 0 to only report at startup. */
+  bool report_once = 3; /** If true, the device will only report this metric once, at startup. */
 }
 
 /**
