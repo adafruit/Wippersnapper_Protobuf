@@ -12,7 +12,6 @@ enum Type {
 
   // Boot / reset / report_once metrics (1-9).
   TM_BOOT_REASON = 1; /** Reset / boot reason string (ws.sensor.Event.bytes_value, T_BYTES). */
-  TM_BOOT_COUNT  = 2; /** Number of boots since first power-on (ws.sensor.Event.float_value, T_RAW). */
 
   // Net / Radio / regular reporting metrics (10-19).
   TM_RSSI    = 10; /** Wi-Fi signal strength, in dBm (ws.sensor.Event.float_value, T_RAW). */
