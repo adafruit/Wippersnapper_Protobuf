@@ -1,0 +1,65 @@
+// SPDX-FileCopyrightText: 2025 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.sleep;
+
+/**
+ * Device sleep modes
+ */
+enum SleepMode {
+  S_UNSPECIFIED = 0; /** Sleep mode is unspecified. */
+  S_LIGHT       = 1; /** Light sleep mode. */
+  S_DEEP        = 2; /** Deep sleep mode. */
+}
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    SleepConfig sleep_config = 1; /** Message containing required information to enter deep sleep. */
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Goodnight goodnight = 1; /** Goodnight event. */
+  }
+}
+
+/**
+ * Tell the broker the device is going to sleep now.
+ */
+message Goodnight {
+
+}
+
+/**
+ * Timer configuration for wakeup source.
+ */
+message TimerConfig {
+  uint32 duration = 1; /** How long the timer will run before triggering a wakeup, in seconds. */
+}
+
+/**
+ * Pin configuration for ext0 RTC wakeup source.
+ */
+message Ext0Config {
+  string pin_name = 1; /** Pin to wake up from. */
+  bool level      = 2; /** Input level which will trigger wakeup (False = low, True = high) */
+  bool pull       = 3; /** Enable internal pull-up or pull-down resistors */
+}
+
+/**
+ * Contains configuration to enter a sleep mode.
+ */
+message SleepConfig {
+  SleepMode mode      = 1; /** Sleep mode. */
+  oneof config {
+    TimerConfig timer = 2; /** Timer configuration for wakeup source. */
+    Ext0Config ext0   = 3; /** EXT0 RTC configuration for wakeup source. */
+  }
+}

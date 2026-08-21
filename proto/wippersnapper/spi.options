@@ -1,0 +1,6 @@
+# spi.options
+# Nanopb configuration for spi.proto
+ws.spi.Descriptor.pin_mosi                max_size:6
+ws.spi.Descriptor.pin_sck                 max_size:6
+ws.spi.Descriptor.pin_miso                max_size:6
+ws.spi.Descriptor.pin_cs                  max_size:6

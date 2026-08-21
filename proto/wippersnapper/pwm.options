@@ -1,0 +1,5 @@
+# pwm.options
+ws.pwm.Add.pin    max_size:16
+ws.pwm.Added.pin  max_size:16
+ws.pwm.Remove.pin max_size:16
+ws.pwm.Write.pin  max_size:16

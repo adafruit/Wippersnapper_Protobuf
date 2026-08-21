@@ -1,0 +1,17 @@
+{
+  "name": "wippersnapper_protobuf",
+  "version": "2.0.0",
+  "description": "javascript wrappers for wippersnapper protobufs",
+  "main": "bin/build-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adafruit/Wippersnapper_Protobuf.git"
+  },
+  "author": "Adafruit IO Team",
+  "license": "ISC",
+  "homepage": "https://github.com/adafruit/Wippersnapper_Protobuf#readme",
+  "devDependencies": {
+    "@bufbuild/buf": "^1.65.0",
+    "@bufbuild/protoc-gen-es": "^2.11.0"
+  }
+}

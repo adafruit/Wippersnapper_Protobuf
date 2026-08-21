@@ -15,16 +15,25 @@ jobs:
         uses: jdx/mise-action/@v2
 
       - name: Lib Dependencies
-        run: pip install protobuf setuptools
+        run: |
+          pip install protobuf
+          pip install setuptools==75.3.4
+          go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1
+          npm ci
 
       - name: Env Debug Info
+        continue-on-error: true # this is a purely informational step
         run: |
-          protoc --version
-          which protoc-gen-js
-          protolint -v
-          python --version
-          pip --version
-          pip list
+          protoc --version      # provided by: mise
+          protolint -v          # provided by: mise
+          go version            # provided by: mise
+          # this line doesn't work, not sure why
+          # which protoc-gen-doc  # provided by: go install ...
+          python --version      # provided by: mise
+          pip --version         # provided by: mise
+          pip list              # provided by: pip install ...
+          node --version        # provided by: mise
+          npm --version         # provided by: mise
 
       - name: Build JS
         run: bin/build-js
@@ -35,20 +44,32 @@ jobs:
       - name: Build Python
         run: bin/build-python
 
-      - uses: actions/upload-artifact@v4
-        with:
-            name: javascript-wrapper
-            path: ./js_out
-            if-no-files-found: error
+      - name: Build Documentation
+        run: bin/build-docs
 
       - uses: actions/upload-artifact@v4
         with:
-            name: arduino-wrapper
-            path: ./arduino_out
-            if-no-files-found: error
+          name: javascript-wrapper
+          path: ./js_out
+          if-no-files-found: error
 
       - uses: actions/upload-artifact@v4
         with:
-            name: python-wrapper
-            path: ./python_out
-            if-no-files-found: error
+          name: arduino-wrapper
+          path: ./arduino_out
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wrapper
+          path: ./python_out
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: ./docs_out
+          if-no-files-found: error
+
+      - name: Lint
+        run: bin/lint

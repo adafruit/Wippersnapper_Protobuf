@@ -1,0 +1,106 @@
+// SPDX-FileCopyrightText: 2021-2024 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.i2c;
+import "config.proto";
+import "sensor.proto";
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Probe probe   = 1;
+    Add add       = 2;
+    Remove remove = 3;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Probed probed = 1;
+    Event event   = 2;
+  }
+}
+
+/**
+ * Represents a separate I2C address space, either a Bus or a Mux.
+ * - when describing a bus, specify only the scl and sda pins
+ * - when describing a single mux channel, specify all fields
+ * - when describing an entire mux (all channels), leave mux_channel blank
+ */
+message AddressSpace {
+  string pin_scl        = 1; /** Pin name for the I2C SCL line, e.g. "D22", "A4", "SCL" **/
+  string pin_sda        = 2; /** Pin name for the I2C SDA line, e.g. "D21", "A5", "SDA" **/
+  uint32 mux_address    = 3; /** Optional - I2C multiplexer address. **/
+  uint32 mux_channel    = 4; /** Optional - I2C multiplexer channel, or blank for "all channels" **/
+}
+
+/**
+ * Request an I2C probe of one or more address spaces, optionally narrowing the
+ * scope of the probe to particular addresses.
+ * - a v1-style Scan would contain a single AddressSpace and no Address narrowing (scan all 112)
+ * - a v2-style Probe would contain every AddressSpace and a ist of specific Addresses to probe for
+ */
+message Probe {
+  repeated AddressSpace address_spaces = 1; /** One or more AddressSpaces, with no mux_channels **/
+  repeated uint32 addresses            = 2; /** Optional - Specific addresses to probe on each AddressSpace. Empty means "all address". **/
+}
+
+/**
+ * The results of scanning a particular AddressSpace.
+ * - success with found addresses populates the found_addresses list
+ * - an error is emitted through the error channel
+ */
+message AddressSpaceResult {
+  AddressSpace address_space       = 1; /** Which AddressSpace was probed **/
+  repeated uint32 found_addresses  = 2; /** List of I2C addresses where a device was detected, empty in case of error **/
+}
+
+/**
+ * Response from a Probe request, with results for every AddressSpace that either:
+ * - found 1 or more addresses
+ * - had an error
+ * (Successful probes that did not find anything do not need to be returned.)
+ */
+message Probed {
+  repeated AddressSpaceResult results = 1; /** A success or error result for each AddressSpace probed **/
+}
+
+/**
+* Descriptor represents a specific device's I2C address within an address space.
+*/
+message Descriptor {
+  AddressSpace address_space = 1; /** Which address space this device lives in, with mux_channel required. **/
+  uint32 address             = 2; /** Device's i2c address, either on the bus or the mux **/
+}
+
+/**
+* Add is a message for initializing (or replacing/updating) an i2c device.
+*/
+message Add {
+  Descriptor descriptor             = 1; /** The I2c device's address and metadata. */
+  string name                       = 2; /** The I2c device's name. **/
+  float period                      = 3; /** The desired period to update the I2c device's sensor(s), in seconds. */
+  map<uint32, ws.sensor.Type> types = 4; /** SI Types for each sensor on the I2c device. */
+  ws.config.Settings settings       = 5; /** Additional device configuration options. **/
+}
+
+/**
+* Remove represents a request to de-init an i2c device.
+*/
+message Remove {
+  Descriptor descriptor = 1; /** The I2c device's address and metadata. */
+}
+
+/**
+* Each Event represents data from **one** I2C device, containing one or more sensors.
+*/
+message Event {
+  Descriptor descriptor               = 1; /** The I2c device's address and metadata. */
+  map<uint32, ws.sensor.Event> events = 2; /** An event from each of the device's configured sensors. */
+}
+

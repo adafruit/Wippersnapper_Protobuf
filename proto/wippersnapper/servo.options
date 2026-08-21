@@ -1,0 +1,4 @@
+# servo.options
+ws.servo.Add.servo_pin    max_size:6
+ws.servo.Remove.servo_pin max_size:6
+ws.servo.Write.servo_pin  max_size:6

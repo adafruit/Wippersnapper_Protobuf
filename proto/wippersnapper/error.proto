@@ -1,0 +1,94 @@
+// SPDX-FileCopyrightText: 2025 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.error;
+import "i2c.proto";
+import "spi.proto";
+import "uart.proto";
+
+/*
+ * ErrorIOBan
+ * The ErrorIOBan message is sent from the broker to a device
+ * to inform the device that it has been banned from IO.
+ */
+message ErrorIOBan {
+}
+
+/*
+ * ErrorIOThrottle
+ * The ErrorIOThrottle message is sent from the broker to a device
+ * to inform the device that it has been rate-limited by IO.
+ */
+message ErrorIOThrottle {
+  uint32 timeout = 1;
+}
+
+/*
+ * ErrorB2D
+ * The ErrorB2D message is sent from the broker to a device
+ * to inform the device of an error that has occurred
+ * from IO.
+ */
+message B2D {
+  oneof payload {
+    BanError      ban      = 1;
+    ThrottleError throttle = 2;
+  }
+}
+
+/*
+ * D2B
+ * The D2B message is sent from a device to the broker
+ * to report an error that has occurred on a specific component.
+ * It contains a way to identify the specific component along
+ * with a human-readable error message.
+ */
+message D2B {
+  oneof payload {
+    DeviceError device       = 1;
+    ComponentError component = 2;
+  }
+}
+
+/*
+ * BanError
+ * The BanError message is sent from the broker to a device
+ * to inform the device that it has been banned from IO.
+ */
+message BanError {
+
+}
+
+/*
+ * ThrottleError
+ * The ThrottleError message is sent from the broker to a device
+ * to inform the device that it has been rate-limited by IO.
+ */
+message ThrottleError {
+  uint32 timeout = 1;  // how long to wait before trying again
+}
+
+/*
+ * DeviceError represents a device-level issue
+ */
+message DeviceError {
+  string message = 1; // explanation of the error
+  // optional info to associate the error with some part of the device
+  oneof descriptor {
+    i2c.AddressSpace i2c_bus = 2; // an i2c bus error
+  }
+}
+
+/*
+ * ComponentError represents a specific error about a specific component.
+ */
+message ComponentError {
+  string message         = 1; // explanation of the error
+  // just enough info to uniquely identify a component
+  oneof descriptor {
+    string pin           = 2; // digital, analog, pwm, servo, pixel, ds18x20, pixel
+    i2c.Descriptor i2c   = 3; // i2c, gps, display, expander
+    uart.Descriptor uart = 4; // uart
+    spi.Descriptor spi       = 5; // SPI displays
+  }
+}

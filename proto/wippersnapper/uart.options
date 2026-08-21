@@ -1,0 +1,7 @@
+# uart.options
+ws.uart.Add.name                 max_size: 32
+ws.uart.Descriptor.pin_rx        max_size: 32
+ws.uart.Descriptor.pin_tx        max_size: 32
+ws.uart.GenericInputConfig.types max_count:15
+ws.uart.PM25AQIConfig.types      max_count:15
+ws.uart.Event.events             max_count:15

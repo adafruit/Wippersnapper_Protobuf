@@ -1,0 +1,98 @@
+// SPDX-FileCopyrightText: 2026 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.gps;
+import "i2c.proto";
+import "uart.proto";
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Add add       = 1;
+    Remove remove = 2;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Event event = 1;
+  }
+}
+
+/**
+ * Add represents a message to add or replace a GPS device,
+ * including the transport and GPS-specific configuration options.
+ */
+message Add {
+  i2c.Add add_i2c   = 1;
+  uart.Add add_uart = 2;
+  Config config     = 3;
+}
+
+/**
+ * Remove represents a message to remove a GPS device,
+ * including the transport-specific options.
+ */
+message Remove {
+  i2c.Remove remove_i2c   = 1;
+  uart.Remove remove_uart = 2;
+}
+
+/**
+ * Config represents a message containing configuration data to set up and configure a GPS.
+ * Since GPS devices can output lots of data, this message allows users to select which data they want to receive
+ * and a resulting command string to initialize the GPS device with the selected options will be generated.
+ */
+message Config {
+  repeated string commands_pmtks = 1; /** List of PMTK commands in string format. **/
+  repeated bytes commands_ubxes  = 2; /** List of UBX commands in bytes format. **/
+  int32 period                   = 3; /** Desired period to poll the GPS module, in milliseconds */
+}
+
+/** DateTime represents the date and time information from a GPRMC/GPGGA string **/
+message DateTime {
+  int32 hour = 1; /** Hour of the day (0-23) **/
+  int32 minute = 2; /** Minute of the hour (0-59) **/
+  int32 seconds = 3; /** Seconds of the minute (0-59) **/
+  int32 milliseconds = 4; /** Milliseconds (0-999) **/
+  int32 day = 5; /** Day of the month (1-31) **/
+  int32 month = 6; /** Month of the year (1-12) **/
+  int32 year = 7; /** Year (e.g., 2023) **/
+}
+
+/** RMCResponse represents the response from a GPS RMC (Recommended Minimum Specific GPS/Transit Data) message. **/
+message RMCResponse {
+  DateTime datetime = 1; /** Date and time of the GPS data **/
+  string fix_status = 2; /** Fix status: 'A' for active, 'V' for void **/
+  string lat = 3; /** Latitude in decimal degrees **/
+  string lat_dir = 4; /** Latitude direction: 'North' or 'South' **/
+  string lon = 5; /** Longitude in decimal degrees **/
+  string lon_dir = 6; /** Longitude direction: 'East' or 'West' **/
+  string speed = 7; /** Speed, in knots **/
+  string angle = 8; /** Course/heading angle, in degrees **/
+}
+
+/** GPGGAResponse represents the response from a GPS GGA (Global Positioning System Fix Data) message. **/
+message GPGGAResponse {
+  DateTime datetime = 1; /** Date and time of the GPS data **/
+  string lat = 2; /** Latitude in decimal degrees **/
+  string lat_dir = 3; /** Latitude direction: 'N' or 'S' **/
+  string lon = 4; /** Longitude in decimal degrees **/
+  string lon_dir = 5; /** Longitude direction: 'E' or 'W' **/
+  int32 fix_quality = 6; /** Quality of the GPS fix (0-3) **/
+  int32 num_satellites = 7; /** Number of satellites in use **/
+  string hdop = 8; /** HDOP- horizontal dilution of precision **/
+  string altitude = 9; /** Altitude in meters above MSL **/
+  string geoid_height = 10; /** Diff between geoid height and WGS84 height **/
+}
+
+/** Event represents a collection of GPS event responses, including RMC and GGA data. **/
+message Event {
+  repeated RMCResponse rmc_responses = 1; /** List of RMC responses **/
+  repeated GPGGAResponse gga_responses  = 2; /** List of GGA responses **/
+}

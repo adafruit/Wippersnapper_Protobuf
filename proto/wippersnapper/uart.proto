@@ -1,0 +1,175 @@
+// SPDX-FileCopyrightText: 2023-2025 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.uart;
+import "sensor.proto";
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Add add       = 1;
+    Remove remove = 2;
+    Write write   = 3;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Event event = 1;
+  }
+}
+
+/**
+* PacketFormat contains the configuration data, parity, and stop bits for a serial port.
+*/
+enum PacketFormat {
+  PF_UNSPECIFIED = 0; // Format was not specified by IO.
+  PF_8N1 = 1; // 8 data bits, no parity, 1 stop bit
+  PF_5N1 = 2; // 5 data bits, no parity, 1 stop bit
+  PF_6N1 = 3; // 6 data bits, no parity, 1 stop bit
+  PF_7N1 = 4; // 7 data bits, no parity, 1 stop bit
+  PF_5N2 = 5; // 5 data bits, no parity, 2 stop bits
+  PF_6N2 = 6; // 6 data bits, no parity, 2 stop bits
+  PF_7N2 = 7; // 7 data bits, no parity, 2 stop bits
+  PF_8N2 = 8; // 8 data bits, no parity, 2 stop bits
+  PF_5E1 = 9; // 5 data bits, even parity, 1 stop bit
+  PF_6E1 = 10; // 6 data bits, even parity, 1 stop bit
+  PF_7E1 = 11; // 7 data bits, even parity, 1 stop bit
+  PF_8E1 = 12; // 8 data bits, even parity, 1 stop bit
+  PF_5E2 = 13; // 5 data bits, even parity, 2 stop bits
+  PF_6E2 = 14; // 6 data bits, even parity, 2 stop bits
+  PF_7E2 = 15; // 7 data bits, even parity, 2 stop bits
+  PF_8E2 = 16; // 8 data bits, even parity, 2 stop bits
+  PF_5O1 = 17; // 5 data bits, odd parity, 1 stop bit
+  PF_6O1 = 18; // 6 data bits, odd parity, 1 stop bit
+  PF_7O1 = 19; // 7 data bits, odd parity, 1 stop bit
+  PF_8O1 = 20; // 8 data bits, odd parity, 1 stop bit
+  PF_5O2 = 21; // 5 data bits, odd parity, 2 stop bits
+  PF_6O2 = 22; // 6 data bits, odd parity, 2 stop bits
+  PF_7O2 = 23; // 7 data bits, odd parity, 2 stop bits
+  PF_8O2 = 24; // 8 data bits, odd parity, 2 stop bits
+}
+
+/**
+* GenericDeviceLineEnding represents the line ending used by the device.
+* This is used to determine how to parse the incoming data.
+*/
+enum GenericDeviceLineEnding {
+  GDLE_UNSPECIFIED    = 0; /** Unspecified line ending. */
+  GDLE_LF             = 1; /** Newline (LF). */
+  GDLE_CRLF           = 2; /** Carriage return (CR) and newline (LF). */
+  GDLE_TIMEOUT_100MS  = 3; /** 100ms timeout - sensor returns every 100ms with a new Event. */
+  GDLE_TIMEOUT_1000MS = 4; /** 1s timeout - device returns every 1s with a new Event. */
+}
+
+/**
+* SerialConfig represents a message to configure the Serial port (eg: Hardware Serial, Software Serial).
+* This message is never sent directly, it is packed inside Add.
+*/
+message SerialConfig {
+  string name             = 1; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
+  uint32 baud_rate        = 2; /** The desired baudrate, in bits per second. */
+  PacketFormat format     = 3; /** The data, parity, and stop bits. */
+  float timeout           = 4; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
+  bool use_sw_serial      = 5; /** Use software serial instead of hardware serial. Defaults to False. */
+  bool sw_serial_invert   = 6; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+}
+
+/**
+* GenericInputConfig represents a message sent from IO to a device
+* containing device-specific configuration info for generic UART input devices.
+*/
+message GenericInputConfig {
+  string name                         = 1; /** The name used to identify the device. */
+  GenericDeviceLineEnding line_ending = 2; /** The line ending used by the device. */
+  int32 period                        = 3; /** The period to poll the device, in milliseconds */
+  repeated ws.sensor.Type types       = 4; /** SI Types for each sensor on the UART device. */
+}
+
+/**
+* TrinamicDynamixelConfig represents a message sent from IO to a device
+* containing device-specific configuration info for Trinamic stepper or DYNAMIXEL servos.
+*/
+message TrinamicDynamixelConfig {
+  uint32 id = 1; /** The device identifier, used for sub-addressing (multiple servos on one UART). */
+}
+
+/**
+* PM25AQIConfig represents a message sent from IO to a device
+* containing device-specific configuration info for PM2.5 AQI sensors.
+*/
+message PM25AQIConfig {
+  bool is_pm1006                  = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
+  int32 period                    = 2; /** The period to poll the device, in milliseconds */
+  repeated ws.sensor.Type types   = 3; /** SI Types for each sensor on the I2c device. */
+}
+
+/**
+* DeviceConfig represents a message sent from IO to a device
+* containing device-specific configuration data.
+* This message is never sent directly, it is packed inside Add.
+*/
+message DeviceConfig {
+  oneof config {
+    GenericInputConfig generic_input           = 1; /** OPTIONAL configuration for a generic UART input device. */
+    TrinamicDynamixelConfig trinamic_dynamixel = 2; /** OPTIONAL configuration for a Trinamic stepper or DYNAMIXEL servo. */
+    PM25AQIConfig pm25aqi                      = 3; /** OPTIONAL configuration for a PM2.5 AQI sensor. */
+  }
+}
+
+/**
+* Descriptor represents a message that uniquely identifies a UART device.
+*/
+message Descriptor {
+  string pin_rx = 1; /** Name of the pin on which to receive on, e.g. "D16", "RX". */
+  string pin_tx = 2; /** Name of the pin on which to transmit with, e.g. "D17", "TX". */
+}
+
+/**
+* UartAdd represents a message sent from IO to a device
+* to configure a device on a UART port for communication.
+*/
+message Add {
+  string name             = 1; /** The name of the device to add. */
+  Descriptor   descriptor = 2; /** The descriptor of the device to add. */
+  SerialConfig cfg_serial = 3; /** The Serial configuration. */
+  DeviceConfig cfg_device = 4; /** The device-specific configuration. */
+  Write write             = 5; /** Optional initial write for a UART device, used during check-in. */
+}
+
+/*
+* Remove represents a message sent from IO to a device
+* to detach a driver from the UART port and deinitialize the port.
+*/
+message Remove {
+  Descriptor descriptor = 1; /** The descriptor of the device to remove. */
+}
+
+/**
+* Write represents a message sent from IO to a device
+* to write data to a device.
+*/
+message Write {
+  Descriptor descriptor = 1; /** The descriptor of the device to write to. */
+  // Payload
+  oneof payload {
+    bytes bytes_data    = 2; /** Raw data to send to the device, corresponds to the Wiring API Serial.write(). */
+    string text_data    = 3; /** String to send to the device, corresponds to the Wiring API Serial.print(). */
+  }
+}
+
+/**
+* Event represents a message sent from a device to IO
+* containing data from a UART input device.
+* This message is sent from a device to IO to report sensor data.
+* It can contain multiple SensorEvents if the device has multiple sensors.
+*/
+message Event {
+  Descriptor descriptor           = 1; /** The descriptor of the device that generated the input event. */
+  repeated ws.sensor.Event events = 2; /** Required, but optionally repeated, SensorEvent from a sensor. */
+}

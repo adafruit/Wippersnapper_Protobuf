@@ -1,0 +1,76 @@
+// SPDX-FileCopyrightText: 2020-2025 Brent Rubell, Loren Norman for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.signal;
+import "error.proto";
+import "expander.proto";
+import "checkin.proto";
+import "telemetry.proto";
+import "analogin.proto";
+import "digitalio.proto";
+import "display.proto";
+import "ds18x20.proto";
+import "i2c.proto";
+import "pixels.proto";
+import "pwm.proto";
+import "servo.proto";
+import "sleep.proto";
+import "uart.proto";
+import "gps.proto";
+
+/*
+ * BrokerToDevice
+ * The BrokerToDevice message is sent from the broker to the device.
+ * It contains a oneof payload, which is a union of all the possible
+ * message-types that can be sent from the broker to a device.
+ */
+message BrokerToDevice {
+  oneof payload {
+    // System Events
+    ws.error.B2D error         = 10;
+
+    // Device Interactions
+    ws.checkin.B2D checkin     = 20;
+    ws.sleep.B2D sleep         = 21;
+
+    // Component Interactions
+    ws.digitalio.B2D digitalio = 30;
+    ws.analogin.B2D analogin   = 31;
+    ws.servo.B2D servo         = 32;
+    ws.pwm.B2D pwm             = 33;
+    ws.pixels.B2D pixels       = 34;
+    ws.ds18x20.B2D ds18x20     = 35;
+    ws.display.B2D display     = 36;
+    ws.uart.B2D uart           = 37;
+    ws.i2c.B2D i2c             = 38;
+    ws.gps.B2D gps             = 39;
+    ws.expander.B2D expander     = 40;
+    ws.telemetry.B2D telemetry   = 41;
+  }
+}
+
+/*
+ * DeviceToBroker
+ * The DeviceToBroker message is sent from the device to the broker.
+ * It contains a oneof payload, which is a union of all the possible
+ * message-types that can be sent from a device to the broker.
+ */
+message DeviceToBroker {
+  oneof payload {
+    // System Events
+    ws.error.D2B error         = 10;
+
+    // Device Interactions
+    ws.checkin.D2B checkin     = 20;
+    ws.sleep.D2B sleep         = 21;
+    ws.telemetry.D2B telemetry = 22;
+
+    // Component Interactions
+    ws.digitalio.D2B digitalio = 30;
+    ws.analogin.D2B analogin   = 31;
+    ws.ds18x20.D2B ds18x20     = 32;
+    ws.uart.D2B uart           = 33;
+    ws.i2c.D2B i2c             = 34;
+    ws.gps.D2B gps             = 35;
+  }
+}

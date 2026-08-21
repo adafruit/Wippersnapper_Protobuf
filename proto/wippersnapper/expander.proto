@@ -1,0 +1,29 @@
+// SPDX-FileCopyrightText: 2026 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.expander;
+import "i2c.proto";
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Add add       = 1;
+    Remove remove = 2;
+  }
+}
+
+/**
+* Add adds an expander to the hardware.
+*/
+message Add {
+  i2c.Add cfg_i2c = 1; /** I2C configuration for the expander. */
+}
+
+/**
+* Remove removes an expander from the hardware.
+*/
+message Remove {
+  i2c.Remove cfg_i2c = 1; /** I2C configuration for the expander to remove. */
+}

@@ -1,0 +1,51 @@
+// SPDX-FileCopyrightText: 2022-2023 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.pwm;
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Add add       = 1;
+    Remove remove = 2;
+    Write write   = 3;
+  }
+}
+
+/**
+* Add represents a  to a device to attach/allocate a PWM pin.
+* On ESP32 Arduino, this will "attach" a pin to a LEDC channel/timer group.
+* On non-ESP32 Arduino, this does nothing.
+*/
+message Add {
+  string pin       = 1; /** The pin to be attached. */
+  int32 frequency  = 2; /** PWM frequency of an analog pin, in Hz. **/
+  int32 resolution = 3; /** The resolution of an analog pin, in bits. **/
+  bool is_inverted = 4; /** If true, inverts the pin's output (active low). */
+  Write write      = 5; /** Optional initial write for a PWM pin, used during check-in. */
+}
+
+/**
+* Remove represents a  to stop PWM'ing and release the pin for re-use.
+* On ESP32, this will "detach" a pin from a LEDC channel/timer group.
+* On non-ESP32 Arduino, this calls digitalWrite(LOW) on the pin
+*/
+message Remove {
+  string pin = 1; /** The PWM pin to de-initialized. */
+}
+
+/**
+* Write represents writing to a pin either:
+* - a duty cycle (frequency is fixed) This is used for controlling LEDs.
+* - a frequency in Hz (duty cycle fixed at 50%) This is used for playing tones using a piezo buzzer or speaker
+* This value will be changed by the slider on Adafruit IO. 
+*/
+message Write {
+  string pin         = 1; /** The pin to write to. */
+  oneof payload {
+    int32 duty_cycle = 2; /** The desired duty cycle (range is from 0 to (2 ** duty_resolution)). **/
+    int32 frequency  = 3; /** The desired PWM frequency, in Hz. **/
+  }
+}

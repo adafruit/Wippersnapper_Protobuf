@@ -1,0 +1,53 @@
+# display.options
+# Nanopb configuration for display.proto
+
+# DisplayProperties
+ws.display.DisplayProperties.status_bar         initializer:"true"
+
+# Add message
+ws.display.Add.driver                           max_size:32
+ws.display.Add.panel                            max_size:32
+ws.display.Add.name                             max_size:64
+
+# Display-specific SPI pin constraints (shared SPI pins are in spi.options)
+ws.display.TftSpiDescriptor.pin_dc                  max_size:6
+ws.display.TftSpiDescriptor.pin_rst                 max_size:6
+ws.display.EpdSpiDescriptor.pin_dc                  max_size:6
+ws.display.EpdSpiDescriptor.pin_rst                 max_size:6
+ws.display.EpdSpiDescriptor.pin_sram_cs             max_size:6
+ws.display.EpdSpiDescriptor.pin_busy                max_size:6
+
+ws.display.TtlRgb666PinDescriptor.pin_r0            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_r1            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_r2            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_g0            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_g1            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_g2            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_b0            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_b1            max_size:6
+ws.display.TtlRgb666PinDescriptor.pin_b2            max_size:6
+
+ws.display.I8080PinDescriptor.pin_d0                max_size:6
+ws.display.I8080PinDescriptor.pin_d1                max_size:6
+ws.display.I8080PinDescriptor.pin_d2                max_size:6
+ws.display.I8080PinDescriptor.pin_d3                max_size:6
+ws.display.I8080PinDescriptor.pin_d4                max_size:6
+ws.display.I8080PinDescriptor.pin_d5                max_size:6
+ws.display.I8080PinDescriptor.pin_d6                max_size:6
+ws.display.I8080PinDescriptor.pin_d7                max_size:6
+ws.display.I8080PinDescriptor.pin_cs                max_size:6
+ws.display.I8080PinDescriptor.pin_dc                max_size:6
+ws.display.I8080PinDescriptor.pin_rst               max_size:6
+ws.display.I8080PinDescriptor.pin_write             max_size:6
+ws.display.I8080PinDescriptor.pin_read              max_size:6
+
+ws.display.DsiInterfaceDescriptor.pin_rst            max_size:6
+
+ws.display.BacklightConfig.pin                   max_size:6
+
+# Remove message
+ws.display.Remove.name                          max_size:64
+
+# Write message
+ws.display.Write.name                           max_size:64
+ws.display.Write.message                        max_size:1024

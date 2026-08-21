@@ -1,0 +1,90 @@
+// SPDX-FileCopyrightText: 2023 Brent Rubell, Loren Norman for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.sensor;
+
+/**
+* Type allows us determine what types of units the sensor uses, etc.
+*/
+enum Type {
+  T_UNSPECIFIED                    = 0;  /** Sensor value type which is not defined by this list, "Raw Value: {value}". */
+  T_ACCELEROMETER                  = 1;  /** Acceleration, in meter per second per second, "{value}m/s/s". */
+  T_MAGNETIC_FIELD                 = 2;  /** Magnetic field strength, in micro-Tesla, "{value}µT". */
+  T_ORIENTATION                    = 3;  /** Orientation angle, in degrees, "{value}°". */
+  T_GYROSCOPE                      = 4;  /** Angular rate, in radians per second, "{value}rad/s". */
+  T_LIGHT                          = 5;  /** Light-level, non-unit-specific (Or see: Lux), "Raw Value: {value}". */
+  T_PRESSURE                       = 6;  /** Pressure, in hectopascal, , "{value}hPa". */
+  T_PROXIMITY                      = 8;  /** Distance from an object to a sensor, non-unit-specific, "Raw Value: {value}". */
+  T_GRAVITY                        = 9;  /** Metres per second squared, "{value}m/s^2". */
+  T_LINEAR_ACCELERATION            = 10; /** Acceleration not including gravity, in meter per second squared, "{value}m/s^2". */
+  T_ROTATION_VECTOR                = 11; /** An angle in radians, "{value} rad".*/
+  T_RELATIVE_HUMIDITY              = 12; /** in percent (%), "{value}%". */
+  T_AMBIENT_TEMPERATURE            = 13; /** Temperature of the air around a sensor, in degrees Celsius, "{value}°C". */
+  T_OBJECT_TEMPERATURE             = 14; /** Temperature of the object a sensor is touching/pointed at, in degrees Celsius, "{value}°C".*/
+  T_VOLTAGE                        = 15; /** Volts, "{value}V". */
+  T_CURRENT                        = 16; /** Milliamps, "{value}mA". */
+  T_COLOR                          = 17; /** Values are in 0..1.0 RGB channel luminosity and 32-bit RGBA format. "Color: {value}".*/
+  T_RAW                            = 18; /** Sensor reads a value which is not defined by this list, "Raw Value: {value}".*/
+  T_PM10_STD                       = 19; /** Standard Particulate Matter 1.0, in ppm, "{value}ppm". */
+  T_PM25_STD                       = 20; /** Standard Particulate Matter 2.5, in ppm, "{value}ppm". */
+  T_PM100_STD                      = 21; /** Standard Particulate Matter 100, in ppm, "{value}ppm". */
+  T_PM10_ENV                       = 22; /** Environmental Particulate Matter 1.0, in ppm, "{value}ppm". */
+  T_PM25_ENV                       = 23; /** Environmental Particulate Matter 2.5, in ppm, "{value}ppm". */
+  T_PM100_ENV                      = 24; /** Environmental Particulate Matter 100, in ppm, "{value}ppm".*/
+  T_CO2                            = 25; /** Measured CO2, in ppm, "{value}ppm". */
+  T_GAS_RESISTANCE                 = 26; /** Proportional to the amount of VOC particles in the air, in Ohms, "{value}Ω". */
+  T_ALTITUDE                       = 27; /** Values are in meters (m), "${$v} m". */
+  T_LUX                            = 28; /** Light level, in lux, "Lux: {value}". */
+  T_ECO2                           = 29; /** equivalent/estimated CO2 in ppm (estimated from some other measurement), "{value}ppm". */
+  T_UNITLESS_PERCENT               = 30; /** Percentage, unit-less, "{value}%". */
+  T_AMBIENT_TEMPERATURE_FAHRENHEIT = 31; /** Temperature of the air around a sensor, in degrees Fahrenheit, "{value}°F". */
+  T_OBJECT_TEMPERATURE_FAHRENHEIT  = 32; /** Temperature of the object a sensor is touching/pointed at, in Fahrenheit, "{value}°F".*/
+  T_VOC_INDEX                      = 33; /** Values are an index from 1-500 with 100 being normal, "${$v} VOC".*/
+  T_NOX_INDEX                      = 34; /** Values are an index from 1-500 with 100 being normal, "${$v} NOx".*/
+  T_TVOC                           = 35; /** Values are in parts per billion (ppb), "${$v} ppb". */
+  T_BYTES                          = 36; /** Values are in bytes, "${$v} bytes". */
+  T_BOOLEAN                        = 37; /** Values are boolean, "Boolean Value: ${$v}". */
+}
+
+/**
+* Event  is used to return the sensor's value and type.
+*/
+message Event {
+  Type type                            = 1; /** The sensor's type and corresponding SI unit */
+  oneof value {
+    float float_value                  = 2; /** The sensor's value as a float. */
+    bytes bytes_value                  = 3; /** The sensor's value as a byte array. */
+    Event3DVector vector_value         = 4; /** The sensor's 3D vector values, as floats. */
+    EventOrientation orientation_value = 5; /** The sensor's orientation values, as floats. */
+    EventColor color_value             = 6; /** The sensor's color values, as floats. */
+    bool bool_value                    = 7; /** The sensor's value, as a boolean. */
+  }
+
+  /**
+  * EventColor is used to return a sensor's color values in RGB colorspace.
+  */
+  message EventColor {
+    float r = 1; /** The sensor's red channel value as a float. */
+    float g = 2; /** The sensor's green channel value as a float. */
+    float b = 3; /** The sensor's blue channel value as a float. */
+    float a = 4; /** The sensor's (optional) alpha channel value as a float. */
+  }
+
+  /**
+  * Event3DVector is used to return a sensor's 3D vector values.
+  */
+  message Event3DVector {
+    float x = 1; /** The sensor's x-axis value as a float. */
+    float y = 2; /** The sensor's y-axis value as a float. */
+    float z = 3; /** The sensor's z-axis value as a float. */
+  }
+
+  /**
+  * EventOrientation is used to return an orientation sensor's values.
+  */
+  message EventOrientation {
+    float roll    = 1; /** The sensor's roll value as a float. */
+    float pitch   = 2; /** The sensor's pitch value as a float. */
+    float heading = 3; /** The sensor's heading value as a float. */
+  }
+}

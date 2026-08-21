@@ -1,28 +1,25 @@
 #!/usr/bin/env bash
 
+# vars
+: ${OUT_PATH=js_out}
+
 # move to the directory above this file
 cd "${0%/*}/.."
 
-# vars
-OUT_PATH=js_out
+# include helpful functions
+source "./bin/functions.sh"
 
-# ensure output dir is present
-rm -rf $OUT_PATH
-mkdir $OUT_PATH
+clean
+activate_mise
+ensure protoc
 
-# activate mise
-eval "$(mise activate bash)"
+# put buf on the path and invoke protoc
+PATH=$PATH:$(pwd)/node_modules/.bin \
+    protoc \
+    --proto_path=./proto/wippersnapper \
+    --es_out $OUT_PATH \
+    --es_opt target=js+dts \
+    --es_opt js_import_style=legacy_commonjs \
+    ./proto/wippersnapper/*.proto
 
-# make sure necessary tools are present
-if ! which protoc &> /dev/null; then
-  echo "Could not find protoc on the path! Did you run 'mise install'?"
-  exit 1
-fi
-
-if ! which protoc-gen-js &> /dev/null; then
-  echo "Could not find protoc-gen-js on the path! Did you run 'mise install'?"
-  exit 1
-fi
-
-# invoke protoc with nanopb and wippersnapper proto files, the js plugin, and output location
-protoc --plugin=`which protoc-gen-js` --proto_path=./proto ./proto/nanopb/nanopb.proto ./proto/wippersnapper/*/*/*.proto --js_out=import_style=commonjs,binary:$OUT_PATH
+completed_message "JavaScript"

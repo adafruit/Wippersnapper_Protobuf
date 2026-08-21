@@ -1,0 +1,91 @@
+// SPDX-FileCopyrightText: 2020-2024 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+// Messages for registering new and existing hardware with the Adafruit.io MQTT Broker
+syntax = "proto3";
+package ws.checkin;
+import "analogin.proto";
+import "digitalio.proto";
+import "ds18x20.proto";
+import "expander.proto";
+import "i2c.proto";
+import "pixels.proto";
+import "pwm.proto";
+import "servo.proto";
+import "sleep.proto";
+import "uart.proto";
+import "display.proto";
+import "telemetry.proto";
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Response response = 1;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Request request   = 1;
+    Complete complete = 2;
+  }
+}
+
+/**
+* Request notifies the MQTT broker that a new/existing device is requesting to connect.
+*/
+message Request {
+  string hardware_uid     = 1; /** Identifies the client's physical hardware (board name + last 3 of NIC's MAC address). */
+  string firmware_version = 2; /** Identifies the client's firmware version. */
+}
+
+/**
+* Response sends a broker response to the client's Request.
+*/
+message Response {
+  Response response                 = 1; /** Specifies if the hardware definition exists on the server. */
+  int32 total_gpio_pins             = 2; /** Specifies the number of GPIO pins on the device. */
+  int32 total_analog_pins           = 3; /** Specifies the number of analog pins on the device. */
+  float reference_voltage           = 4; /** Specifies the hardware's default reference voltage. */
+  ComponentAdds component_adds      = 5; /** A list of components to set up and initialize during checkin */
+  bool sleep_enabled                = 6; /** Whether sleep is enabled or not, ignore config if not */
+  ws.sleep.SleepConfig sleep_config = 7; /** Sleep configuration for the device */
+
+  /**
+   * Response. Specifies if the hardware definiton is within the database.
+   */
+  enum Response {
+    R_UNSPECIFIED     = 0; /** Invalid response from server */
+    R_OK              = 1; /** Board found within definition index */
+    R_BOARD_NOT_FOUND = 2; /** Board not found in definition index */
+  }
+}
+
+/**
+ * Generic component add message, could contain any *Add message from component protos
+ */
+message ComponentAdds {
+  repeated ws.digitalio.Add digitalio_adds    = 1;
+  repeated ws.analogin.Add analogin_adds      = 2;
+  repeated ws.servo.Add servo_adds            = 3;
+  repeated ws.pwm.Add pwm_adds                = 4;
+  repeated ws.pixels.Add pixels_adds          = 5;
+  repeated ws.ds18x20.Add ds18x20_adds        = 6;
+  repeated ws.uart.Add uart_adds              = 7;
+  repeated ws.i2c.Add i2c_adds                = 8;
+  repeated ws.display.Add display_adds        = 9;
+  repeated ws.expander.Add expander_adds        = 10;
+  repeated ws.telemetry.Add telemetry_adds      = 11;
+}
+
+/**
+ * Signal to the broker that the device has completed the checkin
+ * routine and is now operating normally
+ */
+message Complete {
+
+}

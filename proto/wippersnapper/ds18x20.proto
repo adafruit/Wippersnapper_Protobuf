@@ -1,0 +1,53 @@
+// SPDX-FileCopyrightText: 2023 Brent Rubell for Adafruit Industries
+// SPDX-License-Identifier: MIT
+// WipperSnapper's Protobuf communication API for DS18X20 Maxim Temperature ICs
+syntax = "proto3";
+package ws.ds18x20;
+import "sensor.proto";
+
+/**
+ * BrokerToDevice message envelope
+ */
+message B2D {
+  oneof payload {
+    Add add       = 1;
+    Remove remove = 2;
+  }
+}
+
+/**
+ * DeviceToBroker message envelope
+ */
+message D2B {
+  oneof payload {
+    Event event = 1;
+  }
+}
+
+/**
+* Add represents a  to initialize
+* a DS18X20 Maxim temperature sensor, from the broker.
+* NOTE: This API currently only supports ONE device per OneWire bus.
+*/
+message Add {
+  string onewire_pin            = 1; /** The desired pin to use as a OneWire bus. */
+  int32 sensor_resolution       = 2; /** The desired sensor resolution (9, 10, 11, or 12 bits). */
+  float period                  = 3; /** The desired period to read the sensor, in seconds. */
+  repeated ws.sensor.Type types = 4; /** SI types used by the DS18x20 sensor. */
+}
+
+/**
+* Remove represents a  to de-initialize a DS18X20
+* Maxim temperature sensor, from the broker.
+*/
+message Remove {
+  string onewire_pin = 1; /** The desired onewire bus to de-initialize a DS18x sensor on and release. */
+}
+
+/**
+* Event event represents data from **one** DS18X20 sensor.
+*/
+message Event {
+  string onewire_pin              = 1; /** The desired pin to use as a OneWire bus. */
+  repeated ws.sensor.Event events = 2; /** The DS18X20's SensorEvent. */
+}
