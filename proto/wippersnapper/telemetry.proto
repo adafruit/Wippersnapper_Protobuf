@@ -10,15 +10,16 @@ import "sensor.proto";
 enum Type {
   TM_UNSPECIFIED = 0; /** Unspecified telemetry metric, error. */
 
-  // Boot / reset metrics (1-9).
+  // Boot / reset / report_once metrics (1-9).
   TM_BOOT_REASON = 1; /** Reset / boot reason string (ws.sensor.Event.bytes_value, T_BYTES). */
   TM_BOOT_COUNT  = 2; /** Number of boots since first power-on (ws.sensor.Event.float_value, T_RAW). */
 
-  // Connectivity / latency metrics (10-19).
+  // Net / Radio / regular reporting metrics (10-19).
   TM_RSSI    = 10; /** Wi-Fi signal strength, in dBm (ws.sensor.Event.float_value, T_RAW). */
   TM_LATENCY = 11; /** Broker round-trip latency, in ms (ws.sensor.Event.float_value, T_RAW). */
 
-  // Next metric category (memory / resource, etc.) begins at 20.
+  // Custom frequency reporting (memory / resource, etc.) begins at 20.
+  // e.g. send free mem after display graphics loaded
 }
 
 /**
