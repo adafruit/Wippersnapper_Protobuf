@@ -44,8 +44,8 @@ message BrokerToDevice {
     ws.uart.B2D uart           = 37;
     ws.i2c.B2D i2c             = 38;
     ws.gps.B2D gps             = 39;
-    ws.expander.B2D expander     = 40;
-    ws.telemetry.B2D telemetry   = 41;
+    ws.expander.B2D expander   = 40;
+    ws.telemetry.B2D telemetry = 41;
   }
 }
 
@@ -72,5 +72,6 @@ message DeviceToBroker {
     ws.uart.D2B uart           = 33;
     ws.i2c.D2B i2c             = 34;
     ws.gps.D2B gps             = 35;
+    ws.display.D2B display     = 36;
   }
 }
