@@ -37,7 +37,7 @@ enum SampleMode {
 */
 message Add {
   string pin_name              = 1; /** Name of the pin. */
-  float period                 = 2; /** Time between reads, in seconds. */
+  uint32 period                = 2; /** Time between reads, in seconds. */
   ws.sensor.Type read_mode     = 3; /** Desired read mode for the pin. */
   SampleMode sample_mode       = 4; /** Desired sample mode for the pin. */
   float ref_voltage            = 5; /** Reference voltage for the pin, in volts. */

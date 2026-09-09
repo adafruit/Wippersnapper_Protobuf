@@ -50,7 +50,7 @@ message Add {
   string pin_name          = 1; /** The pin's name. */
   Direction gpio_direction = 2; /** The pin's direction. */
   SampleMode sample_mode   = 3; /** Specifies the pin's sample mode. */
-  float period             = 4; /** Time between measurements in seconds, if MODE_TIMER. */
+  uint32 period            = 4; /** Time between measurements in seconds, if MODE_TIMER. */
   Write write              = 5; /** Optional initial value to write to the pin, used during check-in. */
   bool is_inverted         = 6; /** If true, inverts the pin's value (active low). */
 }
