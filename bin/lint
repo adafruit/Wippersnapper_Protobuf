@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# move to the directory above this file
+cd "${0%/*}/.."
+
+# activate mise
+eval "$(mise activate bash)"
+
+# make sure necessary tools are present
+if ! which protolint &> /dev/null; then
+  echo "Could not find protolint on the path! Did you run 'mise install'?"
+  exit 1
+fi
+
+# run the linter against our protobuf directory
+protolint proto/wippersnapper
+

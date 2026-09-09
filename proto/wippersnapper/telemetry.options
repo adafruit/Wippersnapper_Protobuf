@@ -1,0 +1,4 @@
+# telemetry.options
+# Nanopb configuration for telemetry.proto
+
+ws.telemetry.Add.report_once         initializer:"false"

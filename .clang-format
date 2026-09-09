@@ -1,0 +1,11 @@
+# .clang-format
+Language: Proto
+BasedOnStyle: Google
+
+ColumnLimit: 0
+AlignConsecutiveAssignments: Consecutive
+AlignTrailingComments:
+  Kind: Never
+SpacesBeforeTrailingComments: 1
+IndentWidth: 2
+UseTab: Never

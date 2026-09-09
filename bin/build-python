@@ -1,35 +1,25 @@
 #!/usr/bin/env bash
 
+# vars
+: ${OUT_PATH=python_out}
+
 # move to the directory above this file
 cd "${0%/*}/.."
 
-# vars
-OUT_PATH=python_out
+# include helpful functions
+source "./bin/functions.sh"
 
-# ensure output dir is present
-rm -rf $OUT_PATH
-mkdir $OUT_PATH
+clean
+activate_mise
+ensure protoc
+ensure python
+ensure_nanopb_submodule
 
-# activate mise
-eval "$(mise activate bash)"
+# invoke protoc for python output
+protoc \
+  --proto_path=./proto/wippersnapper \
+  --proto_path=nanopb/generator/proto \
+  --python_out=./$OUT_PATH \
+  ./proto/wippersnapper/*.proto
 
-# make sure necessary tools are present
-if ! which protoc &> /dev/null; then
-  echo "Could not find protoc on the path! Did you run 'mise install'?"
-  exit 1
-fi
-
-if ! which python &> /dev/null; then
-  echo "Could not find python on the path! Did you run 'mise install'?"
-  exit 1
-fi
-
-# check nanopb protos
-NANOPB_PROTO=nanopb/generator/proto
-if ! ls $NANOPB_PROTO &> /dev/null; then
-  printf "Did not find $NANOPB_PROTO in the repo! Did you init submodules?\ngit submodule init\ngit submodule update\n"
-  exit 1
-fi
-
-# invoke protoc with nanopb plugin, nanopb and wippersnapper proto files, and output location
-protoc --proto_path=$NANOPB_PROTO --proto_path=./proto ./proto/wippersnapper/*/*/*.proto --python_out=./$OUT_PATH
+completed_message "Python"

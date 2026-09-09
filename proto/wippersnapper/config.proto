@@ -1,0 +1,23 @@
+// SPDX-FileCopyrightText: 2026 Brent Rubell and Loren Norman for Adafruit Industries
+// SPDX-License-Identifier: MIT
+syntax = "proto3";
+package ws.config;
+
+/**
+ * Value represents a configuration value that, may be one of several types.
+ */
+message Value {
+  oneof value {
+    string str_value = 1;
+    int32 int_value = 2;
+    float float_value = 3;
+    bool bool_value = 4;
+  }
+}
+
+/**
+ * Settings represents a collection of configuration settings, where each setting is a key-value pair.
+ */
+message Settings {
+  map<string, Value> settings = 1;
+}

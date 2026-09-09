@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# vars
+: ${OUT_PATH=docs_out}
+
+# move to the directory above this file
+cd "${0%/*}/.."
+
+# include helpful functions
+source "./bin/functions.sh"
+
+clean
+activate_mise
+ensure go
+
+go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@v1.5.1
+
+# invoke protoc for docs output
+protoc \
+  --proto_path=./proto/wippersnapper \
+  ./proto/wippersnapper/*.proto \
+  --plugin=`which protoc-gen-doc` \
+  --doc_out=./$OUT_PATH \
+  --doc_opt=html,index.html
+
+completed_message "Documentation"
+
