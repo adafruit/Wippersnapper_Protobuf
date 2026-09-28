@@ -250,7 +250,7 @@ message Remove {
 
 /**
  * A combined Remove/Add message, for when a user updates an existing component. Allows the user to change
- * deep settings (like Descriptor or component name) and keeps protobuf traffic to a single message.
+ * deep settings and keeps protobuf traffic to a single message.
  */
 message Modify {
   Remove remove = 1; /** Specifies the old component/settings to remove */
