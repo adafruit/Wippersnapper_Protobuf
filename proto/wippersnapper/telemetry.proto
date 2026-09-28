@@ -23,12 +23,13 @@ enum Type {
 
 /**
  * BrokerToDevice message envelope.
- * Used to add or remove a telemetry component on the device.
+ * Used to add, remove, or modify a telemetry component on the device.
  */
 message B2D {
   oneof payload {
     Add    add    = 1;
     Remove remove = 2;
+    Modify modify = 3;
   }
 }
 
@@ -57,6 +58,15 @@ message Add {
  */
 message Remove {
   Type type = 1; /** Which telemetry metric to remove. */
+}
+
+/**
+ * A combined Remove/Add message, for when a user updates an existing component. Allows the user to change
+ * deep settings (like Descriptor or component name) and keeps protobuf traffic to a single message.
+ */
+message Modify {
+  Remove remove = 1; /** Specifies the old component/settings to remove */
+  Add add       = 2; /** Specifies the new component/settings to configure after removal */
 }
 
 /**
