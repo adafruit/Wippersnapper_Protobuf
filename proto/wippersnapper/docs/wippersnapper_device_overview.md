@@ -61,7 +61,7 @@ Boards->>IO: Board definition found
 
 IO->>IO: Load stored components<br/>for this device
 
-IO->>Device: ws.checkin.B2D {<br/>  response: {<br/>    response: R_OK,<br/>    total_gpio_pins: 20,<br/>    total_analog_pins: 6,<br/>    reference_voltage: 3.3,<br/>    component_adds: {<br/>      digitalio_adds: [{<br/>        pin_name: "D13",<br/>        gpio_direction: D_OUTPUT,<br/>        write: { pin_name: "D13", value: ... }<br/>      }],<br/>      i2c_adds: [{<br/>        device_description: {device_address: 0x77},<br/>        device_name: "bme280",<br/>        device_period: 60.0,<br/>        device_sensor_types: [TEMPERATURE, HUMIDITY]<br/>      }]<br/>    }<br/>  }<br/>}
+IO->>Device: ws.checkin.B2D {<br/>  response: {<br/>    response: R_OK,<br/>    total_gpio_pins: 20,<br/>    total_analog_pins: 6,<br/>    reference_voltage: 3.3,<br/>    component_adds: {<br/>      digitalio_adds: [{<br/>        pin: "D13",<br/>        gpio_direction: D_OUTPUT,<br/>        write: { pin: "D13", value: ... }<br/>      }],<br/>      i2c_adds: [{<br/>        device_description: {device_address: 0x77},<br/>        device_name: "bme280",<br/>        device_period: 60.0,<br/>        device_sensor_types: [TEMPERATURE, HUMIDITY]<br/>      }]<br/>    }<br/>  }<br/>}
 
 Note over Device: PHASE 2: Component Initialization
 
@@ -85,7 +85,7 @@ Note over Device,IO: PHASE 3: Normal Operation Begins
 
 Note over Device: User Action: Turn LED ON via Dashboard
 
-IO->>Device: ws.digitalio.B2D {<br/>  write: {<br/>    pin_name: "D13",<br/>    value: true<br/>  }<br/>}
+IO->>Device: ws.digitalio.B2D {<br/>  write: {<br/>    pin: "D13",<br/>    value: true<br/>  }<br/>}
 
 Device->>LED: Set pin HIGH
 Note over LED: LED turns ON ✓
@@ -96,7 +96,7 @@ Device->>IO: ws.i2c.D2B {<br/>  device_event: {<br/>    device_description: {dev
 
 Note over Device: User Action: Turn LED OFF (2nd Write)
 
-IO->>Device: ws.digitalio.B2D {<br/>  write: {<br/>    pin_name: "D13",<br/>    value: false<br/>  }<br/>}
+IO->>Device: ws.digitalio.B2D {<br/>  write: {<br/>    pin: "D13",<br/>    value: false<br/>  }<br/>}
 
 Device->>LED: Set pin LOW
 Note over LED: LED turns OFF ✓
@@ -191,13 +191,13 @@ component_adds: {
   // Digital Output: Status LED
   digitalio_adds: [
     {
-      pin_name: "D13",
+      pin: "D13",
       gpio_direction: D_OUTPUT,
-      write: { pin_name: "D13", value: ... }
+      write: { pin: "D13", value: ... }
     },
     // Digital Input: Button
     {
-      pin_name: "D2",
+      pin: "D2",
       gpio_direction: D_INPUT_PULL_UP,
       sample_mode: SM_EVENT
     }
@@ -206,7 +206,7 @@ component_adds: {
   // Analog Input: Battery Monitor
   analogio_adds: [
     {
-      pin_name: "A1",
+      pin: "A1",
       period: 30.0,
       read_mode: SENSOR_TYPE_VOLTAGE
     }
@@ -296,7 +296,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant GPIO as GPIO Controller
 
-IO->>Device: ws.digitalio.B2D {<br/>  add: {<br/>    pin_name: "D2",<br/>    gpio_direction: D_INPUT_PULL_UP,<br/>    sample_mode: SM_EVENT<br/>  }<br/>}
+IO->>Device: ws.digitalio.B2D {<br/>  add: {<br/>    pin: "D2",<br/>    gpio_direction: D_INPUT_PULL_UP,<br/>    sample_mode: SM_EVENT<br/>  }<br/>}
 
 Device->>GPIO: Configure pin D2 as input with pull-up
 GPIO->>GPIO: Attach interrupt for state changes
@@ -305,7 +305,7 @@ GPIO->>Device: Pin configured
 Note over Device: Button pressed/released
 GPIO->>Device: State change detected
 
-Device->>IO: ws.digitalio.D2B {<br/>  event: {<br/>    pin_name: "D2",<br/>    value: false<br/>  }<br/>}
+Device->>IO: ws.digitalio.D2B {<br/>  event: {<br/>    pin: "D2",<br/>    value: false<br/>  }<br/>}
 ```
 
 ### 5.3 Analog Input (Battery Monitor) - Runtime Addition
@@ -317,7 +317,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
-IO->>Device: ws.analogin.B2D {<br/>  add: {<br/>    pin_name: "A1",<br/>    period: 10.0,<br/>    read_mode: SENSOR_TYPE_VOLTAGE<br/>  }<br/>}
+IO->>Device: ws.analogin.B2D {<br/>  add: {<br/>    pin: "A1",<br/>    period: 10.0,<br/>    read_mode: SENSOR_TYPE_VOLTAGE<br/>  }<br/>}
 
 Device->>ADC: Configure A1 for voltage reading
 ADC->>Device: Pin configured, start polling
@@ -325,7 +325,7 @@ ADC->>Device: Pin configured, start polling
 loop Every 10 seconds
     ADC->>ADC: Read analog value
     ADC->>Device: Voltage reading
-    Device->>IO: ws.analogin.D2B {<br/>  event: {<br/>    pin_name: "A1",<br/>    value: 3.7V<br/>  }<br/>}
+    Device->>IO: ws.analogin.D2B {<br/>  event: {<br/>    pin: "A1",<br/>    value: 3.7V<br/>  }<br/>}
 end
 ```
 
@@ -486,12 +486,12 @@ message D2B {
 Adafruit IO                          Device
     |                                   |
     |  ws.digitalio.B2D                |
-    |    add: {pin_name: "D2", ...}    |
+    |    add: {pin: "D2", ...}    |
     | --------------------------------> |
     |                                   |  Configure hardware
     |                                   |
     |  ws.digitalio.D2B                |
-    |    event: {pin_name: "D2", ...}  |
+    |    event: {pin: "D2", ...}  |
     | <-------------------------------- |
     |                                   |
 ```

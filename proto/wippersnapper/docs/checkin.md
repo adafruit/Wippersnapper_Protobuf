@@ -126,7 +126,7 @@ ws.checkin.B2D {
     reference_voltage: 3.3,
     component_adds: {
       digitalio_adds: [
-        { pin_name: "D13", gpio_direction: D_OUTPUT, write: { pin_name: "D13", value: ... } }
+        { pin: "D13", gpio_direction: D_OUTPUT, write: { pin: "D13", value: ... } }
       ],
       i2c_adds: [
         { device_description: { device_address: 0x77 }, device_name: "bme280", device_period: 60.0 }

@@ -42,7 +42,7 @@ participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
 IO->>Device: ws.analogin.B2D { add }
-Note over IO,Device: pin_name: "A0"<br/>period: 2.0 (seconds)<br/>read_mode: SENSOR_TYPE_VOLTAGE
+Note over IO,Device: pin: "A0"<br/>period: 2.0 (seconds)<br/>read_mode: SENSOR_TYPE_VOLTAGE
 
 Device->>ADC: Configure analog pin
 ADC->>Device: Pin configured
@@ -51,7 +51,7 @@ loop Every period seconds
     ADC->>ADC: Read analog value
     ADC->>Device: Convert to requested mode
     Device->>IO: ws.analogin.D2B { event }
-    Note over Device,IO: pin_name: "A0"<br/>value: {type: VOLTAGE, value: 3.28}
+    Note over Device,IO: pin: "A0"<br/>value: {type: VOLTAGE, value: 3.28}
 end
 ```
 
@@ -65,7 +65,7 @@ participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
 IO->>Device: ws.analogin.B2D { remove }
-Note over IO,Device: pin_name: "A0"
+Note over IO,Device: pin: "A0"
 
 Device->>ADC: Stop reading pin
 ADC->>ADC: Release pin resources
@@ -80,7 +80,7 @@ Monitor a battery voltage with a voltage divider:
 
 ```
 ws.analogin.B2D { add: {
-  pin_name: "A1",
+  pin: "A1",
   period: 10.0,
   read_mode: SENSOR_TYPE_VOLTAGE
 }}
@@ -89,7 +89,7 @@ ws.analogin.B2D { add: {
 The device sends voltage readings:
 ```
 ws.analogin.D2B { event: {
-  pin_name: "A1",
+  pin: "A1",
   value: {type: VOLTAGE, value: 3.7}
 }}
 ```
@@ -102,7 +102,7 @@ Read a potentiometer as a percentage:
 
 ```
 ws.analogin.B2D { add: {
-  pin_name: "A2",
+  pin: "A2",
   period: 0.5,
   read_mode: SENSOR_TYPE_UNITLESS_PERCENT
 }}
@@ -111,7 +111,7 @@ ws.analogin.B2D { add: {
 Returns:
 ```
 ws.analogin.D2B { event: {
-  pin_name: "A2",
+  pin: "A2",
   value: {type: UNITLESS_PERCENT, value: 75.3}
 }}
 ```
@@ -122,7 +122,7 @@ Get raw ADC reading for custom calibration:
 
 ```
 ws.analogin.B2D { add: {
-  pin_name: "A3",
+  pin: "A3",
   period: 1.0,
   read_mode: SENSOR_TYPE_RAW
 }}
@@ -131,7 +131,7 @@ ws.analogin.B2D { add: {
 Returns:
 ```
 ws.analogin.D2B { event: {
-  pin_name: "A3",
+  pin: "A3",
   value: {type: RAW, value: 2048}
 }}
 ```
@@ -142,7 +142,7 @@ Monitor light levels with a photoresistor voltage divider:
 
 ```
 ws.analogin.B2D { add: {
-  pin_name: "A4",
+  pin: "A4",
   period: 5.0,
   read_mode: SENSOR_TYPE_VOLTAGE
 }}

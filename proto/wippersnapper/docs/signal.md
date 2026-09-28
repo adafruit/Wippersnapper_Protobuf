@@ -102,7 +102,7 @@ Note over IO Broker,Device: oneof payload contains response<br/>(e.g., event, ad
 sequenceDiagram
 autonumber
 
-IO Broker->>Device: BrokerToDevice { digitalio: B2D { write: { pin_name: "D13", value: ... } } }
+IO Broker->>Device: BrokerToDevice { digitalio: B2D { write: { pin: "D13", value: ... } } }
 Device->>Device: Route to digitalio handler
 Device->>Device: Set pin D13 HIGH
 ```
