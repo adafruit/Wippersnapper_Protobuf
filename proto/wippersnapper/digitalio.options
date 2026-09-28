@@ -1,5 +1,0 @@
-# digitalio.options
-ws.digitalio.Add.pin    max_size: 64
-ws.digitalio.Remove.pin max_size: 64
-ws.digitalio.Event.pin  max_size: 64
-ws.digitalio.Write.pin  max_size: 64

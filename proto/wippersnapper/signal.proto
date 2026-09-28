@@ -6,8 +6,8 @@ import "error.proto";
 import "expander.proto";
 import "checkin.proto";
 import "telemetry.proto";
-import "analogin.proto";
-import "digitalio.proto";
+import "analog.proto";
+import "digital.proto";
 import "display.proto";
 import "ds18x20.proto";
 import "i2c.proto";
@@ -34,8 +34,8 @@ message BrokerToDevice {
     ws.sleep.B2D sleep         = 21;
 
     // Component Interactions
-    ws.digitalio.B2D digitalio = 30;
-    ws.analogin.B2D analogin   = 31;
+    ws.digital.B2D digital     = 30;
+    ws.analog.B2D analog       = 31;
     ws.servo.B2D servo         = 32;
     ws.pwm.B2D pwm             = 33;
     ws.pixels.B2D pixels       = 34;
@@ -44,8 +44,8 @@ message BrokerToDevice {
     ws.uart.B2D uart           = 37;
     ws.i2c.B2D i2c             = 38;
     ws.gps.B2D gps             = 39;
-    ws.expander.B2D expander     = 40;
-    ws.telemetry.B2D telemetry   = 41;
+    ws.expander.B2D expander   = 40;
+    ws.telemetry.B2D telemetry = 41;
   }
 }
 
@@ -66,8 +66,8 @@ message DeviceToBroker {
     ws.telemetry.D2B telemetry = 22;
 
     // Component Interactions
-    ws.digitalio.D2B digitalio = 30;
-    ws.analogin.D2B analogin   = 31;
+    ws.digital.D2B digital     = 30;
+    ws.analog.D2B analog       = 31;
     ws.ds18x20.D2B ds18x20     = 32;
     ws.uart.D2B uart           = 33;
     ws.i2c.D2B i2c             = 34;

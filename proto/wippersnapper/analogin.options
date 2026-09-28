@@ -1,4 +1,0 @@
-# analogin.options
-ws.analogin.Add.pin    max_size: 64
-ws.analogin.Remove.pin max_size: 64
-ws.analogin.Event.pin  max_size: 64

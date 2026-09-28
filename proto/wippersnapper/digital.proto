@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2024 Brent Rubell, Loren Norman, Tyeth Gundry for Adafruit Industries
 // SPDX-License-Identifier: MIT
 syntax = "proto3";
-package ws.digitalio;
+package ws.digital;
 import "sensor.proto";
 
 /**

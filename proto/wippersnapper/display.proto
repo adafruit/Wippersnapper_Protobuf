@@ -6,7 +6,7 @@ syntax = "proto3";
 package ws.display;
 import "i2c.proto";
 import "pwm.proto";
-import "digitalio.proto";
+import "digital.proto";
 import "spi.proto";
 
 // ============================================================================
@@ -175,7 +175,7 @@ message DsiInterfaceDescriptor {
  */
 message BacklightConfig {
   oneof backlight_add {
-    ws.digitalio.Add backlight_digital = 1; /** Optional digital pin configuration for backlight control, used during check-in. */
+    ws.digital.Add backlight_digital   = 1; /** Optional digital pin configuration for backlight control, used during check-in. */
     ws.pwm.Add backlight_pwm           = 2; /** Optional PWM configuration for backlight control, used during check-in. */
   }
    // comes via DigitalIO.Add.Write
@@ -234,7 +234,7 @@ message Add {
   }
   Write write               = 10; /** Optional initial write for a display, used during check-in. */
   BacklightConfig backlight = 11; /** Optional backlight configuration (shared across display types). */
-  ws.digitalio.Add power    = 12; /** Optional prerequisite digital output (e.g. a panel power-enable
+  ws.digital.Add power      = 12; /** Optional prerequisite digital output (e.g. a panel power-enable
                                       rail on boards like the LilyGo T-Display-S3), configured before
                                       display init. Supports is_inverted + an initial write. */
 }

@@ -1,11 +1,11 @@
-# analogin.proto
+# analog.proto
 
 This file details the WipperSnapper messaging API for reading analog input pins (ADC - Analog to Digital Converter).
 
 ## WipperSnapper Components
 
-The following WipperSnapper components utilize `analogin.proto`:
-* [analogin](https://github.com/adafruit/Wippersnapper_Components/tree/main/components/analogin) - Analog input pins
+The following WipperSnapper components utilize `analog.proto`:
+* [analog](https://github.com/adafruit/Wippersnapper_Components/tree/main/components/analog) - Analog input pins
 
 ## Architecture Overview
 
@@ -41,7 +41,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
-IO->>Device: ws.analogin.B2D { add }
+IO->>Device: ws.analog.B2D { add }
 Note over IO,Device: pin: "A0"<br/>period: 2.0 (seconds)<br/>read_mode: SENSOR_TYPE_VOLTAGE
 
 Device->>ADC: Configure analog pin
@@ -50,7 +50,7 @@ ADC->>Device: Pin configured
 loop Every period seconds
     ADC->>ADC: Read analog value
     ADC->>Device: Convert to requested mode
-    Device->>IO: ws.analogin.D2B { event }
+    Device->>IO: ws.analog.D2B { event }
     Note over Device,IO: pin: "A0"<br/>value: {type: VOLTAGE, value: 3.28}
 end
 ```
@@ -64,7 +64,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
-IO->>Device: ws.analogin.B2D { remove }
+IO->>Device: ws.analog.B2D { remove }
 Note over IO,Device: pin: "A0"
 
 Device->>ADC: Stop reading pin
@@ -79,7 +79,7 @@ ADC->>Device: Pin removed
 Monitor a battery voltage with a voltage divider:
 
 ```
-ws.analogin.B2D { add: {
+ws.analog.B2D { add: {
   pin: "A1",
   period: 10.0,
   read_mode: SENSOR_TYPE_VOLTAGE
@@ -88,7 +88,7 @@ ws.analogin.B2D { add: {
 
 The device sends voltage readings:
 ```
-ws.analogin.D2B { event: {
+ws.analog.D2B { event: {
   pin: "A1",
   value: {type: VOLTAGE, value: 3.7}
 }}
@@ -101,7 +101,7 @@ ws.analogin.D2B { event: {
 Read a potentiometer as a percentage:
 
 ```
-ws.analogin.B2D { add: {
+ws.analog.B2D { add: {
   pin: "A2",
   period: 0.5,
   read_mode: SENSOR_TYPE_UNITLESS_PERCENT
@@ -110,7 +110,7 @@ ws.analogin.B2D { add: {
 
 Returns:
 ```
-ws.analogin.D2B { event: {
+ws.analog.D2B { event: {
   pin: "A2",
   value: {type: UNITLESS_PERCENT, value: 75.3}
 }}
@@ -121,7 +121,7 @@ ws.analogin.D2B { event: {
 Get raw ADC reading for custom calibration:
 
 ```
-ws.analogin.B2D { add: {
+ws.analog.B2D { add: {
   pin: "A3",
   period: 1.0,
   read_mode: SENSOR_TYPE_RAW
@@ -130,7 +130,7 @@ ws.analogin.B2D { add: {
 
 Returns:
 ```
-ws.analogin.D2B { event: {
+ws.analog.D2B { event: {
   pin: "A3",
   value: {type: RAW, value: 2048}
 }}
@@ -141,7 +141,7 @@ ws.analogin.D2B { event: {
 Monitor light levels with a photoresistor voltage divider:
 
 ```
-ws.analogin.B2D { add: {
+ws.analog.B2D { add: {
   pin: "A4",
   period: 5.0,
   read_mode: SENSOR_TYPE_VOLTAGE
@@ -277,7 +277,7 @@ Analog input is useful for:
 - **Signal monitoring:** Audio level, RF signal strength
 
 For digital control outputs, see:
-- [digitalio.proto](digitalio.md) - Digital GPIO
+- [digital.proto](digital.md) - Digital GPIO
 - [pwm.proto](pwm.md) - PWM for analog-like output
 
 ## Related Documentation

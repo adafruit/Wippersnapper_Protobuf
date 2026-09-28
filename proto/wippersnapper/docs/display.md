@@ -190,7 +190,7 @@ Backlight control is configured in the `Add` message via a `BacklightConfig` fie
 ```protobuf
 message BacklightConfig {
   oneof backlight_add {
-    ws.digitalio.Add backlight_digital = 1;  // On/off backlight via digital pin
+    ws.digital.Add backlight_digital = 1;  // On/off backlight via digital pin
     ws.pwm.Add backlight_pwm           = 2;  // Dimmable backlight via PWM pin
   }
 }
@@ -502,4 +502,4 @@ Choose text_size based on display resolution:
 - [spi.proto](spi.md) - Shared SPI bus and device pin configuration
 - [i2c.proto](i2c.md) - For I2C-connected display device descriptors
 - [pwm.proto](pwm.md) - For PWM backlight control
-- [digitalio.proto](digitalio.md) - For digital backlight control
+- [digital.proto](digital.md) - For digital backlight control

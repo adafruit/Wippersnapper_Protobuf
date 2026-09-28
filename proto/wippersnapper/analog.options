@@ -1,0 +1,4 @@
+# analog.options
+ws.analog.Add.pin    max_size: 64
+ws.analog.Remove.pin max_size: 64
+ws.analog.Event.pin  max_size: 64

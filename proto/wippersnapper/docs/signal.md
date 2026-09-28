@@ -21,8 +21,8 @@ message BrokerToDevice {
     ws.sleep.B2D sleep         = 21;
 
     // Component Interactions
-    ws.digitalio.B2D digitalio = 30;
-    ws.analogin.B2D analogin   = 31;
+    ws.digital.B2D digital = 30;
+    ws.analog.B2D analog   = 31;
     ws.servo.B2D servo         = 32;
     ws.pwm.B2D pwm             = 33;
     ws.pixels.B2D pixels       = 34;
@@ -50,8 +50,8 @@ message DeviceToBroker {
     ws.sleep.D2B sleep         = 21;
 
     // Component Interactions
-    ws.digitalio.D2B digitalio = 30;
-    ws.analogin.D2B analogin   = 31;
+    ws.digital.D2B digital = 30;
+    ws.analog.D2B analog   = 31;
     ws.servo.D2B servo         = 32;
     ws.pwm.D2B pwm             = 33;
     ws.pixels.D2B pixels       = 34;
@@ -87,7 +87,7 @@ sequenceDiagram
 autonumber
 
 IO Broker->>Device: ws.signal.BrokerToDevice
-Note over IO Broker,Device: oneof payload selects component<br/>(e.g., digitalio, i2c, display, ...)
+Note over IO Broker,Device: oneof payload selects component<br/>(e.g., digital, i2c, display, ...)
 
 Device->>Device: Route to component handler
 Device->>Device: Process component B2D message
@@ -102,8 +102,8 @@ Note over IO Broker,Device: oneof payload contains response<br/>(e.g., event, ad
 sequenceDiagram
 autonumber
 
-IO Broker->>Device: BrokerToDevice { digitalio: B2D { write: { pin: "D13", value: ... } } }
-Device->>Device: Route to digitalio handler
+IO Broker->>Device: BrokerToDevice { digital: B2D { write: { pin: "D13", value: ... } } }
+Device->>Device: Route to digital handler
 Device->>Device: Set pin D13 HIGH
 ```
 
@@ -114,8 +114,8 @@ Device->>Device: Set pin D13 HIGH
 | 10 | error | ws.error | B2D | D2B |
 | 20 | checkin | ws.checkin | Response | Request, Complete |
 | 21 | sleep | ws.sleep | - | - |
-| 30 | digitalio | ws.digitalio | Add, Remove, Write | Event |
-| 31 | analogin | ws.analogin | Add, Remove | Event |
+| 30 | digital | ws.digital | Add, Remove, Write | Event |
+| 31 | analog | ws.analog | Add, Remove | Event |
 | 32 | servo | ws.servo | Add, Remove, Write | Added |
 | 33 | pwm | ws.pwm | Add, Remove, Write | Added |
 | 34 | pixels | ws.pixels | Add, Remove, Write | Added |
@@ -129,4 +129,4 @@ Device->>Device: Set pin D13 HIGH
 
 - [checkin.md](checkin.md) - Device registration and component initialization
 - [wippersnapper_device_overview.md](wippersnapper_device_overview.md) - Complete device flow
-- Individual component docs: [digitalio](digitalio.md), [analogin](analogin.md), [i2c](i2c.md), [display](display.md), [pwm](pwm.md), [servo](servo.md), [pixels](pixels.md), [ds18x20](ds18x20.md), [uart](uart.md)
+- Individual component docs: [digital](digital.md), [analog](analog.md), [i2c](i2c.md), [display](display.md), [pwm](pwm.md), [servo](servo.md), [pixels](pixels.md), [ds18x20](ds18x20.md), [uart](uart.md)
