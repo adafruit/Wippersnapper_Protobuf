@@ -1,0 +1,5 @@
+# digital.options
+ws.digital.Add.pin    max_size: 64
+ws.digital.Remove.pin max_size: 64
+ws.digital.Event.pin  max_size: 64
+ws.digital.Write.pin  max_size: 64

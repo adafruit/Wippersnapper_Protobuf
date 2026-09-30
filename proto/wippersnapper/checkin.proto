@@ -3,8 +3,8 @@
 // Messages for registering new and existing hardware with the Adafruit.io MQTT Broker
 syntax = "proto3";
 package ws.checkin;
-import "analogin.proto";
-import "digitalio.proto";
+import "analog.proto";
+import "digital.proto";
 import "ds18x20.proto";
 import "expander.proto";
 import "i2c.proto";
@@ -69,17 +69,17 @@ message Response {
  * Generic component add message, could contain any *Add message from component protos
  */
 message ComponentAdds {
-  repeated ws.digitalio.Add digitalio_adds    = 1;
-  repeated ws.analogin.Add analogin_adds      = 2;
-  repeated ws.servo.Add servo_adds            = 3;
-  repeated ws.pwm.Add pwm_adds                = 4;
-  repeated ws.pixels.Add pixels_adds          = 5;
-  repeated ws.ds18x20.Add ds18x20_adds        = 6;
-  repeated ws.uart.Add uart_adds              = 7;
-  repeated ws.i2c.Add i2c_adds                = 8;
-  repeated ws.display.Add display_adds        = 9;
-  repeated ws.expander.Add expander_adds        = 10;
-  repeated ws.telemetry.Add telemetry_adds      = 11;
+  repeated ws.digital.Add digital_adds     = 1;
+  repeated ws.analog.Add analog_adds       = 2;
+  repeated ws.servo.Add servo_adds         = 3;
+  repeated ws.pwm.Add pwm_adds             = 4;
+  repeated ws.pixels.Add pixels_adds       = 5;
+  repeated ws.ds18x20.Add ds18x20_adds     = 6;
+  repeated ws.uart.Add uart_adds           = 7;
+  repeated ws.i2c.Add i2c_adds             = 8;
+  repeated ws.display.Add display_adds     = 9;
+  repeated ws.expander.Add expander_adds   = 10;
+  repeated ws.telemetry.Add telemetry_adds = 11;
 }
 
 /**

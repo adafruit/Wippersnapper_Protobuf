@@ -48,7 +48,7 @@ message TimerConfig {
  * Pin configuration for ext0 RTC wakeup source.
  */
 message Ext0Config {
-  string pin_name = 1; /** Pin to wake up from. */
+  string pin      = 1; /** Pin to wake up from. */
   bool level      = 2; /** Input level which will trigger wakeup (False = low, True = high) */
   bool pull       = 3; /** Enable internal pull-up or pull-down resistors */
 }

@@ -1,11 +1,11 @@
 
-# digitalio.proto
+# digital.proto
 
 This file details the WipperSnapper messaging API for interfacing with digital I/O pins (GPIO).
 
 ## WipperSnapper Components
 
-The following WipperSnapper components utilize `digitalio.proto`:
+The following WipperSnapper components utilize `digital.proto`:
 * [pin](https://github.com/adafruit/Wippersnapper_Components/tree/main/components/pin)
 
 ## Architecture Overview
@@ -61,8 +61,8 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant GPIO as GPIO Controller
 
-IO->>Device: ws.digitalio.B2D { add }
-Note over IO,Device: pin_name: "D13"<br/>gpio_direction: D_INPUT<br/>sample_mode: SM_TIMER<br/>period: 1.0 (seconds)
+IO->>Device: ws.digital.B2D { add }
+Note over IO,Device: pin: "D13"<br/>gpio_direction: D_INPUT<br/>sample_mode: SM_TIMER<br/>period: 1.0 (seconds)
 
 Device->>GPIO: Configure pin as input
 GPIO->>Device: Pin configured
@@ -70,15 +70,15 @@ GPIO->>Device: Pin configured
 alt Sample Mode: SM_TIMER
     loop Every period seconds
         GPIO->>Device: Read pin value
-        Device->>IO: ws.digitalio.D2B { event }
-        Note over Device,IO: pin_name: "D13"<br/>value: {type: RAW, value: 1}
+        Device->>IO: ws.digital.D2B { event }
+        Note over Device,IO: pin: "D13"<br/>value: {type: RAW, value: 1}
     end
 else Sample Mode: SM_EVENT
     GPIO->>GPIO: Attach interrupt
     Note over GPIO: Trigger on pin change
     GPIO->>Device: Pin value changed
-    Device->>IO: ws.digitalio.D2B { event }
-    Note over Device,IO: pin_name: "D13"<br/>value: {type: RAW, value: 0}
+    Device->>IO: ws.digital.D2B { event }
+    Note over Device,IO: pin: "D13"<br/>value: {type: RAW, value: 0}
 end
 ```
 
@@ -91,8 +91,8 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant GPIO as GPIO Controller
 
-IO->>Device: ws.digitalio.B2D { add }
-Note over IO,Device: pin_name: "D12"<br/>gpio_direction: D_OUTPUT<br/>write: { pin_name: "D12", value: ... }
+IO->>Device: ws.digital.B2D { add }
+Note over IO,Device: pin: "D12"<br/>gpio_direction: D_OUTPUT<br/>write: { pin: "D12", value: ... }
 
 Device->>GPIO: Configure pin as output
 GPIO->>GPIO: Set initial value
@@ -109,8 +109,8 @@ participant Device as WipperSnapper Device
 participant GPIO as GPIO Controller
 participant LED as Physical Output
 
-IO->>Device: ws.digitalio.B2D { write }
-Note over IO,Device: pin_name: "D12"<br/>value: {type: RAW, value: 1}
+IO->>Device: ws.digital.B2D { write }
+Note over IO,Device: pin: "D12"<br/>value: {type: RAW, value: 1}
 
 Device->>GPIO: Set pin HIGH
 GPIO->>LED: Output voltage HIGH
@@ -125,8 +125,8 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant GPIO as GPIO Controller
 
-IO->>Device: ws.digitalio.B2D { remove }
-Note over IO,Device: pin_name: "D13"
+IO->>Device: ws.digital.B2D { remove }
+Note over IO,Device: pin: "D13"
 
 Device->>GPIO: Detach interrupt (if SM_EVENT)
 GPIO->>GPIO: Release pin resources
@@ -140,8 +140,8 @@ GPIO->>Device: Pin removed
 Monitor a button that triggers on press/release:
 
 ```
-ws.digitalio.B2D { add: {
-  pin_name: "D2",
+ws.digital.B2D { add: {
+  pin: "D2",
   gpio_direction: D_INPUT_PULL_UP,
   sample_mode: SM_EVENT
 }}
@@ -149,8 +149,8 @@ ws.digitalio.B2D { add: {
 
 When the button is pressed or released, the device sends:
 ```
-ws.digitalio.D2B { event: {
-  pin_name: "D2",
+ws.digital.D2B { event: {
+  pin: "D2",
   value: {type: RAW, value: 0}
 }}
 ```
@@ -165,17 +165,17 @@ ws.digitalio.D2B { event: {
 Control an LED from Adafruit IO:
 
 ```
-ws.digitalio.B2D { add: {
-  pin_name: "D13",
+ws.digital.B2D { add: {
+  pin: "D13",
   gpio_direction: D_OUTPUT,
-  write: { pin_name: "D13", value: {type: RAW, value: 0} }
+  write: { pin: "D13", value: {type: RAW, value: 0} }
 }}
 ```
 
 To turn the LED on:
 ```
-ws.digitalio.B2D { write: {
-  pin_name: "D13",
+ws.digital.B2D { write: {
+  pin: "D13",
   value: {type: RAW, value: 1}
 }}
 ```
@@ -185,8 +185,8 @@ ws.digitalio.B2D { write: {
 Poll a digital sensor every 2 seconds:
 
 ```
-ws.digitalio.B2D { add: {
-  pin_name: "D7",
+ws.digital.B2D { add: {
+  pin: "D7",
   gpio_direction: D_INPUT,
   sample_mode: SM_TIMER,
   period: 2.0
@@ -195,8 +195,8 @@ ws.digitalio.B2D { add: {
 
 The device will send readings every 2 seconds:
 ```
-ws.digitalio.D2B { event: {
-  pin_name: "D7",
+ws.digital.D2B { event: {
+  pin: "D7",
   value: {type: RAW, value: 1}
 }}
 ```
@@ -206,8 +206,8 @@ ws.digitalio.D2B { event: {
 Detect motion with a PIR sensor:
 
 ```
-ws.digitalio.B2D { add: {
-  pin_name: "D5",
+ws.digital.B2D { add: {
+  pin: "D5",
   gpio_direction: D_INPUT,
   sample_mode: SM_EVENT
 }}
@@ -215,8 +215,8 @@ ws.digitalio.B2D { add: {
 
 Motion detected:
 ```
-ws.digitalio.D2B { event: {
-  pin_name: "D5",
+ws.digital.D2B { event: {
+  pin: "D5",
   value: {type: RAW, value: 1}
 }}
 ```

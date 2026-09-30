@@ -36,8 +36,8 @@ Contains separate repeated fields for each component type to initialize during c
 
 ```protobuf
 message ComponentAdds {
-  repeated ws.digitalio.Add digitalio_adds    = 1;
-  repeated ws.analogin.Add analogio_adds      = 2;
+  repeated ws.digital.Add digital_adds    = 1;
+  repeated ws.analog.Add analog_adds      = 2;
   repeated ws.servo.Add servo_adds            = 3;
   repeated ws.pwm.Add pwm_adds                = 4;
   repeated ws.pixels.Add pixels_adds          = 5;
@@ -96,8 +96,8 @@ autonumber
 participant Device
 participant IO as Adafruit IO
 
-Device->>Device: Process digitalio_adds[]
-Device->>Device: Process analogio_adds[]
+Device->>Device: Process digital_adds[]
+Device->>Device: Process analog_adds[]
 Device->>Device: Process i2c_adds[]
 Device->>Device: Process display_adds[]
 Note over Device: ... process remaining component types ...
@@ -125,8 +125,8 @@ ws.checkin.B2D {
     total_analog_pins: 10,
     reference_voltage: 3.3,
     component_adds: {
-      digitalio_adds: [
-        { pin_name: "D13", gpio_direction: D_OUTPUT, write: { pin_name: "D13", value: ... } }
+      digital_adds: [
+        { pin: "D13", gpio_direction: D_OUTPUT, write: { pin: "D13", value: ... } }
       ],
       i2c_adds: [
         { device_description: { device_address: 0x77 }, device_name: "bme280", device_period: 60.0 }
