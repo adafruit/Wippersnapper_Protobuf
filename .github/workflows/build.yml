@@ -15,7 +15,7 @@ jobs:
         uses: jdx/mise-action/@v2
 
       - name: Lib Dependencies
-        run: pip install protobuf setuptools
+        run: pip install protobuf
 
       - name: Env Debug Info
         run: |
