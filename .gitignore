@@ -23,6 +23,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+__pycache__/
 .Python
 build/
 develop-eggs/
@@ -153,4 +154,5 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-
+# Agent Stuff
+.claude/worktrees/
