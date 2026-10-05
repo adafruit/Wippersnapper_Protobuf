@@ -11,7 +11,7 @@ This document demonstrates the complete "happy path" flow for a WipperSnapper v2
 - **B2D (BrokerToDevice)** - All commands from Adafruit IO to device
 - **D2B (DeviceToBroker)** - All responses and data from device to Adafruit IO
 
-Each component (digitalio, analogin, i2c, etc.) has its own B2D and D2B envelope messages with specific payloads.
+Each component (digital, analog, i2c, etc.) has its own B2D and D2B envelope messages with specific payloads.
 
 ### Benefits of v2 Architecture
 
@@ -61,7 +61,7 @@ Boards->>IO: Board definition found
 
 IO->>IO: Load stored components<br/>for this device
 
-IO->>Device: ws.checkin.B2D {<br/>  response: {<br/>    response: R_OK,<br/>    total_gpio_pins: 20,<br/>    total_analog_pins: 6,<br/>    reference_voltage: 3.3,<br/>    component_adds: {<br/>      digitalio_adds: [{<br/>        pin_name: "D13",<br/>        gpio_direction: D_OUTPUT,<br/>        write: { pin_name: "D13", value: ... }<br/>      }],<br/>      i2c_adds: [{<br/>        device_description: {device_address: 0x77},<br/>        device_name: "bme280",<br/>        device_period: 60.0,<br/>        device_sensor_types: [TEMPERATURE, HUMIDITY]<br/>      }]<br/>    }<br/>  }<br/>}
+IO->>Device: ws.checkin.B2D {<br/>  response: {<br/>    response: R_OK,<br/>    total_gpio_pins: 20,<br/>    total_analog_pins: 6,<br/>    reference_voltage: 3.3,<br/>    component_adds: {<br/>      digital_adds: [{<br/>        pin: "D13",<br/>        gpio_direction: D_OUTPUT,<br/>        write: { pin: "D13", value: ... }<br/>      }],<br/>      i2c_adds: [{<br/>        device_description: {device_address: 0x77},<br/>        device_name: "bme280",<br/>        device_period: 60.0,<br/>        device_sensor_types: [TEMPERATURE, HUMIDITY]<br/>      }]<br/>    }<br/>  }<br/>}
 
 Note over Device: PHASE 2: Component Initialization
 
@@ -85,7 +85,7 @@ Note over Device,IO: PHASE 3: Normal Operation Begins
 
 Note over Device: User Action: Turn LED ON via Dashboard
 
-IO->>Device: ws.digitalio.B2D {<br/>  write: {<br/>    pin_name: "D13",<br/>    value: true<br/>  }<br/>}
+IO->>Device: ws.digital.B2D {<br/>  write: {<br/>    pin: "D13",<br/>    value: true<br/>  }<br/>}
 
 Device->>LED: Set pin HIGH
 Note over LED: LED turns ON ✓
@@ -96,7 +96,7 @@ Device->>IO: ws.i2c.D2B {<br/>  device_event: {<br/>    device_description: {dev
 
 Note over Device: User Action: Turn LED OFF (2nd Write)
 
-IO->>Device: ws.digitalio.B2D {<br/>  write: {<br/>    pin_name: "D13",<br/>    value: false<br/>  }<br/>}
+IO->>Device: ws.digital.B2D {<br/>  write: {<br/>    pin: "D13",<br/>    value: false<br/>  }<br/>}
 
 Device->>LED: Set pin LOW
 Note over LED: LED turns OFF ✓
@@ -142,8 +142,8 @@ ws.checkin.B2D {
 
     // All pre-configured components sent here!
     component_adds: {
-      digitalio_adds: [{...}, {...}],
-      analogio_adds: [{...}],
+      digital_adds: [{...}, {...}],
+      analog_adds: [{...}],
       i2c_adds: [{...}],
       display_adds: [{...}],
       // ... more component types
@@ -172,8 +172,8 @@ The `ComponentAdds` message contains separate repeated fields for each component
 
 ```protobuf
 message ComponentAdds {
-  repeated ws.digitalio.Add digitalio_adds    = 1;
-  repeated ws.analogin.Add analogio_adds      = 2;
+  repeated ws.digital.Add digital_adds    = 1;
+  repeated ws.analog.Add analog_adds      = 2;
   repeated ws.servo.Add servo_adds            = 3;
   repeated ws.pwm.Add pwm_adds               = 4;
   repeated ws.pixels.Add pixels_adds          = 5;
@@ -189,24 +189,24 @@ message ComponentAdds {
 ```protobuf
 component_adds: {
   // Digital Output: Status LED
-  digitalio_adds: [
+  digital_adds: [
     {
-      pin_name: "D13",
+      pin: "D13",
       gpio_direction: D_OUTPUT,
-      write: { pin_name: "D13", value: ... }
+      write: { pin: "D13", value: ... }
     },
     // Digital Input: Button
     {
-      pin_name: "D2",
+      pin: "D2",
       gpio_direction: D_INPUT_PULL_UP,
       sample_mode: SM_EVENT
     }
   ],
 
   // Analog Input: Battery Monitor
-  analogio_adds: [
+  analog_adds: [
     {
-      pin_name: "A1",
+      pin: "A1",
       period: 30.0,
       read_mode: SENSOR_TYPE_VOLTAGE
     }
@@ -296,7 +296,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant GPIO as GPIO Controller
 
-IO->>Device: ws.digitalio.B2D {<br/>  add: {<br/>    pin_name: "D2",<br/>    gpio_direction: D_INPUT_PULL_UP,<br/>    sample_mode: SM_EVENT<br/>  }<br/>}
+IO->>Device: ws.digital.B2D {<br/>  add: {<br/>    pin: "D2",<br/>    gpio_direction: D_INPUT_PULL_UP,<br/>    sample_mode: SM_EVENT<br/>  }<br/>}
 
 Device->>GPIO: Configure pin D2 as input with pull-up
 GPIO->>GPIO: Attach interrupt for state changes
@@ -305,7 +305,7 @@ GPIO->>Device: Pin configured
 Note over Device: Button pressed/released
 GPIO->>Device: State change detected
 
-Device->>IO: ws.digitalio.D2B {<br/>  event: {<br/>    pin_name: "D2",<br/>    value: false<br/>  }<br/>}
+Device->>IO: ws.digital.D2B {<br/>  event: {<br/>    pin: "D2",<br/>    value: false<br/>  }<br/>}
 ```
 
 ### 5.3 Analog Input (Battery Monitor) - Runtime Addition
@@ -317,7 +317,7 @@ participant IO as Adafruit IO
 participant Device as WipperSnapper Device
 participant ADC as ADC Controller
 
-IO->>Device: ws.analogin.B2D {<br/>  add: {<br/>    pin_name: "A1",<br/>    period: 10.0,<br/>    read_mode: SENSOR_TYPE_VOLTAGE<br/>  }<br/>}
+IO->>Device: ws.analog.B2D {<br/>  add: {<br/>    pin: "A1",<br/>    period: 10.0,<br/>    read_mode: SENSOR_TYPE_VOLTAGE<br/>  }<br/>}
 
 Device->>ADC: Configure A1 for voltage reading
 ADC->>Device: Pin configured, start polling
@@ -325,7 +325,7 @@ ADC->>Device: Pin configured, start polling
 loop Every 10 seconds
     ADC->>ADC: Read analog value
     ADC->>Device: Voltage reading
-    Device->>IO: ws.analogin.D2B {<br/>  event: {<br/>    pin_name: "A1",<br/>    value: 3.7V<br/>  }<br/>}
+    Device->>IO: ws.analog.D2B {<br/>  event: {<br/>    pin: "A1",<br/>    value: 3.7V<br/>  }<br/>}
 end
 ```
 
@@ -485,13 +485,13 @@ message D2B {
 ```
 Adafruit IO                          Device
     |                                   |
-    |  ws.digitalio.B2D                |
-    |    add: {pin_name: "D2", ...}    |
+    |  ws.digital.B2D                |
+    |    add: {pin: "D2", ...}    |
     | --------------------------------> |
     |                                   |  Configure hardware
     |                                   |
-    |  ws.digitalio.D2B                |
-    |    event: {pin_name: "D2", ...}  |
+    |  ws.digital.D2B                |
+    |    event: {pin: "D2", ...}  |
     | <-------------------------------- |
     |                                   |
 ```
@@ -502,8 +502,8 @@ Adafruit IO                          Device
 
 | Component | B2D Messages | D2B Messages | Direction |
 |-----------|-------------|--------------|-----------|
-| **digitalio** | add, remove, write | event | Input & Output |
-| **analogin** | add, remove | event | Input only |
+| **digital** | add, remove, write | event | Input & Output |
+| **analog** | add, remove | event | Input only |
 | **i2c** | bus_scan, device_add_replace, device_remove | bus_scanned, device_added_replaced, device_removed, device_event | Input & Output |
 | **display** | Add, Remove, Write | AddedOrReplaced, Removed | Output only |
 | **pwm** | add, remove, write | - | Output only |
@@ -679,7 +679,7 @@ sequenceDiagram
         Device->>IO: i2c.D2B{device_event: {...}}
         IO->>Device: display.B2D{name, write: {message: "Temp: 23°C"}}
         Device->>Display: Update display
-        IO->>Device: digitalio.B2D{write: LED blink}
+        IO->>Device: digital.B2D{write: LED blink}
         Device->>LED: Blink to show update
     end
 ```
@@ -709,7 +709,7 @@ sequenceDiagram
         Device->>IO: D2B{device_event: {...}}
         IO->>Device: display.B2D{name, write: {message: "Temp: 23°C"}}
         Device->>Display: Update display
-        IO->>Device: B2D{digitalio.write: LED blink}
+        IO->>Device: B2D{digital.write: LED blink}
         Device->>LED: Blink to show update
     end
 ```
@@ -722,8 +722,8 @@ sequenceDiagram
   - [i2c.md](i2c.md) - I2C sensors and devices with v2 envelopes
   - [display.md](display.md) - Display controllers with multiple interface types
   - [spi.md](spi.md) - Shared SPI bus and device pin configuration
-  - [digitalio.md](digitalio.md) - Digital GPIO with B2D/D2B
-  - [analogin.md](analogin.md) - Analog input with B2D/D2B
+  - [digital.md](digital.md) - Digital GPIO with B2D/D2B
+  - [analog.md](analog.md) - Analog input with B2D/D2B
   - [pwm.md](pwm.md), [servo.md](servo.md), [pixels.md](pixels.md), etc.
 
 - For hardware definitions:

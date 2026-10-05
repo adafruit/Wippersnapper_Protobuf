@@ -12,6 +12,7 @@ message B2D {
   oneof payload {
     Add add       = 1;
     Remove remove = 2;
+    Modify modify = 3;
   }
 }
 
@@ -41,6 +42,15 @@ message Add {
 message Remove {
   i2c.Remove remove_i2c   = 1;
   uart.Remove remove_uart = 2;
+}
+
+/**
+ * A combined Remove/Add message, for when a user updates an existing component. Allows the user to change
+ * deep settings and keeps protobuf traffic to a single message.
+ */
+message Modify {
+  Remove remove = 1; /** Specifies the old component/settings to remove */
+  Add add       = 2; /** Specifies the new component/settings to configure after removal */
 }
 
 /**
