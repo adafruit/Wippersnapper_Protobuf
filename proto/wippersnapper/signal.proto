@@ -72,5 +72,6 @@ message DeviceToBroker {
     ws.uart.D2B uart           = 33;
     ws.i2c.D2B i2c             = 34;
     ws.gps.D2B gps             = 35;
+    ws.display.D2B display     = 36;
   }
 }
