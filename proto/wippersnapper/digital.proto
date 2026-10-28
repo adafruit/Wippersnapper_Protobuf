@@ -35,13 +35,14 @@ enum SampleMode {
 }
 
 /**
-* Direction specifies the pin's direction, INPUT/INPUT_PULL_UP/OUTPUT.
+* Direction specifies the pin's direction, INPUT/INPUT_PULL_UP/INPUT_PULL_DOWN/OUTPUT.
 */
 enum Direction {
-  D_UNSPECIFIED   = 0; /** Invalid Direction from Broker. */
-  D_INPUT         = 1; /** Set the pin to behave as an input. */
-  D_INPUT_PULL_UP = 2; /** Set the pin to behave as an input. */
-  D_OUTPUT        = 3; /** Set the pin to behave as an output. */
+  D_UNSPECIFIED     = 0; /** Invalid Direction from Broker. */
+  D_INPUT           = 1; /** Set the pin to behave as an input. */
+  D_INPUT_PULL_UP   = 2; /** Set the pin to behave as an input with an internal pull-up resistor. */
+  D_OUTPUT          = 3; /** Set the pin to behave as an output. */
+  D_INPUT_PULL_DOWN = 4; /** Set the pin to behave as an input with an internal pull-down resistor. */
 }
 
 /**
