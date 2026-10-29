@@ -50,7 +50,6 @@ message TimerConfig {
 message Ext0Config {
   string pin      = 1; /** Pin to wake up from. */
   bool level      = 2; /** Input level which will trigger wakeup (False = low, True = high) */
-  bool pull       = 3; /** Enable internal pull-up or pull-down resistors */
 }
 
 /**
