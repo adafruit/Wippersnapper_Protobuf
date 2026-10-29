@@ -50,16 +50,13 @@ message TimerConfig {
 message Ext0Config {
   string pin      = 1; /** Pin to wake up from. */
   bool level      = 2; /** Input level which will trigger wakeup (False = low, True = high) */
-  bool pull       = 3; /** Enable internal pull-up or pull-down resistors */
 }
 
 /**
  * Contains configuration to enter a sleep mode.
  */
 message SleepConfig {
-  SleepMode mode      = 1; /** Sleep mode. */
-  oneof config {
-    TimerConfig timer = 2; /** Timer configuration for wakeup source. */
-    Ext0Config ext0   = 3; /** EXT0 RTC configuration for wakeup source. */
-  }
+  SleepMode mode            = 1; /** Sleep mode. */
+  TimerConfig timer         = 2; /** Timer configuration for wakeup source. */
+  repeated Ext0Config ext0s = 3; /** EXT0 RTC configuration for wakeup source. */
 }
