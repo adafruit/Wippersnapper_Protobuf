@@ -32,7 +32,6 @@ Attaches a PWM pin. On ESP32, this attaches a pin to a LEDC channel/timer group.
 - **pin** - The pin to attach
 - **frequency** - PWM frequency in Hz
 - **resolution** - Resolution in bits
-- **is_inverted** - If true, inverts the output (active low)
 - **write** - Optional initial write (used during check-in)
 
 ### Write
