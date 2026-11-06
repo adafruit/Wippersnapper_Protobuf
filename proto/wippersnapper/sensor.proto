@@ -7,7 +7,7 @@ package ws.sensor;
 * Type allows us determine what types of units the sensor uses, etc.
 */
 enum Type {
-  T_UNSPECIFIED                    = 0;  /** Sensor value type which is not defined by this list, "Raw Value: {value}". */
+  T_UNSPECIFIED                    = 0;  /** Unknown sensor value type, raises an error. */
   T_ACCELEROMETER                  = 1;  /** Acceleration, in meter per second per second, "{value}m/s/s". */
   T_MAGNETIC_FIELD                 = 2;  /** Magnetic field strength, in micro-Tesla, "{value}µT". */
   T_ORIENTATION                    = 3;  /** Orientation angle, in degrees, "{value}°". */
