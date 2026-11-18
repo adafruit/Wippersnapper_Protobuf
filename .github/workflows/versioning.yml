@@ -1,0 +1,41 @@
+name: Change Detection and Versioning
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  delete:
+
+permissions:
+  contents: read
+
+jobs:
+  buf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: head
+      - uses: actions/checkout@v7
+        with:
+          path: base
+          ref: ${{ github.event.pull_request.base.sha }}
+      - uses: bufbuild/buf-action@v1
+        with:
+          setup_only: true
+
+      - name: Format and diff against base
+        run: |
+          cd head
+          buf format -w
+
+          cd ../base
+          buf format --config ../head/buf.yaml -w
+
+          cd ..
+          diff -s base/proto/wippersnapper head/proto/wippersnapper || true
+
+      - name: Check for breaking changes against base
+        run: |
+          cd head
+          buf breaking --against ../base --against-config ./buf.yaml --error-format github-actions
