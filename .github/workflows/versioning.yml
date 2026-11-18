@@ -1,0 +1,35 @@
+name: Change Detection and Versioning
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  delete:
+
+permissions:
+  contents: read
+
+jobs:
+  buf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: head
+      - uses: actions/checkout@v7
+        with:
+          path: base
+          ref: ${{ github.event.pull_request.base.sha }}
+      - uses: bufbuild/buf-action@v1
+        with:
+          setup_only: true
+
+      - name: Format and diff against base
+        run: |
+          buf format base/proto -w
+          buf format head/proto -w
+          diff base/proto head/proto
+
+      - name: Check for breaking changes against base
+        run: |
+          buf breaking head --against base
