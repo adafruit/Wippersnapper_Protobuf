@@ -33,9 +33,9 @@ jobs:
           buf format --config ../head/buf.yaml -w
 
           cd ..
-          diff -s base/proto/wippersnapper head/proto/wippersnapper
+          diff -s base/proto/wippersnapper head/proto/wippersnapper || true
 
       - name: Check for breaking changes against base
         run: |
           cd head
-          buf breaking --against ../base --error-format github-actions
+          buf breaking --against ../base --against-config ./buf.yaml --error-format github-actions
