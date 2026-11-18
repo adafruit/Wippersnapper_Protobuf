@@ -26,17 +26,16 @@ jobs:
 
       - name: Format and diff against base
         run: |
-          ls -la base/proto/wippersnapper
-          buf format base/proto --config head/buf.yaml -w
-          ls -la base/proto/wippersnapper
+          cd head
+          buf format -w
 
-          ls -la head/proto/wippersnapper
-          buf format head/proto -w
-          ls -la head/proto/wippersnapper
+          cd ../base
+          buf format --config ../head/buf.yaml -w
 
+          cd ..
           diff -s base/proto/wippersnapper head/proto/wippersnapper
 
       - name: Check for breaking changes against base
         run: |
           cd head
-          buf breaking --against --error-format github-actions
+          buf breaking --against ../base --error-format github-actions
