@@ -28,8 +28,8 @@ jobs:
         run: |
           buf format base/proto -w
           buf format head/proto -w
-          diff base/proto head/proto
+          diff base/proto/wippersnapper head/proto/wippersnapper
 
       - name: Check for breaking changes against base
         run: |
-          buf breaking head --against base
+          buf breaking head --against base --config head/buf.yaml --error-format github-actions
