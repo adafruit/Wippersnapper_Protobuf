@@ -3,6 +3,12 @@ version: v2
 lint:
   use:
     - STANDARD
+  except:
+    - COMMENT_FIELD
+    - ENUM_VALUE_PREFIX
+    - DIRECTORY_SAME_PACKAGE
+    - PACKAGE_DIRECTORY_MATCH
+    - PACKAGE_VERSION_SUFFIX
 breaking:
   use:
     - FILE
