@@ -73,12 +73,11 @@ enum GenericDeviceLineEnding {
 * This message is never sent directly, it is packed inside Add.
 */
 message SerialConfig {
-  string name             = 1; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
-  uint32 baud_rate        = 2; /** The desired baudrate, in bits per second. */
-  PacketFormat format     = 3; /** The data, parity, and stop bits. */
-  float timeout           = 4; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
-  bool use_sw_serial      = 5; /** Use software serial instead of hardware serial. Defaults to False. */
-  bool sw_serial_invert   = 6; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+  uint32 baud_rate      = 1; /** The desired baudrate, in bits per second. */
+  PacketFormat format   = 2; /** The data, parity, and stop bits. */
+  uint32 timeout        = 3; /** Maximum milliseconds to wait for serial data. Defaults to 1000 ms. */
+  bool sw_serial_invert = 4; /** Optional: Inverts the UART signal on RX and TX pins. Defaults to False. */
+  string tty_device     = 5; /** (For CPython ONLY) The device name, i.e: /dev/ttyUSB0. */
 }
 
 /**
@@ -86,10 +85,9 @@ message SerialConfig {
 * containing device-specific configuration info for generic UART input devices.
 */
 message GenericInputConfig {
-  string name                         = 1; /** The name used to identify the device. */
-  GenericDeviceLineEnding line_ending = 2; /** The line ending used by the device. */
-  uint32 period                       = 3; /** The period to poll the device, in seconds */
-  repeated ws.sensor.Type types       = 4; /** SI Types for each sensor on the UART device. */
+  GenericDeviceLineEnding line_ending = 1; /** The line ending used by the device. */
+  uint32 period                       = 2; /** The period to poll the device, in seconds */
+  map<uint32, ws.sensor.Type> types   = 3; /** SI Types for each sensor on the UART device. */
 }
 
 /**
@@ -105,9 +103,9 @@ message TrinamicDynamixelConfig {
 * containing device-specific configuration info for PM2.5 AQI sensors.
 */
 message PM25AQIConfig {
-  bool is_pm1006                  = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
-  uint32 period                   = 2; /** The period to poll the device, in seconds */
-  repeated ws.sensor.Type types   = 3; /** SI Types for each sensor on the I2c device. */
+  bool is_pm1006                    = 1; /** True if the device is a PM1006 AQ sensor, Defaults to False. */
+  uint32 period                     = 2; /** The period to poll the device, in seconds */
+  map<uint32, ws.sensor.Type> types = 3; /** SI Types for each sensor on the I2c device. */
 }
 
 /**
