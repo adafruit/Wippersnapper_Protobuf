@@ -1,0 +1,6 @@
+# config.options
+# str_value is a fixed-size array, not a callback: nanopb no longer runs decode
+# callbacks placed directly inside a oneof (nanopb/nanopb@5e72160).
+# Keep in sync with MAX_SETTING_STR_LEN in the Arduino firmware's
+# src/components/i2c/model.h.
+ws.config.Value.str_value max_size:32
