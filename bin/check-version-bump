@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Keep us honest about bumping VERSION.
 
-If a change touches any .proto or .options file under proto/ in a way that
-isn't purely whitespace, VERSION must be strictly greater (by semver) than the
-VERSION currently on the base branch. VERSION may never go backwards.
+If a change *materially* alters any .proto or .options file under proto/ -
+i.e. anything other than comments and whitespace/formatting, so fields, types,
+numbers, names, options and their values, ordering, or adding/removing a file -
+VERSION must be strictly greater (by semver) than the VERSION currently on the
+base branch. VERSION may never go backwards.
 
 Usage:
   bin/check-version-bump [BASE_REF] [HEAD_REF]
@@ -84,12 +86,43 @@ def show(ref, path):
     return res.stdout if res.returncode == 0 else None
 
 
-def normalize(text):
-    """Drop whitespace differences: trim lines, collapse runs, drop blanks."""
+# A token: a string literal, a run of identifier/number characters, or any
+# other single non-space character. Comparing token streams ignores all
+# whitespace/formatting (incl. `x=1` vs `x = 1`, re-wrapped lines).
+TOKEN_RE = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|[A-Za-z0-9_.]+|\S')
+
+# .proto comments, skipping over string literals so "//" inside one survives.
+PROTO_COMMENT_RE = re.compile(
+    r'"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'|//[^\n]*|/\*.*?\*/', re.S)
+
+
+def strip_proto_comments(text):
+    return PROTO_COMMENT_RE.sub(
+        lambda m: m.group(0) if m.group(0)[0] in "\"'" else " ", text)
+
+
+def strip_options_comments(text):
+    # Exactly what nanopb_generator.read_options_file() discards, so "material"
+    # means "what nanopb actually sees" (note: /* */ there is single-line only).
+    text = re.sub(r'/\*.*?\*/', '', text, flags=re.MULTILINE)
+    text = re.sub(r'//.*?$', '', text, flags=re.MULTILINE)
+    return re.sub(r'#.*?$', '', text, flags=re.MULTILINE)
+
+
+def normalize(path, text):
+    """Material content of a watched file: comments and formatting removed.
+
+    .proto -> one token stream for the whole file.
+    .options -> one token list per non-empty line (nanopb is line-oriented,
+                and later lines can override earlier ones, so order matters).
+    None (file absent) stays None, so adds/deletes always count.
+    """
     if text is None:
         return None
-    lines = (" ".join(line.split()) for line in text.splitlines())
-    return [line for line in lines if line]
+    if path.endswith(".options"):
+        lines = (TOKEN_RE.findall(l) for l in strip_options_comments(text).splitlines())
+        return [l for l in lines if l]
+    return TOKEN_RE.findall(strip_proto_comments(text))
 
 
 def read_version(ref):
@@ -127,7 +160,7 @@ def check(base_ref, head_ref):
     changed = git("diff", "--name-only", "--no-renames", merge_base, head_ref,
                   "--", *WATCHED_PATHSPECS).stdout.split()
     significant = [p for p in changed
-                   if normalize(show(merge_base, p)) != normalize(show(head_ref, p))]
+                   if normalize(p, show(merge_base, p)) != normalize(p, show(head_ref, p))]
 
     cmp = compare_semver(head_version, base_version)
     print(f"base ({base_ref}) VERSION: {base_version}")
@@ -140,11 +173,13 @@ def check(base_ref, head_ref):
 
     if not significant:
         skipped = len(changed)
-        note = f" ({skipped} whitespace-only)" if skipped else ""
-        print(f"No .proto/.options changes{note}; no version bump required.")
+        note = f" ({skipped} with comment/whitespace-only edits)" if skipped else ""
+        print(f"No material .proto/.options changes{note}; "
+              f"no version bump required.")
         return 0
 
-    print("Changed .proto/.options files (ignoring whitespace):")
+    print("Materially changed .proto/.options files "
+          "(ignoring comments and whitespace):")
     for p in significant:
         print(f"  {p}")
 
@@ -178,8 +213,26 @@ def self_test():
         except ValueError:
             continue
         raise AssertionError(f"accepted invalid semver {bad!r}")
-    assert normalize("a  b\n\n\t c \r\n") == normalize("a b\nc") == ["a b", "c"]
-    assert normalize(None) is None and normalize("") == []
+    P, O = "x.proto", "x.options"
+    same = lambda p, a, b: normalize(p, a) == normalize(p, b)
+    base = 'message A {\n  int32 x = 1; // the x\n  string s = 2;\n}\n'
+    # immaterial: comments (line/block/doc), whitespace, re-wrapping
+    assert same(P, base, '/** A */\nmessage A { int32 x=1;\n/* gone */ string s\n = 2; }')
+    assert same(P, base, base.replace("// the x", "/* multi\n line */"))
+    # material: values, names, types, order, string literal contents
+    assert not same(P, base, base.replace("= 1", "= 3"))
+    assert not same(P, base, base.replace("int32", "uint32"))
+    assert not same(P, base, base.replace(" x ", " y "))
+    assert not same(P, 'string a = 1 [default = "a//b"];',
+                    'string a = 1 [default = "a"];')
+    assert same(P, "// it's fine\nmessage A {}", "message A {} // don't care")
+    opt = "# hdr\nws.A.s max_size:25 // why\n\nws.A.t max_count:4\n"
+    assert same(O, opt, "ws.A.s   max_size: 25 /* note */\n# x\nws.A.t max_count:4")
+    assert not same(O, opt, opt.replace("25", "26"))
+    assert not same(O, opt, "ws.A.t max_count:4\nws.A.s max_size:25")  # order
+    assert not same(O, opt, opt.replace("# hdr", "ws.A.u max_size:1"))
+    assert normalize(P, None) is None and normalize(O, None) is None
+    assert not same(P, None, "// only a comment\n")  # new file still counts
     print("self-test OK")
     return 0
 

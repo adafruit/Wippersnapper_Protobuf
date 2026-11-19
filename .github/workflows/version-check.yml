@@ -1,5 +1,6 @@
 name: Version Bump Check
-# Any PR that changes a .proto or .options file (ignoring whitespace) must bump
+# Any PR that materially changes a .proto or .options file (comment and
+# whitespace/formatting edits don't count) must bump
 # VERSION past the base branch's VERSION. Skips itself if the base has no VERSION.
 on:
   pull_request:
