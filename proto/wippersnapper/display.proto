@@ -50,6 +50,8 @@ enum EPDMode {
   EPD_MODE_UNSPECIFIED = 0; /** Unspecified EPD mode */
   EPD_MODE_GRAYSCALE4  = 1; /** Grayscale 4 EPD mode */
   EPD_MODE_MONO        = 2; /** Monochrome EPD mode */
+  EPD_MODE_TRICOLOR    = 3; /** Tri-colour EPD mode (black/red or black/yellow on white) */
+  EPD_MODE_QUADCOLOR   = 4; /** Quad-colour EPD mode (black/white/red/yellow) */
 }
 
 /**
