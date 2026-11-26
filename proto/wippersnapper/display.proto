@@ -91,7 +91,7 @@ message DisplayProperties {
 message DisplaySpiDescriptor {
   ws.spi.Descriptor spi = 1; /** SPI bus + standard pins (MOSI/SCK/MISO/CS). */
   string pin_dc       = 2; /** Pin for data/command */
-  string pin_rst      = 3; /** Pin for reset (optional; empty if not wired, e.g. the eInk Feather Friend self-resets at power-on). May be an expander pin. */
+  string pin_rst      = 3; /** Optional reset pin; empty if not wired (eInk Feather Friend self-resets). May be an expander pin. */
   string pin_sram_cs  = 4; /** Pin for SRAM chip select (EPD only, if required; empty for TFT). May be an expander pin. */
   string pin_busy     = 5; /** Pin for busy signal (EPD only, if required; empty for TFT). */
 }
