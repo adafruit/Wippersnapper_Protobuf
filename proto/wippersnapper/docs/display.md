@@ -114,8 +114,8 @@ SPI EPD and TFT displays share one message, `DisplaySpiDescriptor`. It wraps `ws
 
 * **spi** - `ws.spi.Descriptor` (bus number, MOSI, SCK, MISO, CS)
 * **pin_dc** - Data/Command pin
-* **pin_rst** - Reset pin
-* **pin_sram_cs** - SRAM Chip Select pin (**optional**, EPD only, for buffering; leave empty for TFT)
+* **pin_rst** - Reset pin (**optional**; leave empty when not wired, e.g. the eInk Feather Friend has no reset line and self-resets the driver at power-on). May be an IO-expander pin.
+* **pin_sram_cs** - SRAM Chip Select pin (**optional**, EPD only, for buffering; leave empty for TFT). May be an IO-expander pin.
 * **pin_busy** - Busy signal pin (**optional**, EPD only, indicates when display is ready; leave empty for TFT)
 
 ### I2C Configuration

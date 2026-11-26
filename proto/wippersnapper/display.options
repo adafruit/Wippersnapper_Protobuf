@@ -11,8 +11,10 @@ ws.display.Add.name                             max_size:64
 
 # Display-specific SPI pin constraints (shared SPI pins are in spi.options)
 ws.display.DisplaySpiDescriptor.pin_dc              max_size:6
-ws.display.DisplaySpiDescriptor.pin_rst             max_size:6
-ws.display.DisplaySpiDescriptor.pin_sram_cs         max_size:6
+# pin_rst / pin_sram_cs may be IO-expander pins, so they get the same length as ws.digital pins.
+# pin_dc / pin_busy stay native GPIOs (timing-sensitive), so 6 is enough.
+ws.display.DisplaySpiDescriptor.pin_rst             max_size:64
+ws.display.DisplaySpiDescriptor.pin_sram_cs         max_size:64
 ws.display.DisplaySpiDescriptor.pin_busy            max_size:6
 
 ws.display.TtlRgb666PinDescriptor.pin_r0            max_size:6
