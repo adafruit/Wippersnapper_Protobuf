@@ -85,8 +85,8 @@ message DisplayProperties {
 /**
  * DisplaySpiDescriptor contains the configuration for SPI-based displays (EPD and TFT).
  * Includes the shared SPI bus/device config plus display-specific pins.
- * Field numbers are a superset of the former EpdSpiDescriptor/TftSpiDescriptor,
- * so existing payloads decode unchanged.
+ * Replaces the former EpdSpiDescriptor/TftSpiDescriptor; the EPD-only pins
+ * are left empty for TFT panels.
  */
 message DisplaySpiDescriptor {
   ws.spi.Descriptor spi = 1; /** SPI bus + standard pins (MOSI/SCK/MISO/CS). */
@@ -176,9 +176,9 @@ message BacklightConfig {
 
 /** Interface Descriptor: Pin or Data Bus info (unique descriptor) */
 message InterfaceDescriptor {
+  reserved 3; /** Formerly spi_tft; SPI TFT now uses spi = 2. */
   oneof descriptor {
-    DisplaySpiDescriptor spi_epd      = 2; /** SPI configuration for EPD. */
-    DisplaySpiDescriptor spi_tft      = 3; /** SPI configuration for TFT. */
+    DisplaySpiDescriptor spi          = 2; /** SPI configuration for EPD and TFT (Add.type selects the driver class). */
     ws.i2c.Descriptor i2c             = 4; /** I2C configuration for OLED/LED/LCD displays. */
     TtlRgb666PinDescriptor ttl_rgb666 = 5; /** RGB666 configuration for Qualia. */
     I8080PinDescriptor i8080          = 6; /** i8080 8-bit parallel for T-DisplayS3/Memento. */

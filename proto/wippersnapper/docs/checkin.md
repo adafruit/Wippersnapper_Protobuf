@@ -132,7 +132,7 @@ ws.checkin.B2D {
         { device_description: { device_address: 0x77 }, device_name: "bme280", device_period: 60.0 }
       ],
       display_adds: [
-        { type: DISPLAY_CLASS_TFT, driver: "ST7789", spi_tft: { ... }, config_display: { ... } }
+        { type: DISPLAY_CLASS_TFT, driver: "ST7789", spi: { ... }, config_display: { ... } }
       ]
     }
   }

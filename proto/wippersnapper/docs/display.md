@@ -110,7 +110,7 @@ message DisplayProperties {
 
 ### SPI Display Configuration (`DisplaySpiDescriptor`)
 
-SPI EPD and TFT displays share one message, `DisplaySpiDescriptor`. It wraps `ws.spi.Descriptor` from [spi.proto](spi.md) (bus, MOSI, SCK, MISO, CS) and adds the display-specific pins. The `InterfaceDescriptor` oneof still uses `spi_epd` for EPD panels and `spi_tft` for TFT panels; both arms carry a `DisplaySpiDescriptor`.
+SPI EPD and TFT displays share one message, `DisplaySpiDescriptor`. It wraps `ws.spi.Descriptor` from [spi.proto](spi.md) (bus, MOSI, SCK, MISO, CS) and adds the display-specific pins. Both EPD and TFT panels use the single `spi` arm of the `InterfaceDescriptor` oneof; `Add.type` (`DISPLAY_CLASS_EPD` / `DISPLAY_CLASS_TFT`) selects the driver class.
 
 * **spi** - `ws.spi.Descriptor` (bus number, MOSI, SCK, MISO, CS)
 * **pin_dc** - Data/Command pin
@@ -204,7 +204,7 @@ participant Display as Display Controller
 participant Driver as Display Driver
 
 IO->>Device: B2D { name, Add }
-Note over IO,Device: type: DISPLAY_CLASS_EPD<br/>driver: "UC8179"<br/>panel: "5.83-648x480-mono"<br/>spi_epd: {spi, pin_dc, pin_busy}<br/>config_epd: {mode, properties}<br/>backlight: {backlight_pwm: {...}}
+Note over IO,Device: type: DISPLAY_CLASS_EPD<br/>driver: "UC8179"<br/>panel: "5.83-648x480-mono"<br/>spi: {spi, pin_dc, pin_busy}<br/>config_epd: {mode, properties}<br/>backlight: {backlight_pwm: {...}}
 
 Device->>Display: Initialize Display Controller
 Display->>Driver: Load driver and configure
@@ -312,7 +312,7 @@ B2D {
     type: DISPLAY_CLASS_EPD,
     driver: "UC8179",
     panel: "5.83-648x480-mono",
-    spi_epd: {
+    spi: {
       spi: {
         bus: 0,
         pin_cs: "D8"
@@ -341,7 +341,7 @@ B2D {
   add: {
     type: DISPLAY_CLASS_TFT,
     driver: "ST7789",
-    spi_tft: {
+    spi: {
       spi: {
         bus: 0,
         pin_mosi: "D11",
@@ -450,7 +450,7 @@ B2D {
   add: {
     type: DISPLAY_CLASS_TFT,
     driver: "ST7789",
-    spi_tft: { ... },
+    spi: { ... },
     config_display: { width: 240, height: 135 },
     write: {
       message: "Initializing..."
