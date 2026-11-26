@@ -227,7 +227,7 @@ component_adds: {
     {
       type: DISPLAY_CLASS_TFT,
       driver: "ST7789",
-      spi_tft: { spi: { ... }, pin_dc: "...", pin_rst: "..." },
+      spi: { spi: { ... }, pin_dc: "...", pin_rst: "..." },
       config_display: { width: 240, height: 135 }
     }
   ]
@@ -374,7 +374,7 @@ participant Device as WipperSnapper Device
 participant Display as Display Controller
 participant Driver as UC8179 Driver
 
-IO->>Device: ws.display.B2D {<br/>  name: "weather-display",<br/>  add: {<br/>    type: DISPLAY_CLASS_EPD,<br/>    driver: "UC8179",<br/>    panel: "5.83-648x480-mono",<br/>    spi_epd: { spi: {bus: 0, ...}, pin_dc: "D10", pin_busy: "D11" },<br/>    config_epd: {<br/>      mode: EPD_MODE_MONO,<br/>      properties: { width: 648, height: 480, text_size: 2 }<br/>    }<br/>  }<br/>}
+IO->>Device: ws.display.B2D {<br/>  name: "weather-display",<br/>  add: {<br/>    type: DISPLAY_CLASS_EPD,<br/>    driver: "UC8179",<br/>    panel: "5.83-648x480-mono",<br/>    spi: { spi: {bus: 0, ...}, pin_dc: "D10", pin_busy: "D11" },<br/>    config_epd: {<br/>      mode: EPD_MODE_MONO,<br/>      properties: { width: 648, height: 480, text_size: 2 }<br/>    }<br/>  }<br/>}
 
 Device->>Display: Initialize display
 Display->>Driver: Load UC8179 driver
