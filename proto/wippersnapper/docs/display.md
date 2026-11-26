@@ -150,7 +150,7 @@ MIPI DSI displays use dedicated differential pads (not GPIOs) for clock and data
 
 ### EPDConfig
 
-* **mode** - `EPD_MODE_GRAYSCALE4` or `EPD_MODE_MONO`
+* **mode** - `EPD_MODE_MONO`, `EPD_MODE_GRAYSCALE4`, `EPD_MODE_TRICOLOR` or `EPD_MODE_QUADCOLOR` (what the panel is sold as; mono panels can usually also run grayscale4)
 * **properties** - `DisplayProperties` (width, height, rotation, text_size)
 
 ### LedBackpackConfig
