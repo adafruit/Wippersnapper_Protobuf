@@ -2,12 +2,12 @@
 
 Reusable SPI bus and device pin configuration, shared across WipperSnapper component types.
 
-## DeviceConfig
+## Descriptor
 
 Identifies an SPI device by bus number and pin assignments for the four standard SPI signals plus chip select.
 
 ```protobuf
-message DeviceConfig {
+message Descriptor {
   int32 bus       = 1;  // SPI bus number (0, 1, ...)
   string pin_mosi = 2;  // MOSI pin
   string pin_sck  = 3;  // SCK pin
@@ -32,27 +32,21 @@ When `pin_mosi` and `pin_sck` match the board's default SPI bus pins, the firmwa
 
 ## Usage by Other Protos
 
-`DeviceConfig` is imported by component protos that communicate over SPI. Each component adds its own peripheral-specific pins on top.
+`Descriptor` is imported by component protos that communicate over SPI. Each component adds its own peripheral-specific pins on top.
 
 ### Displays (display.proto)
 
-Display SPI configs extend `DeviceConfig` with Data/Command and Reset pins:
+SPI EPD and TFT displays share `DisplaySpiDescriptor`, which wraps `Descriptor` and adds the display pins:
 
 ```protobuf
 import "spi.proto";
 
-message TftSpiConfig {
-  ws.spi.DeviceConfig spi = 1;  // SPI bus + standard pins
-  string pin_dc  = 2;           // Data/Command pin
-  string pin_rst = 3;           // Reset pin
-}
-
-message EpdSpiConfig {
-  ws.spi.DeviceConfig spi = 1;  // SPI bus + standard pins
-  string pin_dc       = 2;      // Data/Command pin
-  string pin_rst      = 3;      // Reset pin
-  string pin_sram_cs  = 4;      // SRAM Chip Select (optional)
-  string pin_busy     = 5;      // Busy signal pin
+message DisplaySpiDescriptor {
+  ws.spi.Descriptor spi = 1;  // SPI bus + standard pins
+  string pin_dc       = 2;    // Data/Command pin
+  string pin_rst      = 3;    // Reset pin
+  string pin_sram_cs  = 4;    // SRAM Chip Select (EPD only, optional)
+  string pin_busy     = 5;    // Busy signal pin (EPD only, optional)
 }
 ```
 

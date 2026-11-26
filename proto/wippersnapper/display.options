@@ -10,12 +10,10 @@ ws.display.Add.panel                            max_size:32
 ws.display.Add.name                             max_size:64
 
 # Display-specific SPI pin constraints (shared SPI pins are in spi.options)
-ws.display.TftSpiDescriptor.pin_dc                  max_size:6
-ws.display.TftSpiDescriptor.pin_rst                 max_size:6
-ws.display.EpdSpiDescriptor.pin_dc                  max_size:6
-ws.display.EpdSpiDescriptor.pin_rst                 max_size:6
-ws.display.EpdSpiDescriptor.pin_sram_cs             max_size:6
-ws.display.EpdSpiDescriptor.pin_busy                max_size:6
+ws.display.DisplaySpiDescriptor.pin_dc              max_size:6
+ws.display.DisplaySpiDescriptor.pin_rst             max_size:6
+ws.display.DisplaySpiDescriptor.pin_sram_cs         max_size:6
+ws.display.DisplaySpiDescriptor.pin_busy            max_size:6
 
 ws.display.TtlRgb666PinDescriptor.pin_r0            max_size:6
 ws.display.TtlRgb666PinDescriptor.pin_r1            max_size:6

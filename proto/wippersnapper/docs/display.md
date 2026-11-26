@@ -108,27 +108,15 @@ message DisplayProperties {
 
 ## Interface Configurations
 
-### Shared SPI Device Config
+### SPI Display Configuration (`DisplaySpiDescriptor`)
 
-All SPI displays build on `ws.spi.DeviceConfig` from [spi.proto](spi.md), which provides the standard SPI bus and pin assignments (bus, MOSI, SCK, MISO, CS). Display-specific pins (Data/Command, Reset) are added by each display SPI config.
+SPI EPD and TFT displays share one message, `DisplaySpiDescriptor`. It wraps `ws.spi.Descriptor` from [spi.proto](spi.md) (bus, MOSI, SCK, MISO, CS) and adds the display-specific pins. The `InterfaceDescriptor` oneof still uses `spi_epd` for EPD panels and `spi_tft` for TFT panels; both arms carry a `DisplaySpiDescriptor`.
 
-### TFT SPI Configuration
-
-Extends the shared SPI config with display-specific pins:
-
-* **spi** - `ws.spi.DeviceConfig` (bus number, MOSI, SCK, MISO, CS)
+* **spi** - `ws.spi.Descriptor` (bus number, MOSI, SCK, MISO, CS)
 * **pin_dc** - Data/Command pin
 * **pin_rst** - Reset pin
-
-### EPD SPI Configuration
-
-Extends the shared SPI config with display-specific and EPD-specific pins:
-
-* **spi** - `ws.spi.DeviceConfig` (bus number, MOSI, SCK, MISO, CS)
-* **pin_dc** - Data/Command pin
-* **pin_rst** - Reset pin
-* **pin_sram_cs** - SRAM Chip Select pin (**optional**, for buffering)
-* **pin_busy** - Busy signal pin (**optional**, indicates when display is ready)
+* **pin_sram_cs** - SRAM Chip Select pin (**optional**, EPD only, for buffering; leave empty for TFT)
+* **pin_busy** - Busy signal pin (**optional**, EPD only, indicates when display is ready; leave empty for TFT)
 
 ### I2C Configuration
 
@@ -216,7 +204,7 @@ participant Display as Display Controller
 participant Driver as Display Driver
 
 IO->>Device: B2D { name, Add }
-Note over IO,Device: type: DISPLAY_CLASS_EPD<br/>driver: "UC8179"<br/>panel: "5.83-648x480-mono"<br/>spi_epd: {spi_pins, pin_busy}<br/>config_epd: {mode, properties}<br/>backlight: {backlight_pwm: {...}}
+Note over IO,Device: type: DISPLAY_CLASS_EPD<br/>driver: "UC8179"<br/>panel: "5.83-648x480-mono"<br/>spi_epd: {spi, pin_dc, pin_busy}<br/>config_epd: {mode, properties}<br/>backlight: {backlight_pwm: {...}}
 
 Device->>Display: Initialize Display Controller
 Display->>Driver: Load driver and configure

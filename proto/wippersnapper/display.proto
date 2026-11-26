@@ -83,15 +83,17 @@ message DisplayProperties {
 }
 
 /**
-* EpdSpiConfig contains the configuration for SPI-based EPD displays.
-* Includes the SPI device config plus display-specific pins.
-*/
-message EpdSpiDescriptor {
-  ws.spi.Descriptor spi = 1; /** SPI bus, doesnt carry additional pin config. */
+ * DisplaySpiDescriptor contains the configuration for SPI-based displays (EPD and TFT).
+ * Includes the shared SPI bus/device config plus display-specific pins.
+ * Field numbers are a superset of the former EpdSpiDescriptor/TftSpiDescriptor,
+ * so existing payloads decode unchanged.
+ */
+message DisplaySpiDescriptor {
+  ws.spi.Descriptor spi = 1; /** SPI bus + standard pins (MOSI/SCK/MISO/CS). */
   string pin_dc       = 2; /** Pin for data/command */
   string pin_rst      = 3; /** Pin for reset */
-  string pin_sram_cs  = 4; /** Pin for SRAM chip select (if required by the EPD). */
-  string pin_busy     = 5; /** Pin for busy signal (if required by the EPD). */
+  string pin_sram_cs  = 4; /** Pin for SRAM chip select (EPD only, if required; empty for TFT). */
+  string pin_busy     = 5; /** Pin for busy signal (EPD only, if required; empty for TFT). */
 }
 
 /**
@@ -118,16 +120,6 @@ message LedBackpackConfig {
 message CharLcdConfig {
   uint32 rows    = 1; /** Number of rows for the character LCD. */
   uint32 columns = 2; /** Number of columns for the character LCD. */
-}
-
-/**
- * TftSpiConfig contains the configuration for SPI TFT displays.
- * Includes the SPI device config plus display-specific pins.
- */
-message TftSpiDescriptor {
-  ws.spi.Descriptor spi = 1; /** SPI bus */
-  string pin_dc  = 2; /** Pin for data/command */
-  string pin_rst = 3; /** Pin for reset */
 }
 
 /** TTL RGB666 pin configuration for parallel RGB displays. */
@@ -185,8 +177,8 @@ message BacklightConfig {
 /** Interface Descriptor: Pin or Data Bus info (unique descriptor) */
 message InterfaceDescriptor {
   oneof descriptor {
-    EpdSpiDescriptor spi_epd          = 2; /** SPI configuration for EPD. */
-    TftSpiDescriptor spi_tft          = 3; /** SPI configuration for TFT. */
+    DisplaySpiDescriptor spi_epd      = 2; /** SPI configuration for EPD. */
+    DisplaySpiDescriptor spi_tft      = 3; /** SPI configuration for TFT. */
     ws.i2c.Descriptor i2c             = 4; /** I2C configuration for OLED/LED/LCD displays. */
     TtlRgb666PinDescriptor ttl_rgb666 = 5; /** RGB666 configuration for Qualia. */
     I8080PinDescriptor i8080          = 6; /** i8080 8-bit parallel for T-DisplayS3/Memento. */
