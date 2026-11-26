@@ -103,6 +103,7 @@ message DisplayProperties {
   int32 height    = 2;  // Display height in pixels
   int32 rotation  = 3;  // Clockwise 90° increments (0-3)
   int32 text_size = 4;  // Text scale factor (1 = 6x8px, 2 = 12x16px, ...)
+  optional bool status_bar = 5;  // Show the status bar; absent = true, send false to hide
 }
 ```
 

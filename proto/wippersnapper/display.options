@@ -2,6 +2,7 @@
 # Nanopb configuration for display.proto
 
 # DisplayProperties
+# optional: firmware treats an absent status_bar (has_status_bar == false) as true
 ws.display.DisplayProperties.status_bar         initializer:"true"
 
 # Add message
